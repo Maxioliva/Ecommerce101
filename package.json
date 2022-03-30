@@ -1,0 +1,19 @@
+{
+  "name": "ecommerce101-1",
+  "version": "1.0.0",
+  "description": "Small fullstack single-page ecommerce application for learning purposes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maxioliva/Ecommerce101.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Maxioliva/Ecommerce101/issues"
+  },
+  "homepage": "https://github.com/Maxioliva/Ecommerce101#readme"
+}

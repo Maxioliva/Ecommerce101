@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="16" viewBox="0 0 20 16">
+  <defs>
+    <rect id="flag-norway-a" width="20" height="16" x="0" y="0" rx="1.6"/>
+    <rect id="flag-norway-c" width="4" height="16" x="5" y="0"/>
+    <filter id="flag-norway-d" width="112.5%" height="103.1%" x="-6.2%" y="-1.6%" filterUnits="objectBoundingBox">
+      <feOffset dy="-.5" in="SourceAlpha" result="shadowOffsetInner1"/>
+      <feComposite in="shadowOffsetInner1" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner1"/>
+      <feColorMatrix in="shadowInnerInner1" result="shadowMatrixInner1" values="0 0 0 0 0.870588235   0 0 0 0 0.88627451   0 0 0 0 0.901960784  0 0 0 1 0"/>
+      <feOffset dy=".5" in="SourceAlpha" result="shadowOffsetInner2"/>
+      <feComposite in="shadowOffsetInner2" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner2"/>
+      <feColorMatrix in="shadowInnerInner2" result="shadowMatrixInner2" values="0 0 0 0 0.870588235   0 0 0 0 0.88627451   0 0 0 0 0.901960784  0 0 0 1 0"/>
+      <feMerge>
+        <feMergeNode in="shadowMatrixInner1"/>
+        <feMergeNode in="shadowMatrixInner2"/>
+      </feMerge>
+    </filter>
+    <rect id="flag-norway-e" width="20" height="4" x="0" y="6"/>
+    <filter id="flag-norway-f" width="102.5%" height="112.5%" x="-1.2%" y="-6.2%" filterUnits="objectBoundingBox">
+      <feOffset dx=".5" in="SourceAlpha" result="shadowOffsetInner1"/>
+      <feComposite in="shadowOffsetInner1" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner1"/>
+      <feColorMatrix in="shadowInnerInner1" result="shadowMatrixInner1" values="0 0 0 0 0.870588235   0 0 0 0 0.88627451   0 0 0 0 0.901960784  0 0 0 1 0"/>
+      <feOffset dx="-.5" in="SourceAlpha" result="shadowOffsetInner2"/>
+      <feComposite in="shadowOffsetInner2" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner2"/>
+      <feColorMatrix in="shadowInnerInner2" result="shadowMatrixInner2" values="0 0 0 0 0.870588235   0 0 0 0 0.88627451   0 0 0 0 0.901960784  0 0 0 1 0"/>
+      <feMerge>
+        <feMergeNode in="shadowMatrixInner1"/>
+        <feMergeNode in="shadowMatrixInner2"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <mask id="flag-norway-b" fill="#fff">
+      <use xlink:href="#flag-norway-a"/>
+    </mask>
+    <use fill="#FFF" xlink:href="#flag-norway-a"/>
+    <g mask="url(#flag-norway-b)">
+      <g transform="translate(-1)">
+        <rect width="22" height="16" fill="#BA0C2F" fill-rule="nonzero"/>
+        <g transform="translate(1)">
+          <g fill-rule="nonzero">
+            <use fill="#FFF" xlink:href="#flag-norway-c"/>
+            <use fill="#000" filter="url(#flag-norway-d)" xlink:href="#flag-norway-c"/>
+          </g>
+          <g fill-rule="nonzero">
+            <use fill="#FFF" xlink:href="#flag-norway-e"/>
+            <use fill="#000" filter="url(#flag-norway-f)" xlink:href="#flag-norway-e"/>
+          </g>
+        </g>
+        <rect width="2" height="16" x="7" fill="#00205B" fill-rule="nonzero"/>
+        <rect width="22" height="2" y="7" fill="#00205B" fill-rule="nonzero"/>
+      </g>
+    </g>
+  </g>
+</svg>

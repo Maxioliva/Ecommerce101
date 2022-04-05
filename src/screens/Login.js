@@ -1,9 +1,11 @@
 /* eslint-disable func-style */
 import { useState } from 'react';
 import firebaseApp from '../firebase/credenciales';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { getFirestore, doc, setDoc } from 'firebase/firestore';
 
 const auth = getAuth(firebaseApp);
+const firestore = getFirestore(firebaseApp);
 
 export function Login() {
   const [isRegistred, setIsRegistred] = useState(false);
@@ -11,7 +13,10 @@ export function Login() {
 
   async function registerUser(email, password, rol) {
     const infoUser = await createUserWithEmailAndPassword(auth, email, password).then(userFirebase => userFirebase);
-    console.log(infoUser);
+    console.log(infoUser.user.uid);
+    const docuRef = doc(firestore, 'usuarios/${infoUser.user.uid}');
+    setDoc(docuRef, { correo: email, rol });
+    // creamos usuario, recibimos su info,con esa info creamos una referencia  y luego escribimos en la base de datos
   }
 
   function submitHandler(e) {
@@ -30,6 +35,7 @@ export function Login() {
       registerUser(email, password, rol);
     } else {
       //login
+      signInWithEmailAndPassword(auth, email, password);
     }
   }
 

@@ -1,11 +1,16 @@
-import Header from './components/header';
-import Body from './components/body';
+// import Header from './components/header';
+// import Body from './components/body';
 import { Home } from './screens/Home';
 import { Login } from './screens/Login';
 import { useState } from 'react';
 import firebaseApp from './firebase/credenciales';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+// import { Account } from './utils/Type';
 // onAuthstateChanged escucha si hay cambio de sesion.
+
+// type userProps = {
+//   user: Account,
+// };
 
 const auth = getAuth(firebaseApp);
 

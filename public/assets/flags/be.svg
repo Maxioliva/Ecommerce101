@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="16" viewBox="0 0 20 16">
+  <defs>
+    <path id="flag-belgium-a" d="M1.6,0 L18.4,0 C19.2836556,0 20,0.7163444 20,1.6 L20,14.4 C20,15.2836556 19.2836556,16 18.4,16 L1.6,16 C0.7163444,16 0,15.2836556 0,14.4 L0,1.6 C0,0.7163444 0.7163444,0 1.6,0 Z"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <mask id="flag-belgium-b" fill="#fff">
+      <use xlink:href="#flag-belgium-a"/>
+    </mask>
+    <use fill="#FFF" xlink:href="#flag-belgium-a"/>
+    <polygon fill="#ED2939" fill-rule="nonzero" points="0 0 20 0 20 16 0 16" mask="url(#flag-belgium-b)"/>
+    <polygon fill="#FAE042" fill-rule="nonzero" points="1 0 14 0 14 16 1 16" mask="url(#flag-belgium-b)"/>
+    <polygon fill="#000" fill-rule="nonzero" points="0 0 6 0 6 16 0 16" mask="url(#flag-belgium-b)"/>
+  </g>
+</svg>

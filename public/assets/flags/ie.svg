@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="18px" viewBox="0 0 22 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>flag-ireland</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="20" height="16" rx="1.6"></rect>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="flag-ireland" transform="translate(1.000000, 1.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <rect stroke="#E5E5E5" stroke-width="0.8" x="-0.4" y="-0.4" width="20.8" height="16.8" rx="1.6"></rect>
+            <rect id="rect4148" fill="#169B62" fill-rule="nonzero" mask="url(#mask-2)" x="0" y="1.06666666e-06" width="6.66666667" height="16"></rect>
+            <rect id="rect4150" fill="#FFFFFF" fill-rule="nonzero" mask="url(#mask-2)" x="6.66666667" y="-2.13333333e-06" width="6.66666667" height="16"></rect>
+            <rect id="rect4152" fill="#FF883E" fill-rule="nonzero" mask="url(#mask-2)" x="13.3333333" y="1.06666666e-06" width="6.66666667" height="16"></rect>
+        </g>
+    </g>
+</svg>

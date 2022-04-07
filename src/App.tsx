@@ -5,24 +5,27 @@ import { Login } from './screens/Login';
 import { useState } from 'react';
 import firebaseApp from './firebase/credenciales';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-// import { Account } from './utils/Type';
-// onAuthstateChanged escucha si hay cambio de sesion.
+// import { useQuery } from 'react-query';
+// import { Drawer, LinearProgress, Grid, Badge } from '@material-ui/core';
+// import { LinearProgress } from '@material-ui/core';
+// import { AddShoppingCartIcon } from '@material-ui/icons';
+// import { Wrapper } from './components/App.styles';
 
-// type userProps = {
-//   user: Account,
-// };
+// const getProducts = async () => await (await fetch('https://fakestoreapi.com/products')).json();
 
 const auth = getAuth(firebaseApp);
 
 const App = () => {
-  const [user, setUSer] = useState(null);
+  const [user, setUSer] = useState(false);
 
   onAuthStateChanged(auth, userFirebase => {
-    // userFirebase es la funcion que observa.
+    // onAuthstateChanged escucha si hay cambio de sesion.
+    // userFirebase usuario
+    console.log('sada');
     if (userFirebase) {
-      setUSer(userFirebase);
+      setUSer(true);
     } else {
-      setUSer(null);
+      setUSer(false);
     }
   });
   // si hay usuario de firebase, lo guardaremos en nuestro estado, sino hay usuario al estado lo ponemos en null.

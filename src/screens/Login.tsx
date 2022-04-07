@@ -1,41 +1,40 @@
 /* eslint-disable func-style */
 import { useState } from 'react';
-import firebaseApp from '../firebase/credenciales';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { getFirestore, doc, setDoc } from 'firebase/firestore';
-
-const auth = getAuth(firebaseApp);
-const firestore = getFirestore(firebaseApp);
+import { login } from '../utils/resolvers';
 
 export function Login() {
   const [isRegistred, setIsRegistred] = useState(false);
   //no se esta registrando , por ende está iniciando sesion
 
-  async function registerUser(email, password, rol) {
-    const infoUser = await createUserWithEmailAndPassword(auth, email, password).then(userFirebase => userFirebase);
-    console.log(infoUser.user.uid);
-    const docuRef = doc(firestore, 'usuarios/${infoUser.user.uid}');
-    setDoc(docuRef, { correo: email, rol });
-    // creamos usuario, recibimos su info,con esa info creamos una referencia  y luego escribimos en la base de datos
-  }
+  // // async function registerUser(email: string, password: string, rol: any) {
+  //   // creamos usuario, recibimos su info,con esa info creamos una referencia  y luego escribimos en la base de datos
+  //   const infoUser = await createUserWithEmailAndPassword(auth, email, password).then(userFirebase => userFirebase);
+  //   console.log(infoUser.user.uid);
+  //   const docuRef = doc(firestore, `usuarios/${infoUser.user.uid}`);
+  //   // console.log(docuRef.)
+  //   setDoc(docuRef, { correo: email, rol });
+  // }
 
-  function submitHandler(e) {
+  function submitHandler(e: any) {
     e.preventDefault();
     // prevenir que se actualize
 
     const email = e.target.elements.email.value;
-    // recibimos el Evento , el formulario, buscamos el ID y las estamos guardando en las constantes
     const password = e.target.elements.password.value;
-    const rol = e.target.elements.rol.value;
-
+    // const rol = e.target.elements.rol.value;
+    // recibimos el Evento , el formulario, buscamos el ID y las estamos guardando en las constantes
     // console.log('submit', email, password, rol);
 
-    if (isRegistred) {
-      //registrar
-      registerUser(email, password, rol);
-    } else {
-      //login
-      signInWithEmailAndPassword(auth, email, password);
+    try {
+      if (isRegistred) {
+        //registrar
+        // registerUser(email, password, rol);
+      } else {
+        //login
+        console.log(login(email, password));
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 

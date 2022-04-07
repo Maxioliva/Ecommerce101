@@ -1,19 +1,10 @@
 /* eslint-disable func-style */
 import { useState } from 'react';
-import { login } from '../utils/resolvers';
+import { login, registerUser } from '../utils/resolvers';
 
 export function Login() {
   const [isRegistred, setIsRegistred] = useState(false);
   //no se esta registrando , por ende está iniciando sesion
-
-  // // async function registerUser(email: string, password: string, rol: any) {
-  //   // creamos usuario, recibimos su info,con esa info creamos una referencia  y luego escribimos en la base de datos
-  //   const infoUser = await createUserWithEmailAndPassword(auth, email, password).then(userFirebase => userFirebase);
-  //   console.log(infoUser.user.uid);
-  //   const docuRef = doc(firestore, `usuarios/${infoUser.user.uid}`);
-  //   // console.log(docuRef.)
-  //   setDoc(docuRef, { correo: email, rol });
-  // }
 
   function submitHandler(e: any) {
     e.preventDefault();
@@ -21,16 +12,17 @@ export function Login() {
 
     const email = e.target.elements.email.value;
     const password = e.target.elements.password.value;
-    // const rol = e.target.elements.rol.value;
+    const rol = e.target.elements.rol.value;
     // recibimos el Evento , el formulario, buscamos el ID y las estamos guardando en las constantes
     // console.log('submit', email, password, rol);
 
     try {
       if (isRegistred) {
         //registrar
-        // registerUser(email, password, rol);
+        registerUser(email, password, rol);
       } else {
-        //login
+        // eslint-disable-next-line no-unused-expressions
+        login;
         console.log(login(email, password));
       }
     } catch (error) {

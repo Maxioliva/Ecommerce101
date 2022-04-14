@@ -1,10 +1,17 @@
 /* eslint-disable func-style */
+
 import { useState } from 'react';
 import { login, registerUser } from '../utils/resolvers';
+import { useNavigate, Route, Link, Routes, useLocation } from 'react-router-dom';
 
-export function Login() {
-  const [isRegistred, setIsRegistred] = useState(false);
+export function Authentication() {
+  // const [isRegistred, setIsRegistred] = useState(false);
   //no se esta registrando , por ende está iniciando sesion
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const isLogin = pathname === '/login';
+
+  console.log(location);
 
   function submitHandler(e: any) {
     e.preventDefault();
@@ -17,22 +24,21 @@ export function Login() {
     // console.log('submit', email, password, rol);
 
     try {
-      if (isRegistred) {
-        //registrar
-        registerUser(email, password, rol);
+      if (isLogin) {
+        login(email, password);
       } else {
-        // eslint-disable-next-line no-unused-expressions
-        login;
-        console.log(login(email, password));
+        registerUser(email, password, rol);
       }
+      navigate('/');
     } catch (error) {
       console.log(error);
+      navigate('/login');
     }
   }
 
   return (
     <div>
-      <h1> {isRegistred ? 'Registrate' : 'inicia sesion'}</h1>
+      <h1> {isLogin ? 'inicia sesion' : 'Registrate'}</h1>
       <form onSubmit={submitHandler}>
         <label>
           correo electronico:
@@ -49,12 +55,11 @@ export function Login() {
             <option value="user">User</option>
           </select>
         </label>
-        <input type="submit" value={isRegistred ? 'Registrate' : 'inicia sesion'} />
+        <input type="submit" value={isLogin ? 'inicia sesion' : 'Registrate'} />
       </form>
-      <button onClick={() => setIsRegistred(!isRegistred)}>
-        {isRegistred ? 'I have an account' : 'I want to registred '}
-        {/* boton que nos cambie si el usuario se quiere registrar o no. */}
-      </button>
+      <Link to={isLogin ? '/register' : '/login'}>
+        <button>{isLogin ? 'I have an account' : 'I want to registred '}</button>
+      </Link>
     </div>
   );
 }

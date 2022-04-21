@@ -7,6 +7,7 @@ import firebaseApp from './firebase/credenciales';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { BrowserRouter as Router, Route, Link, Routes, useLocation } from 'react-router-dom';
 import Header from './components/header';
+import RegisterForm from './components/registerform';
 
 const auth = getAuth(firebaseApp);
 
@@ -26,18 +27,16 @@ const App = () => {
   // si hay usuario de firebase, lo guardaremos en nuestro estado, sino hay usuario al estado lo ponemos en null.
   return (
     <Router>
-      {/* <> {user ? <Home /> : <Authentication />}</> */}
       <div>
         <Header />
-        {/* <Router> */}
+        <div></div>
         <Routes>
           <Route path="/" element={<Home />} />
-
           <Route path="/register" element={<Authentication />} />
           <Route path="/login" element={<Authentication />} />
         </Routes>
-        {/* </Router> */}
       </div>
+      <RegisterForm />
     </Router>
   );
 };

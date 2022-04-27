@@ -12,7 +12,6 @@ const RegisterForm = () => (
       password: '',
       Genre: '',
     }}
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     validate={values => {
       const error: any = {};
       if (!values.firstname) {

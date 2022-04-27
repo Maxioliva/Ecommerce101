@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-
+import { Badge, Box, Button, ChakraProvider } from '@chakra-ui/react';
 import axios from 'axios';
 import './style.scss';
 
@@ -19,20 +19,32 @@ const Products = () => {
   }, []);
 
   return (
-    <div className="productcontainer">
-      {data.map((product: any) => (
-        <div key={product.id} className="card">
-          <div>
-            <img src={product.image} alt="#" />
-          </div>
-          <div className="card-description">
-            <h6>{product.title}</h6>
-            <h6>{`Price: ${product.price}`}</h6>
-            <h6>{`Category: ${product.category}`}</h6>
-          </div>
-        </div>
-      ))}
-    </div>
+    <ChakraProvider>
+      <div>
+        <Box>
+          <ul className="products-container">
+            {data.map((product: any) => (
+              <div key={product.id} className="card">
+                <div className="img">
+                  <img src={product.image} alt={product.image} />
+                </div>
+                <div>
+                  <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
+                    {product.title}
+                  </Box>
+                  <Badge borderRadius="full" px="2" colorScheme="teal">
+                    New
+                  </Badge>
+                  <Box>{`Price: ${product.price}`}</Box>
+                  <h6>{`Category: ${product.category}`}</h6>
+                  <Button colorScheme="blue">Add to Cart</Button>
+                </div>
+              </div>
+            ))}
+          </ul>
+        </Box>
+      </div>
+    </ChakraProvider>
   );
 };
 export default Products;

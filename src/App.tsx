@@ -1,6 +1,5 @@
 // import Body from './components/body';
 import { Home } from './pages/Home';
-
 import { Authentication } from './pages/Authentication';
 import { useState } from 'react';
 import firebaseApp from './firebase/credenciales';
@@ -28,7 +27,6 @@ const App = () => {
   return (
     <Router>
       <div>
-        <Header />
         <div></div>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -36,6 +34,7 @@ const App = () => {
           <Route path="/login" element={<Authentication />} />
         </Routes>
       </div>
+      <div></div>
       <RegisterForm />
     </Router>
   );

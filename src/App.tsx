@@ -4,8 +4,8 @@ import { Authentication } from './pages/Authentication';
 import { useState } from 'react';
 import firebaseApp from './firebase/credenciales';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { BrowserRouter as Router, Route, Link, Routes, useLocation } from 'react-router-dom';
-import Header from './components/header';
+import { BrowserRouter as Router, Route,  Routes, } from 'react-router-dom';
+// import Header from './components/header';
 import RegisterForm from './components/registerform';
 
 const auth = getAuth(firebaseApp);

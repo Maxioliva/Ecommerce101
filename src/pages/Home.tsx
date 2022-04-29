@@ -1,7 +1,6 @@
-import { getAuth, signOut } from 'firebase/auth';
-import { Link } from 'react-router-dom';
+import { getAuth } from 'firebase/auth';
 import firebaseApp from '../firebase/credenciales';
-import Products from './../components/products';
+import Products from '../components/products';
 import NavBar from '../components/navbar';
 
 const auth = getAuth(firebaseApp);
@@ -12,24 +11,7 @@ export function Home() {
   return (
     <>
       <NavBar />
-      <div>
-        {' '}
-        Home
-        {auth.currentUser && <button onClick={() => signOut(auth)}> Close sesion </button>}
-        {!auth.currentUser && (
-          <>
-            <Link to={'/login'}>
-              <button>Login</button>
-            </Link>
-            <Link to={'/register'}>
-              <button> register </button>
-            </Link>
-          </>
-        )}
-      </div>
-      <div>
-        <Products />
-      </div>
+      <Products />
     </>
   );
 }

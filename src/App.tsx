@@ -4,8 +4,8 @@ import { Authentication } from './pages/Authentication';
 import { useState } from 'react';
 import firebaseApp from './firebase/credenciales';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { BrowserRouter as Router, Route,  Routes, } from 'react-router-dom';
-// import Header from './components/header';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Cart from './components/cart';
 import RegisterForm from './components/registerform';
 
 const auth = getAuth(firebaseApp);
@@ -16,6 +16,7 @@ const App = () => {
   onAuthStateChanged(auth, userFirebase => {
     // onAuthstateChanged escucha si hay cambio de sesion.
     // userFirebase usuario
+
     console.log('sada');
     if (userFirebase) {
       setUSer(true);
@@ -30,12 +31,11 @@ const App = () => {
         <div></div>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Authentication />} />
-          <Route path="/login" element={<Authentication />} />
+          <Route path="/register" element={<RegisterForm />} />
+          {/* <Route path="/login" element={<Authentication />} /> */}
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </div>
-      <div></div>
-      <RegisterForm />
     </Router>
   );
 };

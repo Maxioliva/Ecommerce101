@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
-import { Badge, Box, Button, ChakraProvider } from '@chakra-ui/react';
+import { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import './style.scss';
+import { Product } from '../../utils/Type';
 
+// const ProductContext = createContext('');
+
+// export const ProductProvider = ({ children }: any) => {
 const Products = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Product[]>([]);
 
   useEffect(() => {
     axios({
@@ -19,32 +22,30 @@ const Products = () => {
   }, []);
 
   return (
-    <ChakraProvider>
-      <div>
-        <Box>
-          <ul className="products-container">
-            {data.map((product: any) => (
-              <div key={product.id} className="card">
-                <div className="img">
-                  <img src={product.image} alt={product.image} />
-                </div>
-                <div>
-                  <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
-                    {product.title}
-                  </Box>
-                  <Badge borderRadius="full" px="2" colorScheme="teal">
-                    New
-                  </Badge>
-                  <Box>{`Price: ${product.price}`}</Box>
-                  <h6>{`Category: ${product.category}`}</h6>
-                  <Button colorScheme="blue">Add to Cart</Button>
-                </div>
+    <div className="products">
+      {data.map(product => (
+        // eslint-disable-next-line react/jsx-key
+        <div className="card">
+          <div>
+            <img className="product-image" src={product.image} alt={product.title} />
+            <div />
+            <div>
+              <h3 className="product-title">{product.title}</h3>
+              <div />
+              <div className="product-price">{`Price: $ ${product.price}`} </div>
+              <div className="product-category">{`Category: ${product.category}`} </div>
+              <div className="wrap">
+                {' '}
+                <button className="product-add-button">Add to Cart</button>{' '}
               </div>
-            ))}
-          </ul>
-        </Box>
-      </div>
-    </ChakraProvider>
+            </div>
+          </div>
+        </div>
+      ))}
+      );
+    </div>
   );
 };
+// return <ProductContext.Provider value={{  }}>{children}</ProductContext.Provider>;
+
 export default Products;

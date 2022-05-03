@@ -13,6 +13,7 @@ const Products = () => {
     axios({
       method: 'GET',
       url: 'https://fakestoreapi.com/products',
+
       // eslint-disable-next-line promise/prefer-await-to-then
     }).then(res => {
       // eslint-disable-next-line no-undef

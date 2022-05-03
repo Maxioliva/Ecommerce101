@@ -2,7 +2,7 @@ export type User = {
   firstName: string;
   lastName: string;
   email: string;
-  genre: any;
+  gender: string;
   password: string;
 };
 

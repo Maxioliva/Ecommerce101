@@ -27,7 +27,7 @@ export function Authentication() {
       if (isLogin) {
         login(email, password);
       } else {
-        registerUser(firstname, lastname, email, password, genre);
+        // registerUser(firstName, lastame, email, password, genre);
       }
       navigate('/');
     } catch (error) {

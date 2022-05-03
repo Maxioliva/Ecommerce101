@@ -1,9 +1,5 @@
 import './style.scss';
 import { Link } from 'react-router-dom';
-import { getAuth, signOut } from 'firebase/auth';
-import firebaseApp from '../../firebase/credenciales';
-
-// const auth = getAuth(firebaseApp);
 
 const NavBar = () => (
   <>

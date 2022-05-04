@@ -1,17 +1,17 @@
-// Importamos la función para inicializar la aplicación de Firebase
+
 import { initializeApp } from 'firebase/app';
 
-// Añade aquí tus credenciales
+
 const firebaseConfig = {
-  apiKey: 'AIzaSyDH2WvzsMb5QKeYfoUnD5fw9guzgXyG_qk',
-  authDomain: 'authtutorial-e12f9.firebaseapp.com',
-  projectId: 'authtutorial-e12f9',
-  storageBucket: 'authtutorial-e12f9.appspot.com',
-  messagingSenderId: '359179880283',
-  appId: '1:359179880283:web:ff73a255327955cff27c7e',
+  apiKey: 'AIzaSyA8uCBPaSlfDl8eEUU1zqqN9qm02xKf64A',
+  authDomain: 'ecommerce101-ed5d8.firebaseapp.com',
+  projectId: 'ecommerce101-ed5d8',
+  storageBucket: 'ecommerce101-ed5d8.appspot.com',
+  messagingSenderId: '484305638980',
+  appId: '1:484305638980:web:9798bb9bd78f29f4f88e11',
+  measurementId: 'G-JGGHRKVWQN'
 };
 
-// Inicializamos la aplicación y la guardamos en firebaseApp
 const firebaseApp = initializeApp(firebaseConfig);
-// Exportamos firebaseApp para poder utilizarla en cualquier lugar de la aplicación
+
 export default firebaseApp;

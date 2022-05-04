@@ -1,0 +1,20 @@
+.form {
+  background-color: lightblue;
+  padding: 7px;
+  border-radius: 5px;
+  width: 280px;
+  // margin: auto;
+  border-style: solid;
+}
+.input {
+  padding: 12px 20px;
+  margin: 4px 5px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-size: large;
+}
+.error {
+  color: red;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 15px;
+}

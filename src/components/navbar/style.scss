@@ -1,31 +1,19 @@
 .navbar {
-  width: 100%;
-  height: 10vh;
-  background-color: black;
   display: flex;
   align-items: center;
-  justify-content: center;
   color: white;
-  padding: 10px;
   font-weight: bold;
+
+  &__link {
+    height: 100%;
+    width: 100%;
+    font-size: 20px;
+    margin: 0 10px;
+    color: black;
+
+    &:hover {
+      color: rgb(26, 197, 209);
+      background-color: black;
+    }
+  }
 }
-.title {
-  text-align: center;
-  text-transform: uppercase;
-  padding-bottom: 5px;
-  font-size: large;
-}
-
-.navbar-button { 
-  width: 100%;
-  font-size:1em;
-}
-
-.button-container{
-  width: 20;
-  padding: 0 0.5em;
-
-}
-
-
-

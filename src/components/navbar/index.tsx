@@ -1,32 +1,23 @@
-import './style.scss';
 import { Link } from 'react-router-dom';
+import './style.scss';
+// import { getAuth, signOut } from 'firebase/auth';
 
+// const auth = getAuth();
 const NavBar = () => (
-  <>
-    <div className="navbar">
-      {/* {' '}
-     <div> Home
-      {auth.currentUser && <button onClick={() => signOut(auth)}> Close sesion </button>}
-      {!auth.currentUser && (
-        <> */}
-      <div className="button-container">
-        <Link to={'/login'}>
-          <button className="navbar-button">Login</button>
-        </Link>
-        <Link to={'/register'}>
-          <button className="navbar-button"> register </button>
-        </Link>
-        <Link to="/cart">
-          <button> CART </button>
-        </Link>
-      </div>
-      {/* </> */}
-      <div className="title">
-        {' '}
-        <p>Shopping App </p>
-      </div>
-      ;
-    </div>
-  </>
+  <div className="navbar">
+    {/* {!auth.currentUser && <button onClick={() => signOut(auth)}> Close sesion </button>} */}
+    <Link to={'/login'}>
+      <div className="navbar__link">Login</div>
+    </Link>
+    <Link to={'/register'}>
+      <div className="navbar__link">register</div>
+    </Link>
+    <Link to="/cart">
+      <div className="navbar__link">cart</div>
+    </Link>
+    <Link to="/products">
+      <div className="navbar__link">products</div>
+    </Link>
+  </div>
 );
 export default NavBar;

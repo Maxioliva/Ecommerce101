@@ -1,0 +1,49 @@
+@import './variables';
+
+html,
+body,
+#root {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 100%;
+
+  &__header {
+    position: sticky;
+    top: 0;
+    background: linear-gradient(to left, #00d8ff, #0f8ea6, #0d3e69, #0d3e69, #272727, #272727, #272727);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__body {
+    padding: 0 100px;
+    margin: 0 auto;
+    max-width: 1400px;
+
+    @media (max-width: $tablet) {
+      padding: 0 50px;
+    }
+
+    @media (max-width: $mobile) {
+      padding: 0;
+    }
+
+    &__container {
+      width: 100%;
+      background-color: yellow;
+      flex: 2;
+    }
+  }
+
+  &__footer {
+    background-color: rgb(111, 202, 7);
+    height: 100px;
+  }
+}

@@ -2,6 +2,7 @@ import { getAuth } from 'firebase/auth';
 import firebaseApp from '../firebase/credenciales';
 import Products from '../components/products';
 import NavBar from '../components/navbar';
+import Cart from '../components/cart';
 
 const auth = getAuth(firebaseApp);
 

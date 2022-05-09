@@ -2,6 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import './style.scss';
 import { registerUser } from '../../utils/resolvers';
 import { User } from '../../utils/Type';
+import { Link } from 'react-router-dom';
 
 const RegisterForm = () => {
   const initialValues = {
@@ -67,7 +68,12 @@ const RegisterForm = () => {
             <label htmlFor="password"></label>
             <Field className="input" type="password" id="password" name="password" placeholder="Choose a Password" />
           </div>
-          <button type="submit">Register Now</button>
+          <button className="sign-button" type="submit">
+            Register
+          </button>
+          <Link to={'/login'}>
+            <button type="submit">Login</button>
+          </Link>
         </Form>
       )}
     </Formik>

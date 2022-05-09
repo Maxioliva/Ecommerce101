@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -5,7 +6,7 @@ import Cart from './components/cart';
 import LoginForm from './components/loginform';
 import RegisterForm from './components/registerform';
 import firebaseApp from './firebase/credenciales';
-import { Home } from './pages/Home';
+import Home from './pages/Home';
 
 const auth = getAuth(firebaseApp);
 

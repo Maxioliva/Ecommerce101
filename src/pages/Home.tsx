@@ -1,13 +1,11 @@
 import { getAuth } from 'firebase/auth';
-import firebaseApp from '../firebase/credenciales';
-import Products from '../components/products';
 import NavBar from '../components/navbar';
-import Cart from '../components/cart';
+import Products from '../components/products';
+import firebaseApp from '../firebase/credenciales';
 
 const auth = getAuth(firebaseApp);
 
-// eslint-disable-next-line func-style
-export function Home() {
+const Home = () => {
   console.log(auth);
   return (
     <>
@@ -15,4 +13,6 @@ export function Home() {
       <Products />
     </>
   );
-}
+};
+
+export default Home;

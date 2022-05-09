@@ -1,8 +1,8 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import './style.scss';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { Link } from 'react-router-dom';
 import { registerUser } from '../../utils/resolvers';
 import { User } from '../../utils/Type';
-import { Link } from 'react-router-dom';
+import './style.scss';
 
 const RegisterForm = () => {
   const initialValues = {

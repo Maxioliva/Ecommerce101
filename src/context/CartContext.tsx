@@ -1,16 +1,11 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-empty-pattern */
-import { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import Products from '../components/products';
+import { createContext, useEffect, useState } from 'react';
 import * as Resolvers from '../utils/resolvers';
 import { Product, ShopState } from '../utils/Type';
 
-/* Creamos el context, se le puede pasar un valor inicial */
 const CartContext = createContext<ShopState>({} as ShopState);
 
 export const CartProvider = ({ children }: any) => {
-  /* Creamos un estado para el carrito */
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   console.log(products);

@@ -2,9 +2,6 @@ import { useContext } from 'react';
 import CartContext from '../../context/CartContext';
 import './style.scss';
 
-// const ProductContext = createContext('');
-
-// export const ProductProvider = ({ children }: any) => {
 const Products = () => {
   const { addItemToCart, products } = useContext(CartContext);
   if (!products || !products.length) {

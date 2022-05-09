@@ -1,25 +1,18 @@
-/* eslint-disable no-empty-pattern */
 import { useContext, useEffect, useState } from 'react';
-
 import CartContext from '../../context/CartContext';
 import { ItemCart } from '../itemcart';
-// import styles from './styles.module.scss';
+import './style.scss';
 
 const Cart = () => {
-  /* Creamos 2 estados, uno para ver si el carrito esta abierto o no 
-  y otro para obtener la cantidad de productos que tenemos en el carrito */
   const [cartOpen, setCartOpen] = useState(false);
   const [productsLength, setProductsLength] = useState(0);
 
-  /* Traemos del context los productos del carrito */
   const { cartItems }: any = useContext(CartContext);
 
-  /* Cada vez que se modifica el carrito, actualizamos la cantidad de productos */
   useEffect(() => {
     setProductsLength(cartItems?.reduce((previous: any, current: any) => previous + current.amount, 0));
   }, [cartItems]);
 
-  /* Obtenemos el precio total */
   const total = cartItems?.reduce((previous: any, current: any) => previous + current.amount * current.price, 0);
 
   return (

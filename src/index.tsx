@@ -3,18 +3,15 @@ import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import 'regenerator-runtime/runtime';
 import App from './App';
-import { QueryClient, QueryClientProvider } from 'react-query';
-
-const client = new QueryClient();
+import { CartProvider } from './context/CartContext';
 
 (async () => {
   ReactDOM.render(
-    <QueryClientProvider client={client}>
+    <CartProvider>
       <StrictMode>
         <App />
       </StrictMode>
-      ,
-    </QueryClientProvider>,
+    </CartProvider>,
     document.getElementById('root')
   );
 })();

@@ -1,40 +1,37 @@
-// import Header from './components/header';
-// import Body from './components/body';
-import { Home } from './screens/Home';
-import { Login } from './screens/Login';
-import { useState } from 'react';
-import firebaseApp from './firebase/credenciales';
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-// import { useQuery } from 'react-query';
-// import { Drawer, LinearProgress, Grid, Badge } from '@material-ui/core';
-// import { LinearProgress } from '@material-ui/core';
-// import { AddShoppingCartIcon } from '@material-ui/icons';
-// import { Wrapper } from './components/App.styles';
-
-// const getProducts = async () => await (await fetch('https://fakestoreapi.com/products')).json();
+import { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Cart from './components/cart';
+import LoginForm from './components/loginform';
+import RegisterForm from './components/registerform';
+import firebaseApp from './firebase/credenciales';
+import Home from './pages/Home';
 
 const auth = getAuth(firebaseApp);
 
 const App = () => {
-  const [user, setUSer] = useState(false);
+  const [user, setUSer] = useState(true);
 
   onAuthStateChanged(auth, userFirebase => {
-    // onAuthstateChanged escucha si hay cambio de sesion.
-    // userFirebase usuario
-    console.log('sada');
     if (userFirebase) {
       setUSer(true);
     } else {
       setUSer(false);
     }
   });
-  // si hay usuario de firebase, lo guardaremos en nuestro estado, sino hay usuario al estado lo ponemos en null.
   return (
-    <> {user ? <Home /> : <Login />}</>
-    // <div>
-    //   <Header />
-    //   <Body />
-    // </div>
+    <Router>
+      <div>
+        <div></div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<RegisterForm />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/cart" element={<Cart />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 

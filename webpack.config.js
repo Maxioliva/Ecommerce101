@@ -17,6 +17,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'build'),
     filename: 'ecoo.js',
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -101,5 +102,6 @@ module.exports = {
     hot: true,
     port: 5000,
     static: path.join(__dirname, 'public'),
+    historyApiFallback: true,
   },
 };

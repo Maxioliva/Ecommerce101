@@ -1,0 +1,26 @@
+
+.sign {
+    font-size: large;
+}
+.sign-button {
+    background-color: #2942e7; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 110px;
+    text-align: justify;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 3px;
+   
+
+}
+.sign-button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.button-container {
+    margin-left: auto;
+    margin-right:auto;
+}

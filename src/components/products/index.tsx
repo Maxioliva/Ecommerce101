@@ -1,32 +1,16 @@
-import { createContext, useEffect, useState } from 'react';
-import axios from 'axios';
+import { useContext } from 'react';
+import CartContext from '../../context/CartContext';
 import './style.scss';
-import { Product } from '../../utils/Type';
 
-// const ProductContext = createContext('');
-
-// export const ProductProvider = ({ children }: any) => {
 const Products = () => {
-  const [data, setData] = useState<Product[]>([]);
-
-  useEffect(() => {
-    axios({
-      method: 'GET',
-      url: 'https://fakestoreapi.com/products',
-
-      // eslint-disable-next-line promise/prefer-await-to-then
-    }).then(res => {
-      // eslint-disable-next-line no-undef
-      console.log(res.data);
-      setData(res.data);
-    });
-  }, []);
-
+  const { addItemToCart, products } = useContext(CartContext);
+  if (!products || !products.length) {
+    return <h1>hi</h1>;
+  }
   return (
     <div className="products">
-      {data.map(product => (
-        // eslint-disable-next-line react/jsx-key
-        <div className="card">
+      {products?.map(product => (
+        <div className="card" key={product.id}>
           <div>
             <img className="product-image" src={product.image} alt={product.title} />
             <div />
@@ -37,7 +21,9 @@ const Products = () => {
               <div className="product-category">{`Category: ${product.category}`} </div>
               <div className="wrap">
                 {' '}
-                <button className="product-add-button">Add to Cart</button>{' '}
+                <button className="product-add-button" onClick={() => addItemToCart(product)}>
+                  Add to Cart
+                </button>
               </div>
             </div>
           </div>
@@ -47,6 +33,5 @@ const Products = () => {
     </div>
   );
 };
-// return <ProductContext.Provider value={{  }}>{children}</ProductContext.Provider>;
 
 export default Products;

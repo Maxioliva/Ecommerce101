@@ -1,17 +1,24 @@
 /* eslint-disable func-style */
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, } from 'firebase/auth';
-import { getFirestore, doc, setDoc, } from 'firebase/firestore';
+
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { doc, getFirestore, setDoc } from 'firebase/firestore';
 import firebaseApp from '../firebase/credenciales';
-import {User} from  './Type'
+import { User } from './Type';
+
+
 
 const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
 
+
+
+
 export const login = async (email: string, password: string) => {
   
-  await signInWithEmailAndPassword(auth, email, password);
-};
+  await signInWithEmailAndPassword(auth, email, password); 
+ 
 
+};
 
 
 export async function registerUser(user: User) {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createContext, useEffect, useState } from 'react';
-import * as Resolvers from '../utils/resolvers';
+import * as resolvers from '../utils/resolvers';
 import { Product, ShopState } from '../utils/Type';
 
 const CartContext = createContext<ShopState>({} as ShopState);
@@ -8,7 +8,6 @@ const CartContext = createContext<ShopState>({} as ShopState);
 export const CartProvider = ({ children }: any) => {
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
-  console.log(products);
 
   const getProducts = async () =>
     await axios
@@ -40,7 +39,7 @@ export const CartProvider = ({ children }: any) => {
 
   return (
     /* Envolvemos el children con el provider y le pasamos un objeto con las propiedades que necesitamos por value */
-    <CartContext.Provider value={{ products, cartItems, addItemToCart, ...Resolvers }}>{children}</CartContext.Provider>
+    <CartContext.Provider value={{ products, cartItems, addItemToCart, ...resolvers }}>{children}</CartContext.Provider>
   );
 };
 

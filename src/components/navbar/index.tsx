@@ -1,39 +1,31 @@
-import { getAuth, signOut } from 'firebase/auth';
 import { Link } from 'react-router-dom';
+import { getAssetUrl } from '../../utils/config';
 import './style.scss';
+// import { getAuth, signOut } from 'firebase/auth';
 
-const auth = getAuth();
-
+// const auth = getAuth();
 const NavBar = () => (
   <div className="navbar">
-    <div>
-      {' '}
-      <div className="title">
-        {' '}
-        <p>Shopping App </p>
-      </div>{' '}
-      {auth.currentUser && (
-        <div>
-          <button onClick={() => signOut(auth)}> Close sesion </button>
-          <Link to="/cart">
-            <button> CART </button>
-          </Link>{' '}
-        </div>
-      )}
-      {!auth.currentUser && (
-        <>
-          <div className="button-container">
-            <Link to={'/login'}>
-              <button className="navbar-button">Login</button>
-            </Link>
-            <Link to={'/register'}>
-              <button className="navbar-button"> register </button>
-            </Link>
-          </div>
-        </>
-      )}
-    </div>{' '}
+    <div className="navbar__option">
+      <img src={getAssetUrl('./basket.svg')} alt="basket" />
+    </div>
+    <div className="navbar__option">
+      <img src={getAssetUrl('./profile.svg')} alt="profile" />
+    </div>
+
+    {/* {!auth.currentUser && <button onClick={() => signOut(auth)}> Close sesion </button>} */}
+    <Link to={'/login'}>
+      <div className="navbar__link">Login</div>
+    </Link>
+    <Link to={'/register'}>
+      <div className="navbar__link">register</div>
+    </Link>
+    <Link to="/cart">
+      <div className="navbar__link">cart</div>
+    </Link>
+    <Link to="/products">
+      <div className="navbar__link">products</div>
+    </Link>
   </div>
 );
-
 export default NavBar;

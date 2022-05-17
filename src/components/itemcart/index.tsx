@@ -3,24 +3,20 @@ import CartContext from '../../context/CartContext';
 import './style.scss';
 
 export const ItemCart = ({ item }: any) => {
-  const { editItemToCart }: any = useContext(CartContext);
-
-  const { amount } = item;
-
+  const { deleteItemToCart }: any = useContext(CartContext);
+  console.log(item);
   return (
     <div className="cartItem">
-      <img src="image" alt="title" />
+      <img className="product-cart" src={item.image} />
       <div className="dataContainer">
         <div className="left">
           <p>{item.title}</p>
           <div className="buttons">
-            <button onClick={() => editItemToCart(item._id, 'add', amount)}>AGREGAR</button>
-            <button onClick={() => editItemToCart(item._id, 'del', amount)}>SACAR</button>
+            <button onClick={() => deleteItemToCart}>SACAR</button>
           </div>
         </div>
         <div className="right">
-          <div>{item.amount}</div>
-          <p>Total: ${item.amount * item.price}</p>
+          <div>{item.price}</div>
         </div>
       </div>
     </div>

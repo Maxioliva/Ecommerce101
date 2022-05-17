@@ -7,13 +7,13 @@ const Cart = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const [productsLength, setProductsLength] = useState(0);
 
-  const { cartItems }: any = useContext(CartContext);
+  const { cartItems } = useContext(CartContext);
 
   useEffect(() => {
-    setProductsLength(cartItems?.reduce((previous: any, current: any) => previous + current.amount, 0));
+    setProductsLength(cartItems?.reduce((previous, current) => previous + current.amount, 0));
   }, [cartItems]);
 
-  const total = cartItems?.reduce((previous: any, current: any) => previous + current.amount * current.price, 0);
+  const total = cartItems?.reduce((previous, current) => previous + current.price, 0);
 
   return (
     <div className="cartContainer">
@@ -54,7 +54,7 @@ const Cart = () => {
             <p className="cartVacio">Tu carrito esta vacio</p>
           ) : (
             <div className="productsContainer">
-              {cartItems.map((item: any, i: any) => (
+              {cartItems.map((item, i) => (
                 <ItemCart key={i} item={item} />
               ))}
             </div>

@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import { getAssetUrl } from '../../utils/config';
 import './style.scss';
+import Cart from '../cart';
 // import { getAuth, signOut } from 'firebase/auth';
 
 // const auth = getAuth();
 const NavBar = () => (
   <div className="navbar">
+    <Cart />
     <div className="navbar__option">
       <img src={getAssetUrl('./basket.svg')} alt="basket" />
     </div>
@@ -19,9 +21,6 @@ const NavBar = () => (
     </Link>
     <Link to={'/register'}>
       <div className="navbar__link">register</div>
-    </Link>
-    <Link to="/cart">
-      <div className="navbar__link">cart</div>
     </Link>
     <Link to="/products">
       <div className="navbar__link">products</div>

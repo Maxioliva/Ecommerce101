@@ -12,6 +12,7 @@ export type Product = {
   image: string;
   price: number;
   category: string;
+  amount: number;
 };
 
 export type ShopState = {
@@ -20,4 +21,13 @@ export type ShopState = {
   cartItems: Product[];
   addItemToCart: (product: Product) => Promise<void>;
   products: Product[];
+  deleteItemToCart: any;
+};
+
+export type Item = {
+  id: number;
+  title: string;
+  image: string;
+  price: number;
+  amount: number;
 };

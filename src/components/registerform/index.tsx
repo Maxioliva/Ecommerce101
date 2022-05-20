@@ -5,7 +5,7 @@ import { User } from '../../utils/Type';
 import './style.scss';
 
 const RegisterForm = () => {
-  const initialValues = {
+  const initialValues: Omit<User, 'id'> = {
     firstName: '',
     lastName: '',
     email: '',
@@ -13,7 +13,7 @@ const RegisterForm = () => {
     gender: '',
   };
 
-  const validate = (values: User) => {
+  const validate = (values: Omit<User, 'id'>) => {
     const error: any = {};
     if (!values.firstName) {
       error.firstName = 'Please insert a firstname';
@@ -29,7 +29,7 @@ const RegisterForm = () => {
     return error;
   };
 
-  const submitHandler = (values: User) => {
+  const submitHandler = (values: Omit<User, 'id'>) => {
     try {
       registerUser(values);
     } catch (error) {

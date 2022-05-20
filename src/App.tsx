@@ -9,21 +9,10 @@ import Products from './components/products';
 import RegisterForm from './components/registerform';
 import firebaseApp from './firebase/credenciales';
 import Home from './pages/home';
+import Footer from './components/footer';
 import './style.scss';
 
-const auth = getAuth(firebaseApp);
-
 const App = () => {
-  const [user, setUSer] = useState(true);
-
-  onAuthStateChanged(auth, userFirebase => {
-    if (userFirebase) {
-      setUSer(true);
-    } else {
-      setUSer(false);
-    }
-  });
-
   return (
     <div className="app">
       <Router>
@@ -41,7 +30,7 @@ const App = () => {
               <Route path="/products" element={<Products />} />
             </Routes>
           </div>
-          <div className="app__footer">fooooter wacheen</div>
+          <Footer />
         </div>
       </Router>
     </div>

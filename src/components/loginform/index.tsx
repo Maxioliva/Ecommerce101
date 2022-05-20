@@ -9,14 +9,11 @@ const LoginForm = () => {
   const navigate = useNavigate();
 
   const initialValues = {
-    firstName: '',
-    lastName: '',
     email: '',
     password: '',
-    gender: '',
   };
 
-  const validate = (values: User) => {
+  const validate = (values: { email: string; password: string }) => {
     const error: any = {};
     if (!values.password) {
       error.password = 'Please insert a password';
@@ -29,7 +26,7 @@ const LoginForm = () => {
     return error;
   };
 
-  const submitHandler = (values: User) => {
+  const submitHandler = (values: { email: string; password: string }) => {
     try {
       login(values.email, values.password);
       navigate('/');

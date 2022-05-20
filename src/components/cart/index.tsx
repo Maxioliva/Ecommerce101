@@ -2,16 +2,12 @@ import { useContext, useEffect, useState } from 'react';
 import CartContext from '../../context/CartContext';
 import { ItemCart } from '../itemcart';
 import './style.scss';
+// import { buyOrder } from '../../utils/resolvers';
 
 const Cart = () => {
   const [cartOpen, setCartOpen] = useState(false);
-  const [productsLength, setProductsLength] = useState(0);
 
   const { cartItems } = useContext(CartContext);
-
-  useEffect(() => {
-    setProductsLength(cartItems?.reduce((previous, current) => previous + current.amount, 0));
-  }, [cartItems]);
 
   const total = cartItems?.reduce((previous, current) => previous + current.price, 0);
 
@@ -43,7 +39,7 @@ const Cart = () => {
             </svg>
           )}
         </div>
-        {!cartOpen && <div className="productsNumber">{productsLength}</div>}
+        {!cartOpen && <div className="productsNumber">{cartItems.length}</div>}
       </div>
 
       {cartItems && cartOpen && (
@@ -60,7 +56,10 @@ const Cart = () => {
             </div>
           )}
 
-          <h2 className="total">Total: ${total}</h2>
+          <h2 className="total">Total: ${total.toFixed(2)}</h2>
+          <div>
+            <button> Order </button>
+          </div>
         </div>
       )}
     </div>

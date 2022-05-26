@@ -1,10 +1,10 @@
 /* eslint-disable func-style */
 
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { collection, doc, getFirestore, setDoc, query, where, getDocs} from 'firebase/firestore';
+import { doc, getFirestore, setDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { nanoid } from 'nanoid';
 import firebaseApp from '../firebase/credenciales';
-import { Product, User } from './Type';
+import { Order, Product, User } from './Type';
 
 
 // const { cartItems } = useContext(CartContext);
@@ -26,18 +26,30 @@ export const registerUser = async (user:  Omit<User, 'id'>) => {
   setDoc(docuRef, user);
 }
 
-export const createOrder = async (products: Product[],) => { 
+export const updateOrder = async (products: Product[], userId: string) => {
+  console.log('ejecucion', userId)
+  const q = query(collection(firestore, 'Orders'), where('userId', '==', userId));
+  // const ordersCollectionRef = collection(firestore, 'Orders');
+  const querySnapshot = await getDocs(q);
+  console.log('orders', querySnapshot.docs.length)
+  if (!querySnapshot.docs.length) {
+    // const document = await ordersCollectionRef.get();
+    const docuRef = await doc(firestore, `Orders/${nanoid()}`);
+    await setDoc(docuRef, { userId, products, isCompleted: false });
+  } else {
+    const currentBasket = querySnapshot.docs.find((d) => !(d.data() as Order).isCompleted) ;
+   console.log(currentBasket)
+    const docuRef = await doc(firestore, `Orders/${currentBasket?.id}`);
+    await setDoc(docuRef, { userId, products, isCompleted: false });
+  }
+}
 
-  // const q = query(collection(firestore,'Orders'), where( 'userId', '==' , userId));
-  // const ordersRef = collection(firestore, 'Orders');
-//   const querySnapshot = await getDocs(q);
-// console.log(querySnapshot)
 
-// const doc = await cityRef.get();
+  // const doc = await cityRef.get();
 
 
-  console.log(nanoid())
-  const docuRef = await doc(firestore, `Orders/${nanoid()}`);
+  // console.log(nanoid())
+  // const docuRef = await doc(firestore, `Orders/${nanoid()}`);
   
   // const order: Order = {
   // id:  
@@ -46,4 +58,4 @@ export const createOrder = async (products: Product[],) => {
   // setDoc(docuRef, order);
 
 
-}
+

@@ -12,29 +12,27 @@ import Home from './pages/home';
 import Footer from './components/footer';
 import './style.scss';
 
-const App = () => {
-  return (
-    <div className="app">
-      <Router>
-        <div className="app__header">
-          <Logo />
-          <NavBar />
+const App = () => (
+  <div className="app">
+    <Router>
+      <div className="app__header">
+        <Logo />
+        <NavBar />
+      </div>
+      <div className="app__body">
+        <div className="app__body__container">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/register" element={<RegisterForm />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/products" element={<Products />} />
+          </Routes>
         </div>
-        <div className="app__body">
-          <div className="app__body__container">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/register" element={<RegisterForm />} />
-              <Route path="/login" element={<LoginForm />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/products" element={<Products />} />
-            </Routes>
-          </div>
-          <Footer />
-        </div>
-      </Router>
-    </div>
-  );
-};
+        <Footer />
+      </div>
+    </Router>
+  </div>
+);
 
 export default App;

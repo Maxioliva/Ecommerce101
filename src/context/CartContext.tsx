@@ -6,6 +6,7 @@ import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
 import firebaseApp from '../firebase/credenciales';
 import * as resolvers from '../utils/resolvers';
+import { updateOrder } from '../utils/resolvers';
 import { Product, ShopState } from '../utils/Type';
 
 const CartContext = createContext<ShopState>({} as ShopState);
@@ -13,15 +14,16 @@ const CartContext = createContext<ShopState>({} as ShopState);
 const auth = getAuth(firebaseApp);
 
 export const CartProvider = ({ children }: any) => {
+  const [userId, setUserId] = useState<string>();
   const [user, setUSer] = useState<User | null>(null);
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
 
   onAuthStateChanged(auth, userFirebase => {
-    setUSer(userFirebase);
-    console.log(userFirebase);
+    if (userFirebase && userId !== userFirebase?.uid) {
+      -setUserId(userFirebase?.uid);
+    }
   });
-  // console.log(user);
 
   const getProducts = async () =>
     await axios
@@ -33,9 +35,16 @@ export const CartProvider = ({ children }: any) => {
     getProducts();
   }, []);
 
+  useEffect(() => {
+    if (!userId) {
+      return;
+    }
+    updateOrder(cartItems, userId);
+  }, [cartItems]);
+
   const addItemToCart = async (product: Product) => {
     setCartItems([...cartItems, product]);
-    resolvers.createOrder(cartItems);
+    // resolvers.createOrder(cartItems);
   };
 
   const deleteItemToCart = (id: number) => {

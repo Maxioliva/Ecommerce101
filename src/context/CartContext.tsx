@@ -1,6 +1,3 @@
-/* eslint-disable no-shadow */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable array-callback-return */
 import axios from 'axios';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
@@ -15,19 +12,22 @@ const auth = getAuth(firebaseApp);
 
 export const CartProvider = ({ children }: any) => {
   const [userId, setUserId] = useState<string>();
-  const [user, setUSer] = useState<User | null>(null);
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
 
   onAuthStateChanged(auth, userFirebase => {
-    if (userFirebase && userId !== userFirebase?.uid) {
-      -setUserId(userFirebase?.uid);
-    }
+    (async () => {
+      if (userFirebase && userId !== userFirebase?.uid) {
+        setUserId(userFirebase?.uid);
+        const currentBasket = await resolvers.getCurrentBasket(userFirebase?.uid);
+        setCartItems(currentBasket);
+      }
+    })();
   });
 
   const getProducts = async () =>
     await axios
-      .get('https://fakestoreapi.com/products')
+      .get('https://fakestoreapi.com/products?limit=30')
       .then(({ data }) => setProducts(data))
       .catch(error => console.error(error));
 
@@ -35,25 +35,28 @@ export const CartProvider = ({ children }: any) => {
     getProducts();
   }, []);
 
-  useEffect(() => {
+  const addItemToCart = async (product: Product) => {
     if (!userId) {
       return;
     }
-    updateOrder(cartItems, userId);
-  }, [cartItems]);
-
-  const addItemToCart = async (product: Product) => {
     setCartItems([...cartItems, product]);
-    // resolvers.createOrder(cartItems);
+    updateOrder([...cartItems, product], userId);
   };
 
   const deleteItemToCart = (id: number) => {
+    if (!userId) {
+      return;
+    }
     setCartItems(cartItems.filter(item => item.id !== id));
+    updateOrder(
+      cartItems.filter(item => item.id !== id),
+      userId
+    );
   };
 
   return (
     /* Envolvemos el children con el provider y le pasamos un objeto con las propiedades que necesitamos por value */
-    <CartContext.Provider value={{ user, products, deleteItemToCart, cartItems, addItemToCart, ...resolvers }}>
+    <CartContext.Provider value={{ userId, products, deleteItemToCart, cartItems, addItemToCart, ...resolvers }}>
       {children}
     </CartContext.Provider>
   );

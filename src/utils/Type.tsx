@@ -18,7 +18,7 @@ export type Product = {
 };
 
 export type ShopState = {
-  user: any;
+  userId?: string;
   cartItems: Product[];
   products: Product[];
   login: (email: string, password: string) => Promise<void>;

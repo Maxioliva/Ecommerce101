@@ -7,7 +7,7 @@ import './style.scss';
 const Cart = () => {
   const [cartOpen, setCartOpen] = useState(false);
 
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, userId } = useContext(CartContext);
 
   const total = cartItems?.reduce((previous, current) => previous + current.price, 0);
 
@@ -57,9 +57,7 @@ const Cart = () => {
           )}
 
           <h2 className="total">Total: ${total.toFixed(2)}</h2>
-          <div>
-            <button> Order </button>
-          </div>
+          <div>{userId ? <button>Check out</button> : <p>log in please</p>}</div>
         </div>
       )}
     </div>

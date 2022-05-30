@@ -11,12 +11,12 @@ const { NODE_ENV } = process.env;
 const IS_DEVELOPMENT = NODE_ENV !== 'production';
 
 module.exports = {
-  mode: IS_DEVELOPMENT ? 'development' : 'production',
-  stats: IS_DEVELOPMENT ? 'minimal' : 'normal',
+  mode: 'production',
+  stats: 'normal',
   entry: './src/index.tsx',
   output: {
-    path: path.join(__dirname, 'build'),
-    filename: 'ecoo.js',
+    path: path.join(__dirname, 'public'),
+    filename: 'index.js',
     publicPath: '/',
   },
   module: {
@@ -49,7 +49,7 @@ module.exports = {
                   },
                 ],
               ],
-              plugins: IS_DEVELOPMENT ? ['react-refresh/babel'] : undefined,
+              plugins: undefined,
             },
           },
         ],
@@ -58,7 +58,7 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          IS_DEVELOPMENT ? 'style-loader' : CssExtractPlugin.loader,
+          CssExtractPlugin.loader,
           { loader: 'css-loader', options: { url: false } },
           {
             loader: 'postcss-loader',
@@ -81,7 +81,7 @@ module.exports = {
     new HtmlPlugin({
       template: './public/index.html',
     }),
-    ...(IS_DEVELOPMENT ? [new ReactRefreshPlugin()] : [new CssExtractPlugin({ filename: 'ay-checkout-base.min.css' })]),
+    ...[new CssExtractPlugin({ filename: 'index.css' })],
   ],
   optimization: {
     minimize: !IS_DEVELOPMENT,
@@ -97,7 +97,7 @@ module.exports = {
       new CssMinimizerPlugin(),
     ],
   },
-  devtool: !IS_DEVELOPMENT ? 'source-map' : undefined,
+  devtool: undefined,
   devServer: {
     hot: true,
     port: 5000,

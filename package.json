@@ -2,17 +2,18 @@
   "name": "ecommerce101-1",
   "version": "1.0.0",
   "description": "Small fullstack single-page ecommerce application for learning purposes.",
-  "private": true,
-  "homepage": "https://github.com/Maxioliva/Ecommerce101#readme",
+  "private": false,
+  "homepage": "https://github.com/Maxioliva/Ecommerce101/",
   "scripts": {
     "dev": "webpack serve",
     "prepare-build": "rm -rf build && cp -r public build",
-    "build": "NODE_ENV=production webpack",
-    "serve": "serve build --cors",
+    "build": "webpack",
+    "serve": "serve public --cors",
     "check-formatting": "prettier --check 'src/**/*.ts{,x}'",
     "fix-formatting": "prettier --write 'src/**/*.ts{,x}'",
     "lint": "eslint 'src/**/*.ts{,x}'",
-    "fix-lint": "eslint --fix 'src/**/*.ts{,x}'"
+    "fix-lint": "eslint --fix 'src/**/*.ts{,x}'",
+    "deploy": "gh-pages -d public"
   },
   "repository": {
     "type": "git",
@@ -55,6 +56,7 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "fork-ts-checker-webpack-plugin": "^7.0.0",
+    "gh-pages": "^4.0.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.5.3",
     "node-fetch": "^3.2.0",

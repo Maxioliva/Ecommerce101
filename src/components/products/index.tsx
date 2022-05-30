@@ -9,27 +9,20 @@ const Products = () => {
   }
   return (
     <div className="products">
-      {products?.map(product => (
-        <div className="card" key={product.id}>
-          <div>
-            <img className="product-image" src={product.image} alt={product.title} />
-            <div />
-            <div>
-              <h3 className="product-title">{product.title}</h3>
-              <div />
-              <div className="product-price">{`Price: $ ${product.price}`} </div>
-              <div className="product-category">{`Category: ${product.category}`} </div>
-              <div className="wrap">
-                {' '}
-                <button className="product-add-button" onClick={() => addItemToCart(product)}>
-                  Add to Cart
-                </button>
-              </div>
-            </div>
+      <div className="products__filter">aksjdns</div>
+      <div className="products__list">
+        {products?.map(product => (
+          <div className="products__card" key={product.id}>
+            <img className="products__image" src={product.image} alt={product.title} />
+            <h3 className="products__title">{product.title}</h3>
+            <div className="product__category">{`Category: ${product.category}`} </div>
+            <div className="products__price">{`Price: $ ${product.price}`} </div>
+            <button className="products__button" onClick={() => addItemToCart(product)}>
+              Add to Cart
+            </button>
           </div>
-        </div>
-      ))}
-      );
+        ))}
+      </div>
     </div>
   );
 };

@@ -1,78 +1,90 @@
-
 @import url(https://fonts.googleapis.com/css?family=Poiret+One);
+@import '../../variables';
 
 @mixin button-bg($bg) {
   background: $bg;
   &:hover {
-    background:darken($bg,8%);
+    background: darken($bg, 8%);
     transition: all 0.3s ease;
   }
   &:active {
-    background:darken($bg,25%);
-  } 
+    background: darken($bg, 25%);
+  }
 }
-
-
-
 
 .products {
-  margin:0px auto;
-  width: 80%;
+  margin: 0px auto;
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  background-color: lightgreen;
+  flex-direction: column;
+  background-color: lightseagreen;
   border-radius: 5px;
-}
 
-
-.card {
-  width: 300px;
-  height: 400px;
-  border: 2px solid black;
-  border-radius: 5px;
-  overflow: hidden;
-  padding: 10px;
-  margin: 40px, 20px;
-  background-color: white;
-}
-
-
-
-.product-image {
-  width: 50%;
-max-width: 150px;
-min-height: 150px;
-display: block;
-object-fit: cover;
-}
-
-.product-add-button {
-  color:white;
-  text-decoration:none;
-  padding:5px 5px;
-  border-radius:3px;
-  font-family: 'Poiret One', cursive;
-  font-size:1.5em;
-  cursor: pointer;
- }
- 
- .product-add-button {
-    @include button-bg(#2ecc71);
- }
- 
- .wrap {
-  margin:0 auto;
-  width:200px;
-  text-align:center;
-}
-  
-
-.product-price {
-  margin: 10px 0px;
-  padding-bottom: 20px;
-  font-size: 18px; 
-  line-height: 10px;
+  &__list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
   }
-  
-  
+
+  &__card {
+    border: 2px solid black;
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 10px;
+    margin: 5px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    font-size: 14px;
+    width: 240px;
+    height: 330px;
+
+    @media (max-width: $tablet) {
+      width: 150px;
+      height: 280px;
+      font-size: 11px;
+    }
+  }
+
+  &__image {
+    max-width: 150px;
+    height: 170px;
+    display: block;
+    object-fit: cover;
+    margin: 0 auto;
+    @media (max-width: $tablet) {
+      height: 150px;
+    }
+  }
+
+  &__title {
+    max-height: 70px;
+    margin: 0;
+    overflow: hidden;
+    font-size: 16px;
+    @media (max-width: $tablet) {
+      font-size: 12px;
+      max-height: 50px;
+    }
+  }
+
+  &__price {
+    margin: auto 0 10px 0;
+    padding: 0px;
+    font-weight: bold;
+    line-height: 10px;
+  }
+
+  &__button {
+    color: white;
+    text-decoration: none;
+    padding: 5px 5px;
+    border-radius: 3px;
+    font-family: 'Poiret One', cursive;
+    font-size: 1.5em;
+    cursor: pointer;
+    @include button-bg(#2ecc71);
+  }
+}

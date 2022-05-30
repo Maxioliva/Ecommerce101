@@ -23,12 +23,12 @@ body,
   }
 
   &__body {
-    padding: 0 100px;
+    padding: 0 0px;
     margin: 0 auto;
     max-width: 1400px;
 
     @media (max-width: $tablet) {
-      padding: 0 50px;
+      padding: 0;
     }
 
     @media (max-width: $mobile) {
@@ -37,13 +37,13 @@ body,
 
     &__container {
       width: 100%;
-      background-color: yellow;
+      background-color: rgb(26, 97, 103);
       flex: 2;
     }
   }
 
-  &__footer {
-    background-color: rgb(111, 202, 7);
-    height: 100px;
-  }
+  // &__footer {
+  //   background-color: rgb(111, 202, 7);
+  //   height: 100px;
+  // }
 }

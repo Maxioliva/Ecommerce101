@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="16" viewBox="0 0 20 16">
+  <defs>
+    <rect id="flag-switzerland-a" width="20" height="16" x="0" y="0" rx="1.6"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <mask id="flag-switzerland-b" fill="#fff">
+      <use xlink:href="#flag-switzerland-a"/>
+    </mask>
+    <use fill="#FFF" xlink:href="#flag-switzerland-a"/>
+    <rect width="20" height="16" fill="#D52B1E" fill-rule="nonzero" mask="url(#flag-switzerland-b)"/>
+    <polygon fill="#FFF" fill-rule="nonzero" points="11.5 3 11.5 6.5 15 6.5 15 9.5 11.5 9.5 11.5 13 8.5 13 8.5 9.5 5 9.5 5 6.5 8.5 6.5 8.5 3" mask="url(#flag-switzerland-b)"/>
+  </g>
+</svg>

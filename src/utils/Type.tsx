@@ -15,6 +15,7 @@ export type Product = {
   price: number;
   category: string;
   amount: number;
+  rating: { rate: number; count: number };
 };
 
 export type ShopState = {

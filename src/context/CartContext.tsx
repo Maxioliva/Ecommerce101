@@ -1,5 +1,8 @@
+/* eslint-disable consistent-return */
+/* eslint-disable react/jsx-key */
 import axios from 'axios';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
+import { Action } from 'history';
 import { createContext, useEffect, useState } from 'react';
 import firebaseApp from '../firebase/credenciales';
 import * as resolvers from '../utils/resolvers';
@@ -39,8 +42,17 @@ export const CartProvider = ({ children }: any) => {
     if (!userId) {
       return;
     }
-    setCartItems([...cartItems, product]);
-    updateOrder([...cartItems, product], userId);
+    const productAlreadyOnBasket = cartItems.find(item => item.id === product.id);
+
+    const newCartItems = productAlreadyOnBasket
+      ? [
+          ...cartItems.filter(i => i.id !== product.id),
+          { ...productAlreadyOnBasket, amount: productAlreadyOnBasket.amount + 1 },
+        ]
+      : [...cartItems, { ...product, amount: 1 }];
+    console.log(newCartItems);
+    setCartItems(newCartItems);
+    updateOrder(newCartItems, userId);
   };
 
   const deleteItemToCart = (id: number) => {

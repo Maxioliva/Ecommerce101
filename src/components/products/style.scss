@@ -40,10 +40,10 @@
     font-size: 14px;
     width: 240px;
     height: 330px;
-
+    text-align: center;
     @media (max-width: $tablet) {
       width: 150px;
-      height: 280px;
+      height: 285px;
       font-size: 11px;
     }
   }
@@ -71,13 +71,18 @@
   }
 
   &__price {
-    margin: auto 0 10px 0;
-    padding: 0px;
-    font-weight: bold;
-    line-height: 10px;
+    padding: 10px;
+    font-weight: 600;
+    line-height: 17px;
+    font-size: revert;
+    background: none repeat scroll 0 0 rgb(240 240 240);
+    border-radius: 120px;
+    width: 100px;
+    height: 13px;
+    margin: 12px auto;
   }
 
-  &__button {
+  &__button { 
     color: white;
     text-decoration: none;
     padding: 5px 5px;

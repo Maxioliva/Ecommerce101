@@ -1,15 +1,12 @@
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Logo from './components/atoms/logo';
 import Cart from './components/cart';
+import Footer from './components/footer';
 import LoginForm from './components/loginform';
 import NavBar from './components/navbar';
 import Products from './components/products';
 import RegisterForm from './components/registerform';
-import firebaseApp from './firebase/credenciales';
 import Home from './pages/home';
-import Footer from './components/footer';
 import './style.scss';
 
 const App = () => (

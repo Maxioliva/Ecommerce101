@@ -17,7 +17,9 @@ body,
   &__header {
     position: sticky;
     top: 0;
-    background: linear-gradient(to left, #00d8ff, #0f8ea6, #0d3e69, #0d3e69, #272727, #272727, #272727);
+
+    // background: linear-gradient(to left, #ffcb2c, #ffa712, #f5820c, #a55a0d, #6b3b08, #281603, #111111);
+    background: linear-gradient(to left, #00d8ff, #02c5ee, #098fbe, #1976c7, #0f4676, #071a2b, #000000);
     display: flex;
     justify-content: space-between;
   }

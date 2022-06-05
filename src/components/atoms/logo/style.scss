@@ -1,9 +1,15 @@
 @import '../../../variables';
+.logo__container {
+  display: flex;
+  align-items: center;
+  margin: 0 15px;
+  text-decoration: none;
+}
 
 .logo {
   width: 70px;
   height: 70px;
-  margin: 10px;
+  margin: 12px -15px 8px -15px;
   display: flex;
   background-color: inherit;
 
@@ -15,10 +21,21 @@
     height: 45px;
   }
 
+  &__letters {
+    z-index: 1;
+    font: bold 40px fangsong;
+    // color: #ffca2a;
+    color: #00d8ff;
+    @media (max-width: $mobile) {
+      font-size: 30px;
+    }
+  }
+
   &__gilada {
     display: inline-block;
     border-radius: 50%;
-    border: 5px solid #00d8ff;
+    border: 5px solid #1380c4;
+    // border: 5px solid #f5820c;
 
     animation-name: rotate;
     animation-duration: 15s;
@@ -26,7 +43,8 @@
     animation-timing-function: linear;
 
     @media (max-width: $mobile) {
-      border: 2px solid #00d8ff;
+      border: 2px solid #1380c4;
+      // border: 2px solid #f5820c;
     }
 
     &:before,
@@ -37,12 +55,14 @@
       width: 70px;
       height: 23px;
       border-radius: 50%;
-      border: 5px solid #00d8ff;
+      border: 5px solid #1380c4;
+      // border: 5px solid #f5820c;
       content: '';
       @media (max-width: $mobile) {
         width: 40px;
         height: 13px;
-        border: 3px solid #00d8ff;
+        border: 3px solid #1380c4;
+        // border: 3px solid #f5820c;
       }
     }
   }
@@ -52,6 +72,7 @@
     height: 13px;
     border-radius: 100%;
     background: #00d8ff;
+    // background: #ffca2a;
 
     @media (max-width: $mobile) {
       width: 6px;

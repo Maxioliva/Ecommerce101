@@ -15,7 +15,7 @@ module.exports = {
   stats: IS_DEVELOPMENT ? 'minimal' : 'normal',
   entry: './src/index.tsx',
   output: {
-    path: path.join(__dirname, 'build'),
+    path: path.join(__dirname, 'public'),
     filename: 'ecoo.js',
     publicPath: '/',
   },

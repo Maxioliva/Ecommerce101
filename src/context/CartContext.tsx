@@ -42,6 +42,7 @@ export const CartProvider = ({ children }: any) => {
     if (!userId) {
       return;
     }
+
     const productAlreadyOnBasket = cartItems.find(item => item.id === product.id);
 
     const newCartItems = productAlreadyOnBasket

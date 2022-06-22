@@ -7,6 +7,7 @@ const Products = () => {
   if (!products || !products.length) {
     return <h1>hi</h1>;
   }
+
   return (
     <div className="products">
       <div className="products__filter">filter</div>

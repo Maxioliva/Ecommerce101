@@ -28,6 +28,7 @@
     font-size: 20px;
     width: 620px;
     height: 160px;
+    align-items: center;
   
       @media (max-width: $tablet) {
         width: 451px;
@@ -101,7 +102,19 @@
       font-size: x-large;
       text-align: center;
     }
+
+    &__button {
+      border-radius: 6px;
+    position: relative;
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: bold;
+      color: #222222;
+    }
     
+    &__total {
+      text-align: center;
+    }
   }
   
   

@@ -59,9 +59,7 @@ const Cart = () => {
           )}
 
           <h2 className="total">Total: ${total.toFixed(2)}</h2>
-          <h2 className="total">
-            Total: ${cartItems?.reduce((previous, current) => previous + current.price, 0).toFixed(2)}
-          </h2>
+
           <div>{userId ? <button>Check out</button> : <p>log in please</p>}</div>
           <div>
             {' '}

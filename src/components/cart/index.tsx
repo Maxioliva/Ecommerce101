@@ -1,6 +1,8 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import CartContext from '../../context/CartContext';
 import { ItemCart } from '../itemcart';
+import { Link } from 'react-router-dom';
+
 import './style.scss';
 // import { buyOrder } from '../../utils/resolvers';
 
@@ -9,7 +11,7 @@ const Cart = () => {
 
   const { cartItems, userId } = useContext(CartContext);
 
-  const total = cartItems?.reduce((previous, current) => previous + current.price, 0);
+  const total = cartItems?.reduce((previous, item) => previous + item.price * item.amount, 0);
 
   return (
     <div className="cartContainer">
@@ -57,7 +59,14 @@ const Cart = () => {
           )}
 
           <h2 className="total">Total: ${total.toFixed(2)}</h2>
+
           <div>{userId ? <button>Check out</button> : <p>log in please</p>}</div>
+          <div>
+            {' '}
+            <Link to="cart">
+              <button onClick={() => setCartOpen(!cartOpen)}>BasketPage</button>
+            </Link>
+          </div>
         </div>
       )}
     </div>

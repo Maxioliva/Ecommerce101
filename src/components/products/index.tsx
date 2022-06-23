@@ -7,9 +7,10 @@ const Products = () => {
   if (!products || !products.length) {
     return <h1>hi</h1>;
   }
+
   return (
     <div className="products">
-      <div className="products__filter">aksjdns</div>
+      <div className="products__filter">filter</div>
       <div className="products__list">
         {products?.map(product => (
           <div className="products__card" key={product.id}>

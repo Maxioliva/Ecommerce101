@@ -14,6 +14,18 @@
     &:hover {
       color: rgb(26, 197, 209);
       background-color: black;
+      border-radius: 4px;
+    }
+  }
+
+  &__button {
+    cursor: pointer;
+    border-radius: 4px;
+    
+    
+    &:hover {
+      color: rgb(26, 197, 209);
+      background-color: black;
     }
   }
 }

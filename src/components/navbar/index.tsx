@@ -12,6 +12,7 @@ const NavBar = () => {
   const { logOut, userId } = useContext(CartContext);
   return (
     <div className="navbar">
+      <img src={getAssetUrl('./login/ecommercelogo.png')} className="navbar__logo" />
       <Cart />
       <div className="navbar__option">
         <img src={getAssetUrl('./basket.svg')} alt="basket" />

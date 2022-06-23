@@ -1,8 +1,20 @@
+@import '../../variables';
+
 .navbar {
   display: flex;
   align-items: center;
   color: white;
   font-weight: bold;
+
+  &__logo {
+    height: 94%;
+    width: 14%;
+    position: relative;
+    right: 200px;
+    @media (max-width: $tablet) {
+      right: 91px;
+    }
+  }
 
   &__link {
     height: 100%;

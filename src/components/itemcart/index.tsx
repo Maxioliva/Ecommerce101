@@ -5,7 +5,7 @@ import CartContext from '../../context/CartContext';
 import './style.scss';
 
 export const ItemCart = ({ item }: any) => {
-  const { addItemToCart, deleteItemToCart }: any = useContext(CartContext);
+  const { addItemToCart, deleteItemToCart, deleteAllItemToCart }: any = useContext(CartContext);
 
   return (
     <div className="cartItem">
@@ -19,14 +19,14 @@ export const ItemCart = ({ item }: any) => {
           <div className="quantity-container">
             <button onClick={() => addItemToCart(item)}>+</button>
             <input type="text" value={item.amount} className="quantity-input"></input>
-            <button id="decrease">-</button>
+            <button onClick={() => deleteItemToCart(item.id)}>-</button>
           </div>
         </div>
         <div className="right">
           <div>${item.price}</div>
         </div>
         <div className="buttons">
-          <button onClick={() => deleteItemToCart(item.id)}>
+          <button onClick={() => deleteAllItemToCart(item.id)}>
             <FontAwesomeIcon icon={faTrashCan} />
           </button>
         </div>

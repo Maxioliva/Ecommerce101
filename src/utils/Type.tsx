@@ -23,9 +23,12 @@ export type ShopState = {
   cartItems: Product[];
   products: Product[];
   login: (email: string, password: string) => Promise<void>;
+  logOut: () => void;
   registerUser: (user: Omit<User, 'id'>) => Promise<void>;
   addItemToCart: (product: Product) => Promise<void>;
   deleteItemToCart: (id: number) => void;
+  deleteAllItemToCart: (id: number) => void;
+
   // createOrder: (products: Product[]) => Promise<void>;
 };
 

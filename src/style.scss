@@ -42,6 +42,13 @@ body,
     }
   }
 
+  .divider {
+    height: 1px;
+    width: 100%;
+    margin: 10px auto;
+    background-color: rgb(154, 150, 150);
+  }
+
   // &__footer {
   //   background-color: rgb(111, 202, 7);
   //   height: 100px;

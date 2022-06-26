@@ -1,20 +1,17 @@
 import { Link } from 'react-router-dom';
 import { getAssetUrl } from '../../utils/config';
+import DropDown from '../atoms/dropdown';
+import ProfileDropDown from './dopdownContent/profile';
 import './style.scss';
-import Cart from '../cart';
-// import { getAuth, signOut } from 'firebase/auth';
 
-// const auth = getAuth();
 const NavBar = () => (
   <div className="navbar">
-    <Cart />
+    {/* <Cart /> */}
     <div className="navbar__option">
-      <img src={getAssetUrl('./basket.svg')} alt="basket" />
+      <img src={getAssetUrl('./header/cart.svg')} alt="basket" />
     </div>
-    <div className="navbar__option">
-      <img src={getAssetUrl('./profile.svg')} alt="profile" />
-    </div>
-
+    <div className="navbar__option "></div>
+    <DropDown control="profile" content={<ProfileDropDown />} />
     {/* {!auth.currentUser && <button onClick={() => signOut(auth)}> Close sesion </button>} */}
     <Link to={'/login'}>
       <div className="navbar__link">Login</div>
@@ -27,4 +24,5 @@ const NavBar = () => (
     </Link>
   </div>
 );
+
 export default NavBar;

@@ -1,0 +1,55 @@
+.profile-dropdown {
+  display: flex;
+  text-align: center;
+  background-color: white;
+
+  &__row {
+    display: flex;
+    width: 100%;
+    flex-wrap: nowrap;
+    justify-content: center;
+  }
+
+  &--margin {
+    margin-right: 10px;
+  }
+
+  &--logout {
+    color: black;
+    width: 350px;
+    margin: 0 10px 10px 10px;
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 50px;
+    width: 100%;
+    background-color: black;
+
+    color: white;
+    &:hover {
+      color: #0f8ea6;
+    }
+  }
+
+  &__info {
+    background-color: rgba(217, 216, 216, 0.273);
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    padding: 10px;
+    height: 40px;
+    width: 50%;
+  }
+
+  &--login {
+    color: black;
+    width: 200px;
+    flex-direction: column;
+    text-align: left;
+    justify-content: flex-start;
+  }
+}

@@ -100,7 +100,7 @@ module.exports = {
   devtool: !IS_DEVELOPMENT ? 'source-map' : undefined,
   devServer: {
     hot: true,
-    port: 5000,
+    port: 3000,
     static: path.join(__dirname, 'public'),
     historyApiFallback: true,
   },

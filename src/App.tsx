@@ -6,6 +6,7 @@ import LoginForm from './components/loginform';
 import NavBar from './components/navbar';
 import Products from './components/products';
 import RegisterForm from './components/registerform';
+import WishList from './components/wishlist';
 import Home from './pages/home';
 import './style.scss';
 
@@ -24,6 +25,7 @@ const App = () => (
             <Route path="/login" element={<LoginForm />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/products" element={<Products />} />
+            <Route path="/wishlist" element={<WishList />} />
           </Routes>
         </div>
         <Footer />

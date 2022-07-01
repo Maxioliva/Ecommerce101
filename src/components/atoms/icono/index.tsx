@@ -6,10 +6,11 @@ type IconProps = {
   icon: 'wishlist' | 'profile' | 'cart';
   size: number;
   onClick: () => void;
+  value?: boolean;
 };
 
-const Icon = ({ size, icon, onClick }: IconProps) => {
-  const [hover, setHover] = useState(false);
+const Icon = ({ value, size, icon, onClick }: IconProps) => {
+  const [hover, setHover] = useState(value ?? false);
   const iconPath = `./header/${icon}${hover ? '-solid' : ''}.svg`;
   return (
     <div

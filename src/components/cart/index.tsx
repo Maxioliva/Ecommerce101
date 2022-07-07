@@ -1,8 +1,7 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import CartContext from '../../context/CartContext';
 import { ItemCart } from '../itemcart';
-import { Link } from 'react-router-dom';
-
 import './style.scss';
 // import { buyOrder } from '../../utils/resolvers';
 
@@ -59,7 +58,6 @@ const Cart = () => {
           )}
 
           <h2 className="total">Total: ${total.toFixed(2)}</h2>
-
           <div>{userId ? <button>Check out</button> : <p>log in please</p>}</div>
           <div>
             {' '}

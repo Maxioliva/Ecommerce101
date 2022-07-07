@@ -3,7 +3,7 @@ import './style.scss';
 import { getAssetUrl } from '../../../utils/config';
 
 type IconProps = {
-  icon: 'wishlist' | 'profile' | 'cart';
+  icon: 'wishlist' | 'profile' | 'cart' | 'products';
   size: number;
   onClick: () => void;
   value?: boolean;

@@ -6,6 +6,24 @@
   color: white;
   font-weight: bold;
 
+ &__option {
+  display: flex;
+
+ }
+ 
+&__1 {
+  position: relative;
+    right: -30px;
+}
+
+&__2 {
+  position: relative;
+    right: -65px;
+}
+&__3 {
+  position: relative;
+    right: -100px;
+}
   &__logo {
     height: 94%;
     width: 14%;
@@ -42,4 +60,3 @@
     }
   }
 }
- 

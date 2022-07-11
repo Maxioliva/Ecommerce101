@@ -35,21 +35,21 @@
     }
   }
 
-  &__info {
-    background-color:blue;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    padding: 10px;
-    height: 40px;
-    width: 50%;
+ &__box {
+  color: black;
+  padding: 12px 16px;
+  font-size: large;
+  &:hover {
+    background-color: #f1f1f1;
+    display: block;
   }
 
-  &--login {
+ }
+
+  &__title {
     color: black;
     width: 200px;
-    flex-direction: column;
-    text-align: left;
-    justify-content: flex-start;
+    background-color: white;
+    text-align: center;
   }
 }

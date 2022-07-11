@@ -14,6 +14,7 @@ import { faRightFromBracket, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import Icon from '../atoms/icono';
 import WishList from '../wishlist';
+import WishListDropDown from './dopdownContent/wishlist';
 
 const NavBar = () => {
   const { logOut, userId } = useContext(CartContext);
@@ -30,7 +31,7 @@ const NavBar = () => {
           <DropDown control="profile" content={<ProfileDropDown />} />{' '}
         </div>
         <div className="navbar__2">
-          <Icon size={30} icon={'wishlist'} onClick={() => navigate('/wishlist')} />
+          <DropDown control="wishlist" content={<WishListDropDown />} />{' '}
         </div>
         <div className="navbar__3">
           <Icon size={30} icon={'products'} onClick={() => navigate('/Products')} />

@@ -15,8 +15,9 @@ module.exports = {
   stats: IS_DEVELOPMENT ? 'minimal' : 'normal',
   entry: './src/index.tsx',
   output: {
-    path: path.join(__dirname, 'build'),
+    path: path.join(__dirname, 'public'),
     filename: 'ecoo.js',
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -99,7 +100,8 @@ module.exports = {
   devtool: !IS_DEVELOPMENT ? 'source-map' : undefined,
   devServer: {
     hot: true,
-    port: 5000,
+    port: 3000,
     static: path.join(__dirname, 'public'),
+    historyApiFallback: true,
   },
 };

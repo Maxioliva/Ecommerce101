@@ -2,7 +2,7 @@
 /* eslint-disable consistent-return */
 /* eslint-disable react/jsx-key */
 import axios from 'axios';
-import { getAuth, onAuthStateChanged, signOut, User } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
 import firebaseApp from '../firebase/credenciales';
 import * as resolvers from '../utils/resolvers';

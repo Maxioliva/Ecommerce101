@@ -8,16 +8,36 @@ const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
 
 export const login = async (email: string, password: string) => {
-  await signInWithEmailAndPassword(auth, email, password);
+ const userInfo = await signInWithEmailAndPassword(auth, email, password);
+  
+  const result = await getCurrentUser(userInfo.user.uid)
+  console.log(result)
 };
 
-export const registerUser = async (user: Omit<User, 'id'>) => {
+export const registerUser = async (user: User) => {
   const infoUser = await createUserWithEmailAndPassword(auth, user.email, user.password).then(
     userFirebase => userFirebase
   );
   const docuRef = await doc(firestore, `User/${infoUser.user.uid}`);
   setDoc(docuRef, user);
 };
+
+// export const updateUser = async ( userId: string) => {
+//   const q = query(collection(firestore, 'User'), where('userId', '==', userId));
+//   const querySnapshot = await getDocs(q);
+//   const currentUser = querySnapshot.docs.find(d => !(d.data() as User));
+//   const docuRef = await doc(firestore, `Orders/${currentUser?.id}`);
+//   await setDoc(docuRef, { userId });
+// };
+
+export const getCurrentUser = async (userId: string) => {
+  const q = query(collection(firestore, 'User'), where('id', '==', userId));
+  const querySnapshot = await getDocs(q);
+  const currentUser = querySnapshot.docs[0];
+
+  return (currentUser?.data() as User);
+};
+
 
 export const updateOrder = async (products: Product[], userId: string) => {
   const q = query(collection(firestore, 'Orders'), where('userId', '==', userId));
@@ -66,3 +86,7 @@ export const getCurrentWishList = async (userId: string) => {
   }
   return [];
 };
+
+
+
+

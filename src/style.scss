@@ -13,6 +13,7 @@ body,
   flex-direction: column;
   flex-wrap: nowrap;
   width: 100%;
+  position: relative;
   background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
 linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
 linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
@@ -34,7 +35,8 @@ background-size: 20px 20px;
     padding: 0 0px;
     margin: 0 auto;
     max-width: 1400px;
-
+    width: 70%;
+    min-height: 100vh; 
     @media (max-width: $tablet) {
       padding: 0;
     }
@@ -47,6 +49,8 @@ background-size: 20px 20px;
       width: 100%;
       background-color: rgb(26, 97, 103);
       flex: 2;
+      max-height: max-content;
+      min-height: 100vh; 
     }
   }
 
@@ -55,6 +59,7 @@ background-size: 20px 20px;
     width: 100%;
     margin: 10px auto;
     background-color: rgb(154, 150, 150);
+    height:100vh;
   }
 
   // &__footer {

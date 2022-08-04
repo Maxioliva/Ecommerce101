@@ -1,37 +1,40 @@
-/* eslint-disable no-lone-blocks */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable consistent-return */
-/* eslint-disable react/jsx-key */
 import axios from 'axios';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
 import firebaseApp from '../firebase/credenciales';
 import * as resolvers from '../utils/resolvers';
 import { updateOrder, updateWishList } from '../utils/resolvers';
-import { Product, ShopState } from '../utils/Type';
+import { Product, ShopState, User } from '../utils/Type';
 
 const CartContext = createContext<ShopState>({} as ShopState);
 
 const auth = getAuth(firebaseApp);
+const user = auth.currentUser;
 
 export const CartProvider = ({ children }: any) => {
   const [userId, setUserId] = useState<string>();
+  const [userInfo, setUserInfo] = useState<User>();
+  console.log(userInfo);
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [wishList, setWishList] = useState<Product[]>([]);
 
   onAuthStateChanged(auth, userFirebase => {
     (async () => {
-      // console.log(userFirebase);
-
       if (userFirebase && userId !== userFirebase?.uid) {
         setUserId(userFirebase?.uid);
         const currentBasket = await resolvers.getCurrentBasket(userFirebase?.uid);
         setCartItems(currentBasket);
         const currentWishList = await resolvers.getCurrentWishList(userFirebase?.uid);
         setWishList(currentWishList);
+        const currentUser = await resolvers.getCurrentUser(userFirebase?.uid);
+        setUserInfo(currentUser);
       }
     })();
   });
+
   const logOut = async () => {
     await signOut(auth)
       .then(() => {
@@ -116,6 +119,7 @@ export const CartProvider = ({ children }: any) => {
     /* Envolvemos el children con el provider y le pasamos un objeto con las propiedades que necesitamos por value */
     <CartContext.Provider
       value={{
+        userInfo,
         wishListHandler,
         wishList,
         deleteAllItemToCart,
@@ -125,7 +129,7 @@ export const CartProvider = ({ children }: any) => {
         deleteItemToCart,
         cartItems,
         addItemToCart,
-        ...resolvers,
+        ...{ ...resolvers },
       }}
     >
       {children}

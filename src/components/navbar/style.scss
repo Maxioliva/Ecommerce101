@@ -1,8 +1,38 @@
-.navbar {
+@import '../../variables';
+
+.navbar { 
   display: flex;
   align-items: center;
   color: white;
   font-weight: bold;
+
+ &__option {
+  display: flex;
+
+ }
+ 
+&__1 {
+  position: relative;
+    right: -30px;
+}
+
+&__2 {
+  position: relative;
+    right: -65px;
+}
+&__3 {
+  position: relative;
+    right: -100px;
+}
+  &__logo {
+    height: 94%;
+    width: 14%;
+    position: relative;
+    right: 200px;
+    @media (max-width: $tablet) {
+      right: 91px;
+    }
+  }
 
   &__link {
     height: 100%;
@@ -16,6 +46,7 @@
       background-color: black;
       border-radius: 4px;
     }
+    
   }
 
   &__button {
@@ -29,4 +60,3 @@
     }
   }
 }
- 

@@ -1,12 +1,18 @@
 import { useContext } from 'react';
 import CartContext from '../../context/CartContext';
 import './style.scss';
+import Icon from '../atoms/icono';
 
 const Products = () => {
-  const { addItemToCart, products } = useContext(CartContext);
+  const { wishList, wishListHandler, addItemToCart, products } = useContext(CartContext);
+
   if (!products || !products.length) {
     return <h1>hi</h1>;
   }
+
+  // const handler (id: string) => {
+  //   id
+  // }
 
   return (
     <div className="products">
@@ -14,6 +20,12 @@ const Products = () => {
       <div className="products__list">
         {products?.map(product => (
           <div className="products__card" key={product.id}>
+            <Icon
+              value={!!wishList.find(item => item.id === product.id)}
+              size={25}
+              icon="wishlist"
+              onClick={() => wishListHandler(product)}
+            />
             <img className="products__image" src={product.image} alt={product.title} />
             <h3 className="products__title">{product.title}</h3>
             <div className="product__category">{`Category: ${product.category}`} </div>

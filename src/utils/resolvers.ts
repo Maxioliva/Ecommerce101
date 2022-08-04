@@ -2,22 +2,42 @@ import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } f
 import { doc, getFirestore, setDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { nanoid } from 'nanoid';
 import firebaseApp from '../firebase/credenciales';
-import { Order, Product, User } from './Type';
+import { Order, Product, User, WishList } from './Type';
 
 const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
 
 export const login = async (email: string, password: string) => {
-  await signInWithEmailAndPassword(auth, email, password);
+ const userInfo = await signInWithEmailAndPassword(auth, email, password);
+  
+  const result = await getCurrentUser(userInfo.user.uid)
+  console.log(result)
 };
 
-export const registerUser = async (user: Omit<User, 'id'>) => {
+export const registerUser = async (user: User) => {
   const infoUser = await createUserWithEmailAndPassword(auth, user.email, user.password).then(
     userFirebase => userFirebase
   );
   const docuRef = await doc(firestore, `User/${infoUser.user.uid}`);
   setDoc(docuRef, user);
 };
+
+// export const updateUser = async ( userId: string) => {
+//   const q = query(collection(firestore, 'User'), where('userId', '==', userId));
+//   const querySnapshot = await getDocs(q);
+//   const currentUser = querySnapshot.docs.find(d => !(d.data() as User));
+//   const docuRef = await doc(firestore, `Orders/${currentUser?.id}`);
+//   await setDoc(docuRef, { userId });
+// };
+
+export const getCurrentUser = async (userId: string) => {
+  const q = query(collection(firestore, 'User'), where('id', '==', userId));
+  const querySnapshot = await getDocs(q);
+  const currentUser = querySnapshot.docs[0];
+
+  return (currentUser?.data() as User);
+};
+
 
 export const updateOrder = async (products: Product[], userId: string) => {
   const q = query(collection(firestore, 'Orders'), where('userId', '==', userId));
@@ -42,3 +62,31 @@ export const getCurrentBasket = async (userId: string) => {
   }
   return [];
 };
+export const updateWishList = async (products: Product[], userId: string) => {
+  const q = query(collection(firestore, 'WishList'), where('userId', '==', userId));
+  const querySnapshot = await getDocs(q);
+  // console.log(querySnapshot.docs)
+  const currentWishList = querySnapshot.docs[0];
+  if (!currentWishList) {
+    const docuRef = await doc(firestore, `WishList/${nanoid()}`);
+    await setDoc(docuRef, { userId, products});
+  } else {
+    const docuRef = await doc(firestore, `WishList/${currentWishList.id}`);
+    await setDoc(docuRef, { userId, products});
+  }
+};
+export const getCurrentWishList = async (userId: string) => {
+  const q = query(collection(firestore, 'WishList'), where('userId', '==', userId));
+  const querySnapshot = await getDocs(q);
+
+  if (querySnapshot.docs.length) {
+    const currentWishList = querySnapshot.docs[0];
+    // console.log(currentWishList?.data() as WishList)
+    return (currentWishList?.data() as WishList).products;
+  }
+  return [];
+};
+
+
+
+

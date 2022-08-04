@@ -92,4 +92,13 @@
     cursor: pointer;
     @include button-bg(#2ecc71);
   }
+ 
+  &__wish {
+    position: relative;
+    font-size: large;
+    color: red;
+    right: -70px;
+    cursor: pointer;
+}
+
 }

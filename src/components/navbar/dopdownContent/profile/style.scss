@@ -1,0 +1,80 @@
+.profile-dropdown {
+  display: flex;
+  text-align: center;
+  background-color: white;
+
+  &__link {
+    margin: "1rem";
+    text-decoration: "none";
+    color: 'blue'
+  }
+
+  &__row {
+    display: flex;
+    width: 100%;
+    flex-wrap: nowrap;
+    justify-content: center;
+  }
+
+  &--margin {
+    margin-right: 10px;
+  }
+
+  &--logout {
+    color: black;
+    width: 350px;
+    margin: 0 10px 10px 10px;
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 50px;
+    width: 100%;
+    background-color: black;
+
+    color: white;
+    &:hover {
+      color: #0f8ea6;
+    }
+  }
+
+ &__box {
+  color: black;
+  padding: 12px 16px;
+  font-size: large;
+  text-align: center;
+  &:hover {
+    background-color: #f1f1f1;
+    display: block;
+  }
+ 
+
+ }
+
+  &__title {
+    color: black;
+    width: 200px;
+    background-color: white;
+    text-align: center;
+  }
+}
+
+.Nav_link:link {
+  color: black;
+  font-size:medium;
+  // line-height: 1.6rem;
+  text-decoration: none;
+  font-style: italic;
+}
+.Nav_link:visited {
+  color: black;
+}
+.Nav_link:hover {
+  color:blue;
+}
+.Nav_link:active {
+  color:red;
+}

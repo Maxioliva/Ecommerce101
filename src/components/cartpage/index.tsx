@@ -6,8 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 export const CartPage = () => {
-  const { deleteAllItemToCart, cartItems } = useContext(CartContext);
-  const { deleteItemToCart }: any = useContext(CartContext);
+  const { deleteItemToCart, cartItems } = useContext(CartContext);
   const total = cartItems?.reduce((previous, item) => previous + item.price * item.amount, 0);
 
   console.log(cartItems);
@@ -25,7 +24,7 @@ export const CartPage = () => {
               <div className="cartProducts__price">&nbsp;${product.price}&nbsp;</div>
 
               <div>
-                <button className="cartProducts__button" onClick={() => deleteAllItemToCart(product.id)}>
+                <button className="cartProducts__button" onClick={() => deleteItemToCart(product.id)}>
                   <FontAwesomeIcon icon={faTrashCan} />
                 </button>
               </div>

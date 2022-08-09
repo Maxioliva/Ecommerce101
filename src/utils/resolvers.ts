@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword,  } from 'firebase/auth';
 import { doc, getFirestore, setDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { nanoid } from 'nanoid';
 import firebaseApp from '../firebase/credenciales';
@@ -17,26 +17,32 @@ export const login = async (email: string, password: string) => {
 export const registerUser = async (user: User) => {
   const infoUser = await createUserWithEmailAndPassword(auth, user.email, user.password).then(
     userFirebase => userFirebase
-  );
+    );
+  const userId = infoUser.user.uid;
   const docuRef = await doc(firestore, `User/${infoUser.user.uid}`);
-  setDoc(docuRef, user);
+  setDoc(docuRef, {...user, id: userId});
 };
 
-// export const updateUser = async ( userId: string) => {
-//   const q = query(collection(firestore, 'User'), where('userId', '==', userId));
-//   const querySnapshot = await getDocs(q);
-//   const currentUser = querySnapshot.docs.find(d => !(d.data() as User));
-//   const docuRef = await doc(firestore, `Orders/${currentUser?.id}`);
-//   await setDoc(docuRef, { userId });
-// };
 
 export const getCurrentUser = async (userId: string) => {
   const q = query(collection(firestore, 'User'), where('id', '==', userId));
   const querySnapshot = await getDocs(q);
   const currentUser = querySnapshot.docs[0];
-
   return (currentUser?.data() as User);
 };
+
+
+
+
+export const updateUser = async (lastName: string, firstName: string, email:string, userId: string  ) => {
+  const q = query(collection(firestore, 'User'), where('id', '==', userId));
+  const querySnapshot = await getDocs(q);
+  const currentUser= querySnapshot.docs.find(d => !(d.data() as User));
+  const docuRef = await doc(firestore, `User/${currentUser?.id}`);
+    
+  return await setDoc(docuRef, { userId, lastName, firstName, email, });
+  }
+;
 
 
 export const updateOrder = async (products: Product[], userId: string) => {

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable consistent-return */
 import axios from 'axios';
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, signOut, updateProfile } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
 import firebaseApp from '../firebase/credenciales';
 import * as resolvers from '../utils/resolvers';
@@ -16,7 +16,6 @@ const user = auth.currentUser;
 export const CartProvider = ({ children }: any) => {
   const [userId, setUserId] = useState<string>();
   const [userInfo, setUserInfo] = useState<User>();
-  console.log(userInfo);
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [wishList, setWishList] = useState<Product[]>([]);
@@ -34,6 +33,10 @@ export const CartProvider = ({ children }: any) => {
       }
     })();
   });
+
+  // updateProfile(user{
+  //   displayName: userInfo?.firstName
+  // }).then
 
   const logOut = async () => {
     await signOut(auth)

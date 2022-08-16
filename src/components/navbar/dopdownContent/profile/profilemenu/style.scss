@@ -1,6 +1,5 @@
-.profile-dropdown {
+.profile-dropdown2 {
   display: flex;
-  
   text-align: center;
   background-color: white;
  
@@ -48,19 +47,21 @@
   padding: 12px 16px;
   font-size: large;
   text-align: center;
+  background-color: whitesmoke;
+  max-width:100%;
   &:hover {
-    background-color: #f1f1f1;
+    background-color: lightgrey;
     display: block;
-   
+    max-width:100%;
   }
  
 
  }
 
   &__title {
-    color: black;
+    color: white;
     width: 200px;
-    background-color: white;
+    background-color:rgb(148, 50, 165);
     text-align: center;
   }
 }

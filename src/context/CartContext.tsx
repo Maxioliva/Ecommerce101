@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable consistent-return */
 import axios from 'axios';
-import { getAuth, onAuthStateChanged, signOut, updateProfile } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, signOut, updateProfile, updatePassword } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
 import firebaseApp from '../firebase/credenciales';
 import * as resolvers from '../utils/resolvers';
@@ -38,6 +38,15 @@ export const CartProvider = ({ children }: any) => {
   //   displayName: userInfo?.firstName
   // }).then
 
+  // const changePassword = updatePassword(userInfo, '')
+  //   .then(() => {
+  //     // Update successful.
+  //   })
+  //   .catch(error => {
+  //     // An error ocurred
+  //     // ...
+  //   });
+
   const logOut = async () => {
     await signOut(auth)
       .then(() => {
@@ -45,6 +54,7 @@ export const CartProvider = ({ children }: any) => {
         setUserId(undefined);
         setCartItems([]);
         setWishList([]);
+        setUserInfo(undefined);
       })
       .catch(error => {
         // An error happened.

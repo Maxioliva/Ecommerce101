@@ -34,15 +34,17 @@ export const getCurrentUser = async (userId: string) => {
 
 
 
-export const updateUser = async (lastName: string, firstName: string, email:string, userId: string  ) => {
-  const q = query(collection(firestore, 'User'), where('id', '==', userId));
+export const updateUser = async ( firstName: string, lastName: string, email:string, id: string  ) => {
+  const q = query(collection(firestore, 'User'), where('id', '==', id));
   const querySnapshot = await getDocs(q);
-  const currentUser= querySnapshot.docs.find(d => !(d.data() as User));
-  const docuRef = await doc(firestore, `User/${currentUser?.id}`);
+  const currentUser= querySnapshot.docs[0];
+  const docuRef = await doc(firestore, `User/${currentUser.id}`);
     
-  return await setDoc(docuRef, { userId, lastName, firstName, email, });
+  return await setDoc(docuRef, {id, lastName, firstName, email,});
   }
-;
+  ;
+
+ 
 
 
 export const updateOrder = async (products: Product[], userId: string) => {

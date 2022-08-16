@@ -18,12 +18,22 @@
   flex-direction: column;
   background-color: lightseagreen;
   border-radius: 5px;
+  @media (max-width: $mobile) {
+    width: 330px;
+    min-width: 330px;
+    position:relative;
+    left: 0px;
+    
+    
+  }
+
 
   &__list {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    
   }
 
   &__card {
@@ -46,16 +56,24 @@
       height: 285px;
       font-size: 11px;
     }
+    @media (max-width: $mobile) {
+      width: 100px;
+      height: 220px;
+      font-size: 9px;
+    }
   }
 
   &__image {
-    max-width: 150px;
+    max-width: 150px; 
     height: 170px;
     display: block;
     object-fit: cover;
     margin: 0 auto;
     @media (max-width: $tablet) {
       height: 150px;
+    }
+    @media (max-width: $mobile) {
+      height: 80px;
     }
   }
 
@@ -66,6 +84,10 @@
     font-size: 16px;
     @media (max-width: $tablet) {
       font-size: 12px;
+      max-height: 50px;
+    }
+    @media (max-width: $mobile) {
+      font-size: 9px;
       max-height: 50px;
     }
   }
@@ -91,6 +113,9 @@
     font-size: 1.5em;
     cursor: pointer;
     @include button-bg(#2ecc71);
+  }
+  @media (max-width: $mobile) {
+    font-size: small;
   }
  
   &__wish {

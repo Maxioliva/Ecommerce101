@@ -2,7 +2,6 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../../utils/resolvers';
-import { User } from '../../utils/Type';
 import './style.scss';
 
 const LoginForm = () => {

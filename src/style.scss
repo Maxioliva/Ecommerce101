@@ -67,3 +67,8 @@ background-size: 20px 20px;
   //   height: 100px;
   // }
 }
+
+.profile {
+  display: flex;
+  flex-direction: row-reverse;
+}

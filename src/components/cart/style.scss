@@ -15,6 +15,7 @@
   background-color: #ffffff;
   border-radius: 20px;
   box-shadow: 0px 25px 40px #1687d933;
+
 }
 
 .Header {
@@ -45,6 +46,7 @@
   display: flex;
   justify-content: flex-end;
   font-family: Roboto;
+
 
   .buttonCartContainer {
     position: absolute;
@@ -86,12 +88,14 @@
 
   .cart {
     position: absolute;
-    margin-top: 10px;
+    margin-top: 60px;
     margin-right: 20px;
-    border-radius: 30px;
-    width: 400px;
+    border-radius: 40px;
     background-color: #222222;
     color: white;
+    width: 100%;
+    max-width: 450px;
+    padding: 0.5rem;
     @media (max-width: $tablet) {
       right: 100px;
     }
@@ -99,7 +103,7 @@
     h2 {
       text-align: center;
       font-weight: bold;
-      margin-top: 35px;
+      margin-top: 25px;
     }
 
     .cartVacio {
@@ -111,15 +115,38 @@
     .total {
       text-align: center;
       font-weight: bold;
-      margin-top: 15px;
-      padding-bottom: 35px;
+      margin-top: 1px;
+      padding-bottom: 2px;
     }
 
     .productsContainer {
       max-height: 200px;
       overflow-y: scroll;
-      margin-top: 5px;
+      margin: 4px 0px 11px 0px;
+      }
+
+    .buttonsBhindConteiner {
+       display: flex;
+       justify-content: center;
+       padding: 10px 0px;
+
+
+
+       .buttonsBhind {
+        background-color: #222222;
+        font-size: 17px;
+        font-weight: bold;
+        border: none;
+        color: white;
+       }
+       .buttonsBhind:hover {
+        color: #f75050;
+        font-size: 18px;
+      }
     }
+
+
+    
   }
 }
 

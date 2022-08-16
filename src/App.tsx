@@ -7,6 +7,7 @@ import LoginForm from './components/loginform';
 import NavBar from './components/navbar';
 import ProfileDropDown from './components/navbar/dopdownContent/profile';
 import Order from './components/navbar/dopdownContent/profile/orders';
+import ProfileDropDown2 from './components/navbar/dopdownContent/profile/profilemenu';
 import ProfileSettings from './components/navbar/dopdownContent/profile/profileSecurity';
 import Products from './components/products';
 import RegisterForm from './components/registerform';
@@ -22,14 +23,22 @@ const App = () => (
         <NavBar />
       </div>
       <div className="app__body">
-        <Slider />
+        {/* <Slider /> */}
         <div className="app__body__container">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/cart" element={<CartPage />} />
-            <Route path="/products" element={<Products />} />
+            <Route
+              path="/products"
+              element={
+                <div>
+                  <Slider />
+                  <Products />
+                </div>
+              }
+            />
             <Route path="/wishlist" element={<WishList />} />
             <Route
               path="/orders"
@@ -45,7 +54,7 @@ const App = () => (
               element={
                 <div className="profile">
                   <ProfileSettings />
-                  <ProfileDropDown />
+                  <ProfileDropDown2 />
                 </div>
               }
             />

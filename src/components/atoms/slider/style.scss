@@ -3,6 +3,8 @@
 .slider{
     width: 100%;
     background-color: lightcyan;
+    position: relative;
+    z-index: 2;
   }
 
 .img {

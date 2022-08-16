@@ -23,12 +23,15 @@ linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transpar
 background-color: #131313;
 background-size: 20px 20px;
 
+
+
   &__header {
     position: sticky;
     top: 0;
     background: linear-gradient(to left, #00d8ff, #0f8ea6, #0d3e69, #0d3e69, #272727, #272727, #272727);
     display: flex;
     justify-content: space-between;
+    z-index: 1;
   }
 
   &__body {
@@ -36,13 +39,15 @@ background-size: 20px 20px;
     margin: 0 auto;
     max-width: 1400px;
     width: 70%;
-    min-height: 100vh; 
+    min-height: 100vh;
+    z-index: 0;
     @media (max-width: $tablet) {
       padding: 0;
     }
 
     @media (max-width: $mobile) {
       padding: 0;
+      
     }
 
     &__container {
@@ -51,6 +56,13 @@ background-size: 20px 20px;
       flex: 2;
       max-height: max-content;
       min-height: 100vh; 
+      @media (max-width: $mobile) {
+        width: 330px;
+        position:relative;
+        left: -45px;
+      }
+     
+     
     }
   }
 
@@ -71,4 +83,16 @@ background-size: 20px 20px;
 .profile {
   display: flex;
   flex-direction: row-reverse;
-}
+  align-content: center;
+  justify-content: center;
+  align-items: flex-start;
+  background-color:#c1a1d4;
+  flex-wrap: wrap;
+  
+  @media (max-width: $mobile) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+} }

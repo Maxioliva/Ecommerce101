@@ -1,10 +1,11 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Logo from './components/atoms/logo';
+import Slider from './components/atoms/slider';
 import { CartPage } from './components/cartpage';
 import Footer from './components/footer';
 import LoginForm from './components/loginform';
 import NavBar from './components/navbar';
-import Profile from './components/navbar/dopdownContent/profile';
+import ProfileDropDown from './components/navbar/dopdownContent/profile';
 import Order from './components/navbar/dopdownContent/profile/orders';
 import ProfileSettings from './components/navbar/dopdownContent/profile/profileSecurity';
 import Products from './components/products';
@@ -21,6 +22,7 @@ const App = () => (
         <NavBar />
       </div>
       <div className="app__body">
+        <Slider />
         <div className="app__body__container">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -29,8 +31,24 @@ const App = () => (
             <Route path="/cart" element={<CartPage />} />
             <Route path="/products" element={<Products />} />
             <Route path="/wishlist" element={<WishList />} />
-            <Route path="/orders" element={<Order />} />
-            <Route path="/profile" element={<ProfileSettings />} />
+            <Route
+              path="/orders"
+              element={
+                <div className="">
+                  <Order />
+                  <ProfileDropDown />
+                </div>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <div className="profile">
+                  <ProfileSettings />
+                  <ProfileDropDown />
+                </div>
+              }
+            />
             {/* <Route path="/help" element={<Help />} />  */}
           </Routes>
         </div>

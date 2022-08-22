@@ -18,17 +18,15 @@
       border: 2px solid black;
     border-radius: 7px;
     overflow: hidden;
-    padding: 10px;
+    padding: 6px 6px 17px;;
     margin: 7px auto;
-    background-color: #829899;
+    background-color: #222222;
     display: flex;
     flex-direction: initial;
     align-items: stretch;
-    justify-content: space-between;
-    font-size: 20px;
     width: 620px;
     height: 160px;
-    align-items: center;
+    align-items: initial;
   
       @media (max-width: $tablet) {
         width: 451px;
@@ -38,12 +36,9 @@
     }
   
     &__image {
-      max-width: 150px;
-      border-radius: 4px;
-      height: 170px;
-      display: block;
-      object-fit: cover;
-      margin: 0 auto;
+      width: 20%;
+    border-radius: 11px;
+    height: 171px;
       @media (max-width: $tablet) {
         height: 150px;
       }
@@ -52,8 +47,9 @@
     &__title {
       max-height: 122px;
       margin: 13px;
-      overflow: hidden;
-      font-size: 18px;
+      font-size: 15px;
+      color: white;
+      width: 100%;
       @media (max-width: $tablet) {
         font-size: 12px;
         max-height: 50px;
@@ -61,12 +57,12 @@
     }
 
     &__category {
-      color: #40dc26;
-      margin: auto -89px 90px 35px;
-      padding: 8px;
-      font-weight: bold;
-      font-size: large;
-      line-height: 38px;
+      color: #ff0000;
+     margin: 140px -22px 0px -290px;
+     padding: 3px;
+     font-size: 15px;
+      width: 100%;
+      text-transform: capitalize;
       
    
       @media (max-width: $tablet) {
@@ -76,24 +72,20 @@
     }
 
     &__price {
-      background-color: aliceblue;
-      border-radius: 5px;
-      color: #dc2626;
-      margin: auto 0 4px 0px;
-      padding: 0px;
+      background-color: #dc2626;
+      border-radius: 6px;
+      color: white;
+      margin: 15.5px 3px 115px 0.5px;
+      padding: 2px 3px 0px 0px;
       font-weight: bold;
-      font-size: x-large;
-      line-height: 45px;
+      font-size: 19px;
     }
    
     &__rating {
-      border-radius: 6px;
-      color: #2646dc;
-      padding: -6px;
-      font-weight: bold;
-      font-size: x-large;
-     
-      margin: 81px auto 41px 3px;
+      color: #00d8ff;
+     font-weight: bold;
+     font-size: 17px;
+     margin: 142px -174px 0px 0px;
     }
     
     &__total {
@@ -110,6 +102,7 @@
       font-size: 20px;
       font-weight: bold;
       color: #222222;
+      margin: 13.5px 3px 0 4.5px;
     }
     
     &__total {

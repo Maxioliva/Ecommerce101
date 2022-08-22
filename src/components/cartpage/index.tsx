@@ -12,7 +12,7 @@ export const CartPage = () => {
   console.log(cartItems);
   return (
     <>
-      <div className="cartProduct">
+      <div className="cartProducts">
         <div className="cartProducts__list"></div>
         {cartItems.map(product => (
           <>

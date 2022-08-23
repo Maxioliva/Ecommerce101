@@ -40,7 +40,7 @@ export const updateUser = async ( firstName: string, lastName: string, email:str
   const currentUser= querySnapshot.docs[0];
   const docuRef = await doc(firestore, `User/${currentUser.id}`);
     
-  return await setDoc(docuRef, {id, lastName, firstName, email,});
+  return await setDoc(docuRef, {id, lastName, firstName, email});
   }
   ;
 

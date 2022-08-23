@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable consistent-return */
 import axios from 'axios';
-import { getAuth, onAuthStateChanged, signOut, updateProfile, updatePassword } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, signOut, updateProfile, updatePassword, updateEmail } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
 import firebaseApp from '../firebase/credenciales';
 import * as resolvers from '../utils/resolvers';
@@ -11,9 +11,9 @@ import { Product, ShopState, User } from '../utils/Type';
 const CartContext = createContext<ShopState>({} as ShopState);
 
 const auth = getAuth(firebaseApp);
-const user = auth.currentUser;
 
 export const CartProvider = ({ children }: any) => {
+  const user = auth.currentUser;
   const [userId, setUserId] = useState<string>();
   const [userInfo, setUserInfo] = useState<User>();
   const [cartItems, setCartItems] = useState<Product[]>([]);
@@ -34,18 +34,13 @@ export const CartProvider = ({ children }: any) => {
     })();
   });
 
-  // updateProfile(user{
-  //   displayName: userInfo?.firstName
-  // }).then
+  const changePassword = (newPassword: string) => {
+    updatePassword(user!, newPassword);
+  };
 
-  // const changePassword = updatePassword(userInfo, '')
-  //   .then(() => {
-  //     // Update successful.
-  //   })
-  //   .catch(error => {
-  //     // An error ocurred
-  //     // ...
-  //   });
+  const changeEmail = (newEmail: string) => {
+    updateEmail(user!, newEmail);
+  };
 
   const logOut = async () => {
     await signOut(auth)
@@ -132,6 +127,8 @@ export const CartProvider = ({ children }: any) => {
     /* Envolvemos el children con el provider y le pasamos un objeto con las propiedades que necesitamos por value */
     <CartContext.Provider
       value={{
+        changePassword,
+        changeEmail,
         userInfo,
         wishListHandler,
         wishList,

@@ -1,3 +1,4 @@
+import { Unsubscribe } from 'firebase/auth';
 import { Provider } from 'react';
 
 export type User = {
@@ -33,6 +34,8 @@ export type ShopState = {
   deleteItemToCart: (id: number) => void;
   deleteAllItemToCart: (id: number) => void;
   wishListHandler: (product: Product) => void;
+  changePassword: (newPassword: string) => void;
+  changeEmail: (newEmail: string) => void;
 
   // createOrder: (products: Product[]) => Promise<void>;
 };

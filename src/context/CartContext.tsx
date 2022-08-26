@@ -1,7 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable consistent-return */
 import axios from 'axios';
-import { getAuth, onAuthStateChanged, signOut, updateProfile, updatePassword, updateEmail } from 'firebase/auth';
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut,
+  updateProfile,
+  updatePassword,
+  updateEmail,
+  reauthenticateWithCredential,
+} from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
 import firebaseApp from '../firebase/credenciales';
 import * as resolvers from '../utils/resolvers';
@@ -14,6 +22,7 @@ const auth = getAuth(firebaseApp);
 
 export const CartProvider = ({ children }: any) => {
   const user = auth.currentUser;
+
   const [userId, setUserId] = useState<string>();
   const [userInfo, setUserInfo] = useState<User>();
   const [cartItems, setCartItems] = useState<Product[]>([]);
@@ -36,6 +45,7 @@ export const CartProvider = ({ children }: any) => {
 
   const changePassword = (newPassword: string) => {
     updatePassword(user!, newPassword);
+    // reauthenticateWithCredential(user, )
   };
 
   const changeEmail = (newEmail: string) => {

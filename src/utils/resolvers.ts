@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword,  } from 'firebase/auth';
 import { doc, getFirestore, setDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { nanoid } from 'nanoid';
+
 import firebaseApp from '../firebase/credenciales';
 import { Order, Product, User, WishList } from './Type';
 
@@ -14,13 +15,14 @@ export const login = async (email: string, password: string) => {
   console.log(result)
 };
 
-export const registerUser = async (user: User) => {
+export const registerUser = async (user: User & {password: string } ) => {
   const infoUser = await createUserWithEmailAndPassword(auth, user.email, user.password).then(
     userFirebase => userFirebase
     );
   const userId = infoUser.user.uid;
   const docuRef = await doc(firestore, `User/${infoUser.user.uid}`);
-  setDoc(docuRef, {...user, id: userId});
+  const newUser = { id: userId, firstName: user.firstName, lastName: user.lastName, email: user.email , gender: user.gender}
+   setDoc(docuRef, newUser);
 };
 
 
@@ -39,8 +41,8 @@ export const updateUser = async ( firstName: string, lastName: string, email:str
   const querySnapshot = await getDocs(q);
   const currentUser= querySnapshot.docs[0];
   const docuRef = await doc(firestore, `User/${currentUser.id}`);
-    
-  return await setDoc(docuRef, {id, lastName, firstName, email,});
+  
+  return await setDoc(docuRef, {id, lastName, firstName, email});
   }
   ;
 

@@ -22,7 +22,6 @@ const ProfileSettings = () => {
   const submitHandlerPosta = (values: typeof initialValues) => {
     updateUser(values.firstName, values.lastName, values.email, values.id);
     changeEmail(values.email);
-
     changePassword(values.password);
   };
 

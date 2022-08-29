@@ -30,9 +30,15 @@
   
       @media (max-width: $tablet) {
         width: 451px;
-    height: 149px;
+        height: 149px;
         font-size: 11px;
+        padding: 5px 6px 5px;
       }
+
+      @media (max-width: $mobile) {
+        width: 298px;
+        height: 99px;
+        }
     }
   
     &__image {
@@ -42,6 +48,9 @@
       @media (max-width: $tablet) {
         height: 150px;
       }
+      @media (max-width: $mobile) {
+        height: 100px;
+        }
     }
   
     &__title {
@@ -51,9 +60,15 @@
       color: white;
       width: 100%;
       @media (max-width: $tablet) {
-        font-size: 12px;
-        max-height: 50px;
+        font-size: 13px;
+        max-height: 66px;
+        width: 60%;
       }
+      @media (max-width: $mobile) {
+        font-size: 10px;
+    max-height: 40px;
+    width: 50%;
+        }
     }
 
     &__category {
@@ -66,8 +81,13 @@
       
    
       @media (max-width: $tablet) {
-        font-size: 12px;
+        font-size: 14px;
         max-height: 50px;
+        margin: 124px -179px 0px -125px;
+      }
+      @media (max-width: $mobile) {
+       font-size: 9px;
+       margin: 75px -246px 0px -26px;
       }
     }
 
@@ -79,6 +99,16 @@
       padding: 2px 3px 0px 0px;
       font-weight: bold;
       font-size: 19px;
+
+      @media (max-width: $tablet) {
+        margin: 13.5px 3px 115px 0.5px;
+        padding: none;
+        font-size: 14px;
+      }
+      @media (max-width: $mobile) {
+        margin: 12.5px 1px 69px 108.5px;
+        font-size: 10px;
+      }
     }
    
     &__rating {
@@ -86,6 +116,15 @@
      font-weight: bold;
      font-size: 17px;
      margin: 142px -174px 0px 0px;
+      
+     @media (max-width: $tablet) {
+      font-size: 14px;
+      margin: 126px -167px 0 -12px;
+    }
+    @media (max-width: $mobile) {
+      font-size: 9px;
+      margin: 78px -167px 0 -12px;
+    }
     }
     
     &__total {
@@ -103,6 +142,13 @@
       font-weight: bold;
       color: #222222;
       margin: 13.5px 3px 0 4.5px;
+      @media (max-width: $tablet) {
+        font-size: 14px;
+        margin: 11.5px 3px 0 4.5px;
+      }
+      @media (max-width: $mobile) {
+        font-size: 11px;
+      }
     }
     
     &__total {

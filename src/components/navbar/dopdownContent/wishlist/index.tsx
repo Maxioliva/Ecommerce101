@@ -15,18 +15,15 @@ const WishListDropDown = () => {
   return (
     <div>
       <div className="profile-dropdown__title">{userId ? 'Wishlist' : 'You are not registered yet'}</div>
+      <div className="separatorLine"></div>
       <div className="profile-dropdown__title">
-        {userId && (
-          <>
-            <div>Your wishlist is empty!</div>
-            <div className="separatorLine"></div>
-            <div className="productsContainer">
-              {wishList.map((item, i) => (
-                <ItemList key={i} item={item} />
-              ))}
-            </div>
-          </>
-        )}
+         { (userId && wishList.length) ? (
+          <div className="productsContainer">
+          {wishList.map((item, i) => (
+        <ItemList key={i} item={item} />))}
+        </div>
+           ) : (<div>Your wishlist is empty!</div>)
+            }
       </div>
       <div>
         {userId && (

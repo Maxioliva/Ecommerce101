@@ -15,18 +15,15 @@ const CartDropDown = () => {
     return (
       <div>
         <div className="profile-dropdown__title">{userId ? 'You Cart' : 'You are not registered yet'}</div>
+        <div className="separatorLine"></div>
         <div className="profile-dropdown__title">
-          {userId && (
-            <>
-              <div>Your Cart is empty!</div>
-              <div className="separatorLine"></div>
+         { (userId && cartItems.length) ? (
               <div className="productsContainer">
               {cartItems.map((item, i) => (
                 <ItemList key={i} item={item} />
               ))}
-            </div>
-            </>
-          )}
+             </div> ) : (<div>Your Cart is empty!</div>)
+              }
         </div>
         <div className='buttonsBhindConteiner'>
             {userId ? 

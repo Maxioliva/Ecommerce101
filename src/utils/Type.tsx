@@ -18,6 +18,19 @@ export type Product = {
   rating: { rate: number; count: number };
 };
 
+export type Address = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  streetName: string;
+  houseNumber: string;
+  zipCode: string;
+  city: string;
+  country: string;
+  id: string;
+  // userId: string;
+};
+
 export type ShopState = {
   userInfo?: User;
   userId?: string;

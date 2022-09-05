@@ -30,11 +30,14 @@ const RegisterForm = () => {
     return error;
   };
 
-  const submitHandler = (values: User & { password: string }) => {
+  const submitHandler = async (values: User & { password: string }) => {
     try {
-      registerUser(values);
+      await registerUser(values);
     } catch (error) {
-      console.log(error);
+      if (error instanceof Error && error.message.includes('auth/wrong-password')) {
+        console.log(error.message);
+        window.alert('wrong-password');
+      }
     }
   };
   return (

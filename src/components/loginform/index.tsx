@@ -25,12 +25,13 @@ const LoginForm = () => {
     return error;
   };
 
-  const submitHandler = (values: { email: string; password: string }) => {
+  const submitHandler = async (values: { email: string; password: string }) => {
     try {
-      login(values.email, values.password);
+      await login(values.email, values.password);
       navigate('/');
     } catch (error) {
       console.log(error);
+      window.alert(error);
     }
   };
 

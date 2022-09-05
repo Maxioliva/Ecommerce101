@@ -43,15 +43,25 @@ export const CartProvider = ({ children }: any) => {
     })();
   });
 
-  const changePassword = (newPassword: string) => {
-    updatePassword(user!, newPassword);
-    // reauthenticateWithCredential(user, )
+  const changePassword = async (newPassword: string) => {
+    try {
+      await updatePassword(user!, newPassword);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
+    }
   };
 
-  const changeEmail = (newEmail: string) => {
-    updateEmail(user!, newEmail);
+  const changeEmail = async (newEmail: string) => {
+    try {
+      await updateEmail(user!, newEmail);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
+    }
   };
-
   const logOut = async () => {
     await signOut(auth)
       .then(() => {

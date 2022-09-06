@@ -58,22 +58,24 @@ const Cart = () => {
           )}
 
           <h2 className="total">Total: ${total.toFixed(2)}</h2>
-         
-            <div className='buttonsBhindConteiner'>
-            {userId ? 
-            <button className='buttonsBhind'>Check out</button>
-             : <p>log in please</p>}
+
+          <div className="buttonsBhindConteiner">
+            {userId ? (
+              <Link to="checkout">
+                <button className="buttonsBhind">Check out</button>
+              </Link>
+            ) : (
+              <p>log in please</p>
+            )}
           </div>
-          <div className='buttonsBhindConteiner'>
+          <div className="buttonsBhindConteiner">
             {' '}
             <Link to="cart">
-              <button className='buttonsBhind' onClick={() => setCartOpen(!cartOpen)}>
+              <button className="buttonsBhind" onClick={() => setCartOpen(!cartOpen)}>
                 Basket Page
               </button>
             </Link>
-            </div>
-          
-          
+          </div>
         </div>
       )}
     </div>

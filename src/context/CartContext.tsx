@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable consistent-return */
 import axios from 'axios';
@@ -43,12 +44,29 @@ export const CartProvider = ({ children }: any) => {
     })();
   });
 
+  // useEffect(() => {
+  //   async () => {
+  //     if (user && userId !== user?.uid) {
+  //       setUserId(user?.uid);
+  //       const currentBasket = await resolvers.getCurrentBasket(user?.uid);
+  //       setCartItems(currentBasket);
+  //       const currentWishList = await resolvers.getCurrentWishList(user?.uid);
+  //       setWishList(currentWishList);
+  //       const currentUser = await resolvers.getCurrentUser(user?.uid);
+  //       setUserInfo(currentUser);
+  //     }
+  //   };
+  // }, [user]);
+
   const changePassword = async (newPassword: string) => {
     try {
-      await updatePassword(user!, newPassword);
+      await updatePassword(user!, newPassword).then(() => {
+        window.alert('Password Succesfull Changed');
+      });
     } catch (error) {
-      if (error instanceof Error) {
+      if (error instanceof Error && error.message.includes('weak-password')) {
         console.log(error.message);
+        window.alert('Password should be at least 6 characters');
       }
     }
   };

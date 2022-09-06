@@ -30,8 +30,14 @@ const LoginForm = () => {
       await login(values.email, values.password);
       navigate('/');
     } catch (error) {
-      console.log(error);
-      window.alert(error);
+      if (error instanceof Error && error.message.includes('auth/wrong-password')) {
+        console.log(error.message);
+        window.alert('wrong password');
+      }
+      if (error instanceof Error && error.message.includes('auth/user-not-found')) {
+        console.log(error.message);
+        window.alert('user not found');
+      }
     }
   };
 

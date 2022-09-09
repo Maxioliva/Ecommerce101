@@ -1,16 +1,5 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable consistent-return */
 import axios from 'axios';
-import {
-  getAuth,
-  onAuthStateChanged,
-  signOut,
-  updateProfile,
-  updatePassword,
-  updateEmail,
-  reauthenticateWithCredential,
-} from 'firebase/auth';
+import { getAuth, signOut, updatePassword, updateEmail } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
 import firebaseApp from '../firebase/credenciales';
 import * as resolvers from '../utils/resolvers';
@@ -19,48 +8,34 @@ import { Product, ShopState, User } from '../utils/Type';
 
 const CartContext = createContext<ShopState>({} as ShopState);
 
-const auth = getAuth(firebaseApp);
-
 export const CartProvider = ({ children }: any) => {
-  const user = auth.currentUser;
-
-  const [userId, setUserId] = useState<string>();
-  const [userInfo, setUserInfo] = useState<User>();
+  const [user, setUser] = useState<User>();
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [wishList, setWishList] = useState<Product[]>([]);
+  const auth = getAuth(firebaseApp);
+  const userAuth = auth.currentUser;
 
-  onAuthStateChanged(auth, userFirebase => {
+  useEffect(() => {
     (async () => {
-      if (userFirebase && userId !== userFirebase?.uid) {
-        setUserId(userFirebase?.uid);
-        const currentBasket = await resolvers.getCurrentBasket(userFirebase?.uid);
+      if (user) {
+        const currentBasket = await resolvers.getCurrentBasket(user.id);
         setCartItems(currentBasket);
-        const currentWishList = await resolvers.getCurrentWishList(userFirebase?.uid);
+        const currentWishList = await resolvers.getCurrentWishList(user.id);
         setWishList(currentWishList);
-        const currentUser = await resolvers.getCurrentUser(userFirebase?.uid);
-        setUserInfo(currentUser);
       }
     })();
-  });
+  }, [user]);
 
-  // useEffect(() => {
-  //   async () => {
-  //     if (user && userId !== user?.uid) {
-  //       setUserId(user?.uid);
-  //       const currentBasket = await resolvers.getCurrentBasket(user?.uid);
-  //       setCartItems(currentBasket);
-  //       const currentWishList = await resolvers.getCurrentWishList(user?.uid);
-  //       setWishList(currentWishList);
-  //       const currentUser = await resolvers.getCurrentUser(user?.uid);
-  //       setUserInfo(currentUser);
-  //     }
-  //   };
-  // }, [user]);
+  const loginHandler = async (email: string, password: string) => {
+    const userInstance = await resolvers.login(email, password);
+    setUser(userInstance);
+    return userInstance;
+  };
 
   const changePassword = async (newPassword: string) => {
     try {
-      await updatePassword(user!, newPassword).then(() => {
+      await updatePassword(userAuth!, newPassword).then(() => {
         window.alert('Password Succesfull Changed');
       });
     } catch (error) {
@@ -73,7 +48,7 @@ export const CartProvider = ({ children }: any) => {
 
   const changeEmail = async (newEmail: string) => {
     try {
-      await updateEmail(user!, newEmail);
+      await updateEmail(userAuth!, newEmail);
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);
@@ -84,10 +59,10 @@ export const CartProvider = ({ children }: any) => {
     await signOut(auth)
       .then(() => {
         // Sign-out successful.
-        setUserId(undefined);
+
         setCartItems([]);
         setWishList([]);
-        setUserInfo(undefined);
+        setUser(undefined);
       })
       .catch(error => {
         // An error happened.
@@ -106,7 +81,7 @@ export const CartProvider = ({ children }: any) => {
   }, []);
 
   const addItemToCart = async (product: Product) => {
-    if (!userId) {
+    if (!user) {
       return;
     }
     const productAlreadyOnBasket = cartItems.find(item => item.id === product.id);
@@ -119,11 +94,11 @@ export const CartProvider = ({ children }: any) => {
       : [...cartItems, { ...product, amount: 1 }];
     // console.log(newCartItems);
     setCartItems(newCartItems);
-    updateOrder(newCartItems, userId);
+    updateOrder(newCartItems, user.id);
   };
 
   const wishListHandler = (product: Product) => {
-    if (!userId) {
+    if (!user) {
       return;
     }
     console.log(product.id);
@@ -132,11 +107,11 @@ export const CartProvider = ({ children }: any) => {
     const newWishList = productAlreadyOnWishList ? wishList.filter(p => p.id !== product.id) : [...wishList, product];
 
     setWishList(newWishList);
-    updateWishList(newWishList, userId);
+    updateWishList(newWishList, user.id);
   };
 
-  const deleteItemToCart = (itemId: number) => {
-    if (!userId) {
+  const deleteItemToCart = (itemId: string) => {
+    if (!user) {
       return;
     }
     const itemToRemove = cartItems.find(({ id }) => itemId === id);
@@ -147,17 +122,17 @@ export const CartProvider = ({ children }: any) => {
         : cartItems.filter(item => item.id !== itemId);
 
     setCartItems(newCartItems);
-    updateOrder(newCartItems, userId);
+    updateOrder(newCartItems, user.id);
   };
 
-  const deleteAllItemToCart = (id: number) => {
-    if (!userId) {
+  const deleteAllItemToCart = (id: string) => {
+    if (!user) {
       return;
     }
     setCartItems(cartItems.filter(item => item.id !== id));
     updateOrder(
       cartItems.filter(item => item.id !== id),
-      userId
+      user.id
     );
   };
 
@@ -167,17 +142,16 @@ export const CartProvider = ({ children }: any) => {
       value={{
         changePassword,
         changeEmail,
-        userInfo,
         wishListHandler,
         wishList,
         deleteAllItemToCart,
         logOut,
-        userId,
+        user,
         products,
         deleteItemToCart,
         cartItems,
         addItemToCart,
-        ...{ ...resolvers },
+        ...{ ...resolvers, login: (email: string, password: string) => loginHandler(email, password) },
       }}
     >
       {children}

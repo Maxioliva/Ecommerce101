@@ -1,10 +1,12 @@
 /* eslint-disable no-unused-expressions */
 import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { login } from '../../utils/resolvers';
+import CartContext from '../../context/CartContext';
 import './style.scss';
 
 const LoginForm = () => {
+  const { login } = useContext(CartContext);
   const navigate = useNavigate();
 
   const initialValues = {

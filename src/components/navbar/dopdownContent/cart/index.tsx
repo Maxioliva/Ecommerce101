@@ -7,16 +7,16 @@ import { ItemList } from '../../../itemList';
 import './style.scss';
 
 const CartDropDown = () => {
-  const { userId, cartItems } = useContext(CartContext);
+  const { user, cartItems } = useContext(CartContext);
   const [cartOpen, setCartOpen] = useState(false);
   const navigate = useNavigate();
 
   return (
     <div>
-      <div className="profile-dropdown__title">{userId ? 'You Cart' : 'You are not registered yet'}</div>
+      <div className="profile-dropdown__title">{user ? 'You Cart' : 'You are not registered yet'}</div>
       <div className="separatorLine"></div>
       <div className="profile-dropdown__title">
-        {userId && cartItems.length ? (
+        {user && cartItems.length ? (
           <div className="productsContainer">
             {cartItems.map((item, i) => (
               <ItemList key={i} item={item} />
@@ -27,7 +27,7 @@ const CartDropDown = () => {
         )}
       </div>
       <div className="buttonsBhindConteiner">
-        {userId ? (
+        {user ? (
           <Link to="checkout">
             <button className="buttonsBhind">Check out</button>
           </Link>

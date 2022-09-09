@@ -5,17 +5,17 @@ import './style.scss';
 import { updateUser } from '../../../../../utils/resolvers';
 
 const ProfileSettings = () => {
-  const { userInfo, changePassword, changeEmail } = useContext(CartContext);
+  const { user, changePassword, changeEmail } = useContext(CartContext);
 
-  if (!userInfo) {
+  if (!user) {
     return <></>;
   }
 
   const initialValues = {
-    firstName: userInfo.firstName,
-    lastName: userInfo.lastName,
-    email: userInfo.email,
-    id: userInfo.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    id: user.id,
     password: '',
   };
 

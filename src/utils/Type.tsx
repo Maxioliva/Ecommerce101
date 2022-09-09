@@ -9,7 +9,7 @@ export type User = {
 };
 
 export type Product = {
-  id: number;
+  id: string;
   title: string;
   image: string;
   price: number;
@@ -32,17 +32,16 @@ export type Address = {
 };
 
 export type ShopState = {
-  userInfo?: User;
-  userId?: string;
+  user?: User;
   cartItems: Product[];
   products: Product[];
   wishList: Product[];
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<User>;
   logOut: () => void;
-  registerUser: (user: User & { password: string }) => Promise<void>;
+  registerUser: (user: User & { password: string }) => Promise<User>;
   addItemToCart: (product: Product) => Promise<void>;
-  deleteItemToCart: (id: number) => void;
-  deleteAllItemToCart: (id: number) => void;
+  deleteItemToCart: (id: string) => void;
+  deleteAllItemToCart: (id: string) => void;
   wishListHandler: (product: Product) => void;
   changePassword: (newPassword: string) => void;
   changeEmail: (newEmail: string) => void;

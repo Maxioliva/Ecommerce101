@@ -5,9 +5,9 @@ import { Formik, Field, Form } from 'formik';
 import { updatePayment } from '../../../utils/resolvers';
 
 const Payment = () => {
-  const { userInfo } = useContext(CartContext);
+  const { user } = useContext(CartContext);
 
-  if (!userInfo) {
+  if (!user) {
     return <></>;
   }
 
@@ -16,7 +16,7 @@ const Payment = () => {
   };
 
   const submitHandler = (values: typeof initialValues) => {
-    updatePayment(userInfo.id, values.picked);
+    updatePayment(user.id, values.picked);
   };
 
   return (

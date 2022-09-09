@@ -1,14 +1,13 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CartContext from '../../context/CartContext';
 import { ItemCart } from '../itemcart';
 import './style.scss';
-// import { buyOrder } from '../../utils/resolvers';
 
 const Cart = () => {
   const [cartOpen, setCartOpen] = useState(false);
 
-  const { cartItems, userId } = useContext(CartContext);
+  const { cartItems, user } = useContext(CartContext);
 
   const total = cartItems?.reduce((previous, item) => previous + item.price * item.amount, 0);
 
@@ -60,7 +59,7 @@ const Cart = () => {
           <h2 className="total">Total: ${total.toFixed(2)}</h2>
 
           <div className="buttonsBhindConteiner">
-            {userId ? (
+            {user ? (
               <Link to="checkout">
                 <button className="buttonsBhind">Check out</button>
               </Link>

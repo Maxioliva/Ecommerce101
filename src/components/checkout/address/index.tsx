@@ -6,9 +6,9 @@ import { Address } from '../../../utils/Type';
 import './style.scss';
 
 const Checkout = () => {
-  const { userInfo } = useContext(CartContext);
+  const { user } = useContext(CartContext);
 
-  if (!userInfo) {
+  if (!user) {
     return <></>;
   }
 
@@ -21,11 +21,11 @@ const Checkout = () => {
     zipCode: '',
     city: '',
     country: '',
-    id: userInfo.id,
+    id: user.id,
   };
 
   const submitHandler = (values: Address) => {
-    updateAdressOrder(values, userInfo.id);
+    updateAdressOrder(values, user.id);
   };
 
   return (

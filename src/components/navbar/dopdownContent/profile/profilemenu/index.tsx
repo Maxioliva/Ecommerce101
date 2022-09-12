@@ -7,14 +7,14 @@ import CartContext from '../../../../../context/CartContext';
 import './style.scss';
 
 const ProfileDropDown2 = () => {
-  const { logOut, userId } = useContext(CartContext);
+  const { logOut, user } = useContext(CartContext);
 
   return (
     <div>
-      <div className="profile-dropdown2__title">{userId ? 'Profile' : 'You are not registered yet'}</div>
+      <div className="profile-dropdown2__title">{user ? 'Profile' : 'You are not registered yet'}</div>
 
       <div className="profile-dropdown2__box">
-        {userId ? (
+        {user ? (
           <NavLink to={'/profile'} className="Nav_link">
             Profile & Security
           </NavLink>
@@ -25,7 +25,7 @@ const ProfileDropDown2 = () => {
         )}
       </div>
       <div className="profile-dropdown2__box">
-        {userId ? (
+        {user ? (
           <div>
             <NavLink to={'/orders'} className="Nav_link">
               Orders
@@ -38,8 +38,8 @@ const ProfileDropDown2 = () => {
         )}
       </div>
 
-      {userId && <div className="profile-dropdown2__box">Help</div>}
-      {userId && (
+      {user && <div className="profile-dropdown2__box">Help</div>}
+      {user && (
         <>
           <button className="profile-dropdown2__button" onClick={() => logOut()}>
             <FontAwesomeIcon icon={faRightFromBracket} />

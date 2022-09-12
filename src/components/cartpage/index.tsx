@@ -4,9 +4,10 @@ import CartContext from '../../context/CartContext';
 import './style.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 export const CartPage = () => {
-  const { deleteItemToCart, cartItems } = useContext(CartContext);
+  const { deleteItemToCart, cartItems, userId } = useContext(CartContext);
   const total = cartItems?.reduce((previous, item) => previous + item.price * item.amount, 0);
 
   console.log(cartItems);
@@ -30,9 +31,15 @@ export const CartPage = () => {
               </div>
             </div>
           </>
-        ))}
-        ; <h2 className="cartProducts__total">Total: ${total.toFixed(2)}</h2>
+        ))}; 
+          <h2 className="cartProducts__total">Total: ${total.toFixed(2)}</h2>
       </div>
+      <div className='buttonsBhindConteiner'>
+            {userId ? 
+            <Link to="/checkout">
+            <button className='buttonsBhind'>Check out</button></Link>
+             : <p>log in please</p>}
+          </div>
     </>
   );
 };

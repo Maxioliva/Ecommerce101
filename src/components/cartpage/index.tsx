@@ -34,10 +34,10 @@ export const CartPage = () => {
         ))}; 
           <h2 className="cartProducts__total">Total: ${total.toFixed(2)}</h2>
       </div>
-      <div className='buttonsBhindConteiner'>
+      <div className='cartProducts__buttonConteiner'>
             {userId ? 
             <Link to="/checkout">
-            <button className='buttonsBhind'>Check out</button></Link>
+            <button className='cartProducts__buttonCheck'>Check out</button></Link>
              : <p>log in please</p>}
           </div>
     </>

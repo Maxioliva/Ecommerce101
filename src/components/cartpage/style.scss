@@ -154,6 +154,32 @@
     &__total {
       text-align: center;
     }
+
+    &__buttonConteiner {
+      display: flex;
+      justify-content: center;
+    }
+
+
+    &__buttonCheck {
+      border-radius: 15px;
+      border: solid 3px #474544;
+      color: #474544;
+      cursor: pointer;
+      display: inline-block;
+      font-family: "Helvetica", Arial, sans-serif;
+      font-size: 0.875em;
+      font-weight: bold;
+      outline: none;
+      padding: 20px 35px;
+      text-transform: uppercase;
+    }
+
+    &__buttonCheck:hover {
+      background-color: #474544;
+      color: white;
+      border: solid 3px white;
+    }
   }
   
   

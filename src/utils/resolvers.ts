@@ -1,6 +1,8 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword,  } from 'firebase/auth';
 import { doc, getFirestore, setDoc, collection, query, where, getDocs, updateDoc } from 'firebase/firestore';
 import { nanoid } from 'nanoid';
+import { useState } from 'react';
 
 import firebaseApp from '../firebase/credenciales';
 import { Address, Order, Product, User, WishList } from './Type';
@@ -9,9 +11,13 @@ const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
 
 export const login = async (email: string, password: string) => {
- const userInfo = await signInWithEmailAndPassword(auth, email, password);
-  const result = await getCurrentUser(userInfo.user.uid)
-  console.log(result)
+ 
+  const userInfo = await signInWithEmailAndPassword(auth, email, password);
+  const result = await getCurrentUser(userInfo.user.uid);
+  // console.log(result);
+  return result;
+    
+  
 };
 
 export const registerUser = async (user: User & {password: string } ) => {
@@ -20,8 +26,12 @@ export const registerUser = async (user: User & {password: string } ) => {
     );
   const userId = infoUser.user.uid;
   const docuRef = await doc(firestore, `User/${infoUser.user.uid}`);
-  const newUser = { id: userId, firstName: user.firstName, lastName: user.lastName, email: user.email , gender: user.gender}
-   setDoc(docuRef, newUser);
+ 
+ 
+  const newUser = { id: userId, firstName: user.firstName, lastName: user.lastName, email: user.email, gender: user.gender }
+  setDoc(docuRef, newUser);
+  
+  return newUser;
 };
 
 

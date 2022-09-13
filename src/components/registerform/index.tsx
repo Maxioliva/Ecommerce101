@@ -34,12 +34,17 @@ const RegisterForm = () => {
     try {
       await registerUser(values);
     } catch (error) {
-      if (error instanceof Error && error.message.includes('auth/wrong-password')) {
+      if (error instanceof Error && error.message.includes('email-already-in-use')) {
         console.log(error.message);
-        window.alert('wrong-password');
+        window.alert('Email Already in Use');
+      }
+      if (error instanceof Error && error.message.includes('weak-password')) {
+        console.log(error.message);
+        window.alert('Password should be at least 6 characters');
       }
     }
   };
+
   return (
     <Formik initialValues={initialValues} validate={validate} onSubmit={submitHandler}>
       {({ errors }) => (

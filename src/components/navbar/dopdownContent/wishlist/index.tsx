@@ -9,24 +9,26 @@ import { ItemList } from '../../../itemList';
 import './style.scss';
 
 const WishListDropDown = () => {
-  const { userId, wishList} = useContext(CartContext);
+  const { user, wishList } = useContext(CartContext);
   const navigate = useNavigate();
 
   return (
     <div>
-      <div className="profile-dropdown__title">{userId ? 'Wishlist' : 'You are not registered yet'}</div>
+      <div className="profile-dropdown__title">{user ? 'Wishlist' : 'You are not registered yet'}</div>
       <div className="separatorLine"></div>
       <div className="profile-dropdown__title">
-         { (userId && wishList.length) ? (
+        {user && wishList.length ? (
           <div className="productsContainer">
-          {wishList.map((item, i) => (
-        <ItemList key={i} item={item} />))}
-        </div>
-           ) : (<div>Your wishlist is empty!</div>)
-            }
+            {wishList.map((item, i) => (
+              <ItemList key={i} item={item} />
+            ))}
+          </div>
+        ) : (
+          <div>Your wishlist is empty!</div>
+        )}
       </div>
       <div>
-        {userId && (
+        {user && (
           <button className="profile-dropdown__button" onClick={() => navigate('/wishlist')}>
             <FontAwesomeIcon icon={faRightFromBracket} />
             Go To Favorites{' '}

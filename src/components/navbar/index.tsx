@@ -1,25 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable quotes */
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getAssetUrl } from '../../utils/config';
 import DropDown from '../atoms/dropdown';
 import ProfileDropDown from './dopdownContent/profile';
 import './style.scss';
-
-import Cart from '../cart';
-import CartContext from '../../context/CartContext';
-import { useContext, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRightFromBracket, faHeart } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import Icon from '../atoms/icono';
-import WishList from '../wishlist';
 import WishListDropDown from './dopdownContent/wishlist';
 import CartDropDown from './dopdownContent/cart';
 
 const NavBar = () => {
-  const { logOut, userId } = useContext(CartContext);
-
   const navigate = useNavigate();
 
   return (

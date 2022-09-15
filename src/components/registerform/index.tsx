@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { Link } from 'react-router-dom';
 import { registerUser } from '../../utils/resolvers';
@@ -49,6 +50,7 @@ const RegisterForm = () => {
     <Formik initialValues={initialValues} validate={validate} onSubmit={submitHandler}>
       {({ errors }) => (
         <Form className="form">
+          <div className="sign">Register Account</div>
           <div>
             <Field name="Genre" as="select">
               <option value="Mrs" id="Mrs">
@@ -83,7 +85,9 @@ const RegisterForm = () => {
           <Link to={'/login'}>
             <button type="submit">Login</button>
           </Link>
-          Al crear una cuenta, aceptas las Condiciones de Uso y el Aviso de Privacidad de amazon.com.
+          <div className="form-message">
+            By creating an account, you agree to Shopping's terms of use and privacy notice{' '}
+          </div>
         </Form>
       )}
     </Formik>

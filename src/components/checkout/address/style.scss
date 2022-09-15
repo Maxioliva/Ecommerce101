@@ -2,6 +2,13 @@
 .checkout {
     background-color: white;
     
+&__h1 {
+    color: #474544;
+    font-size: 23px;
+    width: 100%;
+    text-align: center;
+    border-block: solid 3px #474544;
+}
 
 &__form {
     background-color: rgb(220, 227, 234);
@@ -22,7 +29,7 @@
 	font-size: 1.000em;
     font-weight: 400;
     letter-spacing: 1px;
-	margin: 0em 0 1.875em 0;
+	margin: 0.5em 0 1.875em 0;
 	padding: 0 0 0.875em 0;
     text-transform: uppercase;
 	width: 100%;

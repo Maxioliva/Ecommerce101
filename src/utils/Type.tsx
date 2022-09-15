@@ -54,6 +54,7 @@ export type Order = {
   userId: string;
   products: Product[];
   isCompleted: boolean;
+  address: Address;
 };
 
 export type WishList = {

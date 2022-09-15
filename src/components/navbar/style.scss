@@ -1,41 +1,32 @@
 @import '../../variables';
 
 .navbar { 
+  position: relative;
   display: flex;
   align-items: center;
   color: white;
   font-weight: bold;
- 
+  height: 80px;
+  justify-content: flex-end;
+  padding: 0 20px;
   
   
 
  &__option {
-  display: flex;
-
- }
  
+padding: 0 4px;
+
 &__1 {
-  position: relative;
-    right: -30px;
+  
+  padding: 0 14px;
 }
 
-&__2 {
-  position: relative;
-    right: -117px;
 }
-&__3 {
-  position: relative;
-    right: -100px;
-}
-  &__logo {
-    height: 94%;
-    width: 14%;
-    position: relative;
-    right: 200px;
-    @media (max-width: $tablet) {
-      right: 91px;
-    }
-  }
+ 
+
+
+
+ 
 
   &__link {
     height: 100%;

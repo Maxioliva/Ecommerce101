@@ -44,31 +44,38 @@ const LoginForm = () => {
   };
 
   return (
-    <Formik initialValues={initialValues} validate={validate} onSubmit={submitHandler}>
-      {({ errors }) => (
-        <Form className="form">
-          <div className="sign">Sign In</div>
-          <div>
+    <>
+      <Formik initialValues={initialValues} validate={validate} onSubmit={submitHandler}>
+        {({ errors }) => (
+          <Form className="form">
+            <div className="sign">Sign In</div>
             <label htmlFor="email"></label>
             <Field className="input" type="email" id="email" name="email" placeholder="Email Address" />
             <ErrorMessage name="email" component={() => <div className="error">{errors.email} </div>} />
-          </div>
-          <div>
             <label htmlFor="password"></label>
             <Field className="input" type="password" id="password" name="password" placeholder="Choose a Password" />
             <ErrorMessage name="password" component={() => <div className="error">{errors.password} </div>} />
-          </div>
-          <div className="button-container">
-            <button className="sign-button" type="submit">
-              Login
-            </button>
-          </div>
-          <Link to={'/register'}>
-            <button type="submit">Register</button>
-          </Link>
-        </Form>
-      )}
-    </Formik>
+            <div className="button-container">
+              <button className="sign-button" type="submit">
+                Login
+              </button>
+            </div>
+            <div className="form-message">
+              By continuing, you agree to the shopping terms and conditions and privacy notice .
+            </div>
+          </Form>
+        )}
+      </Formik>
+      <div className="bottom-form">
+        <div className="separator-line">¿Are you new in Shopping?</div>
+
+        <Link to={'/register'}>
+          <button className="buttom-register" type="submit">
+            Register
+          </button>
+        </Link>
+      </div>
+    </>
   );
 };
 export default LoginForm;

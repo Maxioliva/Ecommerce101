@@ -83,6 +83,7 @@ const RegisterForm = () => {
           <Link to={'/login'}>
             <button type="submit">Login</button>
           </Link>
+          Al crear una cuenta, aceptas las Condiciones de Uso y el Aviso de Privacidad de amazon.com.
         </Form>
       )}
     </Formik>

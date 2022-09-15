@@ -52,6 +52,11 @@
     text-transform: uppercase;
 }
 
+&__button:hover{
+    background-color: black;
+    color: rgb(220, 227, 234);
+  }
+
 &__textbutton {
     font-family: "Helvetica", Arial, sans-serif;
     font-size: 14px;

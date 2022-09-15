@@ -35,10 +35,10 @@ const App = () => (
             <Route
               path="/checkout"
               element={
-                <div>
+                <>
                   <Checkout />
                   <Payment />
-                </div>
+                </>
               }
             />
             <Route

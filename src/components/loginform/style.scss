@@ -1,7 +1,14 @@
 
+
+.formik__header{
+  position: relative;
+  width: 167px;
+  margin: auto;
+}
+
 .bottom-form {
     position: relative;
-    top: 170px;
+    top: 40px;
     width: 322px;
     margin: auto;
 }
@@ -53,9 +60,10 @@
 
 }
 .separator-line {
-    border-top: 2px solid black;
+    border-top: 2px solid #b0b0b0;
     padding: 0 50px 15px;
     margin: 0px auto 0 auto;
+    color: #565656;
 }
 .sign {
   font-size: xx-large;
@@ -66,7 +74,7 @@
   background-color: #2942e7;
   border: none;
   color: white;
-  padding: 6px 102px;
+  padding: 9px 102px;
   width: 254px;
   text-align: justify;
   text-decoration: none;
@@ -90,4 +98,7 @@
 
   font-family: system-ui;
   padding: 16px;
+}
+.login__logo{
+width: 156px;
 }

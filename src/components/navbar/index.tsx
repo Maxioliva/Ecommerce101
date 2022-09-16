@@ -19,6 +19,9 @@ const NavBar = () => {
   return (
     <div className="navbar">
       {/* <Cart /> */}
+      <div className="navbar__option__3">
+        <img className="navbar__logo" src={getAssetUrl('./header/logonavbar.png')} alt="section1" />
+      </div>
       <div className="navbar__option">
         <DropDown control="profile" content={<ProfileDropDown />} />{' '}
       </div>

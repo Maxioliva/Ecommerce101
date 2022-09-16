@@ -4,7 +4,7 @@
     margin: 0px auto;
     display: flex;
     flex-direction: column;
-    background-color: lightseagreen;
+    background-color: rgb(255, 255, 255);
     border-radius: 5px;
   
     &__list {
@@ -128,7 +128,7 @@
     }
     
     &__total {
-      color:floralwhite;
+      color:rgb(0, 0, 0);
       font-weight: bold;
       font-size: x-large;
       text-align: center;

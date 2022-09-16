@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { Link } from 'react-router-dom';
+import { getAssetUrl } from '../../utils/config';
 import { registerUser } from '../../utils/resolvers';
 import { User } from '../../utils/Type';
 import './style.scss';
@@ -24,9 +25,9 @@ const RegisterForm = () => {
     }
 
     if (!values.lastName) {
-      error.lastname = 'Please insert a lastname';
+      error.lastName = 'Please insert a lastname';
     } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.lastName)) {
-      error.lastname = 'The name can contain only letters and spaces';
+      error.lastName = 'The name can contain only letters and spaces';
     }
     return error;
   };
@@ -47,50 +48,59 @@ const RegisterForm = () => {
   };
 
   return (
-    <Formik initialValues={initialValues} validate={validate} onSubmit={submitHandler}>
-      {({ errors }) => (
-        <Form className="form">
-          <div className="sign">Register Account</div>
-          <div>
-            <Field name="Genre" as="select">
-              <option value="Mrs" id="Mrs">
-                Mrs
-              </option>
-              <option value="Mr" id="Mr">
-                Mr
-              </option>
-            </Field>
-          </div>
-          <div>
+    <>
+      <div className="formik__header">
+        <img className="login__logo" src={getAssetUrl('./header/logonavbar.png')} alt="section1" />
+      </div>
+      <Formik initialValues={initialValues} validate={validate} onSubmit={submitHandler}>
+        {({ errors }) => (
+          <Form className="form">
+            <div className="sign">Register Account</div>
+            <div>
+              <Field name="Genre" as="select">
+                <option value="Mrs" id="Mrs">
+                  Mrs
+                </option>
+                <option value="Mr" id="Mr">
+                  Mr
+                </option>
+              </Field>
+            </div>
+
             <label htmlFor="firstName"></label>
             <Field className="input" type="text" id="firstName" name="firstName" placeholder="First Name" />
             <ErrorMessage name="firstName" component={() => <div className="error">{errors.firstName} </div>} />
-          </div>
-          <div>
+
             <label htmlFor="lastName"></label>
             <Field className="input" type="text" id="lastName" name="lastName" placeholder="Last Name" />
             <ErrorMessage name="lastName" component={() => <div className="error">{errors.lastName} </div>} />
-          </div>
-          <div>
+
             <label htmlFor="email"></label>
             <Field className="input" type="email" id="email" name="email" placeholder="Email Address" />
-          </div>
-          <div>
+
             <label htmlFor="password"></label>
             <Field className="input" type="password" id="password" name="password" placeholder="Choose a Password" />
-          </div>
-          <button className="sign-button" type="submit">
-            Register
+
+            <button className="sign-button" type="submit">
+              Register
+            </button>
+
+            <div className="form-message">
+              By creating an account, you agree to Shopping's terms of use and privacy notice{' '}
+            </div>
+          </Form>
+        )}
+      </Formik>
+      <div className="bottom-form">
+        <div className="separator-line">¿Do you already have an account?</div>
+
+        <Link to={'/login'}>
+          <button className="buttom-register" type="submit">
+            Login
           </button>
-          <Link to={'/login'}>
-            <button type="submit">Login</button>
-          </Link>
-          <div className="form-message">
-            By creating an account, you agree to Shopping's terms of use and privacy notice{' '}
-          </div>
-        </Form>
-      )}
-    </Formik>
+        </Link>
+      </div>
+    </>
   );
 };
 export default RegisterForm;

@@ -10,7 +10,12 @@
   justify-content: flex-end;
   padding: 0 20px;
   
-  
+&__logo{
+  height: 115px;
+  width: 134px;
+ 
+
+}  
 
  &__option {
  
@@ -19,6 +24,12 @@ padding: 0 4px;
 &__1 {
   
   padding: 0 14px;
+}
+
+
+&__3 {
+  position: absolute;
+  left: 0px;
 }
 
 }

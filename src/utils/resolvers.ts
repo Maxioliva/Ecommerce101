@@ -62,7 +62,7 @@ export const updateAdressOrder =  async (address: Address, userId: string) => {
   const querySnapshot = await getDocs(q);
   const currentBasket = querySnapshot.docs.find(d => !(d.data() as Order).isCompleted)
   const docuRef = await doc(firestore, `Orders/${currentBasket?.id}`);
-  await updateDoc(docuRef, { address, });
+  await updateDoc(docuRef, { address });
 
 }
 export const updatePayment =  async (userId: string, payment: string) => {

@@ -56,7 +56,7 @@ const RegisterForm = () => {
         {({ errors }) => (
           <Form className="form">
             <div className="sign">Register Account</div>
-            <div>
+            <div className="genre">
               <Field name="Genre" as="select">
                 <option value="Mrs" id="Mrs">
                   Mrs

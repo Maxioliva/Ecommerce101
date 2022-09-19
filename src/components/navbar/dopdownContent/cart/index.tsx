@@ -34,11 +34,13 @@ const CartDropDown = () => {
       </div>
       <div className="buttonsBhindConteiner">
         {' '}
-        <Link to="cart">
-          <button className="buttonsBhind" onClick={() => setCartOpen(!cartOpen)}>
-            Basket Page
-          </button>
-        </Link>
+        {user && (
+          <Link to="cart">
+            <button className="buttonsBhind" onClick={() => setCartOpen(!cartOpen)}>
+              Basket Page
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );

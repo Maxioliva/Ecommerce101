@@ -10,10 +10,11 @@
 }
 .input {
   padding: 9px 20px;
-  margin: 10px 10px;
+  margin: 10px 0px;
   box-sizing: border-box;
   border-radius: 4px;
   font-size: large;
+  width: 100%;
 }
 
 .input:hover {
@@ -23,5 +24,9 @@
   color: red;
   font-family: 'Times New Roman', Times, serif;
   font-size: 15px;
-  margin: 10px;
+  
+}
+
+.genre {
+  margin: 10px 0px;
 }

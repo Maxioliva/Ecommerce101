@@ -67,27 +67,26 @@
 }
 .sign {
   font-size: xx-large;
-  margin: 10px;
+  
 }
 .sign-button {
   position: relative;
-  left: 10px;
   background-color: #2942e7;
   border: none;
   color: white;
-  padding: 9px 102px;
-  width: 254px;
+  padding: 8px 118px;
   text-align: justify;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
   cursor: pointer;
   border-radius: 3px;
-  margin: auto;
+  margin: 10px 0px 10px;
+  width: 100%;
 
 }
 .sign-button:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    box-shadow: 0px 0px 4px 2px rgb(0 0 0 / 24%);
 }
 
 .button-container {
@@ -96,9 +95,9 @@
 }
 
 .form-message{
-
+  margin: 0px , 10px;
   font-family: system-ui;
-  padding: 16px;
+
 }
 .login__logo{
 width: 156px;

@@ -50,7 +50,7 @@ const RegisterForm = () => {
   return (
     <>
       <div className="formik__header">
-        <img className="login__logo" src={getAssetUrl('./header/logonavbar.png')} alt="section1" />
+        <img className="login__logo" src={getAssetUrl('./header/navbarlogo.png')} alt="section1" />
       </div>
       <Formik initialValues={initialValues} validate={validate} onSubmit={submitHandler}>
         {({ errors }) => (

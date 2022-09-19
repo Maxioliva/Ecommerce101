@@ -8,7 +8,7 @@ type DropDownProps = {
 };
 
 const DropDown = ({ control, content }: DropDownProps) => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   return (
     <div className="dropdown" onMouseEnter={() => setIsVisible(true)} onMouseLeave={() => setIsVisible(false)}>
       <div className="dropdown__menu">

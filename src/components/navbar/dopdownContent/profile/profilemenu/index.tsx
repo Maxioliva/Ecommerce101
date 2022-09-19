@@ -1,13 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
-import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import CartContext from '../../../../../context/CartContext';
 import './style.scss';
 
 const ProfileDropDown2 = () => {
-  const { logOut, user } = useContext(CartContext);
+  const { user } = useContext(CartContext);
 
   return (
     <div>
@@ -39,14 +38,6 @@ const ProfileDropDown2 = () => {
       </div>
 
       {user && <div className="profile-dropdown2__box">Help</div>}
-      {user && (
-        <>
-          <button className="profile-dropdown2__button" onClick={() => logOut()}>
-            <FontAwesomeIcon icon={faRightFromBracket} />
-            Close sesion{' '}
-          </button>
-        </>
-      )}
     </div>
   );
 };

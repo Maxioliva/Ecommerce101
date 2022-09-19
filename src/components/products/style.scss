@@ -16,7 +16,7 @@
   margin: 0px auto;
   display: flex;
   flex-direction: column;
-  background-color: lightseagreen;
+  background-color: rgb(211 233 240);
   border-radius: 5px;
   @media (max-width: $mobile) {
     width: 330px;
@@ -35,7 +35,8 @@
   }
 
   &__card {
-    border: 2px solid black;
+    // border: 3px solid black;
+   
     border-radius: 5px;
     overflow: hidden;
     padding: 10px;
@@ -49,6 +50,9 @@
     width: 240px;
     height: 330px;
     text-align: center;
+    &:hover {
+      box-shadow:  8px 8px 5px rgb(154, 166, 170);
+    }
     @media (max-width: $tablet) {
       width: 150px;
       height: 285px;

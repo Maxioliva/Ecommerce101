@@ -1,13 +1,15 @@
 .form {
   background-color: whitesmoke;
-  padding: 7px;
+  padding: 18px;
   border-radius: 5px;
   width: 280px;
   margin: auto;
-  border-style: solid;
+  border-style: groove;
+  position: relative;
+ 
 }
 .input {
-  padding: 12px 20px;
+  padding: 9px 20px;
   margin: 10px 10px;
   box-sizing: border-box;
   border-radius: 4px;
@@ -15,10 +17,11 @@
 }
 
 .input:hover {
-  border: 1px solid blue;
+  border: 2px solid blue;
 }
 .error {
   color: red;
   font-family: 'Times New Roman', Times, serif;
   font-size: 15px;
+  margin: 10px;
 }

@@ -21,7 +21,6 @@ const App = () => (
   <div className="app">
     <Router>
       <div className="app__header">
-        <Logo />
         <NavBar />
       </div>
       <div className="app__body">

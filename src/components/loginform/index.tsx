@@ -3,6 +3,7 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import CartContext from '../../context/CartContext';
+import { getAssetUrl } from '../../utils/config';
 import './style.scss';
 
 const LoginForm = () => {
@@ -44,31 +45,43 @@ const LoginForm = () => {
   };
 
   return (
-    <Formik initialValues={initialValues} validate={validate} onSubmit={submitHandler}>
-      {({ errors }) => (
-        <Form className="form">
-          <div className="sign">Sign In</div>
-          <div>
-            <label htmlFor="email"></label>
-            <Field className="input" type="email" id="email" name="email" placeholder="Email Address" />
-            <ErrorMessage name="email" component={() => <div className="error">{errors.email} </div>} />
-          </div>
-          <div>
-            <label htmlFor="password"></label>
-            <Field className="input" type="password" id="password" name="password" placeholder="Choose a Password" />
-            <ErrorMessage name="password" component={() => <div className="error">{errors.password} </div>} />
-          </div>
-          <div className="button-container">
-            <button className="sign-button" type="submit">
-              Login
-            </button>
-          </div>
-          <Link to={'/register'}>
-            <button type="submit">Register</button>
-          </Link>
-        </Form>
-      )}
-    </Formik>
+    <>
+      <Formik initialValues={initialValues} validate={validate} onSubmit={submitHandler}>
+        {({ errors }) => (
+          <>
+            <div className="formik__header">
+              <img className="login__logo" src={getAssetUrl('./header/navbarlogo.png')} alt="section1" />
+            </div>
+            <Form className="form">
+              <div className="sign">Sign In</div>
+              <label htmlFor="email"></label>
+              <Field className="input" type="email" id="email" name="email" placeholder="Email Address" />
+              <ErrorMessage name="email" component={() => <div className="error">{errors.email} </div>} />
+              <label htmlFor="password"></label>
+              <Field className="input" type="password" id="password" name="password" placeholder="Choose a Password" />
+              <ErrorMessage name="password" component={() => <div className="error">{errors.password} </div>} />
+              <div className="button-container">
+                <button className="sign-button" type="submit">
+                  Login
+                </button>
+              </div>
+              <div className="form-message">
+                By continuing, you agree to the shopping terms and conditions and privacy notice .
+              </div>
+            </Form>
+          </>
+        )}
+      </Formik>
+      <div className="bottom-form">
+        <div className="separator-line">¿Are you new in Shopping?</div>
+
+        <Link to={'/register'}>
+          <button className="buttom-register" type="submit">
+            Register
+          </button>
+        </Link>
+      </div>
+    </>
   );
 };
 export default LoginForm;

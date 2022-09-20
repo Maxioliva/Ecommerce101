@@ -1,18 +1,30 @@
 
 
-.form {
+.formprofile {
+  background-color: whitesmoke;
+  padding: 18px;
+  border-radius: 5px;
+  width: 280px;
+  margin: auto;
+  border-style: groove;
+  top: 150px;
+
+.input {
+  padding: 12px 20px;
+  margin: 10px 10px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-size: large;
+}
+
+.input:hover {
+  border: 2px solid blue;
+}
     
-    &__title {
-        font-size: large;
-        color:blueviolet;
-        font-family: monospace;
-        text-align: center;
-        
-      } 
 
       &__button { 
         background-color: initial;
-        background-image: linear-gradient(-180deg, #d931ff, #0321e6);
+        background-image: linear-gradient(-180deg, #bee0e9, #03a6e6);
         border-radius: 6px;
         box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
         color: #FFFFFF;
@@ -40,10 +52,10 @@
       }
     
       &__button:hover {
-        box-shadow: rgba(253, 0, 240, 0.5) 0 3px 8px;
+        box-shadow: rgba(12, 0, 11, 0.5) 0 3px 8px;
       }
     
-    }
+}
 
  
 

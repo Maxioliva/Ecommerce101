@@ -1,18 +1,26 @@
 import { Field, Form, Formik } from 'formik';
 import { useContext, useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import CartContext from '../../../context/CartContext';
 import { updateAdressOrder } from '../../../utils/resolvers';
 import { Address } from '../../../utils/Type';
+import OrderSummary from '../../molecules/orderSummary';
 import './style.scss';
 
-const Checkout = () => {
- 
-  const { user } = useContext(CartContext);
+const Shipping = () => {
+  const navigate = useNavigate();
+  const { user, cartItems } = useContext(CartContext);
   
   if (!user) {
+    navigate('/');
     return <></>;
   }
 
+  if (!cartItems.length) {
+    navigate('/');
+    return <></>;
+  }
+  
   const Addresss = {
     firstName: '',
     lastName: '',
@@ -27,9 +35,12 @@ const Checkout = () => {
 
   const submitHandler = (values: Address) => {
     updateAdressOrder(values, user.id);
+    navigate('/checkout-payment')
   };
 
   return (
+    <div className='shipping'>
+    
     <Formik initialValues={Addresss} onSubmit={submitHandler}>
       <Form className="checkout">
         <div className="checkout__form">
@@ -55,7 +66,9 @@ const Checkout = () => {
         </div>
       </Form>
     </Formik>
+    <OrderSummary/>
+    </div>
   );
 };
 
-export default Checkout;
+export default Shipping;

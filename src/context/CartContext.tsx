@@ -4,28 +4,35 @@ import { createContext, useEffect, useState } from 'react';
 import firebaseApp from '../firebase/credenciales';
 import * as resolvers from '../utils/resolvers';
 import { updateOrder, updateWishList } from '../utils/resolvers';
-import { Product, ShopState, User } from '../utils/Type';
+import { Order, Product, ShopState, User } from '../utils/Type';
 
 const CartContext = createContext<ShopState>({} as ShopState);
 
 export const CartProvider = ({ children }: any) => {
   const [user, setUser] = useState<User>();
-  const [cartItems, setCartItems] = useState<Product[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [wishList, setWishList] = useState<Product[]>([]);
+  const [order, setOrder] = useState<Omit<Order, 'id' | 'userId' | 'isCompleted'>>();
   const auth = getAuth(firebaseApp);
   const userAuth = auth.currentUser;
 
   useEffect(() => {
     (async () => {
       if (user) {
-        const currentBasket = await resolvers.getCurrentBasket(user.id);
-        setCartItems(currentBasket);
+        getOrder(user.id);
+        // const currentBasket = await resolvers.getCurrentBasket(user.id);
+        // setCartItems(currentBasket);
         const currentWishList = await resolvers.getCurrentWishList(user.id);
         setWishList(currentWishList);
       }
     })();
   }, [user]);
+
+  const getOrder = async (id: string) => {
+    const currentOrder = await resolvers.getCurrentOrder(id);
+    setOrder(currentOrder);
+    console.log(currentOrder);
+  };
 
   const loginHandler = async (email: string, password: string) => {
     const userInstance = await resolvers.login(email, password);
@@ -59,10 +66,9 @@ export const CartProvider = ({ children }: any) => {
     await signOut(auth)
       .then(() => {
         // Sign-out successful.
-
-        setCartItems([]);
-        setWishList([]);
         setUser(undefined);
+        setOrder(undefined);
+        setWishList([]);
       })
       .catch(error => {
         // An error happened.
@@ -84,16 +90,16 @@ export const CartProvider = ({ children }: any) => {
     if (!user) {
       return;
     }
-    const productAlreadyOnBasket = cartItems.find(item => item.id === product.id);
+    const productAlreadyOnBasket = order!.products.find(item => item.id === product.id);
 
     const newCartItems = productAlreadyOnBasket
       ? [
-          ...cartItems.filter(i => i.id !== product.id),
+          ...order!.products.filter(i => i.id !== product.id),
           { ...productAlreadyOnBasket, amount: productAlreadyOnBasket.amount + 1 },
         ]
-      : [...cartItems, { ...product, amount: 1 }];
+      : [...order!.products, { ...product, amount: 1 }];
     // console.log(newCartItems);
-    setCartItems(newCartItems);
+    setOrder({ ...order, products: newCartItems });
     updateOrder(newCartItems, user.id);
   };
 
@@ -114,14 +120,14 @@ export const CartProvider = ({ children }: any) => {
     if (!user) {
       return;
     }
-    const itemToRemove = cartItems.find(({ id }) => itemId === id);
+    const itemToRemove = order!.products.find(({ id }) => itemId === id);
 
     const newCartItems =
       itemToRemove!.amount > 1
-        ? cartItems.map(item => ({ ...item, amount: item.id === itemId ? item!.amount - 1 : item.amount }))
-        : cartItems.filter(item => item.id !== itemId);
+        ? order!.products.map(item => ({ ...item, amount: item.id === itemId ? item!.amount - 1 : item.amount }))
+        : order!.products.filter(item => item.id !== itemId);
 
-    setCartItems(newCartItems);
+    setOrder({ ...order, products: newCartItems });
     updateOrder(newCartItems, user.id);
   };
 
@@ -129,17 +135,19 @@ export const CartProvider = ({ children }: any) => {
     if (!user) {
       return;
     }
-    setCartItems(cartItems.filter(item => item.id !== id));
     updateOrder(
-      cartItems.filter(item => item.id !== id),
+      order!.products.filter(item => item.id !== id),
       user.id
     );
+    setOrder({ ...order, products: order!.products.filter(item => item.id !== id) });
   };
 
   return (
     /* Envolvemos el children con el provider y le pasamos un objeto con las propiedades que necesitamos por value */
     <CartContext.Provider
       value={{
+        order,
+        getOrder,
         changePassword,
         changeEmail,
         wishListHandler,
@@ -149,7 +157,6 @@ export const CartProvider = ({ children }: any) => {
         user,
         products,
         deleteItemToCart,
-        cartItems,
         addItemToCart,
         ...{ ...resolvers, login: (email: string, password: string) => loginHandler(email, password) },
       }}

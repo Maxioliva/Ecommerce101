@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Logo from './components/atoms/logo';
 import Slider from './components/atoms/slider';
 import { CartPage } from './components/cartpage';
 import Footer from './components/footer';

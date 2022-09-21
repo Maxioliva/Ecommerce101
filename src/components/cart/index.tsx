@@ -7,9 +7,9 @@ import './style.scss';
 const Cart = () => {
   const [cartOpen, setCartOpen] = useState(false);
 
-  const { cartItems, user } = useContext(CartContext);
+  const { order, user } = useContext(CartContext);
 
-  const total = cartItems?.reduce((previous, item) => previous + item.price * item.amount, 0);
+  const total = order?.products.reduce((previous, item) => previous + item.price * item.amount, 0);
 
   return (
     <div className="cartContainer">
@@ -39,24 +39,24 @@ const Cart = () => {
             </svg>
           )}
         </div>
-        {!cartOpen && <div className="productsNumber">{cartItems.length}</div>}
+        {!cartOpen && <div className="productsNumber">{order?.products.length}</div>}
       </div>
 
-      {cartItems && cartOpen && (
+      {order && cartOpen && (
         <div className="cart">
           <h2>Tu carrito</h2>
 
-          {cartItems.length === 0 ? (
+          {order?.products.length === 0 ? (
             <p className="cartVacio">Tu carrito esta vacio</p>
           ) : (
             <div className="productsContainer">
-              {cartItems.map((item, i) => (
+              {order?.products.map((item, i) => (
                 <ItemCart key={i} item={item} />
               ))}
             </div>
           )}
 
-          <h2 className="total">Total: ${total.toFixed(2)}</h2>
+          {total && <h2 className="total">Total: ${total.toFixed(2)}</h2>}
 
           <div className="buttonsBhindConteiner">
             {user ? (

@@ -7,15 +7,14 @@ import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 export const CartPage = () => {
-  const { deleteItemToCart, cartItems, user } = useContext(CartContext);
-  const total = cartItems?.reduce((previous, item) => previous + item.price * item.amount, 0);
+  const { deleteItemToCart, order, user } = useContext(CartContext);
+  const total = order?.products.reduce((previous, item) => previous + item.price * item.amount, 0);
 
-  console.log(cartItems);
   return (
     <>
       <div className="cartProducts">
         <div className="cartProducts__list"></div>
-        {cartItems.map(product => (
+        {order?.products.map(product => (
           <>
             <div className="cartProducts__card" key={product.id}>
               <img className="cartProducts__image" src={product.image} alt={product.title} />
@@ -32,7 +31,7 @@ export const CartPage = () => {
             </div>
           </>
         ))}
-        ;<h2 className="cartProducts__total">Total: ${total.toFixed(2)}</h2>
+        {total && <h2 className="cartProducts__total">Total: ${total.toFixed(2)}</h2>}
       </div>
       <div className="cartProducts__buttonConteiner">
         {user ? (

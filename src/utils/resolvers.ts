@@ -2,7 +2,7 @@
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword,  } from 'firebase/auth';
 import { doc, getFirestore, setDoc, collection, query, where, getDocs, updateDoc } from 'firebase/firestore';
 import { nanoid } from 'nanoid';
-import { useState } from 'react';
+
 
 import firebaseApp from '../firebase/credenciales';
 import { Address, Order, Product, User, WishList } from './Type';
@@ -91,22 +91,22 @@ export const getCurrentOrder = async (userId: string) => {
   const querySnapshot = await getDocs(q);
 
   if (querySnapshot.docs.length && querySnapshot.docs.some(o => !(o.data() as Order).isCompleted)) {
-    const currentOrder = querySnapshot.docs.find(d => (d.data() as Order).isCompleted);
+    const currentOrder = querySnapshot.docs.find(d => !(d.data() as Order).isCompleted);
     return (currentOrder?.data() as Omit<Order, 'id'|'userId'|'isCompleted'> ) ;
   }
   return { products:[] as Product[] };
 }
 
-export const getCurrentBasket = async (userId: string) => {
-  const q = query(collection(firestore, 'Orders'), where('userId', '==', userId));
-  const querySnapshot = await getDocs(q);
+// export const getCurrentBasket = async (userId: string) => {
+//   const q = query(collection(firestore, 'Orders'), where('userId', '==', userId));
+//   const querySnapshot = await getDocs(q);
 
-  if (querySnapshot.docs.length && querySnapshot.docs.some (o => !(o.data() as Order).isCompleted)) {
-    const currentBasket = querySnapshot.docs.find(d => !(d.data() as Order).isCompleted);
-    return (currentBasket?.data() as Order).products;
-  }
-  return [];
-};
+//   if (querySnapshot.docs.length && querySnapshot.docs.some (o => !(o.data() as Order).isCompleted)) {
+//     const currentBasket = querySnapshot.docs.find(d => (d.data() as Order).isCompleted);
+//     return (currentBasket?.data() as Order).products;
+//   }
+//   return [];
+// };
 export const updateWishList = async (products: Product[], userId: string) => {
   const q = query(collection(firestore, 'WishList'), where('userId', '==', userId));
   const querySnapshot = await getDocs(q);

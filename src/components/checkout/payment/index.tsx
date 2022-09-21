@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import CartContext from '../../../context/CartContext';
 import { getAssetUrl } from '../../../utils/config';
 import { Formik, Field, Form } from 'formik';
-import { getCurrentOrder, updatePayment } from '../../../utils/resolvers';
+import { updatePayment } from '../../../utils/resolvers';
 import './style.scss';
 
 const Payment = () => {
@@ -16,9 +16,10 @@ const Payment = () => {
     picked: '',
   };
 
-  const submitHandler = (values: typeof initialValues) => {
-    updatePayment(user.id, values.picked);
-    getOrder(user.id);
+  const submitHandler = async (values: typeof initialValues) => {
+    await updatePayment(user.id, values.picked);
+
+    await getOrder(user.id);
   };
 
   return (

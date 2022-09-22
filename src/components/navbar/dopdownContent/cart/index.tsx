@@ -25,7 +25,7 @@ const CartDropDown = () => {
       </div>
       <div className="buttonsBhindConteiner">
         {user ? (
-          <Link to="checkout">
+          <Link to="checkout-shipping">
             <button className="buttonsBhind">Check out</button>
           </Link>
         ) : (

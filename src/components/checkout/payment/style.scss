@@ -1,67 +1,71 @@
-.payment{
+.formik {
+    display: flex;
+}
+
+.payment {
     background-color: white;
 
-&__f1 {
-    display: grid;
-    width: 300px;
-    padding: 16px;
-    border-radius: 10px;
-    margin: auto;
-    border: solid 3px #474544;
-    background-color:rgb(220, 227, 234);
-    color: white;
-}
-
-&__h1 {
-    color: #474544;
-    font-size: 23px;
-    width: 100%;
-    text-align: center;
-    border-block: solid 3px #474544;
+    &__f1 {
+        display: grid;
+        width: 300px;
+        padding: 16px;
+        border-radius: 10px;
+        margin: auto;
+        border: solid 3px #474544;
+        background-color: rgb(220, 227, 234);
+        color: white;
     }
 
-&__picked {
-    margin: 0px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-}
+    &__h1 {
+        color: #474544;
+        font-size: 23px;
+        width: 100%;
+        text-align: center;
+        border-block: solid 3px #474544;
+    }
 
-&__field {
-    cursor: pointer;
-    margin: 32px 35px 0;
-}
+    &__picked {
+        margin: 0px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
 
-&__img {
-    width: 120px;
-    margin: 4px;
-    padding: 28px 0 0 0px;
-}
+    &__field {
+        cursor: pointer;
+        margin: 32px 35px 0;
+    }
 
-&__button {
-    background: none;
-    border: solid 3px #474544;
-    color: #474544;
-    cursor: pointer;
-    display: inline-block;
-    font-family: "Helvetica", Arial, sans-serif;
-    font-size: 0.875em;
-    font-weight: bold;
-    outline: none;
-    padding: 20px 35px;
-    text-transform: uppercase;
-}
+    &__img {
+        width: 120px;
+        margin: 4px;
+        padding: 28px 0 0 0px;
+    }
 
-&__button:hover{
-    background-color: black;
-    color: rgb(220, 227, 234);
-  }
+    &__button {
+        background: none;
+        border: solid 3px #474544;
+        color: #474544;
+        cursor: pointer;
+        display: inline-block;
+        font-family: "Helvetica", Arial, sans-serif;
+        font-size: 0.875em;
+        font-weight: bold;
+        outline: none;
+        padding: 20px 35px;
+        text-transform: uppercase;
+    }
 
-&__textbutton {
-    font-family: "Helvetica", Arial, sans-serif;
-    font-size: 14px;
-    font-weight: bold;
-    color: #474544;
-    margin: 28px 0 8px 1px;
-}
+    &__button:hover {
+        background-color: black;
+        color: rgb(220, 227, 234);
+    }
+
+    &__textbutton {
+        font-family: "Helvetica", Arial, sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+        color: #474544;
+        margin: 28px 0 8px 1px;
+    }
 }

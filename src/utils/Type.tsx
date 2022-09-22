@@ -33,9 +33,9 @@ export type Address = {
 
 export type ShopState = {
   user?: User;
-  cartItems: Product[];
   products: Product[];
   wishList: Product[];
+  order?: Omit<Order, 'id' | 'userId' | 'isCompleted'>;
   login: (email: string, password: string) => Promise<User>;
   logOut: () => void;
   registerUser: (user: User & { password: string }) => Promise<User>;
@@ -45,6 +45,7 @@ export type ShopState = {
   wishListHandler: (product: Product) => void;
   changePassword: (newPassword: string) => void;
   changeEmail: (newEmail: string) => void;
+  getOrder: (id: string) => Promise<void>;
 
   // createOrder: (products: Product[]) => Promise<void>;
 };
@@ -54,7 +55,7 @@ export type Order = {
   userId: string;
   products: Product[];
   isCompleted: boolean;
-  address: Address;
+  address?: Address[];
 };
 
 export type WishList = {

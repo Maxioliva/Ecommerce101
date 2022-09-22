@@ -5,7 +5,7 @@ import { ItemList } from '../../../itemList';
 import './style.scss';
 
 const CartDropDown = () => {
-  const { user, cartItems } = useContext(CartContext);
+  const { user, order } = useContext(CartContext);
   const [cartOpen, setCartOpen] = useState(false);
 
   return (
@@ -13,9 +13,9 @@ const CartDropDown = () => {
       <div className="profile-dropdown__title">{user ? 'You Cart' : 'You are not registered yet'}</div>
       <div className="separatorLine"></div>
       <div className="profile-dropdown__title">
-        {user && cartItems.length ? (
+        {order?.products.length ? (
           <div className="productsContainer">
-            {cartItems.map((item, i) => (
+            {order.products.map((item, i) => (
               <ItemList key={i} item={item} />
             ))}
           </div>

@@ -56,7 +56,10 @@ export type Order = {
   products: Product[];
   isCompleted: boolean;
   address?: Address[];
+  completedAt?: Date;
 };
+
+export type SimpleOrder = Omit<Order, 'id' | 'userId' | 'isCompleted'>;
 
 export type WishList = {
   id: string;

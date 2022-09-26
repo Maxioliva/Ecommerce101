@@ -4,7 +4,7 @@ import { createContext, useEffect, useState } from 'react';
 import firebaseApp from '../firebase/credenciales';
 import * as resolvers from '../utils/resolvers';
 import { updateOrder, updateWishList } from '../utils/resolvers';
-import { Order, Product, ShopState, User } from '../utils/Type';
+import { Order, Product, ShopState, SimpleOrder, User } from '../utils/Type';
 
 const CartContext = createContext<ShopState>({} as ShopState);
 
@@ -12,7 +12,8 @@ export const CartProvider = ({ children }: any) => {
   const [user, setUser] = useState<User>();
   const [products, setProducts] = useState<Product[]>([]);
   const [wishList, setWishList] = useState<Product[]>([]);
-  const [order, setOrder] = useState<Omit<Order, 'id' | 'userId' | 'isCompleted'>>();
+  const [order, setOrder] = useState<SimpleOrder>();
+  const [ordersCompleted, setOrdersCompleted] = useState<SimpleOrder[]>();
   const auth = getAuth(firebaseApp);
   const userAuth = auth.currentUser;
 
@@ -20,8 +21,6 @@ export const CartProvider = ({ children }: any) => {
     (async () => {
       if (user) {
         getOrder(user.id);
-        // const currentBasket = await resolvers.getCurrentBasket(user.id);
-        // setCartItems(currentBasket);
         const currentWishList = await resolvers.getCurrentWishList(user.id);
         setWishList(currentWishList);
       }
@@ -31,7 +30,10 @@ export const CartProvider = ({ children }: any) => {
   const getOrder = async (id: string) => {
     const currentOrder = await resolvers.getCurrentOrder(id);
     setOrder(currentOrder);
-    console.log(currentOrder);
+    const currentOrderCompleted = await resolvers.getCompletedOrders(id);
+    setOrdersCompleted(currentOrderCompleted);
+    console.log(currentOrderCompleted);
+    // console.log(currentOrder);
   };
 
   const loginHandler = async (email: string, password: string) => {

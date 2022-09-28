@@ -1,6 +1,7 @@
 /* eslint-disable arrow-body-style */
 import './style.scss';
 
+
 const Footer = () => {
   return (
     <>
@@ -19,7 +20,7 @@ const Footer = () => {
 
             <a href="#">Pricing</a>
 
-            <a href="#">About</a>
+            <a href="#">About Us</a>
 
             <a href="#">Faq</a>
 

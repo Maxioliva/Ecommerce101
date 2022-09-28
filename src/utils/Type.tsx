@@ -33,6 +33,7 @@ export type Address = {
 
 export type ShopState = {
   user?: User;
+  ordersCompleted: SimpleOrder[];
   products: Product[];
   wishList: Product[];
   order?: Omit<Order, 'id' | 'userId' | 'isCompleted'>;
@@ -57,6 +58,8 @@ export type Order = {
   isCompleted: boolean;
   address?: Address[];
   completedAt?: Date;
+  paymentMethod?: string;
+  total?: number;
 };
 
 export type SimpleOrder = Omit<Order, 'id' | 'userId' | 'isCompleted'>;

@@ -15,6 +15,7 @@ import Home from './pages/home';
 import './style.scss';
 import Payment from './components/checkout/payment';
 import Shipping from './components/checkout/shipping';
+import PreviousOrders from './components/navbar/dopdownContent/profile/orders';
 
 const App = () => (
   <div className="app">
@@ -30,8 +31,8 @@ const App = () => (
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/cart" element={<CartPage />} />
-            <Route path="/checkout-payment" element={<Payment/>} />
-            <Route path="/checkout-shipping" element={ <Shipping />} />
+            <Route path="/checkout-payment" element={<Payment />} />
+            <Route path="/checkout-shipping" element={<Shipping />} />
             <Route
               path="/products"
               element={
@@ -46,7 +47,7 @@ const App = () => (
               path="/orders"
               element={
                 <div className="">
-                  <Order />
+                  <PreviousOrders />
                   <ProfileDropDown />
                 </div>
               }

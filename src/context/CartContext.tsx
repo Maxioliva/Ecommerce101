@@ -4,7 +4,7 @@ import { createContext, useEffect, useState } from 'react';
 import firebaseApp from '../firebase/credenciales';
 import * as resolvers from '../utils/resolvers';
 import { updateOrder, updateWishList } from '../utils/resolvers';
-import { Order, Product, ShopState, SimpleOrder, User } from '../utils/Type';
+import { Address, Order, Product, ShopState, SimpleOrder, User } from '../utils/Type';
 
 const CartContext = createContext<ShopState>({} as ShopState);
 
@@ -14,6 +14,7 @@ export const CartProvider = ({ children }: any) => {
   const [wishList, setWishList] = useState<Product[]>([]);
   const [order, setOrder] = useState<SimpleOrder>();
   const [ordersCompleted, setOrdersCompleted] = useState<SimpleOrder[]>();
+  const [addressList, setAddressList] = useState<Address[]>();
   const auth = getAuth(firebaseApp);
   const userAuth = auth.currentUser;
 
@@ -23,6 +24,9 @@ export const CartProvider = ({ children }: any) => {
         getOrder(user.id);
         const currentWishList = await resolvers.getCurrentWishList(user.id);
         setWishList(currentWishList);
+        const currentAddresses = await resolvers.getCurrentAddresses(user.id);
+        setAddressList(currentAddresses);
+        console.log('address', currentAddresses);
       }
     })();
   }, [user]);
@@ -32,7 +36,7 @@ export const CartProvider = ({ children }: any) => {
     setOrder(currentOrder);
     const currentOrderCompleted = await resolvers.getCompletedOrders(id);
     setOrdersCompleted(currentOrderCompleted);
-    console.log(currentOrderCompleted);
+    // console.log(currentOrderCompleted);
     // console.log(currentOrder);
   };
 
@@ -148,6 +152,7 @@ export const CartProvider = ({ children }: any) => {
     /* Envolvemos el children con el provider y le pasamos un objeto con las propiedades que necesitamos por value */
     <CartContext.Provider
       value={{
+        addressList,
         order,
         getOrder,
         changePassword,

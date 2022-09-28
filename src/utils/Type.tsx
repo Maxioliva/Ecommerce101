@@ -28,10 +28,11 @@ export type Address = {
   city: string;
   country: string;
   id: string;
-  // userId: string;
+  userId: string;
 };
 
 export type ShopState = {
+  addressList?: Address[];
   user?: User;
   products: Product[];
   wishList: Product[];
@@ -55,7 +56,7 @@ export type Order = {
   userId: string;
   products: Product[];
   isCompleted: boolean;
-  address?: Address[];
+  address?: Omit<Address, 'id'>[];
   completedAt?: Date;
 };
 

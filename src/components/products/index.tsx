@@ -16,7 +16,7 @@ const Products = () => {
 
   return (
     <div className="products">
-      <div className="products__filter">filter</div>
+      {/* <div className="products__filter">filter</div> */}
       <div className="products__list">
         {products?.map(product => (
           <div className="products__card" key={product.id}>

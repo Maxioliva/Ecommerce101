@@ -2,9 +2,10 @@ import { Field, Form, Formik } from 'formik';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CartContext from '../../../context/CartContext';
-import { updateAdressOrder } from '../../../utils/resolvers';
+import { createAddress, updateAdressOrder } from '../../../utils/resolvers';
 import { Address } from '../../../utils/Type';
 import OrderSummary from '../../molecules/orderSummary';
+import Addresses from './addresses';
 import './style.scss';
 
 const Shipping = () => {
@@ -30,11 +31,11 @@ const Shipping = () => {
     zipCode: '',
     city: '',
     country: '',
-    id: user.id,
   };
 
-  const submitHandler = (values: Address) => {
+  const submitHandler = (values: Omit<Address, 'id' | 'userId'>) => {
     updateAdressOrder(values, user.id);
+    createAddress(values, user.id);
     navigate('/checkout-payment');
   };
 
@@ -72,6 +73,7 @@ const Shipping = () => {
         </Form>
       </Formik>
       <OrderSummary />
+      <Addresses />;
     </div>
   );
 };

@@ -1,11 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword,  } from 'firebase/auth';
-import { doc, getFirestore, setDoc, collection, query, where, getDocs, updateDoc } from 'firebase/firestore';
+import { doc, getFirestore, setDoc, collection, query, where, getDocs, updateDoc, QueryDocumentSnapshot, DocumentData } from 'firebase/firestore';
 import { nanoid } from 'nanoid';
-
-
 import firebaseApp from '../firebase/credenciales';
 import { Address, Order, Product, User, WishList } from './Type';
+import isequal from 'lodash.isequal' 
 
 const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
@@ -57,7 +56,7 @@ export const updateUser = async ( firstName: string, lastName: string, email:str
 ;
 
 
-export const updateAdressOrder =  async (address: Address, userId: string) => {
+export const updateAdressOrder =  async (address: Omit<Address, 'id' | 'userId' >, userId: string) => {
   const q = query(collection(firestore, 'Orders'), where('userId', '==', userId));
   const querySnapshot = await getDocs(q);
   const currentBasket = querySnapshot.docs.find(d => !(d.data() as Order).isCompleted)
@@ -137,6 +136,33 @@ export const getCurrentWishList = async (userId: string) => {
   return [];
 };
 
+export const createAddress = async (address: Omit<Address, 'id' | 'userId'>, usuarioId: string) => {
+  const q = query(collection(firestore, 'Addresses'), where('userId', '==', usuarioId));
+  const querySnapshot = await getDocs(q);
+  const vevo = (d: QueryDocumentSnapshot) => {
+    const vevo2 = d.data() as Address;
+    const { id, userId, ...rest } = vevo2
+    
+    return rest
+  }
+  
+  const allReadyInMemory = querySnapshot.docs.find(d => (isequal(vevo(d), address)));
+  
+  if (!allReadyInMemory) {
+    const addressId = nanoid()
+    const docuRef = await doc(firestore, `Addresses/${addressId}`);
+    await setDoc(docuRef, { userId: usuarioId, ...address, id: addressId });
+  }
+}
 
+export const getCurrentAddresses= async (userId: string) => {
+  const q = query(collection(firestore, 'Addresses'), where('userId', '==', userId));
+  const querySnapshot = await getDocs(q);
 
-
+  if (querySnapshot.docs.length) {
+    const currentAddresList = querySnapshot.docs.map(address =>(address?.data() as Address ))
+    
+    return currentAddresList;
+  }
+  return [];
+};

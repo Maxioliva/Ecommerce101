@@ -33,9 +33,9 @@
 - We work with [Semantic Versioning](https://semver.org/#semantic-versioning-200) system (`vA.B.C`)
   - `A` MAJOR version when you make incompatible API changes
   - `B` MINOR version when you add functionality in a backwards compatible manner
-  - `C` PATCH version when you make backwards compatible bug fixes or hotfixes in staging/production
-- Ideally, `staging` environmen should be ahead of `develop` by 1 "minor version"
-- Ideally, `production` environmen should be ahead of `staging` by 1 "minor version"
+  - `C` PATCH version when you make bug fixes or hotfixes in staging/production
+- Ideally, `staging` environmen should be behind of `develop` by 1 "minor version"
+- Ideally, `production` environmen should be behind of `staging` by 1 "minor version"
 
 | Sprint | develop | staging | production |
 | ------ | ------- | ------- | ---------- |

@@ -1,5 +1,61 @@
-.profile-settings{
-    position: relative;
-    width: 189px;
-    background-color: aliceblue;
+
+
+.formprofile {
+  background-color: whitesmoke;
+  padding: 18px;
+  border-radius: 5px;
+  width: 280px;
+  margin: auto;
+  border-style: groove;
+  top: 150px;
+
+.input {
+  padding: 12px 20px;
+  margin: 10px 10px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-size: large;
 }
+
+.input:hover {
+  border: 2px solid blue;
+}
+    
+
+      &__button { 
+        background-color: initial;
+        background-image: linear-gradient(-180deg, #bee0e9, #03a6e6);
+        border-radius: 6px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
+        color: #FFFFFF;
+        cursor: pointer;
+        display: inline-block;
+        font-family: Inter,-apple-system,system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;
+        height: 40px;
+        line-height: 40px;
+        outline: 0;
+        overflow: hidden;
+        padding: 0 20px;
+        pointer-events: auto;
+        position: relative;
+        text-align: center;
+        touch-action: manipulation;
+        user-select: none;
+        -webkit-user-select: none;
+        vertical-align: top;
+        white-space: nowrap;
+        width: 100%;
+        z-index: 9;
+        border: 0;
+        transition: box-shadow .2s;
+         font-size: large;
+      }
+    
+      &__button:hover {
+        box-shadow: rgba(12, 0, 11, 0.5) 0 3px 8px;
+      }
+    
+}
+
+ 
+

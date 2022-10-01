@@ -1,17 +1,15 @@
-import { Provider } from 'react';
-
 export type User = {
   id: string;
   firstName: string;
   lastName: string;
   email: string;
   gender: string;
-  password: string;
+  // password: string;
   // cartId?: string;
 };
 
 export type Product = {
-  id: number;
+  id: string;
   title: string;
   image: string;
   price: number;
@@ -20,19 +18,34 @@ export type Product = {
   rating: { rate: number; count: number };
 };
 
+export type Address = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  streetName: string;
+  houseNumber: string;
+  zipCode: string;
+  city: string;
+  country: string;
+  id: string;
+  // userId: string;
+};
+
 export type ShopState = {
-  userInfo?: User;
-  userId?: string;
-  cartItems: Product[];
+  user?: User;
   products: Product[];
   wishList: Product[];
-  login: (email: string, password: string) => Promise<void>;
+  order?: Omit<Order, 'id' | 'userId' | 'isCompleted'>;
+  login: (email: string, password: string) => Promise<User>;
   logOut: () => void;
-  registerUser: (user: User) => Promise<void>;
+  registerUser: (user: User & { password: string }) => Promise<User>;
   addItemToCart: (product: Product) => Promise<void>;
-  deleteItemToCart: (id: number) => void;
-  deleteAllItemToCart: (id: number) => void;
+  deleteItemToCart: (id: string) => void;
+  deleteAllItemToCart: (id: string) => void;
   wishListHandler: (product: Product) => void;
+  changePassword: (newPassword: string) => void;
+  changeEmail: (newEmail: string) => void;
+  getOrder: (id: string) => Promise<void>;
 
   // createOrder: (products: Product[]) => Promise<void>;
 };
@@ -42,7 +55,11 @@ export type Order = {
   userId: string;
   products: Product[];
   isCompleted: boolean;
+  address?: Address[];
+  completedAt?: Date;
 };
+
+export type SimpleOrder = Omit<Order, 'id' | 'userId' | 'isCompleted'>;
 
 export type WishList = {
   id: string;

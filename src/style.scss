@@ -14,43 +14,52 @@ body,
   flex-wrap: nowrap;
   width: 100%;
   position: relative;
-  background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
-linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
-linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
-linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
-linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
-linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
-background-color: #131313;
-background-size: 20px 20px;
+  background-color: #fff;
+  // background-image:
+  // linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px),
+  // linear-gradient(#eee .1em, transparent .1em);
+  // background-size: 100% 1.2em;
+
+
+
 
   &__header {
+    // display: flex;
     position: sticky;
     top: 0;
-    background: linear-gradient(to left, #00d8ff, #0f8ea6, #0d3e69, #0d3e69, #272727, #272727, #272727);
-    display: flex;
-    justify-content: space-between;
+    background: rgb(163, 225, 239);
+    // display: flex;
+    // justify-content: end;
+    z-index: 1;
   }
 
   &__body {
     padding: 0 0px;
     margin: 0 auto;
     max-width: 1400px;
-    width: 70%;
-    min-height: 100vh; 
+    width: 90%;
+    min-height: 100vh;
+    z-index: 0;
     @media (max-width: $tablet) {
       padding: 0;
     }
 
     @media (max-width: $mobile) {
       padding: 0;
+     
     }
 
     &__container {
       width: 100%;
-      background-color: rgb(26, 97, 103);
+      background-color:rgb(211 233 240);
       flex: 2;
       max-height: max-content;
       min-height: 100vh; 
+      @media (max-width: $mobile) {
+        
+      }
+     
+     
     }
   }
 
@@ -67,3 +76,20 @@ background-size: 20px 20px;
   //   height: 100px;
   // }
 }
+
+.profile {
+  display: flex;
+  flex-direction: row-reverse;
+  align-content: center;
+  justify-content: center;
+  align-items: flex-start;
+
+  flex-wrap: wrap;
+  
+  @media (max-width: $mobile) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+} }

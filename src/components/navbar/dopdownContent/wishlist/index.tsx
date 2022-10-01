@@ -2,31 +2,33 @@
 import { faHeart, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import CartContext from '../../../../context/CartContext';
-import { getAssetUrl } from '../../../../utils/config';
+import { ItemList } from '../../../itemList';
+
 import './style.scss';
 
 const WishListDropDown = () => {
-  const { userId, wishList } = useContext(CartContext);
+  const { user, wishList } = useContext(CartContext);
   const navigate = useNavigate();
 
   return (
     <div>
-      <div className="profile-dropdown__title">{userId ? 'Wishlist' : 'You are not registered yet'}</div>
+      <div className="profile-dropdown__title">{user ? 'Wishlist' : 'You are not registered yet'}</div>
+      <div className="separatorLine"></div>
       <div className="profile-dropdown__title">
-        {userId && !wishList.length && (
-          <>
-            <div>Your wishlist is empty!</div>
-            <div className="separatorLine"></div>
-            <div>
-              Select to <FontAwesomeIcon icon={faHeart} /> add something to your Wishlist <></>
-            </div>
-          </>
+        {user && wishList.length ? (
+          <div className="productsContainer">
+            {wishList.map((item, i) => (
+              <ItemList key={i} item={item} />
+            ))}
+          </div>
+        ) : (
+          <div>Your wishlist is empty!</div>
         )}
       </div>
       <div>
-        {userId && (
+        {user && (
           <button className="profile-dropdown__button" onClick={() => navigate('/wishlist')}>
             <FontAwesomeIcon icon={faRightFromBracket} />
             Go To Favorites{' '}

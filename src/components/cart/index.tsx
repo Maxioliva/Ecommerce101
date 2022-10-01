@@ -1,16 +1,15 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CartContext from '../../context/CartContext';
 import { ItemCart } from '../itemcart';
 import './style.scss';
-// import { buyOrder } from '../../utils/resolvers';
 
 const Cart = () => {
   const [cartOpen, setCartOpen] = useState(false);
 
-  const { cartItems, userId } = useContext(CartContext);
+  const { order, user } = useContext(CartContext);
 
-  const total = cartItems?.reduce((previous, item) => previous + item.price * item.amount, 0);
+  const total = order?.products.reduce((previous, item) => previous + item.price * item.amount, 0);
 
   return (
     <div className="cartContainer">
@@ -40,29 +39,40 @@ const Cart = () => {
             </svg>
           )}
         </div>
-        {!cartOpen && <div className="productsNumber">{cartItems.length}</div>}
+        {!cartOpen && <div className="productsNumber">{order?.products.length}</div>}
       </div>
 
-      {cartItems && cartOpen && (
+      {order && cartOpen && (
         <div className="cart">
           <h2>Tu carrito</h2>
 
-          {cartItems.length === 0 ? (
+          {order?.products.length === 0 ? (
             <p className="cartVacio">Tu carrito esta vacio</p>
           ) : (
             <div className="productsContainer">
-              {cartItems.map((item, i) => (
+              {order?.products.map((item, i) => (
                 <ItemCart key={i} item={item} />
               ))}
             </div>
           )}
 
-          <h2 className="total">Total: ${total.toFixed(2)}</h2>
-          <div>{userId ? <button>Check out</button> : <p>log in please</p>}</div>
-          <div>
+          {total && <h2 className="total">Total: ${total.toFixed(2)}</h2>}
+
+          <div className="buttonsBhindConteiner">
+            {user ? (
+              <Link to="checkout">
+                <button className="buttonsBhind">Check out</button>
+              </Link>
+            ) : (
+              <p>log in please</p>
+            )}
+          </div>
+          <div className="buttonsBhindConteiner">
             {' '}
             <Link to="cart">
-              <button onClick={() => setCartOpen(!cartOpen)}>BasketPage</button>
+              <button className="buttonsBhind" onClick={() => setCartOpen(!cartOpen)}>
+                Basket Page
+              </button>
             </Link>
           </div>
         </div>

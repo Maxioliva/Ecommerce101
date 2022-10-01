@@ -31,7 +31,7 @@ export const ItemCart = ({ item }: any) => {
           </button>
         </div>
       </div>
-      <div className="quantity-title">Quantity:{item.amount}</div>
+      <div className="quantity-title">Stock {item.amount}</div>
     </div>
   );
 };

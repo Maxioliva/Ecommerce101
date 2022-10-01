@@ -1,46 +1,75 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable consistent-return */
 import axios from 'axios';
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { getAuth, signOut, updatePassword, updateEmail } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
 import firebaseApp from '../firebase/credenciales';
 import * as resolvers from '../utils/resolvers';
 import { updateOrder, updateWishList } from '../utils/resolvers';
-import { Product, ShopState, User } from '../utils/Type';
+import { Order, Product, ShopState, SimpleOrder, User } from '../utils/Type';
 
 const CartContext = createContext<ShopState>({} as ShopState);
 
-const auth = getAuth(firebaseApp);
-const user = auth.currentUser;
-
 export const CartProvider = ({ children }: any) => {
-  const [userId, setUserId] = useState<string>();
-  const [userInfo, setUserInfo] = useState<User>();
-  console.log(userInfo);
-  const [cartItems, setCartItems] = useState<Product[]>([]);
+  const [user, setUser] = useState<User>();
   const [products, setProducts] = useState<Product[]>([]);
   const [wishList, setWishList] = useState<Product[]>([]);
+  const [order, setOrder] = useState<SimpleOrder>();
+  const [ordersCompleted, setOrdersCompleted] = useState<SimpleOrder[]>();
+  const auth = getAuth(firebaseApp);
+  const userAuth = auth.currentUser;
 
-  onAuthStateChanged(auth, userFirebase => {
+  useEffect(() => {
     (async () => {
-      if (userFirebase && userId !== userFirebase?.uid) {
-        setUserId(userFirebase?.uid);
-        const currentBasket = await resolvers.getCurrentBasket(userFirebase?.uid);
-        setCartItems(currentBasket);
-        const currentWishList = await resolvers.getCurrentWishList(userFirebase?.uid);
+      if (user) {
+        getOrder(user.id);
+        const currentWishList = await resolvers.getCurrentWishList(user.id);
         setWishList(currentWishList);
-        const currentUser = await resolvers.getCurrentUser(userFirebase?.uid);
-        setUserInfo(currentUser);
       }
     })();
-  });
+  }, [user]);
 
+  const getOrder = async (id: string) => {
+    const currentOrder = await resolvers.getCurrentOrder(id);
+    setOrder(currentOrder);
+    const currentOrderCompleted = await resolvers.getCompletedOrders(id);
+    setOrdersCompleted(currentOrderCompleted);
+    console.log(currentOrderCompleted);
+    // console.log(currentOrder);
+  };
+
+  const loginHandler = async (email: string, password: string) => {
+    const userInstance = await resolvers.login(email, password);
+    setUser(userInstance);
+    return userInstance;
+  };
+
+  const changePassword = async (newPassword: string) => {
+    try {
+      await updatePassword(userAuth!, newPassword).then(() => {
+        window.alert('Password Succesfull Changed');
+      });
+    } catch (error) {
+      if (error instanceof Error && error.message.includes('weak-password')) {
+        console.log(error.message);
+        window.alert('Password should be at least 6 characters');
+      }
+    }
+  };
+
+  const changeEmail = async (newEmail: string) => {
+    try {
+      await updateEmail(userAuth!, newEmail);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
+    }
+  };
   const logOut = async () => {
     await signOut(auth)
       .then(() => {
         // Sign-out successful.
-        setUserId(undefined);
-        setCartItems([]);
+        setUser(undefined);
+        setOrder(undefined);
         setWishList([]);
       })
       .catch(error => {
@@ -60,24 +89,24 @@ export const CartProvider = ({ children }: any) => {
   }, []);
 
   const addItemToCart = async (product: Product) => {
-    if (!userId) {
+    if (!user) {
       return;
     }
-    const productAlreadyOnBasket = cartItems.find(item => item.id === product.id);
+    const productAlreadyOnBasket = order!.products.find(item => item.id === product.id);
 
     const newCartItems = productAlreadyOnBasket
       ? [
-          ...cartItems.filter(i => i.id !== product.id),
+          ...order!.products.filter(i => i.id !== product.id),
           { ...productAlreadyOnBasket, amount: productAlreadyOnBasket.amount + 1 },
         ]
-      : [...cartItems, { ...product, amount: 1 }];
+      : [...order!.products, { ...product, amount: 1 }];
     // console.log(newCartItems);
-    setCartItems(newCartItems);
-    updateOrder(newCartItems, userId);
+    setOrder({ ...order, products: newCartItems });
+    updateOrder(newCartItems, user.id);
   };
 
   const wishListHandler = (product: Product) => {
-    if (!userId) {
+    if (!user) {
       return;
     }
     console.log(product.id);
@@ -86,50 +115,52 @@ export const CartProvider = ({ children }: any) => {
     const newWishList = productAlreadyOnWishList ? wishList.filter(p => p.id !== product.id) : [...wishList, product];
 
     setWishList(newWishList);
-    updateWishList(newWishList, userId);
+    updateWishList(newWishList, user.id);
   };
 
-  const deleteItemToCart = (itemId: number) => {
-    if (!userId) {
+  const deleteItemToCart = (itemId: string) => {
+    if (!user) {
       return;
     }
-    const itemToRemove = cartItems.find(({ id }) => itemId === id);
+    const itemToRemove = order!.products.find(({ id }) => itemId === id);
 
     const newCartItems =
       itemToRemove!.amount > 1
-        ? cartItems.map(item => ({ ...item, amount: item.id === itemId ? item!.amount - 1 : item.amount }))
-        : cartItems.filter(item => item.id !== itemId);
+        ? order!.products.map(item => ({ ...item, amount: item.id === itemId ? item!.amount - 1 : item.amount }))
+        : order!.products.filter(item => item.id !== itemId);
 
-    setCartItems(newCartItems);
-    updateOrder(newCartItems, userId);
+    setOrder({ ...order, products: newCartItems });
+    updateOrder(newCartItems, user.id);
   };
 
-  const deleteAllItemToCart = (id: number) => {
-    if (!userId) {
+  const deleteAllItemToCart = (id: string) => {
+    if (!user) {
       return;
     }
-    setCartItems(cartItems.filter(item => item.id !== id));
     updateOrder(
-      cartItems.filter(item => item.id !== id),
-      userId
+      order!.products.filter(item => item.id !== id),
+      user.id
     );
+    setOrder({ ...order, products: order!.products.filter(item => item.id !== id) });
   };
 
   return (
     /* Envolvemos el children con el provider y le pasamos un objeto con las propiedades que necesitamos por value */
     <CartContext.Provider
       value={{
-        userInfo,
+        order,
+        getOrder,
+        changePassword,
+        changeEmail,
         wishListHandler,
         wishList,
         deleteAllItemToCart,
         logOut,
-        userId,
+        user,
         products,
         deleteItemToCart,
-        cartItems,
         addItemToCart,
-        ...{ ...resolvers },
+        ...{ ...resolvers, login: (email: string, password: string) => loginHandler(email, password) },
       }}
     >
       {children}

@@ -1,0 +1,38 @@
+.previousOrders {
+    align-items: center;
+
+    &__container {
+        background: white;
+        border-radius: 15px;
+        margin: 20px;
+        display: flex;
+    }
+
+    &__title {
+        text-align: center;
+        border-bottom: solid 4px white;
+        border-top: solid 4px white;
+        color: black;
+        font-size: 23px;
+        font-weight: bold;
+    }
+
+    &__address {
+        background-color: #007aff;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+
+    &__id {
+        text-align: center;
+        width: 100%;
+        margin: 10px;
+    }
+
+    &__total {
+        color: black;
+        font-size: 23px;
+        font-weight: bold;
+        width: 100%;
+    }
+}

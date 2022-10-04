@@ -1,0 +1,36 @@
+.productsContainer {
+  max-height: 200px;
+  overflow: scroll;
+  margin: -19px 0px -7px 0px;
+  color: white;
+}
+
+.productsContainer::-webkit-scrollbar {
+  width: 3px;
+}
+
+
+.separatorLine {
+  border-top: 2px solid black;
+
+  max-width: 186px;
+  padding: 0;
+  margin: 0px auto 0 auto;
+}
+
+.buttonsBhindConteiner {
+  background-color: black;
+  display: flex;
+  justify-content: center;
+}
+
+.buttonsBhind {
+  align-items: center;
+  color: white;
+  background-color: black;
+}
+
+.buttonsBhind:hover {
+  color: #007aff;
+  cursor: pointer;
+}

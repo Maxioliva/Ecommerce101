@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="16" viewBox="0 0 20 16">
+  <defs>
+    <rect id="flag-luxemburg-a" width="20" height="16" x="0" y="0" rx="1.6"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <mask id="flag-luxemburg-b" fill="#fff">
+      <use xlink:href="#flag-luxemburg-a"/>
+    </mask>
+    <use fill="#FFF" xlink:href="#flag-luxemburg-a"/>
+    <rect width="19.5" height="7.5" x=".25" y="4.25" fill="#FFF" fill-rule="nonzero" stroke="#DEE2E6" stroke-width=".5" mask="url(#flag-luxemburg-b)"/>
+    <rect width="20" height="5.5" y="10.5" fill="#00A1DE" fill-rule="nonzero" mask="url(#flag-luxemburg-b)"/>
+    <rect width="20" height="5" fill="#ED2939" fill-rule="nonzero" mask="url(#flag-luxemburg-b)"/>
+  </g>
+</svg>

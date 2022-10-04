@@ -1,0 +1,67 @@
+@import '../../variables';
+
+.navbar { 
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  height: 80px;
+  justify-content: flex-end;
+  padding: 0 20px;
+  
+&__logo{
+  height: 115px;
+  width: 134px;
+ 
+
+}  
+
+ &__option {
+ 
+padding: 0 4px;
+
+&__1 {
+  
+  padding: 0 14px;
+}
+
+
+&__3 {
+  position: absolute;
+  left: 0px;
+}
+
+}
+ 
+
+
+
+ 
+
+  &__link {
+    height: 100%;
+    width: 100%;
+    font-size: 20px;
+    margin: 0 10px;
+    color: black;
+
+    &:hover {
+      color: rgb(26, 197, 209);
+      background-color: black;
+      border-radius: 4px;
+    }
+    
+  }
+
+  &__button {
+    cursor: pointer;
+    border-radius: 4px;
+    
+    
+    &:hover {
+      color: rgb(26, 197, 209);
+      background-color: black;
+    }
+  }
+}

@@ -13,7 +13,7 @@ export const CartProvider = ({ children }: any) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [wishList, setWishList] = useState<Product[]>([]);
   const [order, setOrder] = useState<SimpleOrder>();
-  const [ordersCompleted, setOrdersCompleted] = useState<SimpleOrder[]>();
+
   const auth = getAuth(firebaseApp);
   const userAuth = auth.currentUser;
 
@@ -31,7 +31,7 @@ export const CartProvider = ({ children }: any) => {
     const currentOrder = await resolvers.getCurrentOrder(id);
     setOrder(currentOrder);
     const currentOrderCompleted = await resolvers.getCompletedOrders(id);
-    setOrdersCompleted(currentOrderCompleted);
+    //  setOrdersCompleted(currentOrderCompleted);
     console.log(currentOrderCompleted);
     // console.log(currentOrder);
   };
@@ -96,9 +96,9 @@ export const CartProvider = ({ children }: any) => {
 
     const newCartItems = productAlreadyOnBasket
       ? [
-          ...order!.products.filter(i => i.id !== product.id),
-          { ...productAlreadyOnBasket, amount: productAlreadyOnBasket.amount + 1 },
-        ]
+        ...order!.products.filter(i => i.id !== product.id),
+        { ...productAlreadyOnBasket, amount: productAlreadyOnBasket.amount + 1 },
+      ]
       : [...order!.products, { ...product, amount: 1 }];
     // console.log(newCartItems);
     setOrder({ ...order, products: newCartItems });

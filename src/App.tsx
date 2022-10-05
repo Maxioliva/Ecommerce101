@@ -16,6 +16,7 @@ import './style.scss';
 import Payment from './components/checkout/payment';
 import Shipping from './components/checkout/shipping';
 import PreviousOrders from './components/navbar/dopdownContent/profile/orders';
+import About from './components/footer/About';
 
 const App = () => (
   <div className="app">
@@ -33,6 +34,7 @@ const App = () => (
             <Route path="/cart" element={<CartPage />} />
             <Route path="/checkout-payment" element={<Payment />} />
             <Route path="/checkout-shipping" element={<Shipping />} />
+            <Route path="/about" element={<About />} />
             <Route
               path="/products"
               element={

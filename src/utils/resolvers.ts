@@ -1,76 +1,82 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword,  } from 'firebase/auth';
-import { doc, getFirestore, setDoc, collection, query, where, getDocs, updateDoc, QueryDocumentSnapshot, DocumentData } from 'firebase/firestore';
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  doc,
+  getFirestore,
+  setDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+  updateDoc,
+  QueryDocumentSnapshot,
+  deleteDoc,
+} from 'firebase/firestore';
 import { nanoid } from 'nanoid';
 import firebaseApp from '../firebase/credenciales';
-import { Address, Order, Product, User, WishList } from './Type';
-import isequal from 'lodash.isequal' 
+import { Address, Order, Product, SimpleOrder, User, WishList } from './Type';
+import isequal from 'lodash.isequal';
 
 const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
 
 export const login = async (email: string, password: string) => {
- 
   const userInfo = await signInWithEmailAndPassword(auth, email, password);
   const result = await getCurrentUser(userInfo.user.uid);
   // console.log(result);
   return result;
-    
-  
 };
 
-export const registerUser = async (user: User & {password: string } ) => {
+export const registerUser = async (user: User & { password: string }) => {
   const infoUser = await createUserWithEmailAndPassword(auth, user.email, user.password).then(
     userFirebase => userFirebase
-    );
+  );
   const userId = infoUser.user.uid;
   const docuRef = await doc(firestore, `User/${infoUser.user.uid}`);
- 
- 
-  const newUser = { id: userId, firstName: user.firstName, lastName: user.lastName, email: user.email, gender: user.gender }
+
+  const newUser = {
+    id: userId,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    gender: user.gender,
+  };
   setDoc(docuRef, newUser);
-  
+
   return newUser;
 };
-
 
 export const getCurrentUser = async (userId: string) => {
   const q = query(collection(firestore, 'User'), where('id', '==', userId));
   const querySnapshot = await getDocs(q);
   const currentUser = querySnapshot.docs[0];
-  
-  return (currentUser?.data() as User);
+
+  return currentUser?.data() as User;
 };
 
-
-
-
-export const updateUser = async ( firstName: string, lastName: string, email:string, id: string  ) => {
+export const updateUser = async (firstName: string, lastName: string, email: string, id: string) => {
   const q = query(collection(firestore, 'User'), where('id', '==', id));
   const querySnapshot = await getDocs(q);
-  const currentUser= querySnapshot.docs[0];
+  const currentUser = querySnapshot.docs[0];
   const docuRef = await doc(firestore, `User/${currentUser.id}`);
-  
-  return await setDoc(docuRef, {id, lastName, firstName, email});
-}
-;
 
+  return await setDoc(docuRef, { id, lastName, firstName, email });
+};
 
-export const updateAdressOrder =  async (address: Omit<Address, 'id' | 'userId' >, userId: string) => {
+export const updateAdressOrder = async (address: Omit<Address, 'id' | 'userId'>, userId: string) => {
   const q = query(collection(firestore, 'Orders'), where('userId', '==', userId));
   const querySnapshot = await getDocs(q);
-  const currentBasket = querySnapshot.docs.find(d => !(d.data() as Order).isCompleted)
+  const currentBasket = querySnapshot.docs.find(d => !(d.data() as Order).isCompleted);
   const docuRef = await doc(firestore, `Orders/${currentBasket?.id}`);
   await updateDoc(docuRef, { address });
-
-}
-export const updatePayment =  async (userId: string, payment: string) => {
+};
+export const updatePayment = async (userId: string, payment: string) => {
   const q = query(collection(firestore, 'Orders'), where('userId', '==', userId));
   const querySnapshot = await getDocs(q);
-  const currentBasket = querySnapshot.docs.find(d => !(d.data() as Order).isCompleted)
+  const currentBasket = querySnapshot.docs.find(d => !(d.data() as Order).isCompleted);
   const docuRef = await doc(firestore, `Orders/${currentBasket?.id}`);
-  await updateDoc (docuRef, { isCompleted: true, payment, completedAt: new Date });
-}
+  await updateDoc(docuRef, { isCompleted: true, payment, completedAt: new Date() });
+};
 
 export const updateOrder = async (products: Product[], userId: string) => {
   const q = query(collection(firestore, 'Orders'), where('userId', '==', userId));
@@ -91,25 +97,22 @@ export const getCurrentOrder = async (userId: string) => {
 
   if (querySnapshot.docs.length && querySnapshot.docs.some(o => !(o.data() as Order).isCompleted)) {
     const currentOrder = querySnapshot.docs.find(d => !(d.data() as Order).isCompleted);
-    return (currentOrder?.data() as Omit<Order, 'id'|'userId'|'isCompleted'> ) ;
+    return currentOrder?.data() as Omit<Order, 'id' | 'userId' | 'isCompleted'>;
   }
-  return { products:[] as Product[] };
-}
+  return { products: [] as Product[] };
+};
 
 export const getCompletedOrders = async (userId: string) => {
   const q = query(collection(firestore, 'Orders'), where('userId', '==', userId));
   const querySnapshot = await getDocs(q);
 
   if (querySnapshot.docs.length && querySnapshot.docs.some(o => (o.data() as Order).isCompleted)) {
-    const previousOrders= querySnapshot.docs.filter(d => (d.data() as Order).isCompleted);
+    const previousOrders = querySnapshot.docs.filter(d => (d.data() as Order).isCompleted);
 
-    return (previousOrders.map( (o) => o.data() as Omit<Order, 'id'|'userId'|'isCompleted'> )) ;
+    return previousOrders.map(o => o.data() as Omit<Order, 'id' | 'userId' | 'isCompleted'>);
   }
   return [];
-
-  
-}
-
+};
 
 export const updateWishList = async (products: Product[], userId: string) => {
   const q = query(collection(firestore, 'WishList'), where('userId', '==', userId));
@@ -118,10 +121,10 @@ export const updateWishList = async (products: Product[], userId: string) => {
   const currentWishList = querySnapshot.docs[0];
   if (!currentWishList) {
     const docuRef = await doc(firestore, `WishList/${nanoid()}`);
-    await setDoc(docuRef, { userId, products});
+    await setDoc(docuRef, { userId, products });
   } else {
     const docuRef = await doc(firestore, `WishList/${currentWishList.id}`);
-    await setDoc(docuRef, { userId, products});
+    await setDoc(docuRef, { userId, products });
   }
 };
 export const getCurrentWishList = async (userId: string) => {
@@ -141,28 +144,40 @@ export const createAddress = async (address: Omit<Address, 'id' | 'userId'>, usu
   const querySnapshot = await getDocs(q);
   const vevo = (d: QueryDocumentSnapshot) => {
     const vevo2 = d.data() as Address;
-    const { id, userId, ...rest } = vevo2
-    
-    return rest
-  }
-  
-  const allReadyInMemory = querySnapshot.docs.find(d => (isequal(vevo(d), address)));
-  
+    const { id, userId, ...rest } = vevo2;
+
+    return rest;
+  };
+
+  const allReadyInMemory = querySnapshot.docs.find(d => isequal(vevo(d), address));
+
   if (!allReadyInMemory) {
-    const addressId = nanoid()
+    const addressId = nanoid();
     const docuRef = await doc(firestore, `Addresses/${addressId}`);
     await setDoc(docuRef, { userId: usuarioId, ...address, id: addressId });
   }
-}
+};
 
-export const getCurrentAddresses= async (userId: string) => {
+export const getCurrentAddresses = async (userId: string) => {
   const q = query(collection(firestore, 'Addresses'), where('userId', '==', userId));
   const querySnapshot = await getDocs(q);
 
   if (querySnapshot.docs.length) {
-    const currentAddresList = querySnapshot.docs.map(address =>(address?.data() as Address ))
-    
+    const currentAddresList = querySnapshot.docs.map(address => address?.data() as Address);
+
     return currentAddresList;
   }
   return [];
+};
+
+export const deleteAddresses = async (id: string) => {
+  const docuRef = await doc(firestore, 'Addresses', id);
+  await deleteDoc(docuRef)
+    .then(() => {
+      console.log('Entire Document has been deleted successfully.');
+      window.alert('Address Deleted');
+    })
+    .catch(error => {
+      console.log(error);
+    });
 };

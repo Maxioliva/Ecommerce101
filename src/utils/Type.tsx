@@ -47,6 +47,7 @@ export type ShopState = {
   changePassword: (newPassword: string) => void;
   changeEmail: (newEmail: string) => void;
   getOrder: (id: string) => Promise<void>;
+  getCurrentAddresses: (userId: string) => Promise<Address[]>;
 
   // createOrder: (products: Product[]) => Promise<void>;
 };

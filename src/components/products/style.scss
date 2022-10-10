@@ -3,10 +3,12 @@
 
 @mixin button-bg($bg) {
   background: $bg;
+
   &:hover {
     background: darken($bg, 8%);
     transition: all 0.3s ease;
   }
+
   &:active {
     background: darken($bg, 25%);
   }
@@ -18,10 +20,11 @@
   flex-direction: column;
   background-color: rgb(211 233 240);
   border-radius: 5px;
+
   @media (max-width: $mobile) {
     width: 330px;
     min-width: 330px;
-    position:relative;
+    position: relative;
     left: 0px;
   }
 
@@ -31,12 +34,10 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    
+
   }
 
   &__card {
-    // border: 3px solid black;
-   
     border-radius: 5px;
     overflow: hidden;
     padding: 10px;
@@ -50,14 +51,17 @@
     width: 240px;
     height: 330px;
     text-align: center;
+
     &:hover {
-      box-shadow:  8px 8px 5px rgb(154, 166, 170);
+      box-shadow: 8px 8px 5px rgb(154, 166, 170);
     }
+
     @media (max-width: $tablet) {
       width: 150px;
       height: 285px;
       font-size: 11px;
     }
+
     @media (max-width: $mobile) {
       width: 100px;
       height: 220px;
@@ -66,14 +70,16 @@
   }
 
   &__image {
-    max-width: 150px; 
+    max-width: 150px;
     height: 170px;
     display: block;
     object-fit: cover;
     margin: 0 auto;
+
     @media (max-width: $tablet) {
       height: 150px;
     }
+
     @media (max-width: $mobile) {
       height: 80px;
     }
@@ -84,10 +90,12 @@
     margin: 0;
     overflow: hidden;
     font-size: 16px;
+
     @media (max-width: $tablet) {
       font-size: 12px;
       max-height: 50px;
     }
+
     @media (max-width: $mobile) {
       font-size: 9px;
       max-height: 50px;
@@ -106,7 +114,7 @@
     margin: 12px auto;
   }
 
-  &__button { 
+  &__button {
     color: white;
     text-decoration: none;
     padding: 5px 5px;
@@ -116,16 +124,17 @@
     cursor: pointer;
     @include button-bg(#2ecc71);
   }
+
   @media (max-width: $mobile) {
     font-size: small;
   }
- 
+
   &__wish {
     position: relative;
     font-size: large;
     color: red;
     right: -70px;
     cursor: pointer;
-}
+  }
 
 }

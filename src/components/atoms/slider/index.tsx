@@ -1,4 +1,3 @@
-/* eslint-disable arrow-body-style */
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/scss';
 import 'swiper/css/navigation';

@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from 'react';
 import './style.scss';
 import { getAssetUrl } from '../../../utils/config';

@@ -1,5 +1,4 @@
 import { Timestamp } from "firebase/firestore";
-import { getCurrentOrder } from "./resolvers";
 
 export type User = {
   id: string;
@@ -50,7 +49,6 @@ export type ShopState = {
   changeEmail: (newEmail: string) => void;
   getOrder: (id: string) => Promise<void>;
   getCompletedOrders: (userId: string) => Promise<Omit<Order, "id" | "userId" | "isCompleted">[]>
-  // createOrder: (products: Product[]) => Promise<void>;
 };
 
 export type Order = {

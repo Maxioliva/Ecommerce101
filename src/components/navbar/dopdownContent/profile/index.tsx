@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext } from 'react';
@@ -8,12 +7,10 @@ import './style.scss';
 
 const ProfileDropDown = () => {
   const { logOut, user } = useContext(CartContext);
-  // console.log(user);
 
   return (
     <div>
       <div className="profile-dropdown__title">{user ? 'Profile' : 'You are not registered yet'}</div>
-
       <div className="profile-dropdown__box">
         {user ? (
           <NavLink to={'/profile'} className="Nav_link">

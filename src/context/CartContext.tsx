@@ -13,7 +13,6 @@ export const CartProvider = ({ children }: any) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [wishList, setWishList] = useState<Product[]>([]);
   const [order, setOrder] = useState<SimpleOrder>();
-
   const auth = getAuth(firebaseApp);
   const userAuth = auth.currentUser;
 
@@ -31,9 +30,6 @@ export const CartProvider = ({ children }: any) => {
     const currentOrder = await resolvers.getCurrentOrder(id);
     setOrder(currentOrder);
     const currentOrderCompleted = await resolvers.getCompletedOrders(id);
-    //  setOrdersCompleted(currentOrderCompleted);
-    console.log(currentOrderCompleted);
-    // console.log(currentOrder);
   };
 
   const loginHandler = async (email: string, password: string) => {
@@ -67,13 +63,11 @@ export const CartProvider = ({ children }: any) => {
   const logOut = async () => {
     await signOut(auth)
       .then(() => {
-        // Sign-out successful.
         setUser(undefined);
         setOrder(undefined);
         setWishList([]);
       })
       .catch(error => {
-        // An error happened.
         console.log(error);
       });
   };
@@ -100,7 +94,6 @@ export const CartProvider = ({ children }: any) => {
         { ...productAlreadyOnBasket, amount: productAlreadyOnBasket.amount + 1 },
       ]
       : [...order!.products, { ...product, amount: 1 }];
-    // console.log(newCartItems);
     setOrder({ ...order, products: newCartItems });
     updateOrder(newCartItems, user.id);
   };
@@ -109,11 +102,8 @@ export const CartProvider = ({ children }: any) => {
     if (!user) {
       return;
     }
-    console.log(product.id);
     const productAlreadyOnWishList = wishList.find(item => item.id === product.id);
-    console.log(productAlreadyOnWishList);
     const newWishList = productAlreadyOnWishList ? wishList.filter(p => p.id !== product.id) : [...wishList, product];
-
     setWishList(newWishList);
     updateWishList(newWishList, user.id);
   };
@@ -128,7 +118,6 @@ export const CartProvider = ({ children }: any) => {
       itemToRemove!.amount > 1
         ? order!.products.map(item => ({ ...item, amount: item.id === itemId ? item!.amount - 1 : item.amount }))
         : order!.products.filter(item => item.id !== itemId);
-
     setOrder({ ...order, products: newCartItems });
     updateOrder(newCartItems, user.id);
   };
@@ -145,7 +134,6 @@ export const CartProvider = ({ children }: any) => {
   };
 
   return (
-    /* Envolvemos el children con el provider y le pasamos un objeto con las propiedades que necesitamos por value */
     <CartContext.Provider
       value={{
         order,

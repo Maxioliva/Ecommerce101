@@ -1,6 +1,4 @@
-/* eslint-disable arrow-body-style */
 import './style.scss';
-
 
 const Footer = () => {
   return (

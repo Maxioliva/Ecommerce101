@@ -1,5 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
-
 import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import CartContext from '../../../../../context/CartContext';
@@ -11,7 +9,6 @@ const ProfileDropDown2 = () => {
   return (
     <div>
       <div className="profile-dropdown2__title">{user ? 'Profile' : 'You are not registered yet'}</div>
-
       <div className="profile-dropdown2__box">
         {user ? (
           <NavLink to={'/profile'} className="Nav_link">
@@ -36,7 +33,6 @@ const ProfileDropDown2 = () => {
           </NavLink>
         )}
       </div>
-
       {user && <div className="profile-dropdown2__box">Help</div>}
     </div>
   );

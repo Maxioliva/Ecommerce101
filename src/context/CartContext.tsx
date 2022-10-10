@@ -4,7 +4,7 @@ import { createContext, useEffect, useState } from 'react';
 import firebaseApp from '../firebase/credenciales';
 import * as resolvers from '../utils/resolvers';
 import { updateOrder, updateWishList } from '../utils/resolvers';
-import { Order, Product, ShopState, SimpleOrder, User } from '../utils/Type';
+import { Product, ShopState, SimpleOrder, User } from '../utils/Type';
 
 const CartContext = createContext<ShopState>({} as ShopState);
 

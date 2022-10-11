@@ -1,4 +1,5 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { getAssetUrl } from '../../utils/config';
 import DropDown from '../atoms/dropdown';
 import ProfileDropDown from './dopdownContent/profile';
@@ -17,7 +18,9 @@ const NavBar = () => {
   return (
     <div className="navbar">
       <div className="navbar__option__3">
-        <img className="navbar__logo" src={getAssetUrl('./header/navbarlogo.png')} alt="section1" />
+        <Link to='/'>
+          <img className="navbar__logo" src={getAssetUrl('./header/navbarlogo.png')} alt="section1" />
+        </Link>
       </div>
       <div className="navbar__option">
         <DropDown control="profile" content={<ProfileDropDown />} />{' '}

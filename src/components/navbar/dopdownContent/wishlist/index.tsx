@@ -1,11 +1,9 @@
-/* eslint-disable react/no-unescaped-entities */
 import { faHeart, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CartContext from '../../../../context/CartContext';
 import { ItemList } from '../../../itemList';
-
 import './style.scss';
 
 const WishListDropDown = () => {

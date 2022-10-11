@@ -1,4 +1,4 @@
-/* eslint-disable arrow-body-style */
+
 import { Link } from 'react-router-dom';
 import './style.scss';
 

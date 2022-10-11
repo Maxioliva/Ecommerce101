@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-key */
 import { useContext } from 'react';
 import CartContext from '../../context/CartContext';
 import './style.scss';

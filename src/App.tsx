@@ -5,7 +5,6 @@ import Footer from './components/footer';
 import LoginForm from './components/loginform';
 import NavBar from './components/navbar';
 import ProfileDropDown from './components/navbar/dopdownContent/profile';
-import Order from './components/navbar/dopdownContent/profile/orders';
 import ProfileDropDown2 from './components/navbar/dopdownContent/profile/profilemenu';
 import ProfileSettings from './components/navbar/dopdownContent/profile/profileSecurity';
 import Products from './components/products';

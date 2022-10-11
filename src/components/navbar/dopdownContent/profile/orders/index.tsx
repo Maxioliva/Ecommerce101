@@ -13,11 +13,9 @@ const options = {
   minute: 'numeric',
 };
 
-
-
 const PreviousOrders = () => {
   const [completedOrders, setCompletedOrders] = useState<SimpleOrder[]>([]);
-  const { user, order, getCompletedOrders } = useContext(CartContext);
+  const { user, getCompletedOrders } = useContext(CartContext);
 
   useEffect(() => {
     if (!user) {
@@ -29,9 +27,7 @@ const PreviousOrders = () => {
     })();
   }, []);
 
-
   return (
-
     <div className="previousOrders">
       <div className="previousOrders__title">Your Orders</div>
       <div className="previousOrders__container">
@@ -43,7 +39,6 @@ const PreviousOrders = () => {
                 <ItemList key={i} item={item} />
               ))}
             </div>
-            {/* {<h2 className="previousOrders__total">Total: ${order.products.reduce((previous, item) => previous + item.price * item.amount, 0).toFixed(2)}</h2>} */}
           </div>
         ))}
       </div>

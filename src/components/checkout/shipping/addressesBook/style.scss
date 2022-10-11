@@ -58,21 +58,21 @@
 
   &__card {
     border-radius: 3px;
-    padding: 0px 13px;
+    padding: 13px;
     margin: 5px;
     background-color: white;
     font-size: 10px;
     width: 43%;
-    height: 85px;
-    border: solid 2px;
+    height: 68px;
+    border: 2px solid rgb(201, 201, 201);
     cursor: pointer;
-    border-color: rgb(201, 201, 201);
     @media (max-width: $mobile) {
       width: 57%;
     }
-    // &::after {
-    //   border: solid 4px blue($color: #000000);
-    // }
+    &--selected {
+      border: 3px solid rgb(17, 24, 99) !important;
+      padding: 12px !important;
+    }
   }
   &__info {
     margin: 0px;

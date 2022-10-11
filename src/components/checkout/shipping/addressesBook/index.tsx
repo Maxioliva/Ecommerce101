@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable arrow-body-style */
 /* eslint-disable react/jsx-key */
+import classNames from 'classnames';
 import { useFormikContext } from 'formik';
 import { useContext, useEffect, useState } from 'react';
 import Shipping from '..';
@@ -16,11 +17,12 @@ type AddressBookProps = {
 
 const AddressBook = ({ addressList, getAddressList }: AddressBookProps) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [addressChossen, setAddressChossen] = useState<Address>();
+  const [addressSelected, setAddressSelected] = useState<Address>();
+  // const [addressClicked, setAddressClicked] = useState(false);
   const { values, setValues } = useFormikContext();
 
   const completeAddress = () => {
-    setValues(addressChossen);
+    setValues(addressSelected);
     setIsVisible(false);
   };
 
@@ -28,9 +30,14 @@ const AddressBook = ({ addressList, getAddressList }: AddressBookProps) => {
     getAddressList();
   }, []);
 
-  useEffect(() => {
-    getAddressList();
-  }, [addressList]);
+  const vevo = async (id: string) => {
+    try {
+      await deleteAddresses(id);
+      await getAddressList();
+    } catch (e: any) {
+      console.log(e);
+    }
+  };
 
   return (
     <div className="address-book">
@@ -42,13 +49,26 @@ const AddressBook = ({ addressList, getAddressList }: AddressBookProps) => {
             <p className="address-book__title">Choose a Shipping Address</p>
             <ul className="address-book__addresses">
               {addressList?.map(address => (
-                <li className="address-book__card" key={address.id} onClick={() => setAddressChossen(address)}>
+                <li
+                  className={classNames('address-book__card', {
+                    'address-book__card--selected': addressSelected?.id === address.id,
+                  })}
+                  key={address.id}
+                  onClick={() => {
+                    setAddressSelected(address);
+                  }}
+                >
+                  <h3 className="address-book__info">
+                    {address.firstName} {address.lastName}
+                  </h3>
+                  <h3 className="address-book__info">
+                    {address.houseNumber} - {address.streetName}
+                  </h3>
+                  <h3 className="address-book__info">
+                    {address.zipCode} - {address.city}
+                  </h3>
                   <h3 className="address-book__info">{address.country}</h3>
-                  <h3 className="address-book__info">{address.city}</h3>
-                  <h3 className="address-book__info">{address.streetName}</h3>
-                  <h3 className="address-book__info">{address.houseNumber}</h3>
-                  <h3 className="address-book__info">{address.zipCode}</h3>
-                  <div className="address-book__delete" onClick={() => deleteAddresses(address.id)}>
+                  <div className="address-book__delete" onClick={() => vevo(address.id)}>
                     Delete
                   </div>
                 </li>
@@ -62,7 +82,7 @@ const AddressBook = ({ addressList, getAddressList }: AddressBookProps) => {
                 className="address-book__button"
                 type="button"
                 onClick={completeAddress}
-                disabled={!addressChossen}
+                disabled={!addressSelected}
               >
                 Select
               </button>

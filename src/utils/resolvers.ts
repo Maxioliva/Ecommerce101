@@ -171,13 +171,11 @@ export const getCurrentAddresses = async (userId: string) => {
 };
 
 export const deleteAddresses = async (id: string) => {
-  const docuRef = await doc(firestore, 'Addresses', id);
-  await deleteDoc(docuRef)
-    .then(() => {
-      console.log('Entire Document has been deleted successfully.');
-      window.alert('Address Deleted');
-    })
-    .catch(error => {
-      console.log(error);
-    });
+  try {
+    const docuRef = await doc(firestore, 'Addresses', id);
+    console.log(docuRef);
+    await deleteDoc(docuRef);
+  } catch (e: any) {
+    console.log(e);
+  }
 };

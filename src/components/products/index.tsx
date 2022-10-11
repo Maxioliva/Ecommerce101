@@ -10,10 +10,6 @@ const Products = () => {
     return <h1>hi</h1>;
   }
 
-  // const handler (id: string) => {
-  //   id
-  // }
-
   return (
     <div className="products">
       <div className="products__filter">filter</div>

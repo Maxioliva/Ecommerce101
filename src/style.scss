@@ -15,21 +15,11 @@ body,
   width: 100%;
   position: relative;
   background-color: #fff;
-  // background-image:
-  // linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px),
-  // linear-gradient(#eee .1em, transparent .1em);
-  // background-size: 100% 1.2em;
-
-
-
 
   &__header {
-    // display: flex;
     position: sticky;
     top: 0;
     background: rgb(163, 225, 239);
-    // display: flex;
-    // justify-content: end;
     z-index: 1;
   }
 
@@ -40,26 +30,26 @@ body,
     width: 90%;
     min-height: 100vh;
     z-index: 0;
+
     @media (max-width: $tablet) {
       padding: 0;
     }
 
     @media (max-width: $mobile) {
       padding: 0;
-     
+
     }
 
     &__container {
       width: 100%;
-      background-color:rgb(211 233 240);
+      background-color: rgb(211 233 240);
       flex: 2;
       max-height: max-content;
-      min-height: 100vh; 
-      @media (max-width: $mobile) {
-        
-      }
-     
-     
+      min-height: 100vh;
+
+      @media (max-width: $mobile) {}
+
+
     }
   }
 
@@ -68,13 +58,8 @@ body,
     width: 100%;
     margin: 10px auto;
     background-color: rgb(154, 150, 150);
-    height:100vh;
+    height: 100vh;
   }
-
-  // &__footer {
-  //   background-color: rgb(111, 202, 7);
-  //   height: 100px;
-  // }
 }
 
 .profile {
@@ -85,11 +70,12 @@ body,
   align-items: flex-start;
 
   flex-wrap: wrap;
-  
+
   @media (max-width: $mobile) {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-content: center;
     flex-wrap: wrap;
-} }
+  }
+}

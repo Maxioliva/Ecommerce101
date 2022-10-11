@@ -1,12 +1,6 @@
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useContext } from 'react';
-import CartContext from '../../context/CartContext';
 import './style.scss';
 
 export const ItemList = ({ item }: any) => {
-  const { addItemToCart, deleteItemToCart, deleteAllItemToCart }: any = useContext(CartContext);
-
   return (
     <div className="cartItem">
       <img className="product-cart" src={item.image} />
@@ -19,7 +13,7 @@ export const ItemList = ({ item }: any) => {
         <div className="right">
           <div>${item.price}</div>
         </div>
-        </div>
+      </div>
     </div>
   );
 };

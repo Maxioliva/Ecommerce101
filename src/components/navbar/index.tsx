@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable quotes */
+
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { getAssetUrl } from '../../utils/config';
 import DropDown from '../atoms/dropdown';
@@ -18,7 +17,6 @@ const NavBar = () => {
   }
   return (
     <div className="navbar">
-      {/* <Cart /> */}
       <div className="navbar__option__3">
         <Link to='/'>
           <img className="navbar__logo" src={getAssetUrl('./header/navbarlogo.png')} alt="section1" />
@@ -37,7 +35,6 @@ const NavBar = () => {
         <Icon size={30} icon={'products'} onClick={() => navigate('/Products')} />
       </div>
     </div>
-    // </div>
   );
 };
 

@@ -1,6 +1,8 @@
+import { faListSquares } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { getAuth, signOut, updatePassword, updateEmail } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
+import Spinner from '../components/spinner/spinner';
 import firebaseApp from '../firebase/credenciales';
 import * as resolvers from '../utils/resolvers';
 import { updateOrder, updateWishList } from '../utils/resolvers';
@@ -13,8 +15,13 @@ export const CartProvider = ({ children }: any) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [wishList, setWishList] = useState<Product[]>([]);
   const [order, setOrder] = useState<SimpleOrder>();
+  const [isLoading, setIsLoading] = useState(false);
   const auth = getAuth(firebaseApp);
   const userAuth = auth.currentUser;
+
+  if (isLoading) {
+    return <Spinner />
+  }
 
   useEffect(() => {
     (async () => {
@@ -79,7 +86,9 @@ export const CartProvider = ({ children }: any) => {
       .catch(error => console.error(error));
 
   useEffect(() => {
+    setIsLoading(true);
     getProducts();
+    setIsLoading(false);
   }, []);
 
   const addItemToCart = async (product: Product) => {

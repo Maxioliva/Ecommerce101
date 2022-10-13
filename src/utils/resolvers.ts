@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import {
   doc,
@@ -9,6 +8,7 @@ import {
   where,
   getDocs,
   updateDoc,
+  Timestamp,
   QueryDocumentSnapshot,
   deleteDoc,
 } from 'firebase/firestore';
@@ -23,7 +23,6 @@ const firestore = getFirestore(firebaseApp);
 export const login = async (email: string, password: string) => {
   const userInfo = await signInWithEmailAndPassword(auth, email, password);
   const result = await getCurrentUser(userInfo.user.uid);
-  // console.log(result);
   return result;
 };
 
@@ -75,7 +74,7 @@ export const updatePayment = async (userId: string, payment: string) => {
   const querySnapshot = await getDocs(q);
   const currentBasket = querySnapshot.docs.find(d => !(d.data() as Order).isCompleted);
   const docuRef = await doc(firestore, `Orders/${currentBasket?.id}`);
-  await updateDoc(docuRef, { isCompleted: true, payment, completedAt: new Date() });
+  await updateDoc(docuRef, { isCompleted: true, payment, completedAt: Timestamp.fromDate(new Date()) });
 };
 
 export const updateOrder = async (products: Product[], userId: string) => {
@@ -94,7 +93,6 @@ export const updateOrder = async (products: Product[], userId: string) => {
 export const getCurrentOrder = async (userId: string) => {
   const q = query(collection(firestore, 'Orders'), where('userId', '==', userId));
   const querySnapshot = await getDocs(q);
-
   if (querySnapshot.docs.length && querySnapshot.docs.some(o => !(o.data() as Order).isCompleted)) {
     const currentOrder = querySnapshot.docs.find(d => !(d.data() as Order).isCompleted);
     return currentOrder?.data() as Omit<Order, 'id' | 'userId' | 'isCompleted'>;
@@ -105,10 +103,8 @@ export const getCurrentOrder = async (userId: string) => {
 export const getCompletedOrders = async (userId: string) => {
   const q = query(collection(firestore, 'Orders'), where('userId', '==', userId));
   const querySnapshot = await getDocs(q);
-
   if (querySnapshot.docs.length && querySnapshot.docs.some(o => (o.data() as Order).isCompleted)) {
     const previousOrders = querySnapshot.docs.filter(d => (d.data() as Order).isCompleted);
-
     return previousOrders.map(o => o.data() as Omit<Order, 'id' | 'userId' | 'isCompleted'>);
   }
   return [];
@@ -117,7 +113,6 @@ export const getCompletedOrders = async (userId: string) => {
 export const updateWishList = async (products: Product[], userId: string) => {
   const q = query(collection(firestore, 'WishList'), where('userId', '==', userId));
   const querySnapshot = await getDocs(q);
-  // console.log(querySnapshot.docs)
   const currentWishList = querySnapshot.docs[0];
   if (!currentWishList) {
     const docuRef = await doc(firestore, `WishList/${nanoid()}`);
@@ -127,13 +122,13 @@ export const updateWishList = async (products: Product[], userId: string) => {
     await setDoc(docuRef, { userId, products });
   }
 };
+
 export const getCurrentWishList = async (userId: string) => {
   const q = query(collection(firestore, 'WishList'), where('userId', '==', userId));
   const querySnapshot = await getDocs(q);
 
   if (querySnapshot.docs.length) {
     const currentWishList = querySnapshot.docs[0];
-    // console.log(currentWishList?.data() as WishList)
     return (currentWishList?.data() as WishList).products;
   }
   return [];

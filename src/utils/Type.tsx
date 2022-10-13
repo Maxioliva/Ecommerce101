@@ -1,3 +1,5 @@
+import { Timestamp } from 'firebase/firestore';
+
 export type User = {
   id: string;
   firstName: string;
@@ -50,6 +52,7 @@ export type ShopState = {
   getCurrentAddresses: (userId: string) => Promise<Address[]>;
 
   // createOrder: (products: Product[]) => Promise<void>;
+  getCompletedOrders: (userId: string) => Promise<Omit<Order, 'id' | 'userId' | 'isCompleted'>[]>;
 };
 
 export type Order = {
@@ -58,7 +61,9 @@ export type Order = {
   products: Product[];
   isCompleted: boolean;
   address?: Omit<Address, 'id'>[];
-  completedAt?: Date;
+  completedAt?: Timestamp;
+  paymentMethod?: string;
+  total?: number;
 };
 
 export type SimpleOrder = Omit<Order, 'id' | 'userId' | 'isCompleted'>;

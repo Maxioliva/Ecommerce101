@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { Link } from 'react-router-dom';
 import { getAssetUrl } from '../../utils/config';
@@ -84,7 +83,6 @@ const RegisterForm = () => {
             <button className="sign-button" type="submit">
               Register
             </button>
-
             <div className="form-message">
               By creating an account, you agree to Shopping's terms of use and privacy notice{' '}
             </div>
@@ -93,7 +91,6 @@ const RegisterForm = () => {
       </Formik>
       <div className="bottom-form">
         <div className="separator-line">¿Do you already have an account?</div>
-
         <Link to={'/login'}>
           <button className="buttom-register" type="submit">
             Login

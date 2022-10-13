@@ -19,7 +19,6 @@ const Payment = () => {
 
   const submitHandler = async (values: typeof initialValues) => {
     await updatePayment(user.id, values.picked);
-
     await getOrder(user.id);
   };
 

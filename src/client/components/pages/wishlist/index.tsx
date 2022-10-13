@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import CartContext from '../../../utils/StateContext';
-import Icon from '../icono';
+import Icon from '../../atoms/icono';
 
 const WishList = () => {
   const { wishList, wishListHandler } = useContext(CartContext);

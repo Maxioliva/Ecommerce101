@@ -4,7 +4,7 @@ import DropDown from '../../atoms/dropdown';
 import ProfileDropDown from '../../molecules/profile';
 import './style.scss';
 import Icon from '../../atoms/icono';
-import WishListDropDown from '../../atoms/wishlist';
+import WishListDropDown from '../../molecules/wishlist';
 import CartDropDown from '../../molecules/cart';
 
 const NavBar = () => {

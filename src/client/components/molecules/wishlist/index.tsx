@@ -1,9 +1,9 @@
-import { faHeart, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CartContext from '../../../utils/StateContext';
-import { ItemList } from '../../atoms/itemList';
+import ItemList from '../../atoms/itemList';
 import './style.scss';
 
 const WishListDropDown = () => {

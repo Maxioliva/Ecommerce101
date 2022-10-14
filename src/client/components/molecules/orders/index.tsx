@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import CartContext from '../../../utils/StateContext';
 import { SimpleOrder } from '../../../utils/Type';
-import { ItemList } from '../../atoms/itemList';
+import ItemList from '../../atoms/itemList';
 import './style.scss';
 
 const options = {

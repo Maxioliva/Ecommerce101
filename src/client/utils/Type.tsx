@@ -1,4 +1,4 @@
-import { Timestamp } from "firebase/firestore";
+import { Timestamp } from 'firebase/firestore';
 
 export type User = {
   id: string;
@@ -30,10 +30,11 @@ export type Address = {
   city: string;
   country: string;
   id: string;
-  // userId: string;
+  userId: string;
 };
 
 export type ShopState = {
+  addressList?: Address[];
   user?: User;
   products: Product[];
   wishList: Product[];
@@ -48,7 +49,10 @@ export type ShopState = {
   changePassword: (newPassword: string) => void;
   changeEmail: (newEmail: string) => void;
   getOrder: (id: string) => Promise<void>;
-  getCompletedOrders: (userId: string) => Promise<Omit<Order, "id" | "userId" | "isCompleted">[]>
+  getCurrentAddresses: (userId: string) => Promise<Address[]>;
+
+  // createOrder: (products: Product[]) => Promise<void>;
+  getCompletedOrders: (userId: string) => Promise<Omit<Order, 'id' | 'userId' | 'isCompleted'>[]>;
 };
 
 export type Order = {
@@ -56,7 +60,7 @@ export type Order = {
   userId: string;
   products: Product[];
   isCompleted: boolean;
-  address?: Address[];
+  address?: Omit<Address, 'id'>[];
   completedAt?: Timestamp;
   paymentMethod?: string;
   total?: number;

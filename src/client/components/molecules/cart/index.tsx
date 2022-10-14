@@ -1,7 +1,8 @@
 import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CartContext from '../../../utils/StateContext';
-import { ItemList } from '../../atoms/itemList';
+import ItemList from '../../atoms/itemList';
+
 import './style.scss';
 
 const CartDropDown = () => {

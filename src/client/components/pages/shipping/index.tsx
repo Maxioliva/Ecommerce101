@@ -1,14 +1,17 @@
 import { Field, Form, Formik } from 'formik';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CartContext from '../../../utils/StateContext';
-import { updateAdressOrder } from '../../../utils/resolvers';
+import { sanitizeAddress, updateAdressOrder } from '../../../utils/resolvers';
 import { Address } from '../../../utils/Type';
 import OrderSummary from '../../atoms/orderSummary';
 import './style.scss';
+import AddressBook from '../../atoms/addressBook';
 
 const Shipping = () => {
-  const { user, order } = useContext(CartContext);
+  // const { values } = useFormikContext(Addresses);
+  const [addressList, setAddressList] = useState<Address[]>([]);
+  const { user, order, getCurrentAddresses } = useContext(CartContext);
   const navigate = useNavigate();
 
   if (!user) {
@@ -21,6 +24,11 @@ const Shipping = () => {
     return <></>;
   }
 
+  const getAddressList = async () => {
+    const currentAddresses = await getCurrentAddresses(user.id);
+    setAddressList(currentAddresses);
+  };
+
   const Addresss = {
     firstName: '',
     lastName: '',
@@ -30,11 +38,11 @@ const Shipping = () => {
     zipCode: '',
     city: '',
     country: '',
-    id: user.id,
   };
 
-  const submitHandler = (values: Address) => {
+  const submitHandler = (values: Omit<Address, 'id' | 'userId'>) => {
     updateAdressOrder(values, user.id);
+    sanitizeAddress(values, user.id);
     navigate('/checkout-payment');
   };
 
@@ -43,6 +51,7 @@ const Shipping = () => {
       <Formik initialValues={Addresss} onSubmit={submitHandler}>
         <Form className="checkout">
           <div className="checkout__form">
+            <AddressBook addressList={addressList} getAddressList={getAddressList} />
             <h1 className="checkout__h1">Shipping Information</h1>
             <Field className="checkout__Input" type="text" id="firstName" name="firstName" placeholder="First Name" />
             <Field className="checkout__Input" type="text" id="lastName" name="lastName" placeholder="Last Name" />

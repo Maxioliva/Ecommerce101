@@ -1,8 +1,21 @@
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { doc, getFirestore, setDoc, collection, query, where, getDocs, updateDoc, Timestamp } from 'firebase/firestore';
+import {
+  doc,
+  getFirestore,
+  setDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+  updateDoc,
+  Timestamp,
+  QueryDocumentSnapshot,
+  deleteDoc,
+} from 'firebase/firestore';
 import { nanoid } from 'nanoid';
 import firebaseApp from './credenciales';
-import { Address, Order, Product, User, WishList } from './Type';
+import { Address, Order, Product, SimpleOrder, User, WishList } from './Type';
+import isequal from 'lodash.isequal';
 
 const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
@@ -19,6 +32,7 @@ export const registerUser = async (user: User & { password: string }) => {
   );
   const userId = infoUser.user.uid;
   const docuRef = await doc(firestore, `User/${infoUser.user.uid}`);
+
   const newUser = {
     id: userId,
     firstName: user.firstName,
@@ -27,6 +41,7 @@ export const registerUser = async (user: User & { password: string }) => {
     gender: user.gender,
   };
   setDoc(docuRef, newUser);
+
   return newUser;
 };
 
@@ -42,17 +57,17 @@ export const updateUser = async (firstName: string, lastName: string, email: str
   const querySnapshot = await getDocs(q);
   const currentUser = querySnapshot.docs[0];
   const docuRef = await doc(firestore, `User/${currentUser.id}`);
+
   return await setDoc(docuRef, { id, lastName, firstName, email });
 };
 
-export const updateAdressOrder = async (address: Address, userId: string) => {
+export const updateAdressOrder = async (address: Omit<Address, 'id' | 'userId'>, userId: string) => {
   const q = query(collection(firestore, 'Orders'), where('userId', '==', userId));
   const querySnapshot = await getDocs(q);
   const currentBasket = querySnapshot.docs.find(d => !(d.data() as Order).isCompleted);
   const docuRef = await doc(firestore, `Orders/${currentBasket?.id}`);
   await updateDoc(docuRef, { address });
 };
-
 export const updatePayment = async (userId: string, payment: string) => {
   const q = query(collection(firestore, 'Orders'), where('userId', '==', userId));
   const querySnapshot = await getDocs(q);
@@ -116,4 +131,44 @@ export const getCurrentWishList = async (userId: string) => {
     return (currentWishList?.data() as WishList).products;
   }
   return [];
+};
+
+export const sanitizeAddress = async (address: Omit<Address, 'id' | 'userId'>, usuarioId: string) => {
+  const q = query(collection(firestore, 'Addresses'), where('userId', '==', usuarioId));
+  const querySnapshot = await getDocs(q);
+  const vevo = (d: QueryDocumentSnapshot) => {
+    const vevo2 = d.data() as Address;
+    const { id, userId, ...rest } = vevo2;
+
+    return rest;
+  };
+
+  const allReadyInMemory = querySnapshot.docs.find(d => isequal(vevo(d), address));
+
+  if (!allReadyInMemory) {
+    const addressId = nanoid();
+    const docuRef = await doc(firestore, `Addresses/${addressId}`);
+    await setDoc(docuRef, { userId: usuarioId, ...address, id: addressId });
+  }
+};
+
+export const getCurrentAddresses = async (userId: string) => {
+  const q = query(collection(firestore, 'Addresses'), where('userId', '==', userId));
+  const querySnapshot = await getDocs(q);
+
+  if (querySnapshot.docs.length) {
+    const currentAddresList = querySnapshot.docs.map(address => address?.data() as Address);
+
+    return currentAddresList;
+  }
+  return [];
+};
+
+export const deleteAddresses = async (id: string) => {
+  try {
+    const docuRef = await doc(firestore, 'Addresses', id);
+    await deleteDoc(docuRef);
+  } catch (e: any) {
+    console.log(e);
+  }
 };

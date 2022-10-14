@@ -2,9 +2,9 @@ import axios from 'axios';
 import { getAuth, signOut, updatePassword, updateEmail } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
 import firebaseApp from './credenciales';
-import * as resolvers from './resolvers';
-import { updateOrder, updateWishList } from './resolvers';
-import { Product, ShopState, SimpleOrder, User } from './Type';
+import * as resolvers from '../utils/resolvers';
+import { updateOrder, updateWishList } from '../utils/resolvers';
+import { Address, Order, Product, ShopState, SimpleOrder, User } from '../utils/Type';
 
 const CartContext = createContext<ShopState>({} as ShopState);
 
@@ -13,6 +13,8 @@ export const CartProvider = ({ children }: any) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [wishList, setWishList] = useState<Product[]>([]);
   const [order, setOrder] = useState<SimpleOrder>();
+  const [ordersCompleted, setOrdersCompleted] = useState<SimpleOrder[]>();
+  const [addressList, setAddressList] = useState<Address[]>();
   const auth = getAuth(firebaseApp);
   const userAuth = auth.currentUser;
 
@@ -22,6 +24,8 @@ export const CartProvider = ({ children }: any) => {
         getOrder(user.id);
         const currentWishList = await resolvers.getCurrentWishList(user.id);
         setWishList(currentWishList);
+        const currentAddresses = await resolvers.getCurrentAddresses(user.id);
+        setAddressList(currentAddresses);
       }
     })();
   }, [user]);
@@ -30,6 +34,7 @@ export const CartProvider = ({ children }: any) => {
     const currentOrder = await resolvers.getCurrentOrder(id);
     setOrder(currentOrder);
     const currentOrderCompleted = await resolvers.getCompletedOrders(id);
+    setOrdersCompleted(currentOrderCompleted);
   };
 
   const loginHandler = async (email: string, password: string) => {
@@ -136,6 +141,7 @@ export const CartProvider = ({ children }: any) => {
   return (
     <CartContext.Provider
       value={{
+        addressList,
         order,
         getOrder,
         changePassword,

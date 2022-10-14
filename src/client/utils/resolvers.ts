@@ -133,7 +133,7 @@ export const getCurrentWishList = async (userId: string) => {
   return [];
 };
 
-export const createAddress = async (address: Omit<Address, 'id' | 'userId'>, usuarioId: string) => {
+export const sanitizeAddress = async (address: Omit<Address, 'id' | 'userId'>, usuarioId: string) => {
   const q = query(collection(firestore, 'Addresses'), where('userId', '==', usuarioId));
   const querySnapshot = await getDocs(q);
   const vevo = (d: QueryDocumentSnapshot) => {
@@ -167,7 +167,6 @@ export const getCurrentAddresses = async (userId: string) => {
 export const deleteAddresses = async (id: string) => {
   try {
     const docuRef = await doc(firestore, 'Addresses', id);
-    console.log(docuRef);
     await deleteDoc(docuRef);
   } catch (e: any) {
     console.log(e);

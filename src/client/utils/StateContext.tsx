@@ -26,7 +26,6 @@ export const CartProvider = ({ children }: any) => {
         setWishList(currentWishList);
         const currentAddresses = await resolvers.getCurrentAddresses(user.id);
         setAddressList(currentAddresses);
-        console.log('address', currentAddresses);
       }
     })();
   }, [user]);

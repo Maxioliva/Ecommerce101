@@ -2,7 +2,7 @@ import { Field, Form, Formik } from 'formik';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CartContext from '../../../utils/StateContext';
-import { createAddress, updateAdressOrder } from '../../../utils/resolvers';
+import { sanitizeAddress, updateAdressOrder } from '../../../utils/resolvers';
 import { Address } from '../../../utils/Type';
 import OrderSummary from '../../atoms/orderSummary';
 import './style.scss';
@@ -42,7 +42,7 @@ const Shipping = () => {
 
   const submitHandler = (values: Omit<Address, 'id' | 'userId'>) => {
     updateAdressOrder(values, user.id);
-    createAddress(values, user.id);
+    sanitizeAddress(values, user.id);
     navigate('/checkout-payment');
   };
 

@@ -14,7 +14,6 @@ type AddressBookProps = {
 const AddressBook = ({ addressList, getAddressList }: AddressBookProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [addressSelected, setAddressSelected] = useState<Address>();
-  // const [addressClicked, setAddressClicked] = useState(false);
   const { values, setValues } = useFormikContext();
 
   const completeAddress = () => {
@@ -26,7 +25,7 @@ const AddressBook = ({ addressList, getAddressList }: AddressBookProps) => {
     getAddressList();
   }, []);
 
-  const vevo = async (id: string) => {
+  const deleteHandler = async (id: string) => {
     try {
       await deleteAddresses(id);
       await getAddressList();
@@ -38,7 +37,6 @@ const AddressBook = ({ addressList, getAddressList }: AddressBookProps) => {
   return (
     <div className="address-book">
       <div onClick={() => setIsVisible(!isVisible)}> Addresses Book</div>
-
       {isVisible && (
         <div className="address-book__container">
           <div className="address-book__list">
@@ -64,7 +62,7 @@ const AddressBook = ({ addressList, getAddressList }: AddressBookProps) => {
                     {address.zipCode} - {address.city}
                   </h3>
                   <h3 className="address-book__info">{address.country}</h3>
-                  <div className="address-book__delete" onClick={() => vevo(address.id)}>
+                  <div className="address-book__delete" onClick={() => deleteHandler(address.id)}>
                     Delete
                   </div>
                 </li>

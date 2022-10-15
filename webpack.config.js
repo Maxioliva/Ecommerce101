@@ -13,7 +13,7 @@ const IS_DEVELOPMENT = NODE_ENV !== 'production';
 module.exports = {
   mode: IS_DEVELOPMENT ? 'development' : 'production',
   stats: IS_DEVELOPMENT ? 'minimal' : 'normal',
-  entry: './src/index.tsx',
+  entry: './src/client/index.tsx',
   output: {
     path: path.join(__dirname, 'public'),
     filename: 'ecoo.js',

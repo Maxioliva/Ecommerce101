@@ -1,21 +1,22 @@
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import {
-  doc,
-  getFirestore,
-  setDoc,
   collection,
-  query,
-  where,
-  getDocs,
-  updateDoc,
-  Timestamp,
-  QueryDocumentSnapshot,
   deleteDoc,
+  doc,
+  getDocs,
+  getFirestore,
+  query,
+  QueryDocumentSnapshot,
+  setDoc,
+  Timestamp,
+  updateDoc,
+  where,
 } from 'firebase/firestore';
-import { nanoid } from 'nanoid';
-import firebaseApp from './credenciales';
-import { Address, Order, Product, SimpleOrder, User, WishList } from './Type';
 import isequal from 'lodash.isequal';
+import { nanoid } from 'nanoid';
+import callApi from './callApi';
+import firebaseApp from './credenciales';
+import { Address, Order, Product, User, WishList } from './Type';
 
 const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
@@ -26,23 +27,9 @@ export const login = async (email: string, password: string) => {
   return result;
 };
 
-export const registerUser = async (user: User & { password: string }) => {
-  const infoUser = await createUserWithEmailAndPassword(auth, user.email, user.password).then(
-    userFirebase => userFirebase
-  );
-  const userId = infoUser.user.uid;
-  const docuRef = await doc(firestore, `User/${infoUser.user.uid}`);
-
-  const newUser = {
-    id: userId,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    email: user.email,
-    gender: user.gender,
-  };
-  setDoc(docuRef, newUser);
-
-  return newUser;
+export const register = async (user: User & { password: string }) => {
+  const response = await callApi({ method: 'POST', endpoint: '/register', payload: user });
+  return response;
 };
 
 export const getCurrentUser = async (userId: string) => {

@@ -1,11 +1,15 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { getAssetUrl } from '../../../utils/config';
-import { registerUser } from '../../../utils/resolvers';
+import CartContext from '../../../utils/StateContext';
 import { User } from '../../../utils/Type';
 import './style.scss';
 
 const RegisterForm = () => {
+  const { register } = useContext(CartContext);
+  const navigate = useNavigate();
+
   const initialValues = {
     id: '',
     firstName: '',
@@ -33,7 +37,8 @@ const RegisterForm = () => {
 
   const submitHandler = async (values: User & { password: string }) => {
     try {
-      await registerUser(values);
+      await register(values);
+      navigate('/products');
     } catch (error) {
       if (error instanceof Error && error.message.includes('email-already-in-use')) {
         console.log(error.message);

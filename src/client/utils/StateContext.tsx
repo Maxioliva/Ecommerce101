@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { getAuth, signOut, updatePassword, updateEmail } from 'firebase/auth';
+import { getAuth, signOut, updateEmail, updatePassword } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
-import firebaseApp from './credenciales';
 import * as resolvers from '../utils/resolvers';
 import { updateOrder, updateWishList } from '../utils/resolvers';
-import { Address, Order, Product, ShopState, SimpleOrder, User } from '../utils/Type';
+import { Address, Product, ShopState, SimpleOrder, User } from '../utils/Type';
+import firebaseApp from './credenciales';
 
 const CartContext = createContext<ShopState>({} as ShopState);
 
@@ -29,6 +29,12 @@ export const CartProvider = ({ children }: any) => {
       }
     })();
   }, [user]);
+
+  const registerHandler = async (_user: User & { password: string }) => {
+    const userInstance = await resolvers.register(_user);
+    setUser(userInstance);
+    return userInstance;
+  };
 
   const getOrder = async (id: string) => {
     const currentOrder = await resolvers.getCurrentOrder(id);
@@ -154,7 +160,11 @@ export const CartProvider = ({ children }: any) => {
         products,
         deleteItemToCart,
         addItemToCart,
-        ...{ ...resolvers, login: (email: string, password: string) => loginHandler(email, password) },
+        ...{
+          ...resolvers,
+          login: (email: string, password: string) => loginHandler(email, password),
+          register: (newUser: User & { password: string }) => registerHandler(newUser),
+        },
       }}
     >
       {children}

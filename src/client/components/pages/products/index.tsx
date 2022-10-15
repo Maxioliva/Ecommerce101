@@ -1,13 +1,13 @@
 import { useContext } from 'react';
 import CartContext from '../../../utils/StateContext';
-import './style.scss';
 import Icon from '../../atoms/icono';
+import './style.scss';
 
 const Products = () => {
   const { wishList, wishListHandler, addItemToCart, products } = useContext(CartContext);
 
   if (!products || !products.length) {
-    return <h1>hi</h1>;
+    return <h1>loading products</h1>;
   }
 
   return (

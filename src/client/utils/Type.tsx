@@ -41,7 +41,7 @@ export type ShopState = {
   order?: Omit<Order, 'id' | 'userId' | 'isCompleted'>;
   login: (email: string, password: string) => Promise<User>;
   logOut: () => void;
-  registerUser: (user: User & { password: string }) => Promise<User>;
+  register: (newUser: User & { password: string }) => Promise<User>;
   addItemToCart: (product: Product) => Promise<void>;
   deleteItemToCart: (id: string) => void;
   deleteAllItemToCart: (id: string) => void;

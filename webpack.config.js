@@ -16,7 +16,7 @@ module.exports = {
   entry: './src/client/index.tsx',
   output: {
     path: path.join(__dirname, 'public'),
-    filename: 'ecoo.js',
+    filename: 'elchamuyin.js',
     publicPath: '/',
   },
   module: {
@@ -77,11 +77,10 @@ module.exports = {
       IS_DEVELOPMENT,
     }),
     new TypeCheckerPlugin(),
-
     new HtmlPlugin({
       template: './public/index.html',
     }),
-    ...(IS_DEVELOPMENT ? [new ReactRefreshPlugin()] : [new CssExtractPlugin({ filename: 'ay-checkout-base.min.css' })]),
+    ...(IS_DEVELOPMENT ? [new ReactRefreshPlugin()] : [new CssExtractPlugin({ filename: 'elchamuyin.min.css' })]),
   ],
   optimization: {
     minimize: !IS_DEVELOPMENT,

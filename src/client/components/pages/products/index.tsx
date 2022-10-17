@@ -2,12 +2,14 @@ import { useContext } from 'react';
 import CartContext from '../../../utils/StateContext';
 import './style.scss';
 import Icon from '../../atoms/icono';
+import Spinner from '../../../../components/atoms/spinner';
+
 
 const Products = () => {
   const { wishList, wishListHandler, addItemToCart, products } = useContext(CartContext);
 
   if (!products || !products.length) {
-    return <h1>hi</h1>;
+    return <Spinner />;
   }
 
   return (

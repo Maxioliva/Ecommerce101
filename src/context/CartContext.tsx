@@ -2,7 +2,7 @@ import { faListSquares } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { getAuth, signOut, updatePassword, updateEmail } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
-import Spinner from '../components/spinner/spinner';
+import Spinner from '../components/atoms/spinner';
 import firebaseApp from '../firebase/credenciales';
 import * as resolvers from '../utils/resolvers';
 import { updateOrder, updateWishList } from '../utils/resolvers';
@@ -19,16 +19,14 @@ export const CartProvider = ({ children }: any) => {
   const auth = getAuth(firebaseApp);
   const userAuth = auth.currentUser;
 
-  if (isLoading) {
-    return <Spinner />
-  }
-
   useEffect(() => {
     (async () => {
       if (user) {
+        setIsLoading(true);
         getOrder(user.id);
         const currentWishList = await resolvers.getCurrentWishList(user.id);
         setWishList(currentWishList);
+        setIsLoading(false);
       }
     })();
   }, [user]);
@@ -86,9 +84,9 @@ export const CartProvider = ({ children }: any) => {
       .catch(error => console.error(error));
 
   useEffect(() => {
-    setIsLoading(true);
+    // setIsLoading(true);
     getProducts();
-    setIsLoading(false);
+    // setIsLoading(false);
   }, []);
 
   const addItemToCart = async (product: Product) => {
@@ -141,6 +139,12 @@ export const CartProvider = ({ children }: any) => {
     );
     setOrder({ ...order, products: order!.products.filter(item => item.id !== id) });
   };
+
+
+  if (isLoading) {
+    return < Spinner />
+  }
+
 
   return (
     <CartContext.Provider

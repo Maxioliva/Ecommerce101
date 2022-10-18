@@ -16,6 +16,7 @@ import Payment from './components/pages/payment';
 import Shipping from './components/pages/shipping';
 import PreviousOrders from './components/molecules/orders';
 import About from './components/pages/about';
+import Ordersuccers from './components/pages/ordersuccess';
 
 const App = () => (
   <div className="app">
@@ -34,6 +35,7 @@ const App = () => (
             <Route path="/checkout-payment" element={<Payment />} />
             <Route path="/checkout-shipping" element={<Shipping />} />
             <Route path="/about" element={<About />} />
+            <Route path="/ordersuccess" element={<Ordersuccers />} />
             <Route
               path="/products"
               element={

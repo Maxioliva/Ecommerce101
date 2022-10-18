@@ -5,9 +5,11 @@ import { Formik, Field, Form } from 'formik';
 import { updatePayment } from '../../../utils/resolvers';
 import './style.scss';
 import OrderSummary from '../../atoms/orderSummary';
+import { useNavigate } from 'react-router-dom';
 
 const Payment = () => {
   const { user, getOrder } = useContext(CartContext);
+  const navigate = useNavigate();
 
   if (!user) {
     return <></>;
@@ -52,7 +54,7 @@ const Payment = () => {
             </div>
             <div className="payment__textbutton">Picked: {values.picked}</div>
 
-            <button className="payment__button" type="submit">
+            <button className="payment__button" type="submit" onClick={() => navigate('/ordersuccess')}>
               Confirm Payment
             </button>
           </Form>

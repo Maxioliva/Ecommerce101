@@ -6,7 +6,6 @@
   margin: auto;
   border-style: groove;
   position: relative;
- 
 }
 .input {
   padding: 9px 20px;
@@ -24,9 +23,13 @@
   color: red;
   font-family: 'Times New Roman', Times, serif;
   font-size: 15px;
-  
 }
 
 .genre {
   margin: 10px 0px;
+}
+
+.sign-button {
+  display: flex;
+  justify-content: center;
 }

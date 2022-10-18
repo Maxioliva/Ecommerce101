@@ -9,6 +9,7 @@ import {
   updatePassword,
 } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
+import Spinner from '../components/atoms/loadingSpinner';
 import * as resolvers from '../utils/resolvers';
 import { auth, updateOrder, updateWishList } from '../utils/resolvers';
 import { Address, Product, ShopState, SimpleOrder, User } from '../utils/Type';
@@ -21,6 +22,7 @@ export const CartProvider = ({ children }: any) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [wishList, setWishList] = useState<Product[]>([]);
   const [order, setOrder] = useState<SimpleOrder>();
+  const [isLoading, setIsLoading] = useState(false);
   const [ordersCompleted, setOrdersCompleted] = useState<SimpleOrder[]>();
   const [addressList, setAddressList] = useState<Address[]>();
   const userAuth = auth.currentUser;
@@ -54,6 +56,7 @@ export const CartProvider = ({ children }: any) => {
         setWishList(currentWishList);
         const currentAddresses = await resolvers.getCurrentAddresses(persistanceId);
         setAddressList(currentAddresses);
+        setIsLoading(false);
       }
     })();
   }, [persistanceId]);
@@ -106,7 +109,9 @@ export const CartProvider = ({ children }: any) => {
       .catch(error => console.error(error));
 
   useEffect(() => {
+    // setIsLoading(true);
     getProducts();
+    // setIsLoading(false);
   }, []);
 
   const addItemToCart = async (product: Product) => {
@@ -159,6 +164,10 @@ export const CartProvider = ({ children }: any) => {
     );
     setOrder({ ...order, products: order!.products.filter(item => item.id !== id) });
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <CartContext.Provider

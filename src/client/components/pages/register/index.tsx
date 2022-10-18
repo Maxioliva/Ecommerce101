@@ -1,12 +1,14 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAssetUrl } from '../../../utils/config';
 import CartContext from '../../../utils/StateContext';
 import { User } from '../../../utils/Type';
+import LoadingDots from '../../atoms/loadingDots';
 import './style.scss';
 
 const RegisterForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const { register } = useContext(CartContext);
   const navigate = useNavigate();
 
@@ -37,7 +39,9 @@ const RegisterForm = () => {
 
   const submitHandler = async (values: User & { password: string }) => {
     try {
+      setIsLoading(true);
       await register(values);
+      setIsLoading(false);
       navigate('/products');
     } catch (error) {
       if (error instanceof Error && error.message.includes('email-already-in-use')) {
@@ -86,7 +90,7 @@ const RegisterForm = () => {
             <Field className="input" type="password" id="password" name="password" placeholder="Choose a Password" />
 
             <button className="sign-button" type="submit">
-              Register
+              {isLoading ? <LoadingDots /> : 'Register'}
             </button>
             <div className="form-message">
               By creating an account, you agree to Shopping`s terms of use and privacy notice{' '}

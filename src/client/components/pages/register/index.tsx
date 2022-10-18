@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getAssetUrl } from '../../../utils/config';
 import CartContext from '../../../utils/StateContext';
 import { User } from '../../../utils/Type';
+import WavesBackground from '../../atoms/wavesBackground';
 import './style.scss';
 
 const RegisterForm = () => {
@@ -53,6 +54,7 @@ const RegisterForm = () => {
 
   return (
     <>
+      <WavesBackground />
       <div className="formik__header">
         <img className="login__logo" src={getAssetUrl('./header/navbarlogo.png')} alt="section1" />
       </div>

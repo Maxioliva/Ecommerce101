@@ -6,6 +6,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const TypeCheckerPlugin = require('fork-ts-checker-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const { NODE_ENV } = process.env;
 const IS_DEVELOPMENT = NODE_ENV !== 'production';
@@ -73,6 +74,7 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js'],
   },
   plugins: [
+    new Dotenv(),
     new DefinePlugin({
       IS_DEVELOPMENT,
     }),

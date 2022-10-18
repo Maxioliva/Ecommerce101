@@ -1,7 +1,7 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import morgan from 'morgan';
-import router from './routes';
+import API from './api';
 import cors from 'cors';
 
 const app = express();
@@ -10,6 +10,6 @@ app.use(cors({ origin: 'http://localhost:3000' })); // TODO: whitelist productio
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(router);
+app.use(API);
 
 export default app;

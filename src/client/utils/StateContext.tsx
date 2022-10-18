@@ -1,52 +1,68 @@
 import axios from 'axios';
-import { getAuth, signOut, updateEmail, updatePassword } from 'firebase/auth';
+import {
+  browserLocalPersistence,
+  onAuthStateChanged,
+  setPersistence,
+  signInWithEmailAndPassword,
+  signOut,
+  updateEmail,
+  updatePassword,
+} from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
 import * as resolvers from '../utils/resolvers';
-import { updateOrder, updateWishList } from '../utils/resolvers';
+import { auth, updateOrder, updateWishList } from '../utils/resolvers';
 import { Address, Product, ShopState, SimpleOrder, User } from '../utils/Type';
-import firebaseApp from './credenciales';
 
 const CartContext = createContext<ShopState>({} as ShopState);
 
 export const CartProvider = ({ children }: any) => {
+  const [persistanceId, setPersistanceId] = useState<string>();
   const [user, setUser] = useState<User>();
   const [products, setProducts] = useState<Product[]>([]);
   const [wishList, setWishList] = useState<Product[]>([]);
   const [order, setOrder] = useState<SimpleOrder>();
   const [ordersCompleted, setOrdersCompleted] = useState<SimpleOrder[]>();
   const [addressList, setAddressList] = useState<Address[]>();
-  const auth = getAuth(firebaseApp);
   const userAuth = auth.currentUser;
 
-  useEffect(() => {
-    (async () => {
-      if (user) {
-        getOrder(user.id);
-        const currentWishList = await resolvers.getCurrentWishList(user.id);
-        setWishList(currentWishList);
-        const currentAddresses = await resolvers.getCurrentAddresses(user.id);
-        setAddressList(currentAddresses);
-      }
-    })();
-  }, [user]);
+  const login = async (email: string, password: string) => {
+    const userInstance = await signInWithEmailAndPassword(auth, email, password);
+    await setPersistence(auth, browserLocalPersistence);
+    const firestoreUser = await resolvers.getCurrentUser(userInstance.user.uid);
+    setUser(firestoreUser);
+  };
 
   const registerHandler = async (_user: User & { password: string }) => {
-    const userInstance = await resolvers.register(_user);
+    const userInstance = await resolvers.registerUser(_user);
     setUser(userInstance);
     return userInstance;
   };
+
+  onAuthStateChanged(auth, _firebaseAuthUser => {
+    if (_firebaseAuthUser?.uid && _firebaseAuthUser?.uid !== persistanceId) {
+      setPersistanceId(_firebaseAuthUser.uid);
+    }
+  });
+
+  useEffect(() => {
+    (async () => {
+      if (persistanceId) {
+        const firestoreUser = await resolvers.getCurrentUser(persistanceId);
+        setUser(firestoreUser);
+        await getOrder(persistanceId);
+        const currentWishList = await resolvers.getCurrentWishList(persistanceId);
+        setWishList(currentWishList);
+        const currentAddresses = await resolvers.getCurrentAddresses(persistanceId);
+        setAddressList(currentAddresses);
+      }
+    })();
+  }, [persistanceId]);
 
   const getOrder = async (id: string) => {
     const currentOrder = await resolvers.getCurrentOrder(id);
     setOrder(currentOrder);
     const currentOrderCompleted = await resolvers.getCompletedOrders(id);
     setOrdersCompleted(currentOrderCompleted);
-  };
-
-  const loginHandler = async (email: string, password: string) => {
-    const userInstance = await resolvers.login(email, password);
-    setUser(userInstance);
-    return userInstance;
   };
 
   const changePassword = async (newPassword: string) => {
@@ -160,9 +176,9 @@ export const CartProvider = ({ children }: any) => {
         products,
         deleteItemToCart,
         addItemToCart,
+        login,
         ...{
           ...resolvers,
-          login: (email: string, password: string) => loginHandler(email, password),
           register: (newUser: User & { password: string }) => registerHandler(newUser),
         },
       }}

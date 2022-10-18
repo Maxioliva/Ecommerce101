@@ -5,7 +5,7 @@ const Footer = () => (
   <footer className="footer-distributed">
     <div className="footer-left">
       <h3>
-        Fake<span>Products</span>
+        El<span>Chamuyin</span>
       </h3>
 
       <div className="footer-links">

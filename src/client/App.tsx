@@ -4,7 +4,7 @@ import { CartPage } from './components/pages/cart';
 import Footer from './components/molecules/footer';
 import LoginForm from './components/pages/login';
 import NavBar from './components/organism/navbar';
-import ProfileDropDown from './components/molecules/profile';
+import ProfileDropDown from './components/pages/profile';
 import ProfileDropDown2 from './components/atoms/profilemenu';
 import ProfileSettings from './components/atoms/profileSettings';
 import Products from './components/pages/products';

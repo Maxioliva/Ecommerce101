@@ -18,7 +18,7 @@
   margin: 0px auto;
   display: flex;
   flex-direction: column;
-  background-color: rgb(211 233 240);
+  background-color: $thirdcolor;
   border-radius: 5px;
 
   @media (max-width: $mobile) {
@@ -117,10 +117,10 @@
     text-decoration: none;
     padding: 5px 5px;
     border-radius: 3px;
-    font-family: 'Poiret One', cursive;
+    font-family: 'Amazon Ember', Arial, sans-serif;
     font-size: 1.5em;
     cursor: pointer;
-    @include button-bg(#2ecc71);
+    @include button-bg($secundarycolor);
   }
 
   @media (max-width: $mobile) {

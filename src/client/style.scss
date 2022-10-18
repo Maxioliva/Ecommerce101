@@ -19,7 +19,7 @@ body,
   &__header {
     position: sticky;
     top: 0;
-    background: rgb(163, 225, 239);
+    background: $primaryColor;
     z-index: 1;
   }
 
@@ -41,7 +41,7 @@ body,
 
     &__container {
       width: 100%;
-      background-color: rgb(211 233 240);
+      background-color: $thirdcolor;
       flex: 2;
       max-height: max-content;
       min-height: 100vh;

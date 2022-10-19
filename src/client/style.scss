@@ -1,4 +1,12 @@
 @import './utils/variables';
+@font-face {
+  font-family: 'breamcatcher';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../../public/assets/font/breamcatcher\ rg.otf');
+  format: ('woff');
+}
 
 html,
 body,

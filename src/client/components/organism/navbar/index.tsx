@@ -6,6 +6,7 @@ import './style.scss';
 import Icon from '../../atoms/icono';
 import WishListDropDown from '../../molecules/wishlist';
 import CartDropDown from '../../molecules/cart';
+import Logo from '../../atoms/logo';
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -16,10 +17,11 @@ const NavBar = () => {
   }
   return (
     <div className="navbar">
+      <Logo />
       <div className="navbar__option__3">
-        <Link to="/">
-          <img className="navbar__logo" src={getAssetUrl('./header/logo2.jpg')} alt="section1" />
-        </Link>
+        <div>
+          <Logo />
+        </div>
       </div>
       <div className="navbar__option">
         <DropDown control="profile" content={<ProfileDropDown />} />{' '}

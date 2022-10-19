@@ -27,7 +27,15 @@ const App = () => (
         {/* <Slider /> */}
         <div className="app__body__container">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route
+              path="/"
+              element={
+                <div>
+                  <Slider />
+                  <Home />
+                </div>
+              }
+            />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/cart" element={<CartPage />} />
@@ -38,7 +46,6 @@ const App = () => (
               path="/products"
               element={
                 <div>
-                  <Slider />
                   <Products />
                 </div>
               }

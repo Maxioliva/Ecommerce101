@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom';
 import './style.scss';
+// import './utils/variables';
+
+// type LogoType = {
+//   white: $thirdcolor;
+//   blue:
+// }
 
 const Logo = () => (
-  <Link to={'/'}>
-    <div className="logo">
-      <span className="logo__gilada">
-        <span className="logo__nucleo"></span>
-      </span>
-    </div>
+  <Link className="link" to="/">
+    <h1 className="logo">ELCHAMUYIN</h1>
   </Link>
 );
 

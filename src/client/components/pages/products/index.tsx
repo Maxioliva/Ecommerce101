@@ -4,7 +4,6 @@ import './style.scss';
 import Icon from '../../atoms/icono';
 import Spinner from '../../../../components/atoms/spinner';
 
-
 const Products = () => {
   const { wishList, wishListHandler, addItemToCart, products } = useContext(CartContext);
 
@@ -14,7 +13,7 @@ const Products = () => {
 
   return (
     <div className="products">
-      <div className="products__filter">filter</div>
+      {/* <div className="products__filter">filter</div> */}
       <div className="products__list">
         {products?.map(product => (
           <div className="products__card" key={product.id}>

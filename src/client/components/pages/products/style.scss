@@ -20,6 +20,7 @@
   flex-direction: column;
   background-color: $thirdcolor;
   border-radius: 5px;
+  padding: 43px;
 
   @media (max-width: $mobile) {
     width: 330px;

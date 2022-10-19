@@ -36,7 +36,10 @@ const AddressBook = ({ addressList, getAddressList }: AddressBookProps) => {
 
   return (
     <div className="address-book">
-      <div onClick={() => setIsVisible(!isVisible)}> Addresses Book</div>
+      <div className="address-book__title2" onClick={() => setIsVisible(!isVisible)}>
+        {' '}
+        Addresses Book
+      </div>
       {isVisible && (
         <div className="address-book__container">
           <div className="address-book__list">

@@ -22,6 +22,7 @@ const Payment = () => {
   const submitHandler = async (values: typeof initialValues) => {
     await updatePayment(user.id, values.picked);
     await getOrder(user.id);
+    navigate('/ordersuccess');
   };
 
   return (
@@ -54,7 +55,7 @@ const Payment = () => {
             </div>
             <div className="payment__textbutton">Picked: {values.picked}</div>
 
-            <button className="payment__button" type="submit" onClick={() => navigate('/ordersuccess')}>
+            <button className="payment__button" type="submit">
               Confirm Payment
             </button>
           </Form>

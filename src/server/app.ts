@@ -1,7 +1,7 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import morgan from 'morgan';
-import API from './api';
+import API from '../client/utils/api';
 import cors from 'cors';
 
 const app = express();

@@ -17,12 +17,10 @@ const NavBar = () => {
   }
   return (
     <div className="navbar">
-      <Logo />
-      <div className="navbar__option__3">
-        <div>
-          <Logo />
-        </div>
+      <div className="navbar__logo__2">
+        <Logo />
       </div>
+      <div className="navbar__option__3"></div>
       <div className="navbar__option">
         <DropDown control="profile" content={<ProfileDropDown />} />{' '}
       </div>

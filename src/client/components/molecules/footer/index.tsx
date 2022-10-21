@@ -1,13 +1,11 @@
 import { Link } from 'react-router-dom';
+import Logo from '../../atoms/logo';
 import './style.scss';
 
 const Footer = () => (
   <footer className="footer-distributed">
     <div className="footer-left">
-      <h3>
-        El<span>Chamuyin</span>
-      </h3>
-
+      <Logo secondary />
       <div className="footer-links">
         <Link to="/" className="link-1">
           Home

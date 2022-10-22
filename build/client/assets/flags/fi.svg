@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="16" viewBox="0 0 20 16">
+  <defs>
+    <rect id="flag-finland-a" width="20" height="16" x="0" y="0" rx="1.6"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <mask id="flag-finland-b" fill="#fff">
+      <use xlink:href="#flag-finland-a"/>
+    </mask>
+    <rect width="19.5" height="15.5" x=".25" y=".25" stroke="#DEE2E6" stroke-width=".5" rx="1.6"/>
+    <rect width="26.182" height="2.364" x="-3" y="6.818" fill="#003580" fill-rule="nonzero" mask="url(#flag-finland-b)"/>
+    <rect width="2.364" height="16" x="5.273" fill="#003580" fill-rule="nonzero" mask="url(#flag-finland-b)"/>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="16" viewBox="0 0 20 16">
+  <defs>
+    <rect id="flag-germany-a" width="20" height="16" x="0" y="0" rx="1.6"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <mask id="flag-germany-b" fill="#fff">
+      <use xlink:href="#flag-germany-a"/>
+    </mask>
+    <use fill="#FFF" xlink:href="#flag-germany-a"/>
+    <rect width="20" height="16" fill="#000" fill-rule="nonzero" mask="url(#flag-germany-b)"/>
+    <rect width="20" height="10.4" y="5.6" fill="#D00" fill-rule="nonzero" mask="url(#flag-germany-b)"/>
+    <rect width="20" height="5.6" y="10.4" fill="#FFCE00" fill-rule="nonzero" mask="url(#flag-germany-b)"/>
+  </g>
+</svg>

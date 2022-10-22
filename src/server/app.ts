@@ -1,8 +1,8 @@
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import express from 'express';
 import morgan from 'morgan';
-import API from '../client/utils/api';
-import cors from 'cors';
+import API from './utils/api';
 
 const app = express();
 app.disable('x-powered-by');

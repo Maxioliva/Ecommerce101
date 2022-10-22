@@ -1,6 +1,6 @@
 import { cert, initializeApp } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
-import config from './utils/config';
+import config from './config';
 
 // FIRESTORE SDK DOCS https://firebase.google.com/docs/auth/admin
 

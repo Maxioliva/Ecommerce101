@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { db } from '../../server/db';
+import { db } from './db';
 
 // Using http protocol we define a REST API(representational state transfer)
 const API = Router();

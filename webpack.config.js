@@ -16,7 +16,7 @@ module.exports = {
   stats: IS_DEVELOPMENT ? 'minimal' : 'normal',
   entry: './src/client/index.tsx',
   output: {
-    path: path.join(__dirname, 'public'),
+    path: path.join(__dirname, 'build/client'),
     filename: 'elchamuyin.js',
     publicPath: '/',
   },

@@ -1,6 +1,9 @@
 {
   "name": "ecommerce101-1",
   "version": "1.0.0",
+  "engines": {
+    "node": "12.x"
+  },
   "description": "Small fullstack single-page ecommerce application for learning purposes.",
   "private": true,
   "homepage": "https://github.com/Maxioliva/Ecommerce101#readme",
@@ -14,7 +17,7 @@
     "url": "https://github.com/Maxioliva/Ecommerce101/issues"
   },
   "scripts": {
-    "start": "PORT=4200 node build/server/index.js",
+    "start": "node build/server/index.js",
     "dev": "concurrently -r 'npm run dev:server' 'npm run dev:client'",
     "dev:server": "concurrently -r 'npx eslint ./src/server/index.ts' 'PORT=4200 ts-node-dev --respawn --transpile-only ./src/server/index.ts'",
     "dev:client": "webpack serve",

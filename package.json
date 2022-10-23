@@ -2,7 +2,7 @@
   "name": "ecommerce101-1",
   "version": "1.0.0",
   "engines": {
-    "node": "12.x"
+    "node": "16.x"
   },
   "description": "Small fullstack single-page ecommerce application for learning purposes.",
   "private": true,

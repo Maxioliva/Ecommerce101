@@ -14,7 +14,8 @@
     "url": "https://github.com/Maxioliva/Ecommerce101/issues"
   },
   "scripts": {
-    "start": "concurrently -r 'npm run dev:server' 'npm run dev:client'",
+    "start": "PORT=4200 node build/server/index.js",
+    "dev": "concurrently -r 'npm run dev:server' 'npm run dev:client'",
     "dev:server": "concurrently -r 'npx eslint ./src/server/index.ts' 'PORT=4200 ts-node-dev --respawn --transpile-only ./src/server/index.ts'",
     "dev:client": "webpack serve",
     "prepare-build": "rm -rf build && mkdir -p build/client && cp -r public/assets build/client && cp -r public/favicon.ico build/client",

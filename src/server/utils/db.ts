@@ -3,6 +3,7 @@ import { getFirestore } from 'firebase-admin/firestore';
 import config from './config';
 
 // FIRESTORE SDK DOCS https://firebase.google.com/docs/auth/admin
+console.log('privateKety', config.server.db.privateKey);
 
 initializeApp({
   credential: cert({

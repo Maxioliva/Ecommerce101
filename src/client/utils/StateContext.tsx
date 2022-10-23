@@ -13,6 +13,7 @@ import Spinner from '../components/atoms/loadingSpinner';
 import * as resolvers from '../utils/resolvers';
 import { auth, updateOrder, updateWishList } from '../utils/resolvers';
 import { Address, Product, ShopState, SimpleOrder, User } from '../utils/Type';
+import callApi from './callApi';
 
 const CartContext = createContext<ShopState>({} as ShopState);
 
@@ -48,6 +49,8 @@ export const CartProvider = ({ children }: any) => {
 
   useEffect(() => {
     (async () => {
+      // const ordersFromServer = await callApi({ method: 'GET', endpoint: `/orders/${id}` });
+      // console.log('ordersFromServer', ordersFromServer);
       if (persistanceId) {
         const firestoreUser = await resolvers.getCurrentUser(persistanceId);
         setUser(firestoreUser);

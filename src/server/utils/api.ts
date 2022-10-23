@@ -13,6 +13,19 @@ API.get('/', async (_req, res) => {
   res.status(201).send(orders);
 });
 
+API.get('/api/v1/orders/:userId', async (_req, res) => {
+  // Returns all orders from a specific user id
+  const userId = _req.params.userId;
+  const querySnapshot = await db.collection('Orders').where('userId', '==', userId).get();
+  if (querySnapshot.empty) {
+    res.status(201).send([]);
+    return;
+  }
+
+  const results = querySnapshot.docs.map(o => ({ ...o.data() }));
+  res.status(200).send(results);
+});
+
 API.get('/testok', (_req, res) => {
   res.status(200).send({ todoOk: 'todo bien pa' });
 });

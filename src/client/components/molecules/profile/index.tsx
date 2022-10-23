@@ -1,5 +1,3 @@
-import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import CartContext from '../../../utils/StateContext';
@@ -46,7 +44,6 @@ const ProfileDropDown = () => {
       {user && (
         <>
           <button className="profile-dropdown__button" onClick={logOutHandler}>
-            <FontAwesomeIcon icon={faRightFromBracket} />
             Close sesion{' '}
           </button>
         </>

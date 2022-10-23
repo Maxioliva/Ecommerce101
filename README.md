@@ -41,6 +41,12 @@
 - When the sprint ends we deploy a new `release/v<sprintVersion>` and we QA it.
 - In the future we will add a production environment
 
+## **Server**:
+
+- The server url is [https://elchamuserver.onrender.com](https://elchamuserver.onrender.com)
+- We have our express server deployed with `render` constantly watching our `server` branch
+- Every time we push changes into `server` branch, `render` re-deploys
+
 | Sprint | develop | staging |
 | ------ | ------- | ------- |
 | 1      | v1.2.x  | v1.1.x  |

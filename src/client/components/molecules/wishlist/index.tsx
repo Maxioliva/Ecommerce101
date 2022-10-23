@@ -1,5 +1,3 @@
-import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CartContext from '../../../utils/StateContext';
@@ -28,7 +26,6 @@ const WishListDropDown = () => {
       <div>
         {user && (
           <button className="profile-dropdown__button" onClick={() => navigate('/wishlist')}>
-            <FontAwesomeIcon icon={faRightFromBracket} />
             Go To Favorites{' '}
           </button>
         )}

@@ -10,7 +10,7 @@ type ApiCallOptions = {
 };
 
 const IS_DEVELOPMENT = process.env.NODE_ENV !== 'production';
-const API_HOST = IS_DEVELOPMENT ? 'http://localhost:4200' : '<production host url>';
+const API_HOST = IS_DEVELOPMENT ? 'http://localhost:4220' : 'https://elchamuserver.onrender.com/';
 const API_URL = '/api/v1';
 
 const callApi = async <T = any>({ method, endpoint, payload }: ApiCallOptions): Promise<T> => {

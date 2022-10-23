@@ -15,6 +15,7 @@
 - Run just the client: `npm run dev:client`
 - Run just the server: `npm run dev:server`
 - Build entire app: `npm run build`
+- Serve entire build : `npm run serve`
 - Build just the client: `npm run build:client`
 - Build just the server: `npm run build:server`
 - `npm run start` is used for deploy the server

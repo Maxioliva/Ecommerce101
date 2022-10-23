@@ -10,7 +10,11 @@ API.get('/', async (_req, res) => {
     id: o.id,
     ...o.data(),
   }));
-  res.send(orders);
+  res.status(200).send(orders);
+});
+
+API.get('/testok', (_req, res) => {
+  res.status(200).send({ todoOk: 'todo bien pa' });
 });
 
 // API.post('/api/v1/register', async (_req, res) => {

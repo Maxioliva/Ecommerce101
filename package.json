@@ -1,6 +1,9 @@
 {
   "name": "ecommerce101-1",
   "version": "1.0.0",
+  "engines": {
+    "node": "16.x"
+  },
   "description": "Small fullstack single-page ecommerce application for learning purposes.",
   "private": true,
   "homepage": "https://github.com/Maxioliva/Ecommerce101#readme",
@@ -14,8 +17,8 @@
     "url": "https://github.com/Maxioliva/Ecommerce101/issues"
   },
   "scripts": {
-    "start": "node src/server/index.js",
-    "start-dev": "concurrently -r 'npm run dev:server' 'npm run dev:client'",
+    "start": "node build/server/index.js",
+    "dev": "concurrently -r 'npm run dev:server' 'npm run dev:client'",
     "dev:server": "concurrently -r 'npx eslint ./src/server/index.ts' 'PORT=4200 ts-node-dev --respawn --transpile-only ./src/server/index.ts'",
     "dev:client": "webpack serve",
     "prepare-build": "rm -rf build && mkdir -p build/client && cp -r public/assets build/client && cp -r public/favicon.ico build/client",
@@ -29,10 +32,6 @@
     "fix-lint": "eslint --fix 'src/**/*.ts{,x}'"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.1.1",
-    "@fortawesome/free-regular-svg-icons": "^6.1.1",
-    "@fortawesome/free-solid-svg-icons": "^6.1.1",
-    "@fortawesome/react-fontawesome": "^0.1.18",
     "axios": "^0.26.1",
     "body-parser": "^1.20.1",
     "classnames": "^2.3.2",

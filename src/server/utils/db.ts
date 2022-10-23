@@ -3,12 +3,13 @@ import { getFirestore } from 'firebase-admin/firestore';
 import config from './config';
 
 // FIRESTORE SDK DOCS https://firebase.google.com/docs/auth/admin
+console.log('privateKety', config.server.db.privateKey);
 
 initializeApp({
   credential: cert({
     projectId: config.server.db.projectId,
     clientEmail: config.server.db.clientEmail,
-    privateKey: config.server.db.privateKey,
+    privateKey: config.server.db.privateKey ? config.server.db.privateKey.replace(/\\n/gm, '\n') : undefined,
   }),
 });
 

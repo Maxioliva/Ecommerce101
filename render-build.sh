@@ -1,1 +1,1 @@
-#!/usr/bin/env bash# exit on errorset -o errexitnpm installnpm buildnpm
+#!/usr/bin/env bash exit on errorset -o errexitnpm installnpm buildnpm

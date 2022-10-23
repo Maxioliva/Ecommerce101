@@ -3,8 +3,8 @@ import app from './app';
 
 (async () => {
   try {
-    app.listen({ port: config.server.port });
-    console.log(`Server ready at http://localhost:${config.server.port} 🚀🚀🚀`);
+    await app.listen({ port: config.server.port || 4200 });
+    console.log(`Server ready at http://localhost:${config.server.port || 4200} 🚀🚀🚀`);
   } catch (err) {
     console.error(err);
   }

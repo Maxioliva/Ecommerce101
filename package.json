@@ -17,15 +17,15 @@
     "url": "https://github.com/Maxioliva/Ecommerce101/issues"
   },
   "scripts": {
-    "start": "node build/server/index.js",
     "dev": "concurrently -r 'npm run dev:server' 'npm run dev:client'",
-    "dev:server": "concurrently -r 'npx eslint ./src/server/index.ts' 'PORT=4220 ts-node-dev --respawn --transpile-only ./src/server/index.ts'",
+    "dev:server": "concurrently -r 'npx eslint ./src/server/index.ts' 'PORT=4200 ts-node-dev --respawn --transpile-only ./src/server/index.ts'",
     "dev:client": "webpack serve",
     "prepare-build": "rm -rf build && mkdir -p build/client && cp -r public/assets build/client && cp -r public/favicon.ico build/client",
     "build:server": "cd src/server && NODE_ENV=production tsc",
     "build:client": "NODE_ENV=production webpack",
     "build": "concurrently -r 'npm run prepare-build' 'npm run build:server' 'npm run build:client'",
     "serve": "concurrently -r 'PORT=4200 ts-node-dev ./build/server/index.js --cors' 'serve build/client --cors'",
+    "start": "node build/server/index.js",
     "check-formatting": "prettier --check 'src/**/*.ts{,x}'",
     "fix-formatting": "prettier --write 'src/**/*.ts{,x}'",
     "lint": "eslint 'src/**/*.ts{,x}'",

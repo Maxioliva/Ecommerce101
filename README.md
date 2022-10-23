@@ -11,9 +11,13 @@
 - We use prettier formatter so set it on save in your IDE as default formatter and install any additional prettier extension
 - Run `npm install`
 - Environment variables are needed to provide firebase credentials, request them from a dev.
-- Run entire app: `npm run start`
+- Run entire app: `npm run dev`
 - Run just the client: `npm run dev:client`
 - Run just the server: `npm run dev:server`
+- Build entire app: `npm run build`
+- Build just the client: `npm run build:client`
+- Build just the server: `npm run build:server`
+- `npm run start` is used for deploy the server
 
 ### **Code conventions:**
 

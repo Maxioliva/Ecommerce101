@@ -21,7 +21,7 @@
     "prepare-build": "rm -rf build && mkdir -p build/client && cp -r public/assets build/client && cp -r public/favicon.ico build/client",
     "build:server": "cd src/server && NODE_ENV=production tsc",
     "build:client": "NODE_ENV=production webpack",
-    "build": "concurrently -r 'npm run prepare-build' 'npm run build:server' 'npm run build:client'",
+    "build": "'npm run prepare-build' && 'npm run build:server'",
     "serve": "concurrently -r 'PORT=4200 ts-node-dev ./build/server/index.js --cors' 'serve build/client --cors'",
     "check-formatting": "prettier --check 'src/**/*.ts{,x}'",
     "fix-formatting": "prettier --write 'src/**/*.ts{,x}'",

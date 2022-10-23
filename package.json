@@ -1,5 +1,6 @@
 {
   "name": "ecommerce101-1",
+  "main": "build/server/index.js",
   "version": "1.0.0",
   "engines": {
     "node": "16.x"

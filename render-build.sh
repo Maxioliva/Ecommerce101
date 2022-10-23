@@ -1,1 +1,2 @@
-#!/usr/bin/env bash exit on errorset -o errexitnpm installnpm buildnpm
+#!/usr/bin/env npm install
+#!/usr/bin/env npm run build:server

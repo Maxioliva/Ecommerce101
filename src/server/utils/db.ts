@@ -8,7 +8,7 @@ initializeApp({
   credential: cert({
     projectId: config.server.db.projectId,
     clientEmail: config.server.db.clientEmail,
-    privateKey: config.server.db.privateKey,
+    privateKey: config.server.db.privateKey ? config.server.db.privateKey.replace(/\\n/gm, '\n') : undefined,
   }),
 });
 

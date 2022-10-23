@@ -49,7 +49,8 @@
 ## **Server**:
 
 - The server url is [https://elchamuserver.onrender.com](https://elchamuserver.onrender.com)
-- We have our express server deployed with `render` constantly watching our `server` branch
+- We have our express server deployed with [render](https://dashboard.render.com/)[elchamuyaso@gmail.com | Belgrano1905] constantly watching our `server` branch
+  elchamuyaso@gmail.com | Belgrano1905
 - Every time we push changes into `server` branch, `render` re-deploys
 
 | Sprint | develop | staging |

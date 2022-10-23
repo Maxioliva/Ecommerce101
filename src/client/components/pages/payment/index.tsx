@@ -5,9 +5,11 @@ import { Formik, Field, Form } from 'formik';
 import { updatePayment } from '../../../utils/resolvers';
 import './style.scss';
 import OrderSummary from '../../atoms/orderSummary';
+import { useNavigate } from 'react-router-dom';
 
 const Payment = () => {
   const { user, getOrder } = useContext(CartContext);
+  const navigate = useNavigate();
 
   if (!user) {
     return <></>;
@@ -20,6 +22,7 @@ const Payment = () => {
   const submitHandler = async (values: typeof initialValues) => {
     await updatePayment(user.id, values.picked);
     await getOrder(user.id);
+    navigate('/ordersuccess');
   };
 
   return (

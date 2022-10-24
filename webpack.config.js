@@ -6,6 +6,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const TypeCheckerPlugin = require('fork-ts-checker-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const { NODE_ENV } = process.env;
 const IS_DEVELOPMENT = NODE_ENV !== 'production';
@@ -15,7 +16,7 @@ module.exports = {
   stats: IS_DEVELOPMENT ? 'minimal' : 'normal',
   entry: './src/client/index.tsx',
   output: {
-    path: path.join(__dirname, 'public'),
+    path: path.join(__dirname, 'build/client'),
     filename: 'elchamuyin.js',
     publicPath: '/',
   },
@@ -73,6 +74,7 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js'],
   },
   plugins: [
+    new Dotenv(),
     new DefinePlugin({
       IS_DEVELOPMENT,
     }),

@@ -1,5 +1,3 @@
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext } from 'react';
 import CartContext from '../../../utils/StateContext';
 import './style.scss';
@@ -26,9 +24,7 @@ export const ItemCart = ({ item }: any) => {
           <div>${item.price}</div>
         </div>
         <div className="buttons">
-          <button onClick={() => deleteAllItemToCart(item.id)}>
-            <FontAwesomeIcon icon={faTrashCan} />
-          </button>
+          <button onClick={() => deleteAllItemToCart(item.id)}></button>
         </div>
       </div>
       <div className="quantity-title">Stock {item.amount}</div>

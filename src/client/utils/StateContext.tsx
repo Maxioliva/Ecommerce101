@@ -1,16 +1,24 @@
-import { faListSquares } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import { getAuth, signOut, updatePassword, updateEmail } from 'firebase/auth';
+import {
+  browserLocalPersistence,
+  onAuthStateChanged,
+  setPersistence,
+  signInWithEmailAndPassword,
+  signOut,
+  updateEmail,
+  updatePassword,
+} from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
-import firebaseApp from './credenciales';
+import Spinner from '../components/atoms/loadingSpinner';
 import * as resolvers from '../utils/resolvers';
-import { updateOrder, updateWishList } from '../utils/resolvers';
-import { Address, Order, Product, ShopState, SimpleOrder, User } from '../utils/Type';
-import Spinner from '../../components/atoms/spinner';
+import { auth, updateOrder, updateWishList } from '../utils/resolvers';
+import { Address, Product, ShopState, SimpleOrder, User } from '../utils/Type';
+import callApi from './callApi';
 
 const CartContext = createContext<ShopState>({} as ShopState);
 
 export const CartProvider = ({ children }: any) => {
+  const [persistanceId, setPersistanceId] = useState<string>();
   const [user, setUser] = useState<User>();
   const [products, setProducts] = useState<Product[]>([]);
   const [wishList, setWishList] = useState<Product[]>([]);
@@ -18,34 +26,49 @@ export const CartProvider = ({ children }: any) => {
   const [isLoading, setIsLoading] = useState(false);
   const [ordersCompleted, setOrdersCompleted] = useState<SimpleOrder[]>();
   const [addressList, setAddressList] = useState<Address[]>();
-  const auth = getAuth(firebaseApp);
   const userAuth = auth.currentUser;
+
+  const login = async (email: string, password: string) => {
+    const userInstance = await signInWithEmailAndPassword(auth, email, password);
+    await setPersistence(auth, browserLocalPersistence);
+    const firestoreUser = await resolvers.getCurrentUser(userInstance.user.uid);
+    setUser(firestoreUser);
+  };
+
+  const registerHandler = async (_user: User & { password: string }) => {
+    const userInstance = await resolvers.registerUser(_user);
+    setUser(userInstance);
+    return userInstance;
+  };
+
+  onAuthStateChanged(auth, _firebaseAuthUser => {
+    if (_firebaseAuthUser?.uid && _firebaseAuthUser?.uid !== persistanceId) {
+      setPersistanceId(_firebaseAuthUser.uid);
+    }
+  });
 
   useEffect(() => {
     (async () => {
-      if (user) {
-        setIsLoading(true);
-        getOrder(user.id);
-        const currentWishList = await resolvers.getCurrentWishList(user.id);
+      if (persistanceId) {
+        const ordersFromServer = await callApi({ method: 'GET', endpoint: `/orders/${persistanceId}` });
+        console.log('ordersFromServer', ordersFromServer);
+        const firestoreUser = await resolvers.getCurrentUser(persistanceId);
+        setUser(firestoreUser);
+        await getOrder(persistanceId);
+        const currentWishList = await resolvers.getCurrentWishList(persistanceId);
         setWishList(currentWishList);
-        const currentAddresses = await resolvers.getCurrentAddresses(user.id);
+        const currentAddresses = await resolvers.getCurrentAddresses(persistanceId);
         setAddressList(currentAddresses);
         setIsLoading(false);
       }
     })();
-  }, [user]);
+  }, [persistanceId]);
 
   const getOrder = async (id: string) => {
     const currentOrder = await resolvers.getCurrentOrder(id);
     setOrder(currentOrder);
     const currentOrderCompleted = await resolvers.getCompletedOrders(id);
     setOrdersCompleted(currentOrderCompleted);
-  };
-
-  const loginHandler = async (email: string, password: string) => {
-    const userInstance = await resolvers.login(email, password);
-    setUser(userInstance);
-    return userInstance;
   };
 
   const changePassword = async (newPassword: string) => {
@@ -102,9 +125,9 @@ export const CartProvider = ({ children }: any) => {
 
     const newCartItems = productAlreadyOnBasket
       ? [
-        ...order!.products.filter(i => i.id !== product.id),
-        { ...productAlreadyOnBasket, amount: productAlreadyOnBasket.amount + 1 },
-      ]
+          ...order!.products.filter(i => i.id !== product.id),
+          { ...productAlreadyOnBasket, amount: productAlreadyOnBasket.amount + 1 },
+        ]
       : [...order!.products, { ...product, amount: 1 }];
     setOrder({ ...order, products: newCartItems });
     updateOrder(newCartItems, user.id);
@@ -145,11 +168,9 @@ export const CartProvider = ({ children }: any) => {
     setOrder({ ...order, products: order!.products.filter(item => item.id !== id) });
   };
 
-
   if (isLoading) {
-    return < Spinner />
+    return <Spinner />;
   }
-
 
   return (
     <CartContext.Provider
@@ -167,7 +188,11 @@ export const CartProvider = ({ children }: any) => {
         products,
         deleteItemToCart,
         addItemToCart,
-        ...{ ...resolvers, login: (email: string, password: string) => loginHandler(email, password) },
+        login,
+        ...{
+          ...resolvers,
+          register: (newUser: User & { password: string }) => registerHandler(newUser),
+        },
       }}
     >
       {children}

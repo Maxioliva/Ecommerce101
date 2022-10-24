@@ -1,12 +1,13 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import CartContext from '../../../utils/StateContext';
-import { getAssetUrl } from '../../../utils/config';
-import './style.scss';
+import LoadingDots from '../../atoms/loadingDots';
 import Logo from '../../atoms/logo';
+import './style.scss';
 
 const LoginForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const { login } = useContext(CartContext);
   const navigate = useNavigate();
 
@@ -29,7 +30,9 @@ const LoginForm = () => {
 
   const submitHandler = async (values: { email: string; password: string }) => {
     try {
+      setIsLoading(true);
       await login(values.email, values.password);
+      setIsLoading(false);
       navigate('/');
     } catch (error) {
       if (error instanceof Error && error.message.includes('auth/wrong-password')) {
@@ -61,7 +64,7 @@ const LoginForm = () => {
               <ErrorMessage name="password" component={() => <div className="error">{errors.password} </div>} />
               <div className="button-container">
                 <button className="sign-button" type="submit">
-                  Login
+                  {isLoading ? <LoadingDots /> : 'Login'}
                 </button>
               </div>
               <div className="form-message">

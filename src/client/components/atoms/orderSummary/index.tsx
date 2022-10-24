@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import CartContext from '../../../utils/StateContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+
 import './style.scss';
 
 export const OrderSummary = () => {
@@ -20,9 +19,7 @@ export const OrderSummary = () => {
             <h3 className="cartProducts__category">{`Category: ${product.category}`} </h3>
             <div className="cartProducts__price">&nbsp;${product.price}&nbsp;</div>
             <div>
-              <button className="cartProducts__button" onClick={() => deleteItemToCart(product.id)}>
-                <FontAwesomeIcon icon={faTrashCan} />
-              </button>
+              <button className="cartProducts__button" onClick={() => deleteItemToCart(product.id)}></button>
             </div>
           </div>
         ))}

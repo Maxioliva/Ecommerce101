@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import CartContext from '../../../utils/StateContext';
 import './style.scss';
 import Icon from '../../atoms/icono';
-import Spinner from '../../../../components/atoms/spinner';
+import Spinner from '../../atoms/loadingSpinner';
 
 const Products = () => {
   const { wishList, wishListHandler, addItemToCart, products } = useContext(CartContext);

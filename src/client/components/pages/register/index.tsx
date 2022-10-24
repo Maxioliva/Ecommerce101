@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getAssetUrl } from '../../../utils/config';
 import { registerUser } from '../../../utils/resolvers';
 import { User } from '../../../utils/Type';
+import Input from '../../atoms/input';
 import './style.scss';
 
 const RegisterForm = () => {
@@ -67,7 +68,8 @@ const RegisterForm = () => {
             </div>
 
             <label htmlFor="firstName"></label>
-            <Field className="input" type="text" id="firstName" name="firstName" placeholder="First Name" />
+            {/* <Field><Input name='firstName'/> */}
+            <Field component={Input} name="firstName" label="First Name" />
             <ErrorMessage name="firstName" component={() => <div className="error">{errors.firstName} </div>} />
 
             <label htmlFor="lastName"></label>

@@ -1,0 +1,29 @@
+.input {
+  padding: 10px;
+  margin: 10px 0px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-size: large;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: 97%;
+  border: 1px solid gray;
+  cursor: pointer;
+
+  &:hover {
+    border-color: blue;
+  }
+  &__error {
+    border-color: red;
+  }
+}
+
+.error {
+  color: red;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 15px;
+}
+
+.genre {
+  margin: 10px 0px;
+}

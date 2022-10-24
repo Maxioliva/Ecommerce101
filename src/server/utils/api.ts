@@ -16,6 +16,8 @@ API.get('/', async (_req, res) => {
 API.get('/api/v1/orders/:userId', async (_req, res) => {
   // Returns all orders from a specific user id
   const userId = _req.params.userId;
+  console.log('userId ', userId);
+
   const querySnapshot = await db.collection('Orders').where('userId', '==', userId).get();
   if (querySnapshot.empty) {
     res.status(201).send([]);

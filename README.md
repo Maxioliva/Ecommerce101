@@ -46,12 +46,11 @@
 - When the sprint ends we deploy a new `release/v<sprintVersion>` and we QA it.
 - In the future we will add a production environment
 
-## **Server**:
+## **Deploys**:
 
+- We have both applications deployed by [render](https://dashboard.render.com/) [elchamuyaso@gmail.com | Belgrano1905].
 - The server url is [https://elchamuserver.onrender.com](https://elchamuserver.onrender.com)
-- We have our express server deployed with [render](https://dashboard.render.com/)[elchamuyaso@gmail.com | Belgrano1905] constantly watching our `server` branch
-  elchamuyaso@gmail.com | Belgrano1905
-- Every time we push changes into `server` branch, `render` re-deploys
+- The client url is [https://elchamuyin.onrender.com](https://elchamuyin.onrender.com)
 
 | Sprint | develop | staging |
 | ------ | ------- | ------- |

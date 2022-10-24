@@ -27,7 +27,7 @@ const ProfileSettings = () => {
 
   return (
     <Formik initialValues={initialValues} onSubmit={submitHandlerPosta}>
-      <Form className="formprofile">
+      <Form className="form">
         <div className="sign"> Personal Data </div>
         <div>
           <Field className="input" type="text" id="firstName" name="firstName" placeholder="First Name" />
@@ -42,8 +42,8 @@ const ProfileSettings = () => {
         <div>
           <Field className="input" type="password" id="password" name="password" placeholder="password" />
         </div>
-        <button className="formprofile__button" type="submit">
-          Update info
+        <button className="sign-button" type="submit">
+          Update
         </button>
       </Form>
     </Formik>

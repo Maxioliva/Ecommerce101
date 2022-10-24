@@ -11,7 +11,7 @@ type IconProps = {
 
 const Icon = ({ value, size, icon, onClick }: IconProps) => {
   const [hover, setHover] = useState(value ?? false);
-  const iconPath = `./header/${icon}${hover ? '-solid' : ''}.svg`;
+  const iconPath = `./header/${icon}${hover ? '-fill' : ''}.svg`;
   const changeHover = () => setHover(!hover);
   const clickHandler = () => {
     onClick();

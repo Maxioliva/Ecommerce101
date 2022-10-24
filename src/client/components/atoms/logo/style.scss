@@ -1,84 +1,19 @@
-@import '../../../variables';
+.link {
+  text-decoration: none;
+}
 
 .logo {
-  width: 70px;
-  height: 70px;
-  margin: 10px;
-  display: flex;
-  background-color: inherit;
+  font-family: 'Barlow Condensed', sans-serif;
+  color: #f8f1e4;
+  font-size: 55px;
+  line-height: -36px;
+  letter-spacing: -1px;
+  font-weight: 100;
 
-  align-items: center;
-  justify-content: center;
-
-  @media (max-width: $mobile) {
-    width: 45px;
-    height: 45px;
-  }
-
-  &__gilada {
-    display: inline-block;
-    border-radius: 50%;
-    border: 5px solid #00d8ff;
-
-    animation-name: rotate;
-    animation-duration: 15s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-
-    @media (max-width: $mobile) {
-      border: 2px solid #00d8ff;
-    }
-
-    &:before,
-    &:after,
-    & {
-      position: absolute;
-      display: inline-block;
-      width: 70px;
-      height: 23px;
-      border-radius: 50%;
-      border: 5px solid #00d8ff;
-      content: '';
-      @media (max-width: $mobile) {
-        width: 40px;
-        height: 13px;
-        border: 3px solid #00d8ff;
-      }
-    }
-  }
-
-  &__nucleo {
-    width: 13px;
-    height: 13px;
-    border-radius: 100%;
-    background: #00d8ff;
-
-    @media (max-width: $mobile) {
-      width: 6px;
-      height: 6px;
-    }
-  }
-}
-
-.nucleo,
-.logo__gilada,
-.logo__gilada:before,
-.logo__gilada:after {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.logo__gilada:after {
-  transform: rotate(-57deg);
-}
-
-.logo__gilada:before {
-  transform: rotate(57deg);
-}
-
-@keyframes rotate {
-  100% {
-    transform: rotate(360deg);
+  &--secondary {
+    background-color: #224b75;
+    border-radius: 5px;
+    padding: 1px 12px;
+    font-size: 39px;
   }
 }

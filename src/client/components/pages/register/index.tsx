@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getAssetUrl } from '../../../utils/config';
 import { registerUser } from '../../../utils/resolvers';
 import { User } from '../../../utils/Type';
+import Logo from '../../atoms/logo';
 import './style.scss';
 
 const RegisterForm = () => {
@@ -48,9 +49,7 @@ const RegisterForm = () => {
 
   return (
     <>
-      <div className="formik__header">
-        <img className="login__logo" src={getAssetUrl('./header/navbarlogo.png')} alt="section1" />
-      </div>
+      <div className="formik__header"></div>
       <Formik initialValues={initialValues} validate={validate} onSubmit={submitHandler}>
         {({ errors }) => (
           <Form className="form">

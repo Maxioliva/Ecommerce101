@@ -4,7 +4,7 @@ import { CartPage } from './components/pages/cart';
 import Footer from './components/molecules/footer';
 import LoginForm from './components/pages/login';
 import NavBar from './components/organism/navbar';
-import ProfileDropDown from './components/molecules/profile';
+import ProfileDropDown from './components/pages/profile';
 import ProfileDropDown2 from './components/atoms/profilemenu';
 import ProfileSettings from './components/atoms/profileSettings';
 import Products from './components/pages/products';
@@ -28,7 +28,15 @@ const App = () => (
         {/* <Slider /> */}
         <div className="app__body__container">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route
+              path="/"
+              element={
+                <div>
+                  <Slider />
+                  <Home />
+                </div>
+              }
+            />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/cart" element={<CartPage />} />
@@ -40,7 +48,6 @@ const App = () => (
               path="/products"
               element={
                 <div>
-                  <Slider />
                   <Products />
                 </div>
               }

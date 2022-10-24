@@ -1,11 +1,12 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { getAssetUrl } from '../../../utils/config';
 import DropDown from '../../atoms/dropdown';
-import ProfileDropDown from '../../molecules/profile';
+import ProfileDropDown from '../../pages/profile';
 import './style.scss';
 import Icon from '../../atoms/icono';
 import WishListDropDown from '../../molecules/wishlist';
 import CartDropDown from '../../molecules/cart';
+import Logo from '../../atoms/logo';
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -16,11 +17,10 @@ const NavBar = () => {
   }
   return (
     <div className="navbar">
-      <div className="navbar__option__3">
-        <Link to="/">
-          <img className="navbar__logo" src={getAssetUrl('./header/navbarlogo.png')} alt="section1" />
-        </Link>
+      <div className="navbar__logo__2">
+        <Logo />
       </div>
+      <div className="navbar__option__3"></div>
       <div className="navbar__option">
         <DropDown control="profile" content={<ProfileDropDown />} />{' '}
       </div>

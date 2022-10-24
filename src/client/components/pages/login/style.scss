@@ -1,7 +1,10 @@
+@import '../../../utils/variables';
+
 .formik__header {
   position: relative;
-  width: 167px;
+  width: 187px;
   margin: auto;
+  padding: 65px;
 }
 
 .bottom-form {
@@ -64,7 +67,7 @@
 }
 .sign-button {
   position: relative;
-  background-color: #2942e7;
+  background-color: $secundarycolor;
   border: none;
   color: white;
   padding: 8px 118px;
@@ -92,5 +95,7 @@
   font-size: small;
 }
 .login__logo {
-  width: 156px;
+  height: 115px;
+  width: 115px;
+  border-radius: 100%;
 }

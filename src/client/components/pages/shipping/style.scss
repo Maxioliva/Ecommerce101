@@ -1,70 +1,68 @@
 .shipping {
-    display: flex;
+  display: flex;
 }
 
 .checkout {
-    background-color: white;
+  background-color: white;
 
-    &__h1 {
-        color: #474544;
-        font-size: 23px;
-        width: 100%;
-        text-align: center;
-        border-block: solid 3px #474544;
+  &__h1 {
+    color: #474544;
+    font-size: 23px;
+    width: 100%;
+    text-align: center;
+    border-block: solid 3px #474544;
+  }
+
+  &__form {
+    background-color: rgb(220, 227, 234);
+    display: grid;
+    width: 300px;
+    padding: 16px;
+    border-radius: 10px;
+    margin: auto;
+    border: solid 3px #474544;
+  }
+
+  &__Input {
+    background: none;
+    border: none;
+    border-bottom: solid 2px #474544;
+    color: #474544;
+    font-size: 1em;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin: 0.5em 0 1.875em 0;
+    padding: 0 0 0.875em 0;
+    text-transform: uppercase;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+  }
+
+  &__buttom {
+    background: none;
+    border: solid 3px #474544;
+    color: #474544;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Helvetica', Arial, sans-serif;
+    font-size: 0.875em;
+    font-weight: bold;
+    outline: none;
+    padding: 20px 35px;
+    text-transform: uppercase;
+
+    &:hover {
+      background-color: black;
+      color: rgb(220, 227, 234);
     }
-
-    &__form {
-        background-color: rgb(220, 227, 234);
-        display: grid;
-        width: 300px;
-        padding: 16px;
-        border-radius: 10px;
-        margin: auto;
-        border: solid 3px #474544;
-
-    }
-
-    &__Input {
-        background: none;
-        border: none;
-        border-bottom: solid 2px #474544;
-        color: #474544;
-        font-size: 1.000em;
-        font-weight: 400;
-        letter-spacing: 1px;
-        margin: 0.5em 0 1.875em 0;
-        padding: 0 0 0.875em 0;
-        text-transform: uppercase;
-        width: 100%;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        -ms-box-sizing: border-box;
-        -o-box-sizing: border-box;
-        box-sizing: border-box;
-        -webkit-transition: all 0.3s;
-        -moz-transition: all 0.3s;
-        -ms-transition: all 0.3s;
-        -o-transition: all 0.3s;
-        transition: all 0.3s;
-    }
-
-    &__buttom {
-        background: none;
-        border: solid 3px #474544;
-        color: #474544;
-        cursor: pointer;
-        display: inline-block;
-        font-family: 'Helvetica', Arial, sans-serif;
-        font-size: 0.875em;
-        font-weight: bold;
-        outline: none;
-        padding: 20px 35px;
-        text-transform: uppercase;
-
-        &:hover {
-            background-color: black;
-            color: rgb(220, 227, 234);
-        }
-
-    }
+  }
 }

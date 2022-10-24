@@ -2,9 +2,9 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import CartContext from '../../../utils/StateContext';
-import { getAssetUrl } from '../../../utils/config';
-import './style.scss';
 import LoadingDots from '../../atoms/loadingDots';
+import Logo from '../../atoms/logo';
+import './style.scss';
 
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -52,7 +52,7 @@ const LoginForm = () => {
         {({ errors }) => (
           <>
             <div className="formik__header">
-              <img className="login__logo" src={getAssetUrl('./header/navbarlogo.png')} alt="section1" />
+              <Logo secondary />
             </div>
             <Form className="form">
               <div className="sign">Sign In</div>

@@ -6,13 +6,18 @@
   align-items: center;
   color: white;
   font-weight: bold;
-  height: 80px;
+  height: 90px;
   justify-content: flex-end;
   padding: 0 20px;
 
   &__logo {
-    height: 115px;
-    width: 134px;
+    height: 95px;
+    width: 95px;
+    border-radius: 100%;
+
+    &__2 {
+      width: 100%;
+    }
   }
 
   &__option {

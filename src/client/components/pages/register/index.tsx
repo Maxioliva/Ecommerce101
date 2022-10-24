@@ -1,17 +1,12 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getAssetUrl } from '../../../utils/config';
-import CartContext from '../../../utils/StateContext';
+import { registerUser } from '../../../utils/resolvers';
 import { User } from '../../../utils/Type';
-import LoadingDots from '../../atoms/loadingDots';
+import Logo from '../../atoms/logo';
 import './style.scss';
 
 const RegisterForm = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const { register } = useContext(CartContext);
-  const navigate = useNavigate();
-
   const initialValues = {
     id: '',
     firstName: '',
@@ -39,10 +34,7 @@ const RegisterForm = () => {
 
   const submitHandler = async (values: User & { password: string }) => {
     try {
-      setIsLoading(true);
-      await register(values);
-      setIsLoading(false);
-      navigate('/products');
+      await registerUser(values);
     } catch (error) {
       if (error instanceof Error && error.message.includes('email-already-in-use')) {
         console.log(error.message);
@@ -57,9 +49,7 @@ const RegisterForm = () => {
 
   return (
     <>
-      <div className="formik__header">
-        <img className="login__logo" src={getAssetUrl('./header/navbarlogo.png')} alt="section1" />
-      </div>
+      <div className="formik__header"></div>
       <Formik initialValues={initialValues} validate={validate} onSubmit={submitHandler}>
         {({ errors }) => (
           <Form className="form">
@@ -90,7 +80,7 @@ const RegisterForm = () => {
             <Field className="input" type="password" id="password" name="password" placeholder="Choose a Password" />
 
             <button className="sign-button" type="submit">
-              {isLoading ? <LoadingDots /> : 'Register'}
+              Register
             </button>
             <div className="form-message">
               By creating an account, you agree to Shopping`s terms of use and privacy notice{' '}

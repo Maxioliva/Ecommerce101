@@ -1,13 +1,16 @@
+import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import './style.scss';
+// import './utils/variables';
 
-const Logo = () => (
-  <Link to={'/'}>
-    <div className="logo">
-      <span className="logo__gilada">
-        <span className="logo__nucleo"></span>
-      </span>
-    </div>
+type LogoProps = {
+  secondary?: boolean;
+  className?: string;
+};
+
+const Logo = ({ secondary, className }: LogoProps) => (
+  <Link className="link" to="/">
+    <span className={classNames('logo', { 'logo--secondary': secondary }, className)}>ELCHAMUYIN</span>
   </Link>
 );
 

@@ -1,8 +1,11 @@
-import { useContext } from 'react';
 import { Field, Form, Formik } from 'formik';
-import CartContext from '../../../utils/StateContext';
-import './style.scss';
+import isEmpty from 'lodash.isempty';
+import { useContext } from 'react';
 import { updateUser } from '../../../utils/resolvers';
+import CartContext from '../../../utils/StateContext';
+import { runValidation } from '../../../utils/validations';
+import Input from '../input';
+import './style.scss';
 
 const ProfileSettings = () => {
   const { user, changePassword, changeEmail } = useContext(CartContext);
@@ -27,25 +30,41 @@ const ProfileSettings = () => {
 
   return (
     <Formik initialValues={initialValues} onSubmit={submitHandlerPosta}>
-      <Form className="form">
-        <div className="sign"> Personal Data </div>
-        <div>
-          <Field className="input" type="text" id="firstName" name="firstName" placeholder="First Name" />
-        </div>
-        <div>
-          <label htmlFor="lastName"></label>
-          <Field className="input" type="text" id="lastName" name="lastName" placeholder="Last Name" />
-        </div>
-        <div>
-          <Field className="input" type="text" id="email" name="email" placeholder="Email Address" />
-        </div>
-        <div>
-          <Field className="input" type="password" id="password" name="password" placeholder="password" />
-        </div>
-        <button className="sign-button" type="submit">
-          Update
-        </button>
-      </Form>
+      {({ errors }) => (
+        <Form className="form">
+          <div className="sign"> Personal Data </div>
+          <Field
+            component={Input}
+            name="firstName"
+            label="First Name"
+            validate={(value: string) => runValidation(value, 'firstName')}
+          />
+
+          <Field
+            component={Input}
+            name="lastName"
+            label="Last Name"
+            validate={(value: string) => runValidation(value, 'lastName')}
+          />
+          <Field
+            component={Input}
+            name="email"
+            label="Email"
+            type="email"
+            validate={(value: string) => runValidation(value, 'email')}
+          />
+          <Field
+            component={Input}
+            name="password"
+            label="Password"
+            type="password"
+            validate={(value: string) => runValidation(value, 'password')}
+          />
+          <button className="sign-button" type="submit" disabled={!isEmpty(errors)}>
+            Update
+          </button>
+        </Form>
+      )}
     </Formik>
   );
 };

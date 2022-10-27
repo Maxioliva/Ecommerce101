@@ -1,32 +1,27 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import CartContext from '../../../utils/StateContext';
+import { runValidation } from '../../../utils/validations';
+import Input from '../../atoms/input';
 import LoadingDots from '../../atoms/loadingDots';
 import Logo from '../../atoms/logo';
 import './style.scss';
-import Input from '../../atoms/input';
 
 const LoginForm = () => {
+  const { user } = useContext(CartContext);
+  const navigate = useNavigate();
+
+  if (user) {
+    navigate('/');
+  }
+
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useContext(CartContext);
-  const navigate = useNavigate();
 
   const initialValues = {
     email: '',
     password: '',
-  };
-
-  const validate = (values: { email: string; password: string }) => {
-    const error: any = {};
-    if (!values.password) {
-      error.password = 'Please insert a password';
-    }
-
-    if (!values.email) {
-      error.email = 'Please insert a email';
-    }
-    return error;
   };
 
   const submitHandler = async (values: { email: string; password: string }) => {
@@ -49,7 +44,7 @@ const LoginForm = () => {
 
   return (
     <>
-      <Formik initialValues={initialValues} validate={validate} onSubmit={submitHandler}>
+      <Formik initialValues={initialValues} onSubmit={submitHandler}>
         {({ errors }) => (
           <>
             <div className="formik__header">
@@ -57,11 +52,22 @@ const LoginForm = () => {
             </div>
             <Form className="form">
               <div className="sign">Sign In</div>
-              <Field component={Input} name="email" label="Email" type="email" />
-              <Field component={Input} name="password" label="Password" type="password" />
-
+              <Field
+                component={Input}
+                name="email"
+                label="Email"
+                type="email"
+                validate={(value: string) => runValidation(value, 'email')}
+              />
+              <Field
+                component={Input}
+                name="password"
+                label="Password"
+                type="password"
+                validate={(value: string) => runValidation(value, 'password')}
+              />
               <div className="button-container">
-                <button className="sign-button" type="submit">
+                <button className="sign-button" type="submit" disabled={!!errors}>
                   {isLoading ? <LoadingDots /> : 'Login'}
                 </button>
               </div>
@@ -74,7 +80,6 @@ const LoginForm = () => {
       </Formik>
       <div className="bottom-form">
         <div className="separator-line">¿Are you new in Shopping?</div>
-
         <Link to={'/register'}>
           <button className="buttom-register" type="submit">
             Register

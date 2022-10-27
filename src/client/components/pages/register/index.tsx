@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getAssetUrl } from '../../../utils/config';
 import { registerUser } from '../../../utils/resolvers';
 import { User } from '../../../utils/Type';
+import Input from '../../atoms/input';
 import Logo from '../../atoms/logo';
 import './style.scss';
 
@@ -49,43 +50,36 @@ const RegisterForm = () => {
 
   return (
     <>
-      <div className="formik__header"></div>
       <Formik initialValues={initialValues} validate={validate} onSubmit={submitHandler}>
         {({ errors }) => (
-          <Form className="form">
-            <div className="sign">Register Account</div>
-            <div className="genre">
-              <Field name="Genre" as="select">
-                <option value="Mrs" id="Mrs">
-                  Mrs
-                </option>
-                <option value="Mr" id="Mr">
-                  Mr
-                </option>
-              </Field>
+          <>
+            <div className="formik__header">
+              <Logo secondary />
             </div>
-
-            <label htmlFor="firstName"></label>
-            <Field className="input" type="text" id="firstName" name="firstName" placeholder="First Name" />
-            <ErrorMessage name="firstName" component={() => <div className="error">{errors.firstName} </div>} />
-
-            <label htmlFor="lastName"></label>
-            <Field className="input" type="text" id="lastName" name="lastName" placeholder="Last Name" />
-            <ErrorMessage name="lastName" component={() => <div className="error">{errors.lastName} </div>} />
-
-            <label htmlFor="email"></label>
-            <Field className="input" type="email" id="email" name="email" placeholder="Email Address" />
-
-            <label htmlFor="password"></label>
-            <Field className="input" type="password" id="password" name="password" placeholder="Choose a Password" />
-
-            <button className="sign-button" type="submit">
-              Register
-            </button>
-            <div className="form-message">
-              By creating an account, you agree to Shopping`s terms of use and privacy notice{' '}
-            </div>
-          </Form>
+            <Form className="form">
+              <div className="sign">Register Account</div>
+              <div className="genre">
+                <Field name="Genre" as="select">
+                  <option value="Mrs" id="Mrs">
+                    Mrs
+                  </option>
+                  <option value="Mr" id="Mr">
+                    Mr
+                  </option>
+                </Field>
+              </div>
+              <Field component={Input} name="firstName" label="First Name" />
+              <Field component={Input} name="lastName" label="Last Name" />
+              <Field component={Input} name="email" label="Email" type="email" />
+              <Field component={Input} name="password" label="Password" type="password" />
+              <button className="sign-button" type="submit">
+                Register
+              </button>
+              <div className="form-message">
+                By creating an account, you agree to Shopping`s terms of use and privacy notice{' '}
+              </div>
+            </Form>
+          </>
         )}
       </Formik>
       <div className="bottom-form">

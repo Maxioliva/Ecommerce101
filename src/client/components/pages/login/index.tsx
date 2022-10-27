@@ -5,6 +5,7 @@ import CartContext from '../../../utils/StateContext';
 import LoadingDots from '../../atoms/loadingDots';
 import Logo from '../../atoms/logo';
 import './style.scss';
+import Input from '../../atoms/input';
 
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -56,12 +57,9 @@ const LoginForm = () => {
             </div>
             <Form className="form">
               <div className="sign">Sign In</div>
-              <label htmlFor="email"></label>
-              <Field className="input" type="email" id="email" name="email" placeholder="Email Address" />
-              <ErrorMessage name="email" component={() => <div className="error">{errors.email} </div>} />
-              <label htmlFor="password"></label>
-              <Field className="input" type="password" id="password" name="password" placeholder="Choose a Password" />
-              <ErrorMessage name="password" component={() => <div className="error">{errors.password} </div>} />
+              <Field component={Input} name="email" label="Email" type="email" />
+              <Field component={Input} name="password" label="Password" type="password" />
+
               <div className="button-container">
                 <button className="sign-button" type="submit">
                   {isLoading ? <LoadingDots /> : 'Login'}

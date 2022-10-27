@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { getAssetUrl } from '../../../utils/config';
 
 type CustomInputProps = {
-  label?: string;
+  label: string;
 };
 export type InputProps = CustomInputProps &
   FieldProps &
@@ -20,15 +20,19 @@ const Input = ({ label, field, form, ...rest }: InputProps) => {
   const hasSuccess =
     isTouched && !error && !isEmpty(typeof field.value === 'string' ? field.value.trim() : field.value);
   const statusIcon = error ? 'error.svg' : hasSuccess ? 'success.svg' : undefined;
+  const labelInput = error && hasSuccess && isTouched;
   return (
     <>
-      {label && <label htmlFor={field.name}> {label} </label>}
-      <input
-        {...field}
-        {...rest}
-        style={statusIcon && { backgroundImage: `url('${getAssetUrl(statusIcon)}')` }}
-        className={classNames('input', { input__error: error })}
-      />
+      <label className="label" htmlFor={field.name}>
+        <input
+          {...field}
+          {...rest}
+          style={statusIcon && { backgroundImage: `url('${getAssetUrl(statusIcon)}')` }}
+          className={classNames('input', { input__error: error })}
+          placeholder="vevo"
+        />
+        <span className="span">{label}</span>
+      </label>
       <ErrorMessage name={field.name!} component={() => <div className="error">{errors[field.name!]}</div>} />
     </>
   );

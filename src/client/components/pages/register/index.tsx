@@ -66,22 +66,10 @@ const RegisterForm = () => {
                 </option>
               </Field>
             </div>
-
-            <label htmlFor="firstName"></label>
-            {/* <Field><Input name='firstName'/> */}
             <Field component={Input} name="firstName" label="First Name" />
-            <ErrorMessage name="firstName" component={() => <div className="error">{errors.firstName} </div>} />
-
-            <label htmlFor="lastName"></label>
-            <Field className="input" type="text" id="lastName" name="lastName" placeholder="Last Name" />
-            <ErrorMessage name="lastName" component={() => <div className="error">{errors.lastName} </div>} />
-
-            <label htmlFor="email"></label>
-            <Field className="input" type="email" id="email" name="email" placeholder="Email Address" />
-
-            <label htmlFor="password"></label>
-            <Field className="input" type="password" id="password" name="password" placeholder="Choose a Password" />
-
+            <Field component={Input} name="lastName" label="Last Name" />
+            <Field component={Input} name="email" label="Email" type="email" />
+            <Field component={Input} name="password" label="Password" type="password" />
             <button className="sign-button" type="submit">
               Register
             </button>

@@ -1,10 +1,11 @@
 import classNames from 'classnames';
-import { useContext, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getAssetUrl } from '../../../utils/config';
+import useClickOutside from '../../../utils/detecClickOutside';
 import CartContext from '../../../utils/StateContext';
+import MobileProfile from '../../atoms/mobileProfile';
 import Welcome from '../../atoms/welcome';
-import ProfileDropDown from '../../pages/profile';
 import './style.scss';
 
 type OptionName = 'profile' | 'wishlist' | 'home' | 'basket' | 'search';
@@ -19,7 +20,12 @@ type MobileBarOption = {
 const MobileBar = () => {
   const { user } = useContext(CartContext);
   const { pathname: path } = useLocation();
+  const containerRef = useRef(null);
 
+  useClickOutside({
+    ref: containerRef,
+    callback: () => closeSubmenu({ current: activeOption.previus, previus: activeOption.current }),
+  });
   const initialOption =
     path === '/'
       ? 'home'
@@ -27,7 +33,7 @@ const MobileBar = () => {
       ? 'basket'
       : path === '/products'
       ? 'search'
-      : ['/login', '/register'].includes(path)
+      : ['/login', '/register', '/orders'].includes(path)
       ? 'profile'
       : path.replace(/^\//, '');
   const initialActiveOption = { current: initialOption, previus: 'home' as OptionName } as ActiveOption;
@@ -55,10 +61,10 @@ const MobileBar = () => {
       submenu: !user ? (
         <Welcome onLogin={onLoginButtonClick} onRegister={onRegisterButtonClick} />
       ) : (
-        <ProfileDropDown />
+        <MobileProfile closeSubmenu={() => setSubmenuVisible(false)} />
       ),
     },
-    search: { name: 'search', title: 'Products', redirect: '/products' },
+    search: { name: 'search', title: 'Search', redirect: '/products' },
     wishlist: { name: 'wishlist', title: 'Wishlist', redirect: '/wishlist' },
     basket: { name: 'basket', title: 'Basket', redirect: '/cart' },
   };
@@ -96,7 +102,7 @@ const MobileBar = () => {
   };
 
   return (
-    <>
+    <div className="motherOfContainer" ref={containerRef}>
       <div className={classNames('submenu', { 'submenu--visible': isSubmenuVisible })}>{submenu ?? ''}</div>
       <div className={`border-selector border-selector__${activeOption.current}`}>
         <div className={`border-active border-active__${activeOption.current}`}></div>
@@ -127,7 +133,7 @@ const MobileBar = () => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,0 +1,67 @@
+@import '../../../utils/variables';
+
+.mobilebar {
+  background-color: bisque;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 50;
+  position: -webkit-sticky;
+
+  &__option {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    width: 20%;
+    height: 55px;
+    padding: 4px 0 20px;
+    transition: transform 0.5s;
+
+    &--active {
+      padding: 0 0 10px;
+      height: 55px;
+
+      &__search {
+        padding: 4px 0 20px;
+      }
+    }
+  }
+
+  &__img {
+    height: 48px;
+    transition: height 0.5s, width 0.5s, transform 0.5s;
+
+    &--active {
+      height: 55px;
+
+      &__search {
+        animation: rotate 1.5s alternate;
+      }
+    }
+  }
+  &__title {
+    position: fixed;
+    bottom: 2px;
+    text-align: center;
+    font-size: 12px;
+    transition: font-size 0.5s, transform 0.5s;
+
+    &--active {
+      font-weight: bold;
+      font-size: 14px;
+    }
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(-1turn);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}

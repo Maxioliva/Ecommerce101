@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import './style.scss';
 import { getAssetUrl } from '../../../utils/config';
+import './style.scss';
 
 type IconProps = {
-  icon: 'wishlist' | 'profile' | 'cart' | 'products';
+  icon: 'notifications' | 'basket' | 'home' | 'products' | 'profile' | 'wishlist';
   size: number;
   onClick: () => void;
   value?: boolean;

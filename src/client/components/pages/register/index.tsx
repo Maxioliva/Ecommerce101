@@ -1,13 +1,23 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { Link } from 'react-router-dom';
-import { getAssetUrl } from '../../../utils/config';
+import { Field, Form, Formik } from 'formik';
+import isEmpty from 'lodash.isempty';
+import { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { registerUser } from '../../../utils/resolvers';
+import CartContext from '../../../utils/StateContext';
 import { User } from '../../../utils/Type';
+import { runValidation } from '../../../utils/validations';
 import Input from '../../atoms/input';
 import Logo from '../../atoms/logo';
 import './style.scss';
 
 const RegisterForm = () => {
+  const { user } = useContext(CartContext);
+  const navigate = useNavigate();
+
+  if (user) {
+    navigate('/');
+  }
+
   const initialValues = {
     id: '',
     firstName: '',
@@ -15,22 +25,6 @@ const RegisterForm = () => {
     email: '',
     password: '',
     gender: '',
-  };
-
-  const validate = (values: User & { password: string }) => {
-    const error: any = {};
-    if (!values.firstName) {
-      error.firstName = 'Please insert a firstname';
-    } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.firstName)) {
-      error.firstName = 'The name can contain only letters and spaces';
-    }
-
-    if (!values.lastName) {
-      error.lastName = 'Please insert a lastname';
-    } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.lastName)) {
-      error.lastName = 'The name can contain only letters and spaces';
-    }
-    return error;
   };
 
   const submitHandler = async (values: User & { password: string }) => {
@@ -50,7 +44,7 @@ const RegisterForm = () => {
 
   return (
     <>
-      <Formik initialValues={initialValues} validate={validate} onSubmit={submitHandler}>
+      <Formik initialValues={initialValues} onSubmit={submitHandler}>
         {({ errors }) => (
           <>
             <div className="formik__header">
@@ -68,11 +62,33 @@ const RegisterForm = () => {
                   </option>
                 </Field>
               </div>
-              <Field component={Input} name="firstName" label="First Name" />
-              <Field component={Input} name="lastName" label="Last Name" />
-              <Field component={Input} name="email" label="Email" type="email" />
-              <Field component={Input} name="password" label="Password" type="password" />
-              <button className="sign-button" type="submit">
+              <Field
+                component={Input}
+                name="firstName"
+                label="First Name"
+                validate={(value: string) => runValidation(value, 'firstName')}
+              />
+              <Field
+                component={Input}
+                name="lastName"
+                label="Last Name"
+                validate={(value: string) => runValidation(value, 'lastName')}
+              />
+              <Field
+                component={Input}
+                name="email"
+                label="Email"
+                type="email"
+                validate={(value: string) => runValidation(value, 'email')}
+              />
+              <Field
+                component={Input}
+                name="password"
+                label="Password"
+                type="password"
+                validate={(value: string) => runValidation(value, 'password')}
+              />
+              <button className="sign-button" type="submit" disabled={!isEmpty(errors)}>
                 Register
               </button>
               <div className="form-message">

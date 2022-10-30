@@ -59,7 +59,7 @@ const AddressBook = ({ addressList, getAddressList }: AddressBookProps) => {
                     {address.firstName} {address.lastName}
                   </h3>
                   <h3 className="address-book__info">
-                    {address.houseNumber} - {address.streetName}
+                    {address.houseNumber} - {address.street}
                   </h3>
                   <h3 className="address-book__info">
                     {address.zipCode} - {address.city}

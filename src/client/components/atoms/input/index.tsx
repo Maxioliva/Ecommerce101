@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import './style.scss';
+import classNames from 'classnames';
 import { ErrorMessage, FieldProps, getIn } from 'formik';
 import { DetailedHTMLProps, InputHTMLAttributes } from 'react';
-import classNames from 'classnames';
 import { getAssetUrl } from '../../../utils/config';
+import { getErrorMessage } from '../../../utils/validations';
+import './style.scss';
 
 type CustomInputProps = {
   label: string;
@@ -13,14 +14,16 @@ export type InputProps = CustomInputProps &
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
 const Input = ({ label, field, form, ...rest }: InputProps) => {
-  const { errors, touched } = form;
+  const { errors: formikErrors, touched } = form;
   const isEmpty = (value: any) => value === null || value === undefined || value === '';
   const isTouched = getIn(touched, field.name);
-  const error = isTouched && getIn(errors, field.name);
+  const errors = isTouched && getIn(formikErrors, field.name);
+  const hasError = !!errors?.length;
+  const errorMessage = hasError ? getErrorMessage(errors[0], label) : undefined;
   const hasSuccess =
-    isTouched && !error && !isEmpty(typeof field.value === 'string' ? field.value.trim() : field.value);
-  const statusIcon = error ? 'error.svg' : hasSuccess ? 'success.svg' : undefined;
-  const labelInput = error && hasSuccess && isTouched;
+    isTouched && !hasError && !isEmpty(typeof field.value === 'string' ? field.value.trim() : field.value);
+  const statusIcon = hasError ? 'error.svg' : hasSuccess ? 'success.svg' : undefined;
+
   return (
     <>
       <label className="label" htmlFor={field.name}>
@@ -28,12 +31,12 @@ const Input = ({ label, field, form, ...rest }: InputProps) => {
           {...field}
           {...rest}
           style={statusIcon && { backgroundImage: `url('${getAssetUrl(statusIcon)}')` }}
-          className={classNames('input', { input__error: error })}
-          placeholder="vevo"
+          className={classNames('input', { input__error: hasError })}
+          placeholder={label}
         />
         <span className="span">{label}</span>
       </label>
-      <ErrorMessage name={field.name!} component={() => <div className="error">{errors[field.name!]}</div>} />
+      {hasError && <ErrorMessage name={field.name!} component={() => <div className="error">{errorMessage}</div>} />}
     </>
   );
 };

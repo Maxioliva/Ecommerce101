@@ -3,10 +3,17 @@ import { useEffect } from 'react';
 type UseClickOutsideProps = {
   ref: React.MutableRefObject<any>;
   callback: () => void;
+  condition?: boolean;
 };
 
-const useClickOutside = ({ ref, callback }: UseClickOutsideProps) => {
+const useClickOutside = ({ ref, callback, condition }: UseClickOutsideProps) => {
   useEffect(() => {
+    if (!condition) {
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }
+
     const handleClickOutside = (event: MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target)) {
         callback();
@@ -16,6 +23,6 @@ const useClickOutside = ({ ref, callback }: UseClickOutsideProps) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [ref]);
+  }, [ref, condition]);
 };
 export default useClickOutside;

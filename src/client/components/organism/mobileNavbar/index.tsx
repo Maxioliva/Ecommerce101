@@ -22,10 +22,6 @@ const MobileBar = () => {
   const { pathname: path } = useLocation();
   const containerRef = useRef(null);
 
-  useClickOutside({
-    ref: containerRef,
-    callback: () => closeSubmenu({ current: activeOption.previus, previus: activeOption.current }),
-  });
   const initialOption =
     path === '/'
       ? 'home'
@@ -40,6 +36,11 @@ const MobileBar = () => {
   const [activeOption, setActiveOption] = useState<ActiveOption>(initialActiveOption);
   const [isSubmenuVisible, setSubmenuVisible] = useState(false);
   const navigate = useNavigate();
+  useClickOutside({
+    ref: containerRef,
+    condition: isSubmenuVisible,
+    callback: () => closeSubmenu({ current: activeOption.previus, previus: activeOption.current }),
+  });
 
   const onLoginButtonClick = () => {
     navigate('/login');

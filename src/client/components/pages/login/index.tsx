@@ -1,11 +1,11 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import CartContext from '../../../utils/StateContext';
+import Input from '../../atoms/input';
 import LoadingDots from '../../atoms/loadingDots';
 import Logo from '../../atoms/logo';
 import './style.scss';
-import Input from '../../atoms/input';
 
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);

@@ -1,59 +1,127 @@
 import classNames from 'classnames';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getAssetUrl } from '../../../utils/config';
+import CartContext from '../../../utils/StateContext';
+import Welcome from '../../atoms/welcome';
+import ProfileDropDown from '../../pages/profile';
 import './style.scss';
 
+type OptionName = 'profile' | 'wishlist' | 'home' | 'basket' | 'search';
+type ActiveOption = { current: OptionName; previus: OptionName };
 type MobileBarOption = {
-  name: 'profile' | 'wishlist' | 'home' | 'basket' | 'search';
+  name: OptionName;
   title: string;
-  redirect?: () => void;
+  redirect?: string;
+  submenu?: JSX.Element;
 };
 
 const MobileBar = () => {
-  const { pathname } = useLocation();
-  const initialOption = pathname === '/' ? 'home' : pathname === '/products' ? 'search' : pathname.replace(/^\//, '');
+  const { user } = useContext(CartContext);
+  const { pathname: path } = useLocation();
+
+  const initialOption =
+    path === '/'
+      ? 'home'
+      : path === '/cart'
+      ? 'basket'
+      : path === '/products'
+      ? 'search'
+      : ['/login', '/register'].includes(path)
+      ? 'profile'
+      : path.replace(/^\//, '');
+  const initialActiveOption = { current: initialOption, previus: 'home' as OptionName } as ActiveOption;
+  const [activeOption, setActiveOption] = useState<ActiveOption>(initialActiveOption);
+  const [isSubmenuVisible, setSubmenuVisible] = useState(false);
   const navigate = useNavigate();
 
-  const [activeOption, setActiveOption] = useState<MobileBarOption['name']>(initialOption as MobileBarOption['name']);
-
-  const optionsMap: { [key: string]: { title: string; redirect?: string } } = {
-    home: { title: 'Home', redirect: '/' },
-    profile: { title: 'Profile' },
-    search: { title: 'Products', redirect: '/products' },
-    wishlist: { title: 'Wishlist', redirect: '/wishlist' },
-    basket: { title: 'Basket', redirect: '/basket' },
+  const onLoginButtonClick = () => {
+    navigate('/login');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setSubmenuVisible(false);
   };
 
-  const clickHandler = (name: MobileBarOption['name']) => {
-    setActiveOption(name);
+  const onRegisterButtonClick = () => {
+    navigate('/register');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    const redirectPath = optionsMap[name].redirect;
-    if (redirectPath) {
-      navigate(redirectPath);
+    setSubmenuVisible(false);
+  };
+
+  const optionsMap: { [key: string]: MobileBarOption } = {
+    home: { name: 'home', title: 'Home', redirect: '/' },
+    profile: {
+      name: 'profile',
+      title: 'Profile',
+      submenu: !user ? (
+        <Welcome onLogin={onLoginButtonClick} onRegister={onRegisterButtonClick} />
+      ) : (
+        <ProfileDropDown />
+      ),
+    },
+    search: { name: 'search', title: 'Products', redirect: '/products' },
+    wishlist: { name: 'wishlist', title: 'Wishlist', redirect: '/wishlist' },
+    basket: { name: 'basket', title: 'Basket', redirect: '/cart' },
+  };
+
+  const submenu = optionsMap[activeOption.current]?.submenu;
+
+  const closeSubmenu = (newActiveOption: ActiveOption) => {
+    setSubmenuVisible(false);
+    setTimeout(() => setActiveOption(newActiveOption), 100);
+  };
+
+  const clickHandler = (name: OptionName) => {
+    const nextActiveOption = { current: name, previus: activeOption.current };
+    const incomingOptionHasSubmenu = optionsMap[name].submenu;
+
+    if (incomingOptionHasSubmenu) {
+      if (name === activeOption.current && isSubmenuVisible) {
+        closeSubmenu({ current: activeOption.previus, previus: activeOption.current });
+        return;
+      }
+      setActiveOption(nextActiveOption);
+      setSubmenuVisible(true);
+    } else {
+      if (isSubmenuVisible) {
+        closeSubmenu(nextActiveOption);
+      } else {
+        setActiveOption(nextActiveOption);
+      }
+      const redirectPath = optionsMap[name].redirect;
+      if (redirectPath) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        navigate(redirectPath);
+      }
     }
   };
 
   return (
     <>
-      <div className="mobilebar"></div>
+      <div className={classNames('submenu', { 'submenu--visible': isSubmenuVisible })}>{submenu ?? ''}</div>
+      <div className={`border-selector border-selector__${activeOption.current}`}>
+        <div className={`border-active border-active__${activeOption.current}`}></div>
+      </div>
       <div className="mobilebar">
         {Object.entries(optionsMap).map(([name, value]) => (
           <div
             className={classNames('mobilebar__option', {
-              [`mobilebar__option--active mobilebar__option--active__${name}`]: activeOption === name,
+              [`mobilebar__option--active mobilebar__option--active__${name}`]: activeOption.current === name,
             })}
-            onClick={() => clickHandler(name as MobileBarOption['name'])}
+            onClick={() => clickHandler(name as OptionName)}
             key={name}
           >
             <img
               className={classNames('mobilebar__img', {
-                [`mobilebar__img--active mobilebar__img--active__${name}`]: activeOption === name,
+                [`mobilebar__img--active mobilebar__img--active__${name}`]: activeOption.current === name,
               })}
-              src={getAssetUrl(`./header/${name}${activeOption === name && name !== 'search' ? '-fill' : ''}.svg`)}
+              src={getAssetUrl(
+                `./header/${name}${activeOption.current === name && name !== 'search' ? '-fill' : ''}.svg`
+              )}
               alt={name}
             />
-            <span className={classNames('mobilebar__title', { 'mobilebar__title--active': activeOption === name })}>
+            <span
+              className={classNames('mobilebar__title', { 'mobilebar__title--active': activeOption.current === name })}
+            >
               {value.title}
             </span>
           </div>

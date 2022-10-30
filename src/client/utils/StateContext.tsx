@@ -50,8 +50,8 @@ export const CartProvider = ({ children }: any) => {
   useEffect(() => {
     (async () => {
       if (persistanceId) {
-        const ordersFromServer = await callApi({ method: 'GET', endpoint: `/orders/${persistanceId}` });
-        console.log('ordersFromServer', ordersFromServer);
+        // const ordersFromServer = await callApi({ method: 'GET', endpoint: `/orders/${persistanceId}` });
+        // console.log('ordersFromServer', ordersFromServer);
         const firestoreUser = await resolvers.getCurrentUser(persistanceId);
         setUser(firestoreUser);
         await getOrder(persistanceId);

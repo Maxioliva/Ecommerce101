@@ -1,0 +1,25 @@
+.welcome {
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  background-color: #e8e8e8;
+  font-family: 'Barlow Condensed', sans-serif;
+
+  &__title {
+    margin: 0;
+    width: 100%;
+    padding: 15px 0;
+    font-family: inherit;
+    font-size: 35px;
+  }
+
+  &__button {
+    font-weight: bold;
+    font-size: 25px;
+    font-family: inherit;
+    width: 50%;
+    padding: 20px 0;
+    box-shadow: inset 0px 0px 0px 1px #a2a0a0;
+  }
+}

@@ -20,6 +20,8 @@ const Slider = () => (
     navigation
     pagination={{ clickable: true }}
     scrollbar={{ draggable: true }}
+    // onSlideChange={() => console.log('slide change')}
+    // onSwiper={swiper => console.log(swiper)}
   >
     <SwiperSlide>
       <img className="img" src={getAssetUrl('./slider/slider2.jpg')} />

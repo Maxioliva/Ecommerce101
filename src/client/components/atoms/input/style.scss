@@ -8,38 +8,48 @@
   height: 48px;
   background-repeat: no-repeat;
   background-position: 97%;
+  background-size: 20px;
   border: 1px solid gray;
+  z-index: 1;
+  background-color: transparent;
 
   &:hover {
     border-color: blue;
   }
+
   &__error {
     border-color: red;
   }
+
   &::placeholder {
-    opacity: 0;
+    visibility: hidden;
   }
 }
+
 .label {
   position: relative;
   display: flex;
 }
-// posicion inicial de placeholder del label (vacio)
+
+// This is our label in his non-floating position
 .span {
   color: #1e4c82;
   position: absolute;
   transform: translate(10px, 22px);
   transform-origin: top left;
-  transition: all 0.1s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
-//primera es focus y segunda es cuando no se ve el placeholder(se rellena).
-label:focus-within > span {
-  color: purple;
+
+//"label:focus-within" gives access to input's focus event
+//">" gives access to any child element
+label:focus-within > .span {
   transform: translate(10px, 10px) scale(0.75);
 }
 
-input:not(:placeholder-shown) + span {
-  color: purple;
+//":placeholder-shown" represents that the input's placeholder is visible
+//":not(:placeholder-shown)" is the opposite, and means the input has a value
+//"+" gives access to any sibling element
+input:not(:placeholder-shown) + .span {
   transform: translate(10px, 10px) scale(0.75);
 }
 

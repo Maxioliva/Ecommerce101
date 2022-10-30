@@ -2,25 +2,23 @@
   display: flex;
 }
 
-.checkout {
-  background-color: white;
-
-  &__h1 {
-    color: #474544;
-    font-size: 23px;
-    width: 100%;
-    text-align: center;
-    border-block: solid 3px #474544;
-  }
+.shipping {
+  background-color: rgb(220, 227, 234);
 
   &__form {
-    background-color: rgb(220, 227, 234);
-    display: grid;
-    width: 300px;
+    max-width: 400px;
+    width: 100%;
     padding: 16px;
     border-radius: 10px;
     margin: auto;
     border: solid 3px #474544;
+  }
+
+  &__title {
+    color: #474544;
+    font-size: 23px;
+    width: 100%;
+    text-align: center;
   }
 
   &__Input {

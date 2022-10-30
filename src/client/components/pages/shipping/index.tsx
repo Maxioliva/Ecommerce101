@@ -7,9 +7,10 @@ import { Address } from '../../../utils/Type';
 import OrderSummary from '../../atoms/orderSummary';
 import './style.scss';
 import AddressBook from '../../atoms/addressBook';
+import Input from '../../atoms/input';
+import { runValidation } from '../../../utils/validations';
 
 const Shipping = () => {
-  // const { values } = useFormikContext(Addresses);
   const [addressList, setAddressList] = useState<Address[]>([]);
   const { user, order, getCurrentAddresses } = useContext(CartContext);
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ const Shipping = () => {
     firstName: '',
     lastName: '',
     email: '',
-    streetName: '',
+    street: '',
     houseNumber: '',
     zipCode: '',
     city: '',
@@ -48,38 +49,61 @@ const Shipping = () => {
 
   return (
     <div className="shipping">
-      <Formik initialValues={Addresss} onSubmit={submitHandler}>
-        <Form className="checkout">
-          <div className="checkout__form">
-            <AddressBook addressList={addressList} getAddressList={getAddressList} />
-            <h1 className="checkout__h1">Shipping Information</h1>
-            <Field className="checkout__Input" type="text" id="firstName" name="firstName" placeholder="First Name" />
-            <Field className="checkout__Input" type="text" id="lastName" name="lastName" placeholder="Last Name" />
-            <Field className="checkout__Input" type="email" id="email" name="email" placeholder="email" />
-            <Field
-              className="checkout__Input"
-              type="text"
-              id="streetName"
-              name="streetName"
-              placeholder="street Name"
-            />
-            <Field
-              className="checkout__Input"
-              type="number"
-              id="houseNumber"
-              name="houseNumber"
-              placeholder="house Number"
-            />
-            <Field className="checkout__Input" type="number" id="zipCode" name="zipCode" placeholder="zipCode" />
-            <Field className="checkout__Input" type="city" id="city" name="city" placeholder="city" />
-            <Field className="checkout__Input" type="country" id="country" name="country" placeholder="country" />
-            <button className="checkout__buttom" type="submit">
-              {' '}
-              Save Order Data
-            </button>
-          </div>
-        </Form>
-      </Formik>
+      <div className="shipping__form">
+        <Formik initialValues={Addresss} onSubmit={submitHandler}>
+          {({ errors }) => (
+            <Form>
+              <h1 className="shipping__title">Shipping Information</h1>
+              <AddressBook addressList={addressList} getAddressList={getAddressList} />
+              <Field
+                component={Input}
+                name="firstName"
+                label="First Name"
+                validate={(value: string) => runValidation(value, 'firstName')}
+              />
+              <Field
+                component={Input}
+                name="lastName"
+                label="Last Name"
+                validate={(value: string) => runValidation(value, 'lastName')}
+              />
+              <Field
+                component={Input}
+                name="street"
+                label="Street"
+                validate={(value: string) => runValidation(value, 'street')}
+              />
+              <Field
+                component={Input}
+                name="houseNumber"
+                label="House Number"
+                validate={(value: string) => runValidation(value, 'houseNumber')}
+              />
+              <Field
+                component={Input}
+                name="zipCode"
+                label="Zip Code"
+                validate={(value: string) => runValidation(value, 'zipCode')}
+              />
+              <Field
+                component={Input}
+                name="city"
+                label="City"
+                validate={(value: string) => runValidation(value, 'city')}
+              />
+              <Field
+                component={Input}
+                name="country"
+                label="Country"
+                validate={(value: string) => runValidation(value, 'country')}
+              />
+              <button className="shipping__buttom" type="submit" disabled={!!errors}>
+                Save Order Data
+              </button>
+            </Form>
+          )}
+        </Formik>
+      </div>
       <OrderSummary />
     </div>
   );

@@ -11,7 +11,7 @@ const CartDropDown = () => {
 
   return (
     <div>
-      <div className="profile-dropdown__title">{user ? 'You Cart' : 'You are not registered yet'}</div>
+      <div className="profile-dropdown__title">You Cart</div>
       <div className="separatorLine"></div>
       <div className="profile-dropdown__title">
         {order?.products.length ? (
@@ -34,14 +34,11 @@ const CartDropDown = () => {
         )}
       </div>
       <div className="buttonsBhindConteiner">
-        {' '}
-        {user && (
-          <Link to="cart">
-            <button className="buttonsBhind" onClick={() => setCartOpen(!cartOpen)}>
-              Basket Page
-            </button>
-          </Link>
-        )}
+        <Link to="cart">
+          <button className="buttonsBhind" onClick={() => setCartOpen(!cartOpen)}>
+            Basket Page
+          </button>
+        </Link>
       </div>
     </div>
   );

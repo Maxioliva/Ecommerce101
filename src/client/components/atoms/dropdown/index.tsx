@@ -3,7 +3,7 @@ import { getAssetUrl } from '../../../utils/config';
 import './style.scss';
 
 type DropDownProps = {
-  control: 'cart' | 'profile' | 'wishlist';
+  control: 'notifications' | 'basket' | 'home' | 'products' | 'profile' | 'wishlist';
   content: JSX.Element;
 };
 

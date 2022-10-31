@@ -17,6 +17,9 @@
 
     &__2 {
       width: 100%;
+      @media (max-width: 600px) {
+        text-align: center;
+      }
     }
   }
 

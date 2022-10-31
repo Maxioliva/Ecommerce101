@@ -23,10 +23,25 @@
   padding: 43px;
 
   @media (max-width: $mobile) {
-    width: 330px;
     min-width: 330px;
     position: relative;
     left: 0px;
+    padding: 0px;
+  }
+
+  @media (max-width: $tablet) {
+    padding: 0px;
+  }
+
+  &__view {
+    z-index: 4;
+    background-color: #e8e8e8;
+    padding: 4px;
+    border-radius: 50px;
+    height: 50px;
+    position: fixed;
+    bottom: 85px;
+    right: 10px;
   }
 
   &__list {
@@ -34,6 +49,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    width: 100%;
   }
 
   &__card {
@@ -47,24 +63,64 @@
     align-items: stretch;
     justify-content: space-between;
     font-size: 14px;
-    width: 240px;
     height: 330px;
     text-align: center;
+    width: 240px;
 
     &:hover {
       box-shadow: 8px 8px 5px rgb(154, 166, 170);
     }
 
     @media (max-width: $tablet) {
-      width: 150px;
+      // width: 150px;
       height: 285px;
       font-size: 11px;
+
+      &--list {
+        width: 100% !important;
+        height: 100% !important;
+
+        .products {
+          &__image {
+            height: 250px;
+            padding: 0 0 20px;
+          }
+
+          &__title {
+            font-size: 15px;
+            padding: 0 0 20px;
+          }
+
+          &__price {
+            font-size: 19px;
+            // padding: 0 0 20px;
+          }
+        }
+        .product__category {
+          font-size: 14px;
+        }
+      }
+      &--gridx2 {
+        width: 42%;
+      }
+
+      &--gridx3 {
+        width: 27%;
+      }
     }
 
     @media (max-width: $mobile) {
-      width: 100px;
+      width: 42%;
       height: 220px;
       font-size: 9px;
+
+      &--gridx2 {
+        width: 42%;
+      }
+
+      &--gridx3 {
+        width: 25%;
+      }
     }
   }
 
@@ -108,7 +164,6 @@
     font-size: revert;
     background: none repeat scroll 0 0 rgb(240 240 240);
     border-radius: 120px;
-    width: 100px;
     height: 13px;
     margin: 12px auto;
   }

@@ -13,7 +13,6 @@ import Spinner from '../components/atoms/loadingSpinner';
 import * as resolvers from '../utils/resolvers';
 import { auth, updateOrder, updateWishList } from '../utils/resolvers';
 import { Address, Product, ShopState, SimpleOrder, User } from '../utils/Type';
-import callApi from './callApi';
 
 const CartContext = createContext<ShopState>({} as ShopState);
 
@@ -22,7 +21,7 @@ export const CartProvider = ({ children }: any) => {
   const [user, setUser] = useState<User>();
   const [products, setProducts] = useState<Product[]>([]);
   const [wishList, setWishList] = useState<Product[]>([]);
-  const [order, setOrder] = useState<SimpleOrder>();
+  const [order, setOrder] = useState<SimpleOrder | undefined>({ products: [] });
   const [isLoading, setIsLoading] = useState(false);
   const [ordersCompleted, setOrdersCompleted] = useState<SimpleOrder[]>();
   const [addressList, setAddressList] = useState<Address[]>();
@@ -50,8 +49,8 @@ export const CartProvider = ({ children }: any) => {
   useEffect(() => {
     (async () => {
       if (persistanceId) {
-        const ordersFromServer = await callApi({ method: 'GET', endpoint: `/orders/${persistanceId}` });
-        console.log('ordersFromServer', ordersFromServer);
+        // const ordersFromServer = await callApi({ method: 'GET', endpoint: `/orders/${persistanceId}` });
+        // console.log('ordersFromServer', ordersFromServer);
         const firestoreUser = await resolvers.getCurrentUser(persistanceId);
         setUser(firestoreUser);
         await getOrder(persistanceId);
@@ -118,9 +117,6 @@ export const CartProvider = ({ children }: any) => {
   }, []);
 
   const addItemToCart = async (product: Product) => {
-    if (!user) {
-      return;
-    }
     const productAlreadyOnBasket = order!.products.find(item => item.id === product.id);
 
     const newCartItems = productAlreadyOnBasket
@@ -129,18 +125,20 @@ export const CartProvider = ({ children }: any) => {
           { ...productAlreadyOnBasket, amount: productAlreadyOnBasket.amount + 1 },
         ]
       : [...order!.products, { ...product, amount: 1 }];
+
     setOrder({ ...order, products: newCartItems });
-    updateOrder(newCartItems, user.id);
+    if (user) {
+      updateOrder(newCartItems, user.id);
+    }
   };
 
   const wishListHandler = (product: Product) => {
-    if (!user) {
-      return;
-    }
     const productAlreadyOnWishList = wishList.find(item => item.id === product.id);
     const newWishList = productAlreadyOnWishList ? wishList.filter(p => p.id !== product.id) : [...wishList, product];
     setWishList(newWishList);
-    updateWishList(newWishList, user.id);
+    if (user) {
+      updateWishList(newWishList, user.id);
+    }
   };
 
   const deleteItemToCart = (itemId: string) => {

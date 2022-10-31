@@ -1,4 +1,4 @@
-# Ecommerce101
+# ELCHAMUYIN
 
 ## Small fullstack single-page ecommerce application for learning purposes
 

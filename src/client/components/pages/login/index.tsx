@@ -31,6 +31,7 @@ const LoginForm = () => {
       setIsLoading(false);
       navigate('/');
     } catch (error) {
+      setIsLoading(false);
       if (error instanceof Error && error.message.includes('auth/wrong-password')) {
         console.log(error.message);
         window.alert('wrong password');
@@ -67,7 +68,7 @@ const LoginForm = () => {
                 validate={(value: string) => runValidation(value, 'password')}
               />
               <div className="button-container">
-                <button className="sign-button" type="submit" disabled={!!errors}>
+                <button className="sign-button" type="submit">
                   {isLoading ? <LoadingDots /> : 'Login'}
                 </button>
               </div>

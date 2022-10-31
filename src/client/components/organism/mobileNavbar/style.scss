@@ -1,0 +1,130 @@
+@import '../../../utils/variables';
+
+.submenu {
+  box-shadow: 0px 3px 10px 1px black;
+  width: 100%;
+  background-color: rgb(195, 195, 195);
+  position: fixed;
+  bottom: 61px;
+  transition: transform 0.2s;
+  transform: translateY(100%);
+  z-index: 2;
+
+  &--visible {
+    transform: translateY(0);
+  }
+}
+
+.border-selector {
+  position: fixed;
+  bottom: 57px;
+  height: 3px;
+  width: 100%;
+  z-index: 2;
+}
+
+.border-active {
+  background-color: rgb(5, 5, 5);
+  position: fixed;
+  bottom: 57px;
+  height: 3px;
+  width: 20%;
+  transition: left 0.3s;
+  left: 20px;
+
+  &__home {
+    left: 0%;
+  }
+  &__profile {
+    left: 20%;
+  }
+  &__search {
+    left: 40%;
+  }
+  &__wishlist {
+    left: 60%;
+  }
+  &__basket {
+    left: 80%;
+  }
+}
+
+.mobilebar {
+  z-index: 2;
+  background-color: #e8e8e8;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 10;
+  box-shadow: 0px 3px 10px 1px black;
+
+  &__option {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    width: 20%;
+    height: 36px;
+    padding: 4px 0 20px;
+    transition: transform 0.5s;
+
+    &--active {
+      padding: 0 0 17px;
+      height: 41px;
+
+      &__search {
+        height: 40px;
+        padding: 4px 0 14px;
+      }
+    }
+  }
+
+  &__img {
+    height: 30px;
+    transition: height 0.5s, width 0.5s, transform 0.5s;
+    margin-bottom: 3px;
+    &--active {
+      height: 35px;
+
+      &__search {
+        animation: rotate 1s alternate;
+        margin-bottom: 5px;
+      }
+    }
+  }
+
+  &__title {
+    position: fixed;
+    bottom: 1px;
+    text-align: center;
+    font-size: 17px;
+    transition: font-size 0.5s, transform 0.5s;
+    font-family: 'Barlow Condensed', sans-serif;
+
+    &--active {
+      font-weight: bolder;
+      font-size: 20px;
+    }
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0turn);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes toggleSubmenu {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}

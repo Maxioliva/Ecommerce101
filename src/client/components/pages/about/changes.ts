@@ -7,6 +7,21 @@ type Release = {
 // Locate new release information at the top of array
 const releases: Release[] = [
   {
+    date: '31/10/2022',
+    version: '1.3.0',
+    changeLog: [
+      'Add custom reusable Input component',
+      'Add validation rules for our fields',
+      'Create variables for give custom design',
+      'Add mobile navigation bar',
+      'Add Order success page to show after the order gets completed',
+      'Create callApi module to centralise all our http requests',
+      'Add firebase user-persistence logic to keep the user signed even in a new tab',
+      'Add express server deployed with api',
+      'Minor fixes and improvements',
+    ],
+  },
+  {
     date: '15/10/2022',
     version: '1.2.0',
     changeLog: ['Add address book feature', 'Fix logo not working as link to homepage', 'Minor fixes and improvements'],

@@ -5,7 +5,7 @@ const About = () => (
   <div className="about">
     <h1 className="about__title">About</h1>
     <p className="about__description">
-      Elchamuyin is an ecommerce project with educational pourposes and is being mantained respecting the latest code
+      Elchamuyin is an ecommerce project with educational purposes and is being mantained respecting the latest code
       conventions and EcmaScript updates. This responsive single page application is being
       <b> written</b> in javascript + sass, <b> enforced</b> by typescript + ESLint + prettier, <b> bundled</b> by
       webpack, <b> powered</b> by react + firebase and <b> served</b> by netlify.

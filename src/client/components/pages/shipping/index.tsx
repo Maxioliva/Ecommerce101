@@ -97,7 +97,7 @@ const Shipping = () => {
                 label="Country"
                 validate={(value: string) => runValidation(value, 'country')}
               />
-              <button className="shipping__buttom" type="submit" disabled={!(errors as string[]).length}>
+              <button className="shipping__buttom" type="submit">
                 Save Order Data
               </button>
             </Form>

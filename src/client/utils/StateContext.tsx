@@ -21,7 +21,7 @@ export const CartProvider = ({ children }: any) => {
   const [user, setUser] = useState<User>();
   const [products, setProducts] = useState<Product[]>([]);
   const [wishList, setWishList] = useState<Product[]>([]);
-  const [order, setOrder] = useState<SimpleOrder>();
+  const [order, setOrder] = useState<SimpleOrder | undefined>({ products: [] });
   const [isLoading, setIsLoading] = useState(false);
   const [ordersCompleted, setOrdersCompleted] = useState<SimpleOrder[]>();
   const [addressList, setAddressList] = useState<Address[]>();
@@ -117,14 +117,7 @@ export const CartProvider = ({ children }: any) => {
   }, []);
 
   const addItemToCart = async (product: Product) => {
-    console.log(user);
-    if (!user) {
-      return;
-    }
-    console.log('product', product);
-
     const productAlreadyOnBasket = order!.products.find(item => item.id === product.id);
-    console.log('productAlreadyOnBasket', productAlreadyOnBasket);
 
     const newCartItems = productAlreadyOnBasket
       ? [
@@ -132,19 +125,20 @@ export const CartProvider = ({ children }: any) => {
           { ...productAlreadyOnBasket, amount: productAlreadyOnBasket.amount + 1 },
         ]
       : [...order!.products, { ...product, amount: 1 }];
-    console.log('newCartItems', newCartItems);
+
     setOrder({ ...order, products: newCartItems });
-    updateOrder(newCartItems, user.id);
+    if (user) {
+      updateOrder(newCartItems, user.id);
+    }
   };
 
   const wishListHandler = (product: Product) => {
-    if (!user) {
-      return;
-    }
     const productAlreadyOnWishList = wishList.find(item => item.id === product.id);
     const newWishList = productAlreadyOnWishList ? wishList.filter(p => p.id !== product.id) : [...wishList, product];
     setWishList(newWishList);
-    updateWishList(newWishList, user.id);
+    if (user) {
+      updateWishList(newWishList, user.id);
+    }
   };
 
   const deleteItemToCart = (itemId: string) => {

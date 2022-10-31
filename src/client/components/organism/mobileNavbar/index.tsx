@@ -66,7 +66,11 @@ const MobileBar = () => {
       ),
     },
     search: { name: 'search', title: 'Search', redirect: '/products' },
-    wishlist: { name: 'wishlist', title: 'Wishlist', redirect: '/wishlist' },
+    wishlist: {
+      name: 'wishlist',
+      title: 'Wishlist',
+      redirect: '/wishlist',
+    },
     basket: { name: 'basket', title: 'Basket', redirect: '/cart' },
   };
 
@@ -94,6 +98,7 @@ const MobileBar = () => {
       } else {
         setActiveOption(nextActiveOption);
       }
+
       const redirectPath = optionsMap[name].redirect;
       if (redirectPath) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -103,17 +108,15 @@ const MobileBar = () => {
   };
 
   return (
-    <div className="motherOfContainer" ref={containerRef}>
+    <div ref={containerRef}>
       <div className={classNames('submenu', { 'submenu--visible': isSubmenuVisible })}>{submenu ?? ''}</div>
-      <div className={`border-selector border-selector__${activeOption.current}`}>
-        <div className={`border-active border-active__${activeOption.current}`}></div>
-      </div>
       <div className="mobilebar">
+        <div className="border-selector">
+          <div className={`border-active border-active__${activeOption.current}`}></div>
+        </div>
         {Object.entries(optionsMap).map(([name, value]) => (
           <div
-            className={classNames('mobilebar__option', {
-              [`mobilebar__option--active mobilebar__option--active__${name}`]: activeOption.current === name,
-            })}
+            className={classNames('mobilebar__option', { 'mobilebar__option--active': activeOption.current === name })}
             onClick={() => clickHandler(name as OptionName)}
             key={name}
           >

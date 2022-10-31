@@ -36,9 +36,9 @@ const MobileProfile = ({ closeSubmenu }: { closeSubmenu?: () => void }) => {
       <div className="profile__option" onClick={() => clickHandler('/About')}>
         Help
       </div>
-      <button className="profile__button" onClick={logOutHandler}>
+      <div className="profile__button" onClick={logOutHandler}>
         Log Out
-      </button>
+      </div>
     </div>
   );
 };

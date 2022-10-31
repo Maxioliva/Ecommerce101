@@ -1,13 +1,14 @@
 @import '../../../utils/variables';
 
 .submenu {
-  box-shadow: 0px 5px 13px 1px black;
+  box-shadow: 0px 3px 10px 1px black;
   width: 100%;
   background-color: rgb(195, 195, 195);
   position: fixed;
-  bottom: 60px;
+  bottom: 61px;
   transition: transform 0.2s;
   transform: translateY(100%);
+  z-index: 2;
 
   &--visible {
     transform: translateY(0);
@@ -15,20 +16,21 @@
 }
 
 .border-selector {
-  background-color: #e8e8e8;
   position: fixed;
-  bottom: 60px;
+  bottom: 57px;
   height: 3px;
   width: 100%;
+  z-index: 2;
 }
 
 .border-active {
   background-color: rgb(5, 5, 5);
   position: fixed;
-  bottom: 60px;
+  bottom: 57px;
   height: 3px;
   width: 20%;
   transition: left 0.3s;
+  left: 20px;
 
   &__home {
     left: 0%;
@@ -48,6 +50,7 @@
 }
 
 .mobilebar {
+  z-index: 2;
   background-color: #e8e8e8;
   position: fixed;
   bottom: 0;
@@ -55,8 +58,8 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  z-index: 50;
-  box-shadow: 0px 5px 13px 1px black;
+  z-index: 10;
+  box-shadow: 0px 3px 10px 1px black;
 
   &__option {
     display: flex;

@@ -13,7 +13,6 @@ import Spinner from '../components/atoms/loadingSpinner';
 import * as resolvers from '../utils/resolvers';
 import { auth, updateOrder, updateWishList } from '../utils/resolvers';
 import { Address, Product, ShopState, SimpleOrder, User } from '../utils/Type';
-import callApi from './callApi';
 
 const CartContext = createContext<ShopState>({} as ShopState);
 
@@ -118,10 +117,14 @@ export const CartProvider = ({ children }: any) => {
   }, []);
 
   const addItemToCart = async (product: Product) => {
+    console.log(user);
     if (!user) {
       return;
     }
+    console.log('product', product);
+
     const productAlreadyOnBasket = order!.products.find(item => item.id === product.id);
+    console.log('productAlreadyOnBasket', productAlreadyOnBasket);
 
     const newCartItems = productAlreadyOnBasket
       ? [
@@ -129,6 +132,7 @@ export const CartProvider = ({ children }: any) => {
           { ...productAlreadyOnBasket, amount: productAlreadyOnBasket.amount + 1 },
         ]
       : [...order!.products, { ...product, amount: 1 }];
+    console.log('newCartItems', newCartItems);
     setOrder({ ...order, products: newCartItems });
     updateOrder(newCartItems, user.id);
   };

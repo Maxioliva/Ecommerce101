@@ -45,7 +45,7 @@ const RegisterForm = () => {
   return (
     <>
       <Formik initialValues={initialValues} onSubmit={submitHandler}>
-        {({ errors }) => (
+        {({ errors, validateField }) => (
           <>
             <div className="formik__header">
               <Logo secondary />

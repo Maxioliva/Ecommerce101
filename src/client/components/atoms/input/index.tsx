@@ -8,6 +8,7 @@ import './style.scss';
 
 type CustomInputProps = {
   label: string;
+  // validateField: (value: string) => string[] | undefined;
 };
 export type InputProps = CustomInputProps &
   FieldProps &
@@ -17,12 +18,16 @@ const Input = ({ label, field, form, ...rest }: InputProps) => {
   const { errors: formikErrors, touched } = form;
   const isEmpty = (value: any) => value === null || value === undefined || value === '';
   const isTouched = getIn(touched, field.name);
-  const errors = isTouched && getIn(formikErrors, field.name);
+  const errors = getIn(formikErrors, field.name);
   const hasError = !!errors?.length;
   const errorMessage = hasError ? getErrorMessage(errors[0], label) : undefined;
   const hasSuccess =
     isTouched && !hasError && !isEmpty(typeof field.value === 'string' ? field.value.trim() : field.value);
   const statusIcon = hasError ? 'error.svg' : hasSuccess ? 'success.svg' : undefined;
+  if (field.name === 'password') {
+    console.log(errorMessage);
+    console.log(isTouched);
+  }
 
   return (
     <>

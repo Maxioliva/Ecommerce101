@@ -50,6 +50,10 @@ export const runValidation = (value: string, name: InputType) => {
     error.push('invalid');
   }
 
+  if (name === 'password') {
+    console.log(error);
+  }
+
   return error.length ? error : undefined;
 };
 

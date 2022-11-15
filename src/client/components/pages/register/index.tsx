@@ -6,6 +6,7 @@ import { registerUser } from '../../../utils/resolvers';
 import CartContext from '../../../utils/StateContext';
 import { User } from '../../../utils/Type';
 import { runValidation } from '../../../utils/validations';
+import Button from '../../atoms/button';
 import Input from '../../atoms/input';
 import Logo from '../../atoms/logo';
 import './style.scss';
@@ -91,6 +92,23 @@ const RegisterForm = () => {
               <button className="sign-button" type="submit" disabled={!isEmpty(errors)}>
                 Register
               </button>
+
+              <Button disabled={!isEmpty(errors)} type="submit">
+                Register
+              </Button>
+              <Button isSecondary disabled={!isEmpty(errors)} type="submit">
+                Register
+              </Button>
+              <Button isTertiary className="register-button" disabled={!isEmpty(errors)} type="submit">
+                Register
+              </Button>
+              <Button isLoading disabled={!isEmpty(errors)} type="submit">
+                Register
+              </Button>
+              <Button disabled={true} type="submit">
+                Register
+              </Button>
+
               <div className="form-message">
                 By creating an account, you agree to Shopping`s terms of use and privacy notice{' '}
               </div>

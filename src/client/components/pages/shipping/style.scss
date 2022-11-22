@@ -44,23 +44,4 @@
     -o-transition: all 0.3s;
     transition: all 0.3s;
   }
-
-  &__buttom {
-    background: none;
-    border: solid 3px #474544;
-    color: #474544;
-    cursor: pointer;
-    display: inline-block;
-    font-family: 'Helvetica', Arial, sans-serif;
-    font-size: 0.875em;
-    font-weight: bold;
-    outline: none;
-    padding: 20px 35px;
-    text-transform: uppercase;
-
-    &:hover {
-      background-color: black;
-      color: rgb(220, 227, 234);
-    }
-  }
 }

@@ -89,26 +89,8 @@ const RegisterForm = () => {
                 type="password"
                 validate={(value: string) => runValidation(value, 'password')}
               />
-              <button className="sign-button" type="submit" disabled={!isEmpty(errors)}>
-                Register
-              </button>
 
-              <Button disabled={!isEmpty(errors)} type="submit">
-                Register
-              </Button>
-              <Button isSecondary disabled={!isEmpty(errors)} type="submit">
-                Register
-              </Button>
-              <Button isTertiary className="register-button" disabled={!isEmpty(errors)} type="submit">
-                Register
-              </Button>
-              <Button isLoading disabled={!isEmpty(errors)} type="submit">
-                Register
-              </Button>
-              <Button disabled={true} type="submit">
-                Register
-              </Button>
-
+              <Button type="submit">Register</Button>
               <div className="form-message">
                 By creating an account, you agree to Shopping`s terms of use and privacy notice{' '}
               </div>
@@ -118,11 +100,9 @@ const RegisterForm = () => {
       </Formik>
       <div className="bottom-form">
         <div className="separator-line">¿Do you already have an account?</div>
-        <Link to={'/login'}>
-          <button className="buttom-register" type="submit">
-            Login
-          </button>
-        </Link>
+        <Button isSecondary onClick={() => navigate('/login')}>
+          Login
+        </Button>
       </div>
     </>
   );

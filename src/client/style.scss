@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import './utils/variables';
 @font-face {
   font-family: 'breamcatcher';
@@ -83,3 +84,90 @@ body,
     flex-wrap: wrap;
   }
 }
+=======
+@import './utils/variables';
+@font-face {
+  font-family: 'breamcatcher';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../../public/assets/font/breamcatcher\ rg.otf');
+  format: ('woff');
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 100%;
+  position: relative;
+  background-color: #fff;
+
+  &__header {
+    position: sticky;
+    top: 0;
+    background: $primaryColor;
+    z-index: 1;
+  }
+
+  &__body {
+    padding: 0;
+    margin: 0 auto;
+    max-width: 1400px;
+    width: 90%;
+    height: 100%;
+    z-index: 0;
+
+    @media (max-width: $tablet) {
+      padding: 0;
+    }
+
+    @media (max-width: $mobile) {
+      padding: 0;
+      width: 100%;
+    }
+
+    &__container {
+      width: 100%;
+      background-color: $thirdcolor;
+      height: 100%;
+      @media (max-width: $mobile) {
+      }
+    }
+  }
+
+  .divider {
+    height: 1px;
+    width: 100%;
+    margin: 10px auto;
+    background-color: rgb(154, 150, 150);
+    height: 100vh;
+  }
+}
+
+.profile {
+  display: flex;
+  flex-direction: row-reverse;
+  align-content: center;
+  justify-content: center;
+  align-items: flex-start;
+
+  flex-wrap: wrap;
+
+  @media (max-width: $mobile) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+}
+>>>>>>> 5619e7bf89789146389df5d8377b7bc84d262d32

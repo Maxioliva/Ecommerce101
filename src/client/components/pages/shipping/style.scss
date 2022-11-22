@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .shipping {
   display: flex;
 }
@@ -45,3 +46,52 @@
     transition: all 0.3s;
   }
 }
+=======
+.shipping {
+  display: flex;
+}
+
+.shipping {
+  background-color: rgb(220, 227, 234);
+
+  &__form {
+    max-width: 400px;
+    width: 100%;
+    padding: 16px;
+    border-radius: 10px;
+    margin: auto;
+    border: solid 3px #474544;
+  }
+
+  &__title {
+    color: #474544;
+    font-size: 23px;
+    width: 100%;
+    text-align: center;
+  }
+
+  &__Input {
+    background: none;
+    border: none;
+    border-bottom: solid 2px #474544;
+    color: #474544;
+    font-size: 1em;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin: 0.5em 0 1.875em 0;
+    padding: 0 0 0.875em 0;
+    text-transform: uppercase;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+  }
+}
+>>>>>>> 5619e7bf89789146389df5d8377b7bc84d262d32

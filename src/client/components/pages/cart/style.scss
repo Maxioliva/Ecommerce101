@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import '../../../utils/variables';
 
 .cartProducts {
@@ -17,3 +18,24 @@
     font-weight: bold;
   }
 }
+=======
+@import '../../../utils/variables';
+
+.cartProducts {
+  margin: 0px auto;
+  display: flex;
+  flex-direction: column;
+  background-color: lightseagreen;
+  border-radius: 5px;
+
+  &__buttonConteiner {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__buttonCheck {
+    cursor: pointer;
+    font-weight: bold;
+  }
+}
+>>>>>>> 5619e7bf89789146389df5d8377b7bc84d262d32

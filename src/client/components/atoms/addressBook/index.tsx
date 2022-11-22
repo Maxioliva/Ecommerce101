@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { deleteAddresses } from '../../../utils/resolvers';
 import { Address } from '../../../utils/Type';
+import Button from '../button';
 import './style.scss';
 
 type AddressBookProps = {
@@ -36,10 +37,9 @@ const AddressBook = ({ addressList, getAddressList }: AddressBookProps) => {
 
   return (
     <div className="address-book">
-      <div className="address-book__title2" onClick={() => setIsVisible(!isVisible)}>
-        {' '}
+      <Button isTertiary className="address-book__title2" onClick={() => setIsVisible(!isVisible)} type="submit">
         Addresses Book
-      </div>
+      </Button>
       {isVisible && (
         <div className="address-book__container">
           <div className="address-book__list">
@@ -65,24 +65,34 @@ const AddressBook = ({ addressList, getAddressList }: AddressBookProps) => {
                     {address.zipCode} - {address.city}
                   </h3>
                   <h3 className="address-book__info">{address.country}</h3>
-                  <div className="address-book__delete" onClick={() => deleteHandler(address.id)}>
+                  <Button
+                    isTertiary
+                    className="address-book__delete"
+                    type="submit"
+                    onClick={() => deleteHandler(address.id)}
+                  >
                     Delete
-                  </div>
+                  </Button>
                 </li>
               ))}
             </ul>
             <div className="address-book__buttons">
-              <div className="address-book__cancel" onClick={() => setIsVisible(!isVisible)}>
-                Cancel
-              </div>
-              <button
+              <Button
+                isSecondary
                 className="address-book__button"
-                type="button"
+                type="submit"
+                onClick={() => setIsVisible(!isVisible)}
+              >
+                Cancel
+              </Button>
+              <Button
+                className="address-book__button"
                 onClick={completeAddress}
                 disabled={!addressSelected}
+                type="submit"
               >
                 Select
-              </button>
+              </Button>
             </div>
           </div>
         </div>

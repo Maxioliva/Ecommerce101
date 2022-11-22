@@ -9,6 +9,7 @@ import './style.scss';
 import AddressBook from '../../atoms/addressBook';
 import Input from '../../atoms/input';
 import { runValidation } from '../../../utils/validations';
+import Button from '../../atoms/button';
 
 const Shipping = () => {
   const [addressList, setAddressList] = useState<Address[]>([]);
@@ -97,9 +98,7 @@ const Shipping = () => {
                 label="Country"
                 validate={(value: string) => runValidation(value, 'country')}
               />
-              <button className="shipping__buttom" type="submit">
-                Save Order Data
-              </button>
+              <Button type="submit">Save Order Data</Button>
             </Form>
           )}
         </Formik>

@@ -4,6 +4,7 @@ import { useContext } from 'react';
 import { updateUser } from '../../../utils/resolvers';
 import CartContext from '../../../utils/StateContext';
 import { runValidation } from '../../../utils/validations';
+import Button from '../button';
 import Input from '../input';
 import './style.scss';
 
@@ -60,9 +61,7 @@ const ProfileSettings = () => {
             type="password"
             validate={(value: string) => runValidation(value, 'password')}
           />
-          <button className="sign-button" type="submit" disabled={!isEmpty(errors)}>
-            Update
-          </button>
+          <Button type="submit">Update</Button>
         </Form>
       )}
     </Formik>

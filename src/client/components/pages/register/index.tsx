@@ -6,6 +6,7 @@ import { registerUser } from '../../../utils/resolvers';
 import CartContext from '../../../utils/StateContext';
 import { User } from '../../../utils/Type';
 import { runValidation } from '../../../utils/validations';
+import Button from '../../atoms/button';
 import Input from '../../atoms/input';
 import Logo from '../../atoms/logo';
 import './style.scss';
@@ -88,9 +89,8 @@ const RegisterForm = () => {
                 type="password"
                 validate={(value: string) => runValidation(value, 'password')}
               />
-              <button className="sign-button" type="submit" disabled={!isEmpty(errors)}>
-                Register
-              </button>
+
+              <Button type="submit">Register</Button>
               <div className="form-message">
                 By creating an account, you agree to Shopping`s terms of use and privacy notice{' '}
               </div>
@@ -100,11 +100,9 @@ const RegisterForm = () => {
       </Formik>
       <div className="bottom-form">
         <div className="separator-line">¿Do you already have an account?</div>
-        <Link to={'/login'}>
-          <button className="buttom-register" type="submit">
-            Login
-          </button>
-        </Link>
+        <Button isSecondary onClick={() => navigate('/login')}>
+          Login
+        </Button>
       </div>
     </>
   );

@@ -5,6 +5,7 @@ import Icon from '../../atoms/icono';
 import Spinner from '../../atoms/loadingSpinner';
 import { getAssetUrl } from '../../../utils/config';
 import useIsMobile from '../../../utils/useIsMobile';
+import Button from '../../atoms/button';
 
 type View = 'list' | 'gridx2' | 'gridx3';
 
@@ -51,9 +52,9 @@ const Products = () => {
             <h3 className="products__title">{product.title}</h3>
             <div className="product__category">{`Category: ${product.category}`} </div>
             <div className="products__price">{`Price: $ ${product.price}`} </div>
-            <button className="products__button" onClick={() => addItemToCart(product)}>
-              Add to Cart
-            </button>
+            <Button className="products__button" onClick={() => addItemToCart(product)}>
+              Add to Cart{' '}
+            </Button>
           </div>
         ))}
       </div>

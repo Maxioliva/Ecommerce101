@@ -3,6 +3,7 @@ import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import CartContext from '../../../utils/StateContext';
 import { runValidation } from '../../../utils/validations';
+import Button from '../../atoms/button';
 import Input from '../../atoms/input';
 import LoadingDots from '../../atoms/loadingDots';
 import Logo from '../../atoms/logo';
@@ -68,9 +69,7 @@ const LoginForm = () => {
                 validate={(value: string) => runValidation(value, 'password')}
               />
               <div className="button-container">
-                <button className="sign-button" type="submit">
-                  {isLoading ? <LoadingDots /> : 'Login'}
-                </button>
+                <Button type="submit">Login</Button>
               </div>
               <div className="form-message">
                 By continuing, you agree to the shopping terms and conditions and privacy notice .
@@ -81,11 +80,9 @@ const LoginForm = () => {
       </Formik>
       <div className="bottom-form">
         <div className="separator-line">¿Are you new in Shopping?</div>
-        <Link to={'/register'}>
-          <button className="buttom-register" type="submit">
-            Register
-          </button>
-        </Link>
+        <Button className="buttom-register" onClick={() => navigate('/register')}>
+          Register
+        </Button>
       </div>
     </>
   );

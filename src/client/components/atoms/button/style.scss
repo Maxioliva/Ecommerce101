@@ -1,0 +1,32 @@
+.button {
+  font-size: 14px;
+  width: 100%;
+  height: 40px;
+  margin: 10px auto;
+  border-radius: 5px;
+  background-color: #224b75;
+  color: white;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  &--isSecondary {
+    background-color: unset;
+    color: #224b75;
+    font-weight: bold;
+    border: 2px solid #224b75;
+  }
+
+  &--isTertiary {
+    background-color: unset;
+    color: #224b75;
+    height: unset;
+    width: unset;
+    font-weight: bold;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    filter: grayscale(70%);
+  }
+}

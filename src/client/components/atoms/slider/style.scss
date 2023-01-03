@@ -1,16 +1,13 @@
+.slider {
+  width: 100%;
+  background-color: lightcyan;
+  position: relative;
+  z-index: 2;
+}
 
-
-.slider{
-    width: 100%;
-    background-color: lightcyan;
-    position: relative;
-    z-index: 2;
-  }
-
-.img {
-max-height: 290px;
- width: 100%;
- height: 100%;
- object-fit:cover;
- }
-
+.sliderimg {
+  max-height: 290px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

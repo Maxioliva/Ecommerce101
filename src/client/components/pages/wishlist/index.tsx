@@ -1,22 +1,32 @@
 import { useContext } from 'react';
 import CartContext from '../../../utils/StateContext';
+import Button from '../../atoms/button';
 import Icon from '../../atoms/icono';
+import './style.scss';
 
 const WishList = () => {
-  const { wishList, wishListHandler } = useContext(CartContext);
+  const { wishList, wishListHandler, addItemToCart } = useContext(CartContext);
   return (
-    <div className="cartProduct">
-      <div className="cartProducts__list"></div>
+    <div className="wishList">
+      <span className="wishList__head">My Wishlist</span>
       {wishList.map(product => (
-        <div className="cartProducts__card" key={product.id}>
-          <img className="cartProducts__image" src={product.image} alt={product.title} />
-          <h3 className="cartProducts__title">{product.title}</h3>
-          <h3 className="cartProducts__category">{`Category: ${product.category}`} </h3>
-          <div className="cartProducts__price">&nbsp;${product.price}&nbsp;</div>
-          <Icon value={true} size={25} icon="wishlist" onClick={() => wishListHandler(product)} />
+        <div className="wishList__card" key={product.id}>
+          <div className="wishList__left">
+            <img className="wishList__image" src={product.image} alt={product.title} />
+            <div className="wishList__texts">
+              <h3 className="wishList__texts-title">{product.title}</h3>
+              <div className="wishList__texts-price">&nbsp;${product.price}&nbsp;</div>
+              <h3 className="wishList__texts-category">{`Category: ${product.category}`} </h3>
+            </div>
+          </div>
+          <div className="wishList__buttons">
+            <Icon value={true} size={25} icon="wishlist" onClick={() => wishListHandler(product)} />
+            <Button className="wishList__buttons-button" onClick={() => addItemToCart(product)}>
+              Add to Cart{' '}
+            </Button>
+          </div>
         </div>
       ))}
-      ;
     </div>
   );
 };

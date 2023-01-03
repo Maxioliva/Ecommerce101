@@ -6,28 +6,28 @@ export const ItemCart = ({ item }: any) => {
   const { addItemToCart, deleteItemToCart, deleteAllItemToCart }: any = useContext(CartContext);
 
   return (
-    <div className="cartItem">
-      <img className="product-cart" src={item.image} />
-      <div className="dataContainer">
-        <div className="left">
-          <div className="item-title">
+    <div className="itemCart">
+      <img className="itemCart__product-cart" src={item.image} />
+      <div className="itemCart__dataContainer">
+        <div className="itemCart__left">
+          <div className="itemCart__item-title">
             <p>{item.title}</p>
           </div>
 
-          <div className="quantity-container">
+          <div className="itemCart__quantity-container">
             <button onClick={() => addItemToCart(item)}>+</button>
-            <input type="text" value={item.amount} className="quantity-input"></input>
+            <input type="text" value={item.amount} className="itemCart__quantity-input"></input>
             <button onClick={() => deleteItemToCart(item.id)}>-</button>
           </div>
         </div>
-        <div className="right">
+        <div className="itemCart__right">
           <div>${item.price}</div>
         </div>
         <div className="buttons">
           <button onClick={() => deleteAllItemToCart(item.id)}></button>
         </div>
       </div>
-      <div className="quantity-title">Stock {item.amount}</div>
+      <div className="itemCart__quantity-title">Stock {item.amount}</div>
     </div>
   );
 };

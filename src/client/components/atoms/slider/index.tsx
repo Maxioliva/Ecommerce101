@@ -24,16 +24,16 @@ const Slider = () => (
     // onSwiper={swiper => console.log(swiper)}
   >
     <SwiperSlide>
-      <img className="img" src={getAssetUrl('./slider/slider2.jpg')} />
+      <img className="sliderimg" src={getAssetUrl('./slider/slider2.jpg')} />
     </SwiperSlide>
     <SwiperSlide>
-      <img className="img" src={getAssetUrl('./slider/slider3.jpg')} />{' '}
+      <img className="sliderimg" src={getAssetUrl('./slider/slider3.jpg')} />{' '}
     </SwiperSlide>
     <SwiperSlide>
-      <img className="img" src={getAssetUrl('./slider/slider3.webp')} />
+      <img className="sliderimg" src={getAssetUrl('./slider/slider3.webp')} />
     </SwiperSlide>
     <SwiperSlide>
-      <img className="img" src={getAssetUrl('./slider/slider4.jpeg')} />{' '}
+      <img className="sliderimg" src={getAssetUrl('./slider/slider4.jpeg')} />{' '}
     </SwiperSlide>
   </Swiper>
 );

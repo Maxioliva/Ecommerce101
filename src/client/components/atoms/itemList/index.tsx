@@ -1,7 +1,7 @@
 import './style.scss';
 
 const ItemList = ({ item }: any) => (
-  <div className="cartItem">
+  <div className="itemList">
     <img className="product-cart" src={item.image} />
     <div className="dataContainer">
       <div className="left">

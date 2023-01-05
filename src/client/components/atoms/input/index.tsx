@@ -31,7 +31,7 @@ const Input = ({ label, field, form, ...rest }: InputProps) => {
           {...field}
           {...rest}
           style={statusIcon && { backgroundImage: `url('${getAssetUrl(statusIcon)}')` }}
-          className={classNames('input', { input__error: hasError })}
+          className={classNames('inputComponent', { input__error: hasError })}
           placeholder={label}
         />
         <span className="span">{label}</span>

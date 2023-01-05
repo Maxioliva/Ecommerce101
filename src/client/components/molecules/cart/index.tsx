@@ -10,12 +10,12 @@ const CartDropDown = () => {
   const [cartOpen, setCartOpen] = useState(false);
 
   return (
-    <div>
-      <div className="profile-dropdown__title">You Cart</div>
-      <div className="separatorLine"></div>
-      <div className="profile-dropdown__title">
+    <div className="cartDropDown">
+      <div className="cartDropDown__title">You Cart</div>
+
+      <div className="cartDropDown__title">
         {order?.products.length ? (
-          <div className="productsContainer">
+          <div className="cartDropDown__productsContainer">
             {order.products.map((item, i) => (
               <ItemList key={i} item={item} />
             ))}
@@ -24,18 +24,18 @@ const CartDropDown = () => {
           <div>Your Cart is empty!</div>
         )}
       </div>
-      <div className="buttonsBhindConteiner">
+      <div className="cartDropDown__buttonsBhindConteiner">
         {user ? (
           <Link to="checkout-shipping">
-            <button className="buttonsBhind">Check out</button>
+            <button className="cartDropDown__buttonsBhind">Check out</button>
           </Link>
         ) : (
           <p>log in please</p>
         )}
       </div>
-      <div className="buttonsBhindConteiner">
+      <div className="cartDropDown__buttonsBhindConteiner">
         <Link to="cart">
-          <button className="buttonsBhind" onClick={() => setCartOpen(!cartOpen)}>
+          <button className="cartDropDown__buttonsBhind" onClick={() => setCartOpen(!cartOpen)}>
             Basket Page
           </button>
         </Link>

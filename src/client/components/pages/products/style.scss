@@ -63,7 +63,7 @@
     align-items: stretch;
     justify-content: space-between;
     font-size: 14px;
-    height: 330px;
+    height: 400px;
     text-align: center;
     width: 240px;
 
@@ -102,6 +102,7 @@
       }
       &--gridx2 {
         width: 42%;
+        height: 350px;
       }
 
       &--gridx3 {
@@ -116,6 +117,7 @@
 
       &--gridx2 {
         width: 42%;
+        height: 300px;
       }
 
       &--gridx3 {
@@ -169,13 +171,8 @@
   }
 
   &__button {
-    color: white;
-    text-decoration: none;
-    padding: 5px 5px;
-    border-radius: 3px;
-    font-family: 'Amazon Ember', Arial, sans-serif;
-    font-size: 1.5em;
-    cursor: pointer;
+    font-size: 16px;
+
     @include button-bg($secundarycolor);
   }
 

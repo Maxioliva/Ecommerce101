@@ -103,7 +103,9 @@ const Shipping = () => {
           )}
         </Formik>
       </div>
-      <OrderSummary />
+      <div className="shipping__order">
+        <OrderSummary className="shipping__order__basket" />
+      </div>
     </div>
   );
 };

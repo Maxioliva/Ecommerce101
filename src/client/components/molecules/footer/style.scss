@@ -12,6 +12,7 @@
   text-align: left;
   font: bold 16px sans-serif;
   padding: 55px 50px;
+  border-top: 1px solid #000000;
 }
 
 .footer-distributed .footer-left,
@@ -96,7 +97,6 @@
 }
 
 .footer-distributed .footer-center p a {
-  color: $secundarycolor;
   text-decoration: none;
 }
 
@@ -120,7 +120,7 @@
 
 .footer-distributed .footer-company-about {
   line-height: 20px;
-  color: $secundarycolor;
+  color: black;
   font-size: 13px;
   font-weight: normal;
   margin: 0;

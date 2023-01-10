@@ -21,7 +21,13 @@ const WishList = () => {
           </div>
           <div className="wishList__buttons">
             <Icon value={true} size={25} icon="wishlist" onClick={() => wishListHandler(product)} />
-            <Button className="wishList__buttons-button" onClick={() => addItemToCart(product)}>
+            <Button
+              className="wishList__buttons-button"
+              onClick={() => {
+                addItemToCart(product);
+                wishListHandler(product);
+              }}
+            >
               Add to Cart{' '}
             </Button>
           </div>

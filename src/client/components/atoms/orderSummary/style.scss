@@ -1,21 +1,19 @@
 @import '../../../utils/variables';
 
 .orderSummary {
-  margin: 0px auto;
   display: flex;
   flex-direction: column;
-  background-color: lightseagreen;
+  background-color: white;
   border-radius: 5px;
 
   &__h1 {
     text-align: center;
-    color: white;
-    border-bottom: solid 4px white;
-    border-top: solid 4px white;
+    color: black;
+    border-bottom: solid 4px $secundarycolor;
   }
 
   &__list {
-    overflow: auto;
+    overflow: hidden;
   }
 
   &__list::-webkit-scrollbar {
@@ -23,152 +21,145 @@
   }
 
   &__card {
-    border: 2px solid black;
-    border-radius: 7px;
-    overflow: hidden;
-    padding: 6px 6px 17px;
-    margin: 7px auto;
-    background-color: #222222;
+    border-bottom: 3px solid #dad1d1;
+    padding: 8px 6px 8px;
+    margin: 0px auto;
+    background-color: white;
     display: flex;
-    flex-direction: initial;
-    align-items: stretch;
-    width: 100%;
-    height: 160px;
-    align-items: initial;
+    width: 70%;
+    height: 110px;
 
     @media (max-width: $tablet) {
-      height: 149px;
+      height: 100px;
       font-size: 11px;
       padding: 5px 6px 5px;
       width: auto;
     }
 
     @media (max-width: $mobile) {
-      height: 99px;
+      height: 90px;
     }
   }
 
   &__image {
-    width: 20%;
-    border-radius: 11px;
-    height: 171px;
+    width: 10%;
+    border-radius: 10px;
+    height: 100%;
 
     @media (max-width: $tablet) {
-      height: 150px;
+      height: 65%;
     }
 
     @media (max-width: $mobile) {
-      height: 100px;
+      height: 60%;
     }
   }
 
-  &__title {
-    max-height: 122px;
-    margin: 13px;
-    font-size: 15px;
-    color: white;
-    width: 100%;
+  &__texts {
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
 
-    @media (max-width: $tablet) {
+    &-title {
+      font-size: 15px;
+      color: black;
+      height: 80%;
+
+      @media (max-width: $tablet) {
+        font-size: 13px;
+        width: 75%;
+      }
+
+      @media (max-width: $mobile) {
+        font-size: 10px;
+        width: 85%;
+      }
+    }
+
+    &-category {
       font-size: 13px;
-      max-height: 66px;
-      width: 60%;
+      color: #b5866a;
+      text-transform: capitalize;
+
+      @media (max-width: $tablet) {
+        font-size: 14px;
+      }
+
+      @media (max-width: $mobile) {
+        font-size: 9px;
+      }
     }
 
-    @media (max-width: $mobile) {
-      font-size: 10px;
-      max-height: 40px;
-      width: 50%;
+    &-price {
+      border-radius: 6px;
+      color: #6c757d9c;
+      font-size: 14px;
+      font-weight: bold;
+
+      @media (max-width: $tablet) {
+        font-size: 14px;
+      }
+
+      @media (max-width: $mobile) {
+        font-size: 10px;
+      }
     }
   }
 
-  &__category {
-    color: #ff0000;
-    margin: 140px -22px 0px -290px;
-    padding: 3px;
-    font-size: 15px;
-    width: 100%;
-    text-transform: capitalize;
-
-    @media (max-width: $tablet) {
-      font-size: 14px;
-      max-height: 50px;
-      margin: 124px -179px 0px -125px;
-    }
+  &__left {
+    display: flex;
+    flex-direction: column;
+    right: 20%;
+    position: absolute;
+    margin: 18px auto;
+    align-items: center;
 
     @media (max-width: $mobile) {
-      font-size: 9px;
-      margin: 75px -246px 0px -26px;
+      right: 1%;
+      margin: 13px auto;
     }
-  }
-
-  &__price {
-    background-color: #dc2626;
-    border-radius: 6px;
-    color: white;
-    margin: 15.5px 3px 115px 0.5px;
-    padding: 2px 3px 0px 0px;
-    font-weight: bold;
-    font-size: 19px;
 
     @media (max-width: $tablet) {
-      margin: 13.5px 3px 115px 0.5px;
-      padding: none;
+      right: 7%;
+    }
+
+    &-button {
+      width: 30px;
+      cursor: pointer;
+
+      @media (max-width: $tablet) {
+        font-size: 14px;
+        width: 25px;
+      }
+
+      @media (max-width: $mobile) {
+        font-size: 11px;
+        width: 25px;
+      }
+    }
+
+    &-rating {
+      color: #f38507;
+      font-weight: bold;
       font-size: 14px;
-    }
+      margin-top: 34px;
 
-    @media (max-width: $mobile) {
-      margin: 12.5px 1px 69px 108.5px;
-      font-size: 10px;
-    }
-  }
+      @media (max-width: $tablet) {
+        font-size: 14px;
+        margin-top: 36px;
+      }
 
-  &__rating {
-    color: #00d8ff;
-    font-weight: bold;
-    font-size: 17px;
-    margin: 142px -174px 0px 0px;
-
-    @media (max-width: $tablet) {
-      font-size: 14px;
-      margin: 126px -167px 0 -12px;
-    }
-
-    @media (max-width: $mobile) {
-      font-size: 9px;
-      margin: 78px -167px 0 -12px;
+      @media (max-width: $mobile) {
+        font-size: 9px;
+        margin-top: 34px;
+      }
     }
   }
 
   &__total {
-    color: floralwhite;
+    color: #b5866a;
     font-weight: bold;
     font-size: x-large;
     text-align: center;
-    margin: auto 0 10px 0px;
-  }
-
-  &__button {
-    border-radius: 6px;
-    position: relative;
-    cursor: pointer;
-    font-size: 20px;
-    font-weight: bold;
-    color: #222222;
-    margin: 13.5px 3px 0 4.5px;
-
-    @media (max-width: $tablet) {
-      font-size: 14px;
-      margin: 11.5px 3px 0 4.5px;
-    }
-
-    @media (max-width: $mobile) {
-      font-size: 11px;
-    }
-  }
-
-  &__buttonConteiner {
-    display: flex;
-    justify-content: center;
   }
 }

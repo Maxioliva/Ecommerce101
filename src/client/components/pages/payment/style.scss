@@ -1,71 +1,70 @@
 .formik {
-    display: flex;
+  display: flex;
 }
 
 .payment {
-    background-color: white;
+  background-color: white;
 
-    &__f1 {
-        display: grid;
-        width: 300px;
-        padding: 16px;
-        border-radius: 10px;
-        margin: auto;
-        border: solid 3px #474544;
-        background-color: rgb(220, 227, 234);
-        color: white;
+  &__f1 {
+    display: grid;
+    width: 300px;
+    padding: 16px;
+    border-radius: 10px;
+    margin: 50px 25px;
+    height: fit-content;
+    border: solid 3px #474544;
+  }
+
+  &__h1 {
+    color: #474544;
+    font-size: 23px;
+    width: 100%;
+    text-align: center;
+  }
+
+  &__picked {
+    margin: 0px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+
+  &__field {
+    cursor: pointer;
+    margin: 32px 35px 0;
+  }
+
+  &__img {
+    width: 120px;
+    margin: 4px;
+    padding: 28px 0 0 0px;
+  }
+
+  &__order {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 20px 75px;
+
+    &__basket {
+      width: 100%;
     }
 
-    &__h1 {
-        color: #474544;
-        font-size: 23px;
-        width: 100%;
-        text-align: center;
-        border-block: solid 3px #474544;
+    .orderSummary__card {
+      width: 100%;
+      height: unset;
+      align-items: center;
     }
 
-    &__picked {
-        margin: 0px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
+    .orderSummary__left {
+      right: 12%;
     }
-
-    &__field {
-        cursor: pointer;
-        margin: 32px 35px 0;
+    .orderSummary__image {
+      height: 90%;
+      width: 10%;
     }
-
-    &__img {
-        width: 120px;
-        margin: 4px;
-        padding: 28px 0 0 0px;
+    .orderSummary__texts-title {
+      width: 80%;
     }
-
-    &__button {
-        background: none;
-        border: solid 3px #474544;
-        color: #474544;
-        cursor: pointer;
-        display: inline-block;
-        font-family: "Helvetica", Arial, sans-serif;
-        font-size: 0.875em;
-        font-weight: bold;
-        outline: none;
-        padding: 20px 35px;
-        text-transform: uppercase;
-    }
-
-    &__button:hover {
-        background-color: black;
-        color: rgb(220, 227, 234);
-    }
-
-    &__textbutton {
-        font-family: "Helvetica", Arial, sans-serif;
-        font-size: 14px;
-        font-weight: bold;
-        color: #474544;
-        margin: 28px 0 8px 1px;
-    }
+  }
 }

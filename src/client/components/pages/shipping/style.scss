@@ -1,17 +1,22 @@
-.shipping {
-  display: flex;
-}
+@import '../../../utils/variables';
 
 .shipping {
-  background-color: rgb(220, 227, 234);
+  background-color: rgb(255 255 255);
+  display: flex;
+  width: 100%;
+
+  @media (max-width: $mobile) {
+    flex-direction: column;
+  }
 
   &__form {
     max-width: 400px;
-    width: 100%;
     padding: 16px;
     border-radius: 10px;
-    margin: auto;
+    margin: 50px 25px;
     border: solid 3px #474544;
+    flex: 1;
+    height: fit-content;
   }
 
   &__title {
@@ -43,5 +48,33 @@
     -ms-transition: all 0.3s;
     -o-transition: all 0.3s;
     transition: all 0.3s;
+  }
+
+  &__order {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 20px 75px;
+
+    &__basket {
+      width: 100%;
+    }
+
+    .orderSummary__card {
+      width: 100%;
+      height: unset;
+      align-items: center;
+    }
+
+    .orderSummary__left {
+      right: 12%;
+    }
+    .orderSummary__image {
+      height: 90%;
+      width: 10%;
+    }
+    .orderSummary__texts-title {
+      width: 80%;
+    }
   }
 }

@@ -15,7 +15,7 @@ export const OrderSummary = ({ className }: { className?: string }) => {
       <div className="orderSummary__list">
         {order?.products.map(product => (
           <div className="orderSummary__card" key={product.id}>
-            <img className="orderSummary__image" src={product.image} alt={product.title} />
+            <img className="orderSummary__image" src={product.images[0]} alt={product.title} />
             <div className="orderSummary__texts">
               <h3 className="orderSummary__texts-title">{product.title}</h3>
               <div className="orderSummary__texts-price">&nbsp;${product.price}&nbsp;</div>
@@ -27,7 +27,7 @@ export const OrderSummary = ({ className }: { className?: string }) => {
                 className="orderSummary__left-button"
                 onClick={() => deleteItemToCart(product.id)}
               ></img>
-              <h3 className="orderSummary__left-rating">Rate:&nbsp;{product.rating.rate}</h3>
+              <h3 className="orderSummary__left-rating">Rate:&nbsp;{product.rating}</h3>
             </div>
           </div>
         ))}

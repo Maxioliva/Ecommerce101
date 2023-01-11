@@ -12,7 +12,7 @@ const WishList = () => {
       {wishList.map(product => (
         <div className="wishList__card" key={product.id}>
           <div className="wishList__left">
-            <img className="wishList__image" src={product.image} alt={product.title} />
+            <img className="wishList__image" src={product.images[0]} alt={product.title} />
             <div className="wishList__texts">
               <h3 className="wishList__texts-title">{product.title}</h3>
               <div className="wishList__texts-price">&nbsp;${product.price}&nbsp;</div>

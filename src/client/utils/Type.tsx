@@ -13,11 +13,14 @@ export type User = {
 export type Product = {
   id: string;
   title: string;
-  image: string;
+  images: string[];
   price: number;
   category: string;
   amount: number;
-  rating: { rate: number; count: number };
+  rating: number;
+  description: string;
+  stock: number;
+  discountPercentage: number;
 };
 
 export type Address = {

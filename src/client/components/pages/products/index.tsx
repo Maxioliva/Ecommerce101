@@ -14,8 +14,7 @@ type View = 'list' | 'gridx2' | 'gridx3';
 const Products = () => {
   const isMobile = useIsMobile();
   const [mobileView, setMobileView] = useState<{ current: View; next: View }>({ current: 'gridx2', next: 'gridx3' });
-  const { wishList, wishListHandler, addItemToCart, products } = useContext(CartContext);
-  const [searchResult, setSearchResult] = useState<Product[]>([]);
+  const { wishList, wishListHandler, addItemToCart, products, searchResult } = useContext(CartContext);
 
   const toggleView = () => {
     if (mobileView.current === 'gridx2') {
@@ -27,22 +26,21 @@ const Products = () => {
     }
   };
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const result = await getAllProducts();
-        setSearchResult(result.products);
-      } catch (e) {
-        console.log(e);
-      }
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const result = await getAllProducts();
+  //       setSearchResult(result.products);
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   })();
+  // }, []);
 
   if (!products || !products.length) {
     return <Spinner />;
   }
 
-  console.log(searchResult);
   return (
     <div className="products">
       {/* <div className="products__filter">filter</div> */}

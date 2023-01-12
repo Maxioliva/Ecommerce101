@@ -5,59 +5,64 @@
   display: flex;
   align-items: center;
   color: white;
-  font-weight: bold;
-  height: 35px;
-  justify-content: flex-end;
+  justify-content: space-between;
+  height: 40px;
   padding: 0 20px;
   border-bottom: 2px solid #000000;
-
+  @media (max-width: $mobile) {
+    justify-content: flex-end;
+  }
   &__logo {
-    height: 95px;
-    width: 95px;
-    border-radius: 100%;
-
-    &__2 {
-      width: 100%;
-      @media (max-width: 600px) {
-        text-align: center;
-      }
+    @media (max-width: 600px) {
+      text-align: center;
     }
   }
 
   &__option {
-    padding: 0 4px;
+    display: flex;
 
-    &__1 {
-      padding: 0 14px;
+    &__drop {
+      display: flex;
     }
-
-    &__3 {
-      position: absolute;
-      left: 0px;
+    &__icon {
+      margin-top: -4px;
     }
   }
 
-  &__link {
-    height: 100%;
-    width: 100%;
-    font-size: 20px;
-    margin: 0 10px;
-    color: black;
+  &__search {
+    display: flex;
+    align-items: center;
 
-    &:hover {
-      color: rgb(26, 197, 209);
-      background-color: black;
-      border-radius: 4px;
+    &__input {
+      border: 1px solid white;
+      font-size: 17px;
+      padding-left: 10px;
+      border-radius: 10px;
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+      width: 400px;
+      height: 25px;
+      &:focus-visible {
+        outline: none;
+      }
     }
-  }
 
-  &__button {
-    cursor: pointer;
-    border-radius: 4px;
-
-    &:hover {
-      color: rgb(26, 197, 209);
-      background-color: black;
+    &__button {
+      border: 1px solid white;
+      border-radius: 10px;
+      border-top-left-radius: 0px;
+      border-bottom-left-radius: 0px;
+      cursor: pointer;
+      display: flex;
+      padding: 0px 10px;
+      align-items: center;
+      span {
+        font-size: 20px;
+        margin: 0 5px;
+      }
+      img {
+        height: 25px;
+      }
     }
   }
 }

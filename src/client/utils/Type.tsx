@@ -41,6 +41,8 @@ export type ShopState = {
   user?: User;
   products: Product[];
   wishList: Product[];
+  searchResult: Product[];
+  searchHandler: (value: string) => void;
   order?: Omit<Order, 'id' | 'userId' | 'isCompleted'>;
   login: (email: string, password: string) => Promise<void>;
   logOut: () => void;

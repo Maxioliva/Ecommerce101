@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useContext, useRef, useState } from 'react';
+import { ChangeEventHandler, RefObject, useContext, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getAssetUrl } from '../../../utils/config';
 import useClickOutside from '../../../utils/detecClickOutside';
@@ -18,9 +18,11 @@ type MobileBarOption = {
 };
 
 const MobileBar = () => {
-  const { user } = useContext(CartContext);
+  const { user, searchHandler } = useContext(CartContext);
   const { pathname: path } = useLocation();
+  const [text, setText] = useState<string>('');
   const containerRef = useRef(null);
+  const searchRef = useRef<HTMLInputElement>(null);
 
   const initialOption =
     path === '/'
@@ -65,7 +67,31 @@ const MobileBar = () => {
         <MobileProfile closeSubmenu={() => setSubmenuVisible(false)} />
       ),
     },
-    search: { name: 'search', title: 'Search', redirect: '/products' },
+    search: {
+      name: 'search',
+      title: 'Search',
+      redirect: '/products',
+      submenu: (
+        <div className="navbar__search">
+          <input
+            className="navbar__search__input"
+            type="text"
+            placeholder="Title"
+            value={text}
+            onChange={e => setText(e.target.value)}
+            ref={searchRef}
+            onKeyUp={e => {
+              if (e.code === 'Enter') {
+                searchHandler(text);
+              }
+            }}
+          />
+          <div className="navbar__search__button" onClick={() => searchHandler(text)}>
+            <img src={getAssetUrl('./header/arrow-right.svg')} alt="search" />
+          </div>
+        </div>
+      ),
+    },
     wishlist: {
       name: 'wishlist',
       title: 'Wishlist',
@@ -92,18 +118,18 @@ const MobileBar = () => {
       }
       setActiveOption(nextActiveOption);
       setSubmenuVisible(true);
+      // searchRef.current?.focus();
     } else {
       if (isSubmenuVisible) {
         closeSubmenu(nextActiveOption);
       } else {
         setActiveOption(nextActiveOption);
       }
-
-      const redirectPath = optionsMap[name].redirect;
-      if (redirectPath) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        navigate(redirectPath);
-      }
+    }
+    const redirectPath = optionsMap[name].redirect;
+    if (redirectPath) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      navigate(redirectPath);
     }
   };
 

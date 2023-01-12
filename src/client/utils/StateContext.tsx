@@ -13,6 +13,7 @@ import Spinner from '../components/atoms/loadingSpinner';
 import * as resolvers from '../utils/resolvers';
 import { auth, updateOrder, updateWishList } from '../utils/resolvers';
 import { Address, Product, ShopState, SimpleOrder, User } from '../utils/Type';
+import { getAllProducts, searchProducts } from './ProductsResolvers';
 
 const CartContext = createContext<ShopState>({} as ShopState);
 
@@ -23,9 +24,15 @@ export const CartProvider = ({ children }: any) => {
   const [wishList, setWishList] = useState<Product[]>([]);
   const [order, setOrder] = useState<SimpleOrder | undefined>({ products: [] });
   const [isLoading, setIsLoading] = useState(false);
+  const [searchResult, setSearchResult] = useState<Product[]>([]);
   const [ordersCompleted, setOrdersCompleted] = useState<SimpleOrder[]>();
   const [addressList, setAddressList] = useState<Address[]>();
   const userAuth = auth.currentUser;
+
+  const searchHandler = async (value: string) => {
+    const result = await searchProducts(value);
+    setSearchResult(result.products);
+  };
 
   const login = async (email: string, password: string) => {
     const userInstance = await signInWithEmailAndPassword(auth, email, password);
@@ -111,6 +118,14 @@ export const CartProvider = ({ children }: any) => {
       .catch(error => console.error(error));
 
   useEffect(() => {
+    (async () => {
+      try {
+        const result = await getAllProducts();
+        setSearchResult(result.products);
+      } catch (e) {
+        console.log(e);
+      }
+    })();
     // setIsLoading(true);
     getProducts();
     // setIsLoading(false);
@@ -173,12 +188,14 @@ export const CartProvider = ({ children }: any) => {
   return (
     <CartContext.Provider
       value={{
+        searchResult,
         addressList,
         order,
         getOrder,
         changePassword,
         changeEmail,
         wishListHandler,
+        searchHandler,
         wishList,
         deleteAllItemToCart,
         logOut,

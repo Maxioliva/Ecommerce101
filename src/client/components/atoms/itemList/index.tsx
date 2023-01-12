@@ -1,8 +1,13 @@
+import { Product } from '../../../utils/Type';
 import './style.scss';
 
-const ItemList = ({ item }: any) => (
+type ItemListProps = {
+  item: Product;
+};
+
+const ItemList = ({ item }: ItemListProps) => (
   <div className="itemList">
-    <img className="product-cart" src={item.image} />
+    {!!item.images && <img className="product-cart" src={item.images[0] ?? ''} />}
     <div className="dataContainer">
       <div className="left">
         <div className="item-title">

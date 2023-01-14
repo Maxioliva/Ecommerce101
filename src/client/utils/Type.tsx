@@ -23,6 +23,12 @@ export type Product = {
   discountPercentage: number;
 };
 
+export type FullProduct = Product & {
+  description: string;
+  brand: string;
+  thumbnail: string;
+};
+
 export type Address = {
   firstName: string;
   lastName: string;
@@ -42,6 +48,7 @@ export type ShopState = {
   products: Product[];
   wishList: Product[];
   searchResult: Product[];
+  searchProduct: (id: string) => Promise<FullProduct>;
   searchHandler: (value: string) => void;
   order?: Omit<Order, 'id' | 'userId' | 'isCompleted'>;
   login: (email: string, password: string) => Promise<void>;

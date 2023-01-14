@@ -31,7 +31,6 @@
   display: flex;
 }
 
-// This is our label in his non-floating position
 .span {
   color: #1e4c82;
   position: absolute;
@@ -40,15 +39,10 @@
   transition: all 0.2s ease-in-out;
 }
 
-//"label:focus-within" gives access to input's focus event
-//">" gives access to any child element
 label:focus-within > .span {
   transform: translate(10px, 10px) scale(0.75);
 }
 
-//":placeholder-shown" represents that the input's placeholder is visible
-//":not(:placeholder-shown)" is the opposite, and means the input has a value
-//"+" gives access to any sibling element
 input:not(:placeholder-shown) + .span {
   transform: translate(10px, 10px) scale(0.75);
 }

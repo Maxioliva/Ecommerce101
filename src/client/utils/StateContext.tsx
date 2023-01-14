@@ -12,8 +12,8 @@ import { createContext, useEffect, useState } from 'react';
 import Spinner from '../components/atoms/loadingSpinner';
 import * as resolvers from '../utils/resolvers';
 import { auth, updateOrder, updateWishList } from '../utils/resolvers';
-import { Address, Product, ShopState, SimpleOrder, User } from '../utils/Type';
-import { getAllProducts, searchProducts } from './ProductsResolvers';
+import { Address, FullProduct, Product, ShopState, SimpleOrder, User } from '../utils/Type';
+import { getAllProducts, searchProduct, searchProducts } from './ProductsResolvers';
 
 const CartContext = createContext<ShopState>({} as ShopState);
 
@@ -29,10 +29,10 @@ export const CartProvider = ({ children }: any) => {
   const [addressList, setAddressList] = useState<Address[]>();
   const userAuth = auth.currentUser;
 
-  const searchHandler = async (value: string) => {
+  async function searchHandler(value: string) {
     const result = await searchProducts(value);
     setSearchResult(result.products);
-  };
+  }
 
   const login = async (email: string, password: string) => {
     const userInstance = await signInWithEmailAndPassword(auth, email, password);
@@ -133,7 +133,6 @@ export const CartProvider = ({ children }: any) => {
 
   const addItemToCart = async (product: Product) => {
     const productAlreadyOnBasket = order!.products.find(item => item.id === product.id);
-
     const newCartItems = productAlreadyOnBasket
       ? [
           ...order!.products.filter(i => i.id !== product.id),
@@ -189,6 +188,7 @@ export const CartProvider = ({ children }: any) => {
     <CartContext.Provider
       value={{
         searchResult,
+        searchProduct,
         addressList,
         order,
         getOrder,

@@ -23,6 +23,7 @@ body,
   width: 100%;
   position: relative;
   background-color: #fff;
+  height: 100%;
 
   &__header {
     position: sticky;
@@ -36,8 +37,8 @@ body,
     margin: 0 auto;
     max-width: 1400px;
     width: 90%;
-    height: 100%;
     z-index: 0;
+    flex: 1;
 
     @media (max-width: $tablet) {
       padding: 0;
@@ -51,7 +52,7 @@ body,
     &__container {
       width: 100%;
       background-color: $thirdcolor;
-      height: 100%;
+
       @media (max-width: $mobile) {
       }
     }

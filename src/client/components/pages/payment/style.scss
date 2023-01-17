@@ -1,0 +1,70 @@
+.formik {
+  display: flex;
+}
+
+.payment {
+  background-color: white;
+
+  &__f1 {
+    display: grid;
+    width: 300px;
+    padding: 16px;
+    border-radius: 10px;
+    margin: 50px 25px;
+    height: fit-content;
+    border: solid 3px #474544;
+  }
+
+  &__h1 {
+    color: #474544;
+    font-size: 23px;
+    width: 100%;
+    text-align: center;
+  }
+
+  &__picked {
+    margin: 0px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+
+  &__field {
+    cursor: pointer;
+    margin: 32px 35px 0;
+  }
+
+  &__img {
+    width: 120px;
+    margin: 4px;
+    padding: 28px 0 0 0px;
+  }
+
+  &__order {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 20px 75px;
+
+    &__basket {
+      width: 100%;
+    }
+
+    .orderSummary__card {
+      width: 100%;
+      height: unset;
+      align-items: center;
+    }
+
+    .orderSummary__left {
+      right: 12%;
+    }
+    .orderSummary__image {
+      height: 90%;
+      width: 10%;
+    }
+    .orderSummary__texts-title {
+      width: 80%;
+    }
+  }
+}

@@ -6,6 +6,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const TypeCheckerPlugin = require('fork-ts-checker-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const { NODE_ENV } = process.env;
 const IS_DEVELOPMENT = NODE_ENV !== 'production';
@@ -13,10 +14,10 @@ const IS_DEVELOPMENT = NODE_ENV !== 'production';
 module.exports = {
   mode: IS_DEVELOPMENT ? 'development' : 'production',
   stats: IS_DEVELOPMENT ? 'minimal' : 'normal',
-  entry: './src/index.tsx',
+  entry: './src/client/index.tsx',
   output: {
-    path: path.join(__dirname, 'public'),
-    filename: 'ecoo.js',
+    path: path.join(__dirname, 'build/client'),
+    filename: 'elchamuyin.js',
     publicPath: '/',
   },
   module: {
@@ -73,15 +74,15 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js'],
   },
   plugins: [
+    new Dotenv(),
     new DefinePlugin({
       IS_DEVELOPMENT,
     }),
     new TypeCheckerPlugin(),
-
     new HtmlPlugin({
       template: './public/index.html',
     }),
-    ...(IS_DEVELOPMENT ? [new ReactRefreshPlugin()] : [new CssExtractPlugin({ filename: 'ay-checkout-base.min.css' })]),
+    ...(IS_DEVELOPMENT ? [new ReactRefreshPlugin()] : [new CssExtractPlugin({ filename: 'elchamuyin.min.css' })]),
   ],
   optimization: {
     minimize: !IS_DEVELOPMENT,

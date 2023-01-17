@@ -1,0 +1,62 @@
+@import '../../../utils/variables';
+
+.about {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__description {
+    text-align: justify;
+    padding: 0 30px;
+  }
+
+  &__current-version {
+    text-align: center;
+  }
+
+  &__releases {
+    list-style: none;
+  }
+
+  &__release {
+    margin: 0 0 40px;
+  }
+
+  &__version-and-date {
+    margin: 0 0 10px;
+  }
+
+  @media (max-width: $mobile) {
+    font-size: 15px;
+
+    &__title {
+      font-size: 20px;
+    }
+
+    &__description {
+      padding: 0 10px;
+      margin: 0;
+    }
+
+    &__current-version {
+      font-size: 16px;
+    }
+
+    &__releases {
+      padding-left: 10px;
+    }
+
+    &__version-and-date {
+      margin: 0 0 5px;
+    }
+
+    &__notes {
+      padding-left: 30px;
+      font-size: 14px;
+    }
+  }
+}

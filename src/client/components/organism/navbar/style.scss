@@ -1,0 +1,68 @@
+@import '../../../utils/variables';
+
+.navbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: white;
+  justify-content: space-between;
+  height: 40px;
+  padding: 0 20px;
+  border-bottom: 2px solid #000000;
+  @media (max-width: $mobile) {
+    justify-content: flex-end;
+  }
+  &__logo {
+    @media (max-width: 600px) {
+      text-align: center;
+    }
+  }
+
+  &__option {
+    display: flex;
+
+    &__drop {
+      display: flex;
+    }
+    &__icon {
+      margin-top: -4px;
+    }
+  }
+
+  &__search {
+    display: flex;
+    align-items: center;
+
+    &__input {
+      border: 1px solid white;
+      font-size: 17px;
+      padding-left: 10px;
+      border-radius: 10px;
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+      width: 400px;
+      height: 25px;
+      &:focus-visible {
+        outline: none;
+      }
+    }
+
+    &__button {
+      border: 1px solid white;
+      border-radius: 10px;
+      border-top-left-radius: 0px;
+      border-bottom-left-radius: 0px;
+      cursor: pointer;
+      display: flex;
+      padding: 0px 10px;
+      align-items: center;
+      span {
+        font-size: 20px;
+        margin: 0 5px;
+      }
+      img {
+        height: 25px;
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+@import '../../../utils/variables';
+
+.cartProducts {
+  margin: 0px auto;
+  display: flex;
+  flex-direction: column;
+  background-color: lightseagreen;
+  border-radius: 5px;
+
+  &__buttonConteiner {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__buttonCheck {
+    cursor: pointer;
+    font-weight: bold;
+  }
+}

@@ -1,0 +1,21 @@
+.link {
+  text-decoration: none;
+}
+
+.logo {
+  font-family: 'Barlow Condensed', sans-serif;
+  color: #f8f1e4;
+  font-size: 30px;
+  line-height: -36px;
+  letter-spacing: -1px;
+  font-weight: 100;
+
+  margin-right: 115px;
+
+  &--secondary {
+    background-color: #c59d65;
+    border-radius: 5px;
+    padding: 1px 12px;
+    font-size: 39px;
+  }
+}

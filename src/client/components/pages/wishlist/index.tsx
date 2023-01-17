@@ -20,12 +20,12 @@ const WishList = () => {
             </div>
           </div>
           <div className="wishList__buttons">
-            <Icon value={true} size={25} icon="wishlist" onClick={() => wishListHandler(product)} />
+            <Icon value={true} size={25} icon="wishlist" onClick={() => wishListHandler(product.id)} />
             <Button
               className="wishList__buttons-button"
               onClick={() => {
-                addItemToCart(product);
-                wishListHandler(product);
+                addItemToCart(product.id);
+                wishListHandler(product.id);
               }}
             >
               Add to Cart{' '}

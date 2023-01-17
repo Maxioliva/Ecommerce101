@@ -27,8 +27,8 @@ const Products = () => {
     }
   };
 
-  const handlerAddtoCart = (product: Product, e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
-    addItemToCart(product);
+  const handlerAddtoCart = (id: string, e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+    addItemToCart(id);
     if (e && e.stopPropagation) e.stopPropagation();
   };
 
@@ -69,13 +69,13 @@ const Products = () => {
               value={!!wishList.find(item => item.id === product.id)}
               size={25}
               icon="wishlist"
-              onClick={() => wishListHandler(product)}
+              onClick={() => wishListHandler(product.id)}
             />
             <img className="products__image" src={product.images[0]} alt={product.title} />
             <h3 className="products__title">{product.title}</h3>
             <div className="product__category">{`Category: ${product.category}`} </div>
             <div className="products__price">{`Price: $ ${product.price}`} </div>
-            <Button className="products__button" onClick={e => handlerAddtoCart(product, e)}>
+            <Button className="products__button" onClick={e => handlerAddtoCart(product.id, e)}>
               Add to Cart{' '}
             </Button>
           </div>

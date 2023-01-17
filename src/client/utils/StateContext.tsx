@@ -131,14 +131,15 @@ export const CartProvider = ({ children }: any) => {
     // setIsLoading(false);
   }, []);
 
-  const addItemToCart = async (product: Product) => {
-    const productAlreadyOnBasket = order!.products.find(item => item.id === product.id);
+  const addItemToCart = async (id: string) => {
+    const productAlreadyOnBasket = order!.products.find(item => item.id === id);
+    const product = searchResult.find(item => item.id === id);
     const newCartItems = productAlreadyOnBasket
       ? [
-          ...order!.products.filter(i => i.id !== product.id),
+          ...order!.products.filter(i => i.id !== id),
           { ...productAlreadyOnBasket, amount: productAlreadyOnBasket.amount + 1 },
         ]
-      : [...order!.products, { ...product, amount: 1 }];
+      : [...order!.products, { ...product!, amount: 1 }];
 
     setOrder({ ...order, products: newCartItems });
     if (user) {
@@ -146,9 +147,10 @@ export const CartProvider = ({ children }: any) => {
     }
   };
 
-  const wishListHandler = (product: Product) => {
-    const productAlreadyOnWishList = wishList.find(item => item.id === product.id);
-    const newWishList = productAlreadyOnWishList ? wishList.filter(p => p.id !== product.id) : [...wishList, product];
+  const wishListHandler = (id: string) => {
+    const productAlreadyOnWishList = wishList.find(item => item.id === id);
+    const product = searchResult.find(item => item.id === id);
+    const newWishList = productAlreadyOnWishList ? wishList.filter(p => p.id !== id) : [...wishList, product!];
     setWishList(newWishList);
     if (user) {
       updateWishList(newWishList, user.id);

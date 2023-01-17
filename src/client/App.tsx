@@ -19,6 +19,7 @@ import About from './components/pages/about';
 import Ordersuccers from './components/pages/ordersuccess';
 import MobileNavbar from './components/organism/mobileNavbar';
 import useIsMobile from './utils/useIsMobile';
+import ProductDetail from './components/pages/ProductDetail';
 
 const App = () => {
   const isMobile = useIsMobile();
@@ -42,6 +43,7 @@ const App = () => {
                   </div>
                 }
               />
+
               <Route path="/register" element={<RegisterForm />} />
               <Route path="/login" element={<LoginForm />} />
               <Route path="/cart" element={<CartPage />} />
@@ -57,6 +59,7 @@ const App = () => {
                   </div>
                 }
               />
+              <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/wishlist" element={<WishList />} />
               <Route
                 path="/orders"

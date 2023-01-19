@@ -1,57 +1,63 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import CartContext from '../../../utils/StateContext';
 import Logo from '../../atoms/logo';
 import './style.scss';
 
-const Footer = () => (
-  <footer className="footer-distributed">
-    <div className="footer-left">
-      <Logo secondary />
-      <div className="footer-links">
-        <Link to="/" className="link-1">
-          Home
-        </Link>
+const Footer = () => {
+  const { getString } = useContext(CartContext);
 
-        <Link to="/">Blog</Link>
+  return (
+    <footer className="footer-distributed">
+      <div className="footer-left">
+        <Logo secondary />
+        <div className="footer-links">
+          <Link to="/" className="link-1">
+            Home
+          </Link>
 
-        <Link to="/">Pricing</Link>
+          <Link to="/">Blog</Link>
 
-        <Link to="/about">About Us</Link>
+          <Link to="/">{getString('footer.pricing')}</Link>
 
-        <Link to="/">Faq</Link>
+          <Link to="/about">{getString('footer.aboutUs')}</Link>
 
-        <Link to="/">Contact</Link>
+          <Link to="/">{getString('footer.faq')}</Link>
+
+          <Link to="/">{getString('footer.contact')}</Link>
+        </div>
+
+        <p className="footer-company-name">{getString('footer.companyName')}</p>
       </div>
 
-      <p className="footer-company-name">Company Name © 2022</p>
-    </div>
+      <div className="footer-center">
+        <div>
+          <i className="fa fa-map-marker"></i>
+          <p>
+            <span>Avenida Siempreviva 742 </span> Córdoba, Argentina
+          </p>
+        </div>
 
-    <div className="footer-center">
-      <div>
-        <i className="fa fa-map-marker"></i>
-        <p>
-          <span>Avenida Siempreviva 742 </span> Córdoba, Argentina
+        <div>
+          <i className="fa fa-phone"></i>
+          <p>+1.555.555.5555</p>
+        </div>
+
+        <div>
+          <i className="fa fa-envelope"></i>
+          <p>
+            <a href="mailto:support@company.com">{getString('footer.supportEmail')}</a>
+          </p>
+        </div>
+      </div>
+
+      <div className="footer-right">
+        <p className="footer-company-about">
+          <span>{getString('footer.about')}</span>
+          {getString('footer.purpose')}{' '}
         </p>
       </div>
-
-      <div>
-        <i className="fa fa-phone"></i>
-        <p>+1.555.555.5555</p>
-      </div>
-
-      <div>
-        <i className="fa fa-envelope"></i>
-        <p>
-          <a href="mailto:support@company.com">support@fakeproducts.com</a>
-        </p>
-      </div>
-    </div>
-
-    <div className="footer-right">
-      <p className="footer-company-about">
-        <span>About the company</span>
-        This is a virtual e-shop, created for educational purposes{' '}
-      </p>
-    </div>
-  </footer>
-);
+    </footer>
+  );
+};
 export default Footer;

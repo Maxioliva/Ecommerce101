@@ -12,7 +12,23 @@
   @media (max-width: $mobile) {
     justify-content: flex-end;
   }
+
+  &__languages {
+    display: flex;
+  }
+
+  &__span {
+    margin: auto 10px;
+  }
+
+  &__language {
+    display: flex;
+    padding: 5px;
+    font-size: 13px;
+  }
+
   &__logo {
+    display: flex;
     @media (max-width: 600px) {
       text-align: center;
     }

@@ -1,4 +1,7 @@
 import { Timestamp } from 'firebase/firestore';
+import { type } from 'os';
+
+export type Language = 'en' | 'es';
 
 export type User = {
   id: string;
@@ -44,24 +47,28 @@ export type Address = {
 
 export type ShopState = {
   addressList?: Address[];
-  user?: User;
-  products: Product[];
-  wishList: Product[];
-  searchResult: Product[];
-  searchProduct: (id: string) => Promise<FullProduct>;
-  searchHandler: (value: string) => void;
+  language: Language;
   order?: Omit<Order, 'id' | 'userId' | 'isCompleted'>;
+  products: Product[];
+  searchResult: Product[];
+  t: any;
+  user?: User;
+  wishList: Product[];
+  addItemToCart: (id: string) => Promise<void>;
+  changeLanguage: (value: Language) => void;
+  changePassword: (newPassword: string) => void;
+  changeEmail: (newEmail: string) => void;
+  deleteItemToCart: (id: string) => void;
+  deleteAllItemToCart: (id: string) => void;
+  getOrder: (id: string) => Promise<void>;
+  getString: (path: string) => String;
+  getCurrentAddresses: (userId: string) => Promise<Address[]>;
   login: (email: string, password: string) => Promise<void>;
   logOut: () => void;
   register: (newUser: User & { password: string }) => Promise<User>;
-  addItemToCart: (id: string) => Promise<void>;
-  deleteItemToCart: (id: string) => void;
-  deleteAllItemToCart: (id: string) => void;
+  searchProduct: (id: string) => Promise<FullProduct>;
+  searchHandler: (value: string) => void;
   wishListHandler: (id: string) => void;
-  changePassword: (newPassword: string) => void;
-  changeEmail: (newEmail: string) => void;
-  getOrder: (id: string) => Promise<void>;
-  getCurrentAddresses: (userId: string) => Promise<Address[]>;
 
   // createOrder: (products: Product[]) => Promise<void>;
   getCompletedOrders: (userId: string) => Promise<Omit<Order, 'id' | 'userId' | 'isCompleted'>[]>;

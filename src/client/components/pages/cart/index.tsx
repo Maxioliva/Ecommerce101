@@ -6,7 +6,7 @@ import OrderSummary from '../../atoms/orderSummary';
 import Button from '../../atoms/button';
 
 export const CartPage = () => {
-  const { user } = useContext(CartContext);
+  const { user, getString } = useContext(CartContext);
 
   return (
     <>
@@ -15,7 +15,7 @@ export const CartPage = () => {
         {user ? (
           <Link to="/checkout-shipping">
             <Button className="cartProducts__buttonCheck" type="submit">
-              Check Out
+              {getString('buttons.checkOut')}
             </Button>
           </Link>
         ) : (

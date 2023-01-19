@@ -5,7 +5,7 @@ import ItemList from '../../atoms/itemList';
 import './style.scss';
 
 const WishListDropDown = () => {
-  const { wishList } = useContext(CartContext);
+  const { wishList, getString } = useContext(CartContext);
   const navigate = useNavigate();
 
   return (
@@ -25,7 +25,7 @@ const WishListDropDown = () => {
       </div>
       <div>
         <button className="profile-dropdown__button" onClick={() => navigate('/wishlist')}>
-          Go To Favorites{' '}
+          {getString('buttons.favorites')}{' '}
         </button>
       </div>
     </div>

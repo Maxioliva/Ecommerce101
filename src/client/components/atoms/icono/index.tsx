@@ -3,7 +3,17 @@ import { getAssetUrl } from '../../../utils/config';
 import './style.scss';
 
 type IconProps = {
-  icon: 'notifications' | 'basket' | 'home' | 'products' | 'profile' | 'wishlist' | 'delivery' | 'debitcard';
+  icon:
+    | 'notifications'
+    | 'us'
+    | 'es'
+    | 'basket'
+    | 'home'
+    | 'products'
+    | 'profile'
+    | 'wishlist'
+    | 'delivery'
+    | 'debitcard';
   size: number;
   onClick?: () => void;
   value?: boolean;

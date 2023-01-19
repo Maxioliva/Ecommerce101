@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../atoms/button';
 
 const Payment = () => {
-  const { user, getOrder } = useContext(CartContext);
+  const { user, getOrder, getString } = useContext(CartContext);
   const navigate = useNavigate();
 
   if (!user) {
@@ -31,7 +31,7 @@ const Payment = () => {
       <Formik classname="payment" initialValues={initialValues} onSubmit={submitHandler}>
         {({ values }) => (
           <Form className="payment__f1">
-            <h1 className="payment__h1">Choose Payment Method</h1>
+            <h1 className="payment__h1">{getString('titles.choosePayment')}</h1>
             <div>
               <label className="payment__picked">
                 <Field className="payment__field" type="radio" name="picked" value="AmazonPay" />
@@ -54,10 +54,10 @@ const Payment = () => {
                 <img className="payment__img" src={getAssetUrl('./payment/visa.svg')} />
               </label>
             </div>
-            <div className="payment__textbutton">Picked: {values.picked}</div>
+            <div className="payment__textbutton">{values.picked}</div>
 
             <Button className="payment__button" type="submit">
-              Confirm Payment
+              {getString('buttons.confirmPayment')}
             </Button>
           </Form>
         )}

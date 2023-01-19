@@ -13,7 +13,7 @@ import Button from '../../atoms/button';
 
 const Shipping = () => {
   const [addressList, setAddressList] = useState<Address[]>([]);
-  const { user, order, getCurrentAddresses } = useContext(CartContext);
+  const { user, order, getCurrentAddresses, getString } = useContext(CartContext);
   const navigate = useNavigate();
 
   if (!user) {
@@ -54,51 +54,51 @@ const Shipping = () => {
         <Formik initialValues={Addresss} onSubmit={submitHandler}>
           {({ errors }) => (
             <Form>
-              <h1 className="shipping__title">Shipping Information</h1>
+              <h1 className="shipping__title">{getString('titles.shippingInformation')}</h1>
               <AddressBook addressList={addressList} getAddressList={getAddressList} />
               <Field
                 component={Input}
                 name="firstName"
-                label="First Name"
+                label={getString('payment.firstName')}
                 validate={(value: string) => runValidation(value, 'firstName')}
               />
               <Field
                 component={Input}
                 name="lastName"
-                label="Last Name"
+                label={getString('payment.lastName')}
                 validate={(value: string) => runValidation(value, 'lastName')}
               />
               <Field
                 component={Input}
                 name="street"
-                label="Street"
+                label={getString('payment.street')}
                 validate={(value: string) => runValidation(value, 'street')}
               />
               <Field
                 component={Input}
                 name="houseNumber"
-                label="House Number"
+                label={getString('payment.houseNumber')}
                 validate={(value: string) => runValidation(value, 'houseNumber')}
               />
               <Field
                 component={Input}
                 name="zipCode"
-                label="Zip Code"
+                label={getString('payment.zipCode')}
                 validate={(value: string) => runValidation(value, 'zipCode')}
               />
               <Field
                 component={Input}
                 name="city"
-                label="City"
+                label={getString('payment.city')}
                 validate={(value: string) => runValidation(value, 'city')}
               />
               <Field
                 component={Input}
                 name="country"
-                label="Country"
+                label={getString('payment.country')}
                 validate={(value: string) => runValidation(value, 'country')}
               />
-              <Button type="submit">Save Order Data</Button>
+              <Button type="submit">{getString('buttons.continue')}</Button>
             </Form>
           )}
         </Formik>

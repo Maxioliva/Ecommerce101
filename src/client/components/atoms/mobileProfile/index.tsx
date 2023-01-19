@@ -5,7 +5,7 @@ import CartContext from '../../../utils/StateContext';
 import './style.scss';
 
 const MobileProfile = ({ closeSubmenu }: { closeSubmenu?: () => void }) => {
-  const { logOut, user } = useContext(CartContext);
+  const { logOut, user, getString } = useContext(CartContext);
   const navigate = useNavigate();
 
   const logOutHandler = async () => {
@@ -25,19 +25,19 @@ const MobileProfile = ({ closeSubmenu }: { closeSubmenu?: () => void }) => {
     <div className="profile">
       <h1 className="profile__name">{name}</h1>
       <div className="profile__option" onClick={() => clickHandler('/orders')}>
-        My Orders
+        {getString('buttons.myOrders')}
       </div>
       <div className="profile__option" onClick={() => clickHandler('/orders')}>
         My Addresses
       </div>
       <div className="profile__option" onClick={() => clickHandler('/profile')}>
-        Settings
+        {getString('buttons.settings')}
       </div>
       <div className="profile__option" onClick={() => clickHandler('/About')}>
-        Help
+        {getString('links.help')}
       </div>
       <div className="profile__button" onClick={logOutHandler}>
-        Log Out
+        {getString('buttons.closeSesion')}
       </div>
     </div>
   );

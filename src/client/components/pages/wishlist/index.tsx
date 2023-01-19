@@ -5,10 +5,10 @@ import Icon from '../../atoms/icono';
 import './style.scss';
 
 const WishList = () => {
-  const { wishList, wishListHandler, addItemToCart } = useContext(CartContext);
+  const { wishList, wishListHandler, addItemToCart, getString } = useContext(CartContext);
   return (
     <div className="wishList">
-      <span className="wishList__head">My Wishlist</span>
+      <span className="wishList__head">{getString('titles.myWishlist')}</span>
       {wishList.map(product => (
         <div className="wishList__card" key={product.id}>
           <div className="wishList__left">
@@ -16,7 +16,7 @@ const WishList = () => {
             <div className="wishList__texts">
               <h3 className="wishList__texts-title">{product.title}</h3>
               <div className="wishList__texts-price">&nbsp;${product.price}&nbsp;</div>
-              <h3 className="wishList__texts-category">{`Category: ${product.category}`} </h3>
+              <h3 className="wishList__texts-category">{`${getString('details.category')}: ${product.category}`} </h3>
             </div>
           </div>
           <div className="wishList__buttons">
@@ -28,7 +28,7 @@ const WishList = () => {
                 wishListHandler(product.id);
               }}
             >
-              Add to Cart{' '}
+              {getString('buttons.addToCart')}{' '}
             </Button>
           </div>
         </div>

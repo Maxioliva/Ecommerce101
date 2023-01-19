@@ -15,7 +15,7 @@ const options = {
 
 const PreviousOrders = () => {
   const [completedOrders, setCompletedOrders] = useState<SimpleOrder[]>([]);
-  const { user, getCompletedOrders } = useContext(CartContext);
+  const { user, getCompletedOrders, getString } = useContext(CartContext);
 
   useEffect(() => {
     if (!user) {
@@ -29,7 +29,7 @@ const PreviousOrders = () => {
 
   return (
     <div className="previousOrders">
-      <div className="previousOrders__title">Your Orders</div>
+      <div className="previousOrders__title">{getString('titles.yourLastOrders')}</div>
       <div className="previousOrders__container">
         {completedOrders.map((order, i) => (
           <div className="previousOrders__id" key={i}>

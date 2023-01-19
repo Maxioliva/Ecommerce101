@@ -6,12 +6,12 @@ import CartContext from '../../../utils/StateContext';
 import './style.scss';
 
 export const OrderSummary = ({ className }: { className?: string }) => {
-  const { deleteItemToCart, order } = useContext(CartContext);
+  const { deleteItemToCart, order, getString } = useContext(CartContext);
   const total = order?.products.reduce((previous, item) => previous + item.price * item.amount, 0);
 
   return (
     <div className={classNames('orderSummary', className)}>
-      <h1 className="orderSummary__h1">Your Basket</h1>
+      <h1 className="orderSummary__h1">{getString('titles.yourOrders')}</h1>
       <div className="orderSummary__list">
         {order?.products.map(product => (
           <div className="orderSummary__card" key={product.id}>

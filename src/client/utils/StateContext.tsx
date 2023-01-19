@@ -12,10 +12,11 @@ import { createContext, useEffect, useState } from 'react';
 import Spinner from '../components/atoms/loadingSpinner';
 import * as resolvers from '../utils/resolvers';
 import { auth, updateOrder, updateWishList } from '../utils/resolvers';
-import { Address, FullProduct, Product, ShopState, SimpleOrder, User } from '../utils/Type';
+import { Address, FullProduct, Language, Product, ShopState, SimpleOrder, User } from '../utils/Type';
 import { getAllProducts, searchProduct, searchProducts } from './ProductsResolvers';
 
 const CartContext = createContext<ShopState>({} as ShopState);
+const translations = require('./translations.json');
 
 export const CartProvider = ({ children }: any) => {
   const [persistanceId, setPersistanceId] = useState<string>();
@@ -27,7 +28,10 @@ export const CartProvider = ({ children }: any) => {
   const [searchResult, setSearchResult] = useState<Product[]>([]);
   const [ordersCompleted, setOrdersCompleted] = useState<SimpleOrder[]>();
   const [addressList, setAddressList] = useState<Address[]>();
+  const [language, setLanguaje] = useState<Language>('en');
   const userAuth = auth.currentUser;
+
+  const changeLanguage = (value: Language) => setLanguaje(value);
 
   async function searchHandler(value: string) {
     const result = await searchProducts(value);
@@ -186,26 +190,35 @@ export const CartProvider = ({ children }: any) => {
     return <Spinner />;
   }
 
+  const getString: (path: string) => string = path => {
+    const properties = path.split('.');
+    return properties.reduce((acc, curr) => acc?.[curr], translations[language]);
+  };
+
   return (
     <CartContext.Provider
       value={{
-        searchResult,
-        searchProduct,
         addressList,
+        language,
         order,
-        getOrder,
-        changePassword,
-        changeEmail,
-        wishListHandler,
-        searchHandler,
-        wishList,
-        deleteAllItemToCart,
-        logOut,
-        user,
+        searchResult,
         products,
-        deleteItemToCart,
+        t: translations[language],
+        user,
+        wishList,
         addItemToCart,
+        changePassword,
+        changeLanguage,
+        changeEmail,
+        deleteAllItemToCart,
+        deleteItemToCart,
+        getOrder,
+        getString,
         login,
+        logOut,
+        searchHandler,
+        searchProduct,
+        wishListHandler,
         ...{
           ...resolvers,
           register: (newUser: User & { password: string }) => registerHandler(newUser),

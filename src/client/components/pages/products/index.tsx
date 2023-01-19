@@ -15,7 +15,7 @@ type View = 'list' | 'gridx2' | 'gridx3';
 const Products = () => {
   const isMobile = useIsMobile();
   const [mobileView, setMobileView] = useState<{ current: View; next: View }>({ current: 'gridx2', next: 'gridx3' });
-  const { wishList, wishListHandler, addItemToCart, products, searchResult } = useContext(CartContext);
+  const { wishList, wishListHandler, addItemToCart, products, searchResult, getString } = useContext(CartContext);
   const navigate = useNavigate();
   const toggleView = () => {
     if (mobileView.current === 'gridx2') {
@@ -73,10 +73,10 @@ const Products = () => {
             />
             <img className="products__image" src={product.images[0]} alt={product.title} />
             <h3 className="products__title">{product.title}</h3>
-            <div className="product__category">{`Category: ${product.category}`} </div>
-            <div className="products__price">{`Price: $ ${product.price}`} </div>
+            <div className="product__category">{`${getString('details.category')}: ${product.category}`} </div>
+            <div className="products__price">{`${getString('details.price')}: $ ${product.price}`} </div>
             <Button className="products__button" onClick={e => handlerAddtoCart(product.id, e)}>
-              Add to Cart{' '}
+              {getString('buttons.addToCart')}{' '}
             </Button>
           </div>
         ))}

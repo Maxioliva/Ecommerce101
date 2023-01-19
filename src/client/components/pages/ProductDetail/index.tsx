@@ -9,7 +9,7 @@ import './style.scss';
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const { searchProduct, wishListHandler, wishList, addItemToCart } = useContext(CartContext);
+  const { searchProduct, wishListHandler, wishList, addItemToCart, getString } = useContext(CartContext);
   const [searchDeails, setSearchDetails] = useState<FullProduct>();
 
   useEffect(() => {
@@ -30,9 +30,15 @@ const ProductDetail = () => {
       <div className="productdetail__secundary">
         <div className="productdetail__secundary-title">{searchDeails.title}</div>
         <p className="productdetail__secundary-description">{searchDeails.description}</p>
-        <span className="productdetail__secundary-brand">Brand: {searchDeails.brand}</span>
-        <span className="productdetail__secundary-category">Category: {searchDeails.category}</span>
-        <span className="productdetail__secundary-rating">Rating: {searchDeails.rating}</span>
+        <span className="productdetail__secundary-brand">
+          {getString('details.brand')}: {searchDeails.brand}
+        </span>
+        <span className="productdetail__secundary-category">
+          {getString('details.category')}: {searchDeails.category}
+        </span>
+        <span className="productdetail__secundary-rating">
+          {getString('details.rating')}: {searchDeails.rating}
+        </span>
       </div>
       <div className="productdetail__payment">
         <div className="productdetail__payment-header">
@@ -53,26 +59,19 @@ const ProductDetail = () => {
           <div className="texts">
             <div className="productdetail__payment__texts-text">
               <Icon size={25} icon="basket" deactivateHover />
-              <div className="productdetail__payment__texts-text-speech">
-                Agrega el producto al carrito para conocer los costos de envío.
-              </div>
+              <div className="productdetail__payment__texts-text-speech">{getString('speech.detailsAddToCard')}</div>
             </div>
             <div className="productdetail__payment__texts-text">
               <Icon size={25} icon="debitcard" deactivateHover />
-              <div className="productdetail__payment__texts-text-speech">
-                Te regalamos un 10% de descuento pagando con debito !
-              </div>
+              <div className="productdetail__payment__texts-text-speech">{getString('speech.detailsDiscount')}</div>
             </div>
             <div className="productdetail__payment__texts-text">
               <Icon size={25} icon="delivery" deactivateHover />
-              <div className="productdetail__payment__texts-text-speech">
-                {' '}
-                Recibe este producto de 7 a 10 días hábiles seleccionando envío.{' '}
-              </div>
+              <div className="productdetail__payment__texts-text-speech">{getString('speech.detailShipping')}</div>
             </div>
           </div>
           <Button className="none" onClick={() => addItemToCart(id!)}>
-            Add to Cart
+            {getString('buttons.addToCart')}
           </Button>
         </div>
       </div>

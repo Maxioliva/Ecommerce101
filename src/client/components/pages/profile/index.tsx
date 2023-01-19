@@ -4,7 +4,7 @@ import CartContext from '../../../utils/StateContext';
 import './style.scss';
 
 const ProfileDropDown = () => {
-  const { logOut, user } = useContext(CartContext);
+  const { logOut, user, getString } = useContext(CartContext);
   const navigate = useNavigate();
 
   const logOutHandler = async () => {
@@ -18,11 +18,11 @@ const ProfileDropDown = () => {
       <div className="profile-dropdown__box">
         {user ? (
           <NavLink to={'/profile'} className="Nav_link">
-            Profile & Security
+            {getString('links.settings')}
           </NavLink>
         ) : (
           <NavLink to={'/register'} className="Nav_link">
-            Register
+            {getString('links.register')}
           </NavLink>
         )}
       </div>
@@ -30,21 +30,21 @@ const ProfileDropDown = () => {
         {user ? (
           <div className="profile-dropdown__box">
             <NavLink to={'/orders'} className="Nav_link">
-              Orders
+              {getString('links.orders')}
             </NavLink>
           </div>
         ) : (
           <NavLink to={'/login'} className="Nav_link">
-            Login
+            {getString('links.login')}
           </NavLink>
         )}
       </div>
 
-      {user && <div className="profile-dropdown__box">Help</div>}
+      {user && <div className="profile-dropdown__box">{getString('links.help')}</div>}
       {user && (
         <>
           <button className="profile-dropdown__button" onClick={logOutHandler}>
-            Close sesion{' '}
+            {getString('buttons.closeSesion')}{' '}
           </button>
         </>
       )}

@@ -1,8 +1,9 @@
 import classNames from 'classnames';
 import { useFormikContext } from 'formik';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { deleteAddresses } from '../../../utils/resolvers';
+import CartContext from '../../../utils/StateContext';
 import { Address } from '../../../utils/Type';
 import Button from '../button';
 import './style.scss';
@@ -16,6 +17,7 @@ const AddressBook = ({ addressList, getAddressList }: AddressBookProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [addressSelected, setAddressSelected] = useState<Address>();
   const { values, setValues } = useFormikContext();
+  const { getString } = useContext(CartContext);
 
   const completeAddress = () => {
     setValues(addressSelected);
@@ -38,7 +40,7 @@ const AddressBook = ({ addressList, getAddressList }: AddressBookProps) => {
   return (
     <div className="address-book">
       <Button isTertiary className="address-book__title2" onClick={() => setIsVisible(!isVisible)} type="submit">
-        Addresses Book
+        {getString('buttons.addressesBook')}
       </Button>
       {isVisible && (
         <div className="address-book__container">

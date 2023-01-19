@@ -15,7 +15,7 @@ const NavBar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const isMobile = useIsMobile();
-  const { searchHandler } = useContext(CartContext);
+  const { changeLanguage, searchHandler, getString } = useContext(CartContext);
   const [text, setText] = useState<string>('');
 
   const handlerNewtext: ChangeEventHandler<HTMLInputElement> = e => {
@@ -30,10 +30,21 @@ const NavBar = () => {
   if (['/login', '/register'].includes(pathname)) {
     return <> </>;
   }
+
   return (
     <div className="navbar">
       <div className="navbar__logo">
         <Logo />
+        <div className="navbar__languages">
+          <div className="navbar__language">
+            <span className="navbar__span">{getString('languages.spanish')}</span>
+            <Icon size={40} icon={'es'} onClick={() => changeLanguage('es')} deactivateHover />
+          </div>
+          <div className="navbar__language">
+            <Icon size={40} icon={'us'} onClick={() => changeLanguage('en')} deactivateHover />
+            <span className="navbar__span">{getString('languages.english')}</span>
+          </div>
+        </div>
       </div>
 
       {!isMobile && (
@@ -52,7 +63,7 @@ const NavBar = () => {
               }}
             />
             <div className="navbar__search__button" onClick={submitHandler}>
-              <span>Search</span>
+              <span>{getString('generic.search')}</span>
               <img src={getAssetUrl('./header/search.svg')} alt="search" />
             </div>
           </div>

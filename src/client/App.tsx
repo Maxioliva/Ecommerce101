@@ -20,11 +20,14 @@ import Ordersuccers from './components/pages/ordersuccess';
 import MobileNavbar from './components/organism/mobileNavbar';
 import useIsMobile from './utils/useIsMobile';
 import ProductDetail from './components/pages/ProductDetail';
+import { IntlProvider } from 'react-intl';
 
 const App = () => {
   const isMobile = useIsMobile();
+  // const montage = JSON.parse(translations);
 
   return (
+    // <IntlProvider messages={translations} locale="en">
     <div className="app">
       <Router>
         <div className="app__header">
@@ -87,6 +90,7 @@ const App = () => {
         {isMobile && <MobileNavbar />}
       </Router>
     </div>
+    // </IntlProvider>
   );
 };
 

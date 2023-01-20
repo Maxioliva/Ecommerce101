@@ -10,7 +10,7 @@ import Logo from '../../atoms/logo';
 import './style.scss';
 
 const LoginForm = () => {
-  const { user } = useContext(CartContext);
+  const { user, getString } = useContext(CartContext);
   const navigate = useNavigate();
 
   if (user) {
@@ -53,7 +53,7 @@ const LoginForm = () => {
               <Logo secondary />
             </div>
             <Form className="form">
-              <div className="sign">Sign In</div>
+              <div className="sign">{getString('speech.singIn')}</div>
               <Field
                 component={Input}
                 name="email"
@@ -64,24 +64,22 @@ const LoginForm = () => {
               <Field
                 component={Input}
                 name="password"
-                label="Password"
+                label={getString('payment.password')}
                 type="password"
                 validate={(value: string) => runValidation(value, 'password')}
               />
               <div className="button-container">
-                <Button type="submit">Login</Button>
+                <Button type="submit">{getString('buttons.login')}</Button>
               </div>
-              <div className="form-message">
-                By continuing, you agree to the shopping terms and conditions and privacy notice .
-              </div>
+              <div className="form-message">{getString('speech.byContinuing')}</div>
             </Form>
           </>
         )}
       </Formik>
       <div className="bottom-form">
-        <div className="separator-line">¿Are you new in Shopping?</div>
+        <div className="separator-line">{getString('speech.newUser')}</div>
         <Button className="buttom-register" onClick={() => navigate('/register')}>
-          Register
+          {getString('buttons.register')}
         </Button>
       </div>
     </>

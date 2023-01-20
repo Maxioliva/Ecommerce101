@@ -45,7 +45,9 @@
       "register": "Register",
       "orders": "Orders",
       "login": "Login",
-      "help": "Help"
+      "help": "Help",
+      "myOrders": "My Orders",
+      "products": "Products"
     },
     "payment": {
       "firstName": "FirstName",
@@ -54,12 +56,20 @@
       "houseNumber": "houseNumber",
       "zipCode": "Zip Code",
       "city": "City",
-      "country": "Country"
+      "country": "Country",
+      "password": "Password"
     },
     "speech": {
       "detailsAddToCard": "Add the product to the cart to know the shipping costs.",
       "detailsDiscount": "We give you a 10% discount paying with debit!",
-      "detailShipping": "Receive this product in 7 to 10 business days by selecting shipping."
+      "detailShipping": "Receive this product in 7 to 10 business days by selecting shipping.",
+      "orderSucerfull": "Your order is succerfull",
+      "singIn": "Registrate",
+      "newUser": "¿Are you new in Shopping?",
+      "byContinuing": "By continuing, you agree to the shopping terms and conditions and privacy notice .",
+      "registerAnswer": "¿Do you already have an account?",
+      "registerAccout": "Register Account",
+      "termsAcepted": " By creating an account, you agree to Shopping`s terms of use and privacy notice"
     },
     "titles": {
       "yourOrders": "Your Orders",
@@ -116,7 +126,9 @@
       "register": "Registrarse",
       "orders": "Ordenes",
       "login": "Iniciar Sesion",
-      "help": "Ayuda"
+      "help": "Ayuda",
+      "myOrders": "Mis Ordenes",
+      "products": "Productos"
     },
     "payment": {
       "firstName": "Nombre",
@@ -125,12 +137,20 @@
       "houseNumber": "Numero de Casa",
       "zipCode": "Codigo Postal",
       "city": "Ciudad",
-      "country": "País"
+      "country": "País",
+      "password": "Password"
     },
     "speech": {
       "detailsAddToCard": "Agrega el producto al carrito para conocer los costos de envío.",
       "detailsDiscount": "Te regalamos un 10% de descuento pagando con debito !",
-      "detailShipping": "Recibe este producto de 7 a 10 días hábiles seleccionando envío."
+      "detailShipping": "Recibe este producto de 7 a 10 días hábiles seleccionando envío.",
+      "orderSucerfull": "Su compra fue completada !",
+      "singIn": "Registrate",
+      "newUser": "Erees nuevo en el Shopping?",
+      "byContinuing": "Al continuar, aceptas los términos y condiciones de compra y el aviso de privacidad.",
+      "registerAnswer": "¿Ya tienes una cuenta?",
+      "registerAccout": "Registrar Cuenta",
+      "termsAcepted": "Al crear una cuenta, acepta los términos de uso y el aviso de privacidad de Shopping"
     },
     "titles": {
       "yourOrders": "Tu Carrito",

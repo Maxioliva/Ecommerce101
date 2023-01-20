@@ -19,7 +19,9 @@ export const OrderSummary = ({ className }: { className?: string }) => {
             <div className="orderSummary__texts">
               <h3 className="orderSummary__texts-title">{product.title}</h3>
               <div className="orderSummary__texts-price">&nbsp;${product.price}&nbsp;</div>
-              <h3 className="orderSummary__texts-category">{`Category: ${product.category}`} </h3>
+              <h3 className="orderSummary__texts-category">
+                {`${getString('details.category')}: ${product.category}`}{' '}
+              </h3>
             </div>
             <div className="orderSummary__left">
               <img
@@ -27,7 +29,9 @@ export const OrderSummary = ({ className }: { className?: string }) => {
                 className="orderSummary__left-button"
                 onClick={() => deleteItemToCart(product.id)}
               ></img>
-              <h3 className="orderSummary__left-rating">Rate:&nbsp;{product.rating}</h3>
+              <h3 className="orderSummary__left-rating">
+                {getString('details.rating')}:&nbsp;{product.rating}
+              </h3>
             </div>
           </div>
         ))}

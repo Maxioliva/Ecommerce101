@@ -12,7 +12,7 @@ import Logo from '../../atoms/logo';
 import './style.scss';
 
 const RegisterForm = () => {
-  const { user } = useContext(CartContext);
+  const { user, getString } = useContext(CartContext);
   const navigate = useNavigate();
 
   if (user) {
@@ -44,15 +44,12 @@ const RegisterForm = () => {
   };
 
   return (
-    <>
+    <div className="register">
       <Formik initialValues={initialValues} onSubmit={submitHandler}>
         {({ errors }) => (
           <>
-            <div className="formik__header">
-              <Logo secondary />
-            </div>
             <Form className="form">
-              <div className="sign">Register Account</div>
+              <div className="sign">{getString('speech.registerAccout')}</div>
               <div className="genre">
                 <Field name="Genre" as="select">
                   <option value="Mrs" id="Mrs">
@@ -66,13 +63,13 @@ const RegisterForm = () => {
               <Field
                 component={Input}
                 name="firstName"
-                label="First Name"
+                label={getString('payment.firstName')}
                 validate={(value: string) => runValidation(value, 'firstName')}
               />
               <Field
                 component={Input}
                 name="lastName"
-                label="Last Name"
+                label={getString('payment.lastName')}
                 validate={(value: string) => runValidation(value, 'lastName')}
               />
               <Field
@@ -85,26 +82,22 @@ const RegisterForm = () => {
               <Field
                 component={Input}
                 name="password"
-                label="Password"
+                label={getString('payment.password')}
                 type="password"
                 validate={(value: string) => runValidation(value, 'password')}
               />
 
-              <Button type="submit">Register</Button>
-              <div className="form-message">
-                By creating an account, you agree to Shopping`s terms of use and privacy notice{' '}
-              </div>
+              <Button type="submit"> {getString('buttons.register')}</Button>
+              <div className="form-message">{getString('speech.termsAcepted')}</div>
             </Form>
           </>
         )}
       </Formik>
       <div className="bottom-form">
-        <div className="separator-line">¿Do you already have an account?</div>
-        <Button isSecondary onClick={() => navigate('/login')}>
-          Login
-        </Button>
+        <div className="separator-line">{getString('speech.registerAnswer')}</div>
+        <Button onClick={() => navigate('/login')}>{getString('links.login')}</Button>
       </div>
-    </>
+    </div>
   );
 };
 export default RegisterForm;

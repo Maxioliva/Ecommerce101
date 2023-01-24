@@ -84,6 +84,9 @@
 
       &-image {
         height: 150px;
+        @media (max-width: $mobile) {
+          width: 100px;
+        }
       }
 
       &-right {

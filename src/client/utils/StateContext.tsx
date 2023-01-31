@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { table } from 'console';
 import {
   browserLocalPersistence,
   onAuthStateChanged,
@@ -12,7 +13,7 @@ import { createContext, useEffect, useState } from 'react';
 import Spinner from '../components/atoms/loadingSpinner';
 import * as resolvers from '../utils/resolvers';
 import { auth, updateOrder, updateWishList } from '../utils/resolvers';
-import { Address, FullProduct, Language, Product, ShopState, SimpleOrder, User } from '../utils/Type';
+import { Address, FullProduct, Language, Product, SearchResult, ShopState, SimpleOrder, User } from '../utils/Type';
 import { getAllProducts, searchProduct, searchProducts } from './ProductsResolvers';
 
 const CartContext = createContext<ShopState>({} as ShopState);
@@ -21,11 +22,10 @@ const translations = require('./translations.json');
 export const CartProvider = ({ children }: any) => {
   const [persistanceId, setPersistanceId] = useState<string>();
   const [user, setUser] = useState<User>();
-  const [products, setProducts] = useState<Product[]>([]);
   const [wishList, setWishList] = useState<Product[]>([]);
   const [order, setOrder] = useState<SimpleOrder | undefined>({ products: [] });
   const [isLoading, setIsLoading] = useState(false);
-  const [searchResult, setSearchResult] = useState<Product[]>([]);
+  const [searchResult, setSearchResult] = useState<SearchResult>({ products: [], total: 0, skip: 0, limit: 0 });
   const [ordersCompleted, setOrdersCompleted] = useState<SimpleOrder[]>();
   const [addressList, setAddressList] = useState<Address[]>();
   const [language, setLanguaje] = useState<Language>('en');
@@ -35,7 +35,7 @@ export const CartProvider = ({ children }: any) => {
 
   async function searchHandler(value: string) {
     const result = await searchProducts(value);
-    setSearchResult(result.products);
+    setSearchResult(result);
   }
 
   const login = async (email: string, password: string) => {
@@ -115,29 +115,22 @@ export const CartProvider = ({ children }: any) => {
       });
   };
 
-  const getProducts = async () =>
-    await axios
-      .get('https://fakestoreapi.com/products?limit=30')
-      .then(({ data }) => setProducts(data))
-      .catch(error => console.error(error));
+  const fetchProducts = async (search?: string, skip?: number, limit?: number) => {
+    const response = await getAllProducts(search, skip, limit);
+    setSearchResult({ ...response, products: [...searchResult.products, ...response.products] });
+  };
 
   useEffect(() => {
-    (async () => {
-      try {
-        const result = await getAllProducts();
-        setSearchResult(result.products);
-      } catch (e) {
-        console.log(e);
-      }
-    })();
-    // setIsLoading(true);
-    getProducts();
-    // setIsLoading(false);
+    try {
+      fetchProducts();
+    } catch (e) {
+      console.log(e);
+    }
   }, []);
 
   const addItemToCart = async (id: string) => {
     const productAlreadyOnBasket = order!.products.find(item => item.id === id);
-    const product = searchResult.find(item => item.id === id);
+    const product = searchResult.products.find(item => item.id === id);
     const newCartItems = productAlreadyOnBasket
       ? [
           ...order!.products.filter(i => i.id !== id),
@@ -153,7 +146,7 @@ export const CartProvider = ({ children }: any) => {
 
   const wishListHandler = (id: string) => {
     const productAlreadyOnWishList = wishList.find(item => item.id === id);
-    const product = searchResult.find(item => item.id === id);
+    const product = searchResult.products.find(item => item.id === id);
     const newWishList = productAlreadyOnWishList ? wishList.filter(p => p.id !== id) : [...wishList, product!];
     setWishList(newWishList);
     if (user) {
@@ -202,7 +195,6 @@ export const CartProvider = ({ children }: any) => {
         language,
         order,
         searchResult,
-        products,
         t: translations[language],
         user,
         wishList,
@@ -212,6 +204,7 @@ export const CartProvider = ({ children }: any) => {
         changeEmail,
         deleteAllItemToCart,
         deleteItemToCart,
+        fetchProducts,
         getOrder,
         getString,
         login,

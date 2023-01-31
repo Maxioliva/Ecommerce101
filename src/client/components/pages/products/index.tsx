@@ -9,13 +9,15 @@ import Button from '../../atoms/button';
 import { getAllProducts } from '../../../utils/ProductsResolvers';
 import { Product } from '../../../utils/Type';
 import { useNavigate } from 'react-router-dom';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 type View = 'list' | 'gridx2' | 'gridx3';
 
 const Products = () => {
   const isMobile = useIsMobile();
   const [mobileView, setMobileView] = useState<{ current: View; next: View }>({ current: 'gridx2', next: 'gridx3' });
-  const { wishList, wishListHandler, addItemToCart, products, searchResult, getString } = useContext(CartContext);
+  const { wishList, wishListHandler, addItemToCart, searchResult, getString, fetchProducts } = useContext(CartContext);
+  const [page, setPage] = useState(30);
   const navigate = useNavigate();
   const toggleView = () => {
     if (mobileView.current === 'gridx2') {
@@ -43,7 +45,9 @@ const Products = () => {
   //   })();
   // }, []);
 
-  if (!products || !products.length) {
+  const handlerScroll = () => fetchProducts(undefined, searchResult.skip + searchResult.limit);
+
+  if (!searchResult.products.length) {
     return <Spinner />;
   }
 
@@ -58,8 +62,19 @@ const Products = () => {
           alt={mobileView.next}
         />
       )}
-      <div className="products__list">
-        {searchResult?.map(product => (
+      <InfiniteScroll
+        dataLength={searchResult.products.length}
+        next={handlerScroll}
+        hasMore={!!(searchResult.total - (searchResult.skip + searchResult.limit))}
+        loader={<Spinner />}
+        className="products__list"
+        endMessage={
+          <p style={{ textAlign: 'center' }}>
+            <b>Yay! You have seen it all</b>
+          </p>
+        }
+      >
+        {searchResult.products.map(product => (
           <div
             className={`products__card products__card--${mobileView.current}`}
             key={product.id}
@@ -80,7 +95,7 @@ const Products = () => {
             </Button>
           </div>
         ))}
-      </div>
+      </InfiniteScroll>
     </div>
   );
 };

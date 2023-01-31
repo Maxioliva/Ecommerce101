@@ -49,8 +49,7 @@ export type ShopState = {
   addressList?: Address[];
   language: Language;
   order?: Omit<Order, 'id' | 'userId' | 'isCompleted'>;
-  products: Product[];
-  searchResult: Product[];
+  searchResult: SearchResult;
   t: any;
   user?: User;
   wishList: Product[];
@@ -60,6 +59,7 @@ export type ShopState = {
   changeEmail: (newEmail: string) => void;
   deleteItemToCart: (id: string) => void;
   deleteAllItemToCart: (id: string) => void;
+  fetchProducts: (search?: string, skip?: number, limit?: number) => void;
   getOrder: (id: string) => Promise<void>;
   getString: (path: string) => String;
   getCurrentAddresses: (userId: string) => Promise<Address[]>;
@@ -69,7 +69,6 @@ export type ShopState = {
   searchProduct: (id: string) => Promise<FullProduct>;
   searchHandler: (value: string) => void;
   wishListHandler: (id: string) => void;
-
   // createOrder: (products: Product[]) => Promise<void>;
   getCompletedOrders: (userId: string) => Promise<Omit<Order, 'id' | 'userId' | 'isCompleted'>[]>;
 };
@@ -91,4 +90,11 @@ export type WishList = {
   id: string;
   userId: string;
   products: Product[];
+};
+
+export type SearchResult = {
+  products: Product[];
+  total: number;
+  skip: number;
+  limit: number;
 };

@@ -1,0 +1,50 @@
+@import '../../../utils/variables';
+
+.carousel {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  margin-left: 50px;
+
+  @media (max-width: $mobile) {
+    margin-left: 50px;
+  }
+
+  &__item {
+    opacity: 0;
+    width: 300px;
+    height: 300px;
+    // min-width: 100%;
+    display: flex;
+    transition: all 0.5s ease;
+
+    &--active {
+      opacity: 1;
+    }
+  }
+
+  &__button {
+    font-family: monospace;
+    position: absolute;
+    top: 40%;
+    z-index: 1;
+    cursor: pointer;
+    font-size: 40px;
+    margin: 20px;
+
+    &:hover {
+      text-shadow: 0px 0px 1px rgb(0, 0, 0);
+      opacity: 5px;
+    }
+    &-next {
+      right: 0;
+    }
+  }
+}
+
+.image {
+  width: 300px;
+  height: 300px;
+}

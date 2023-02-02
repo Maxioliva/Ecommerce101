@@ -14,6 +14,7 @@ import {
 } from 'firebase/firestore';
 import isequal from 'lodash.isequal';
 import { nanoid } from 'nanoid';
+import callApi from './callApi';
 import firebaseApp from './firebaseApp';
 import { Address, Order, Product, User, WishList } from './Type';
 
@@ -103,25 +104,14 @@ export const getCompletedOrders = async (userId: string) => {
 };
 
 export const updateWishList = async (products: Product[], userId: string) => {
-  const q = query(collection(firestore, 'WishList'), where('userId', '==', userId));
-  const querySnapshot = await getDocs(q);
-  const currentWishList = querySnapshot.docs[0];
-  if (!currentWishList) {
-    const docuRef = await doc(firestore, `WishList/${nanoid()}`);
-    await setDoc(docuRef, { userId, products });
-  } else {
-    const docuRef = await doc(firestore, `WishList/${currentWishList.id}`);
-    await setDoc(docuRef, { userId, products });
-  }
+  await callApi({ method: 'PUT', endpoint: `/wishlist`, payload: { userId, products } });
 };
 
-export const getCurrentWishList = async (userId: string) => {
-  const q = query(collection(firestore, 'WishList'), where('userId', '==', userId));
-  const querySnapshot = await getDocs(q);
-
-  if (querySnapshot.docs.length) {
-    const currentWishList = querySnapshot.docs[0];
-    return (currentWishList?.data() as WishList).products;
+export const getWishList = async (userId: string) => {
+  // retornar el callApi y guardarlo en una constante
+  const wishlistFromServer = await callApi({ method: 'GET', endpoint: `/wishlist/${userId + '-w'}` });
+  if (wishlistFromServer.products.length) {
+    return (wishlistFromServer as WishList).products;
   }
   return [];
 };

@@ -14,6 +14,7 @@ import Spinner from '../components/atoms/loadingSpinner';
 import * as resolvers from '../utils/resolvers';
 import { auth, updateOrder, updateWishList } from '../utils/resolvers';
 import { Address, FullProduct, Language, Product, SearchResult, ShopState, SimpleOrder, User } from '../utils/Type';
+import callApi from './callApi';
 import { getAllProducts, searchProduct, searchProducts } from './ProductsResolvers';
 
 const CartContext = createContext<ShopState>({} as ShopState);
@@ -65,7 +66,7 @@ export const CartProvider = ({ children }: any) => {
         const firestoreUser = await resolvers.getCurrentUser(persistanceId);
         setUser(firestoreUser);
         await getOrder(persistanceId);
-        const currentWishList = await resolvers.getCurrentWishList(persistanceId);
+        const currentWishList = await resolvers.getWishList(persistanceId);
         setWishList(currentWishList);
         const currentAddresses = await resolvers.getCurrentAddresses(persistanceId);
         setAddressList(currentAddresses);

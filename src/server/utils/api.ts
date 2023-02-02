@@ -16,7 +16,6 @@ API.get('/', async (_req, res) => {
 API.get('/api/v1/orders/:userId', async (_req, res) => {
   // Returns all orders from a specific user id
   const userId = _req.params.userId;
-  console.log('userId ', userId);
 
   const querySnapshot = await db.collection('Orders').where('userId', '==', userId).get();
   if (querySnapshot.empty) {
@@ -26,6 +25,28 @@ API.get('/api/v1/orders/:userId', async (_req, res) => {
 
   const results = querySnapshot.docs.map(o => ({ ...o.data() }));
   res.status(200).send(results);
+});
+
+API.get('/api/v1/wishlist/:wishlistID', async (_req, res) => {
+  // Returns all orders from a specific user id
+
+  const id = _req.params.wishlistID;
+  const docRef = db.collection('WishList').doc(id);
+  const doc = await docRef.get();
+
+  if (!doc.exists) {
+    res.status(200).send([]);
+    return;
+  }
+
+  res.status(200).send(doc.data());
+});
+
+API.put('/api/v1/wishlist', async (_req, res) => {
+  const payload = _req.body;
+  const docRef = db.collection('WishList').doc(payload.userId + '-w');
+  await docRef.set(payload);
+  res.status(200);
 });
 
 API.get('/testok', (_req, res) => {

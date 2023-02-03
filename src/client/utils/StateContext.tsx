@@ -12,7 +12,7 @@ import {
 import { createContext, useEffect, useState } from 'react';
 import Spinner from '../components/atoms/loadingSpinner';
 import * as resolvers from '../utils/resolvers';
-import { auth, updateOrder, updateWishList } from '../utils/resolvers';
+import { auth, updateBasket, updateWishList } from '../utils/resolvers';
 import { Address, FullProduct, Language, Product, SearchResult, ShopState, SimpleOrder, User } from '../utils/Type';
 import callApi from './callApi';
 import { getAllProducts, searchProduct, searchProducts } from './ProductsResolvers';
@@ -76,7 +76,7 @@ export const CartProvider = ({ children }: any) => {
   }, [persistanceId]);
 
   const getOrder = async (id: string) => {
-    const currentOrder = await resolvers.getCurrentOrder(id);
+    const currentOrder = await resolvers.getBasket(id);
     setOrder(currentOrder);
     const currentOrderCompleted = await resolvers.getCompletedOrders(id);
     setOrdersCompleted(currentOrderCompleted);
@@ -141,7 +141,7 @@ export const CartProvider = ({ children }: any) => {
 
     setOrder({ ...order, products: newCartItems });
     if (user) {
-      updateOrder(newCartItems, user.id);
+      updateBasket(newCartItems, user.id);
     }
   };
 
@@ -166,14 +166,14 @@ export const CartProvider = ({ children }: any) => {
         ? order!.products.map(item => ({ ...item, amount: item.id === itemId ? item!.amount - 1 : item.amount }))
         : order!.products.filter(item => item.id !== itemId);
     setOrder({ ...order, products: newCartItems });
-    updateOrder(newCartItems, user.id);
+    updateBasket(newCartItems, user.id);
   };
 
   const deleteAllItemToCart = (id: string) => {
     if (!user) {
       return;
     }
-    updateOrder(
+    updateBasket(
       order!.products.filter(item => item.id !== id),
       user.id
     );

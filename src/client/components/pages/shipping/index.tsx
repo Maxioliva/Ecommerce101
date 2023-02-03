@@ -20,16 +20,15 @@ const Shipping = () => {
     navigate('/');
     return <></>;
   }
+  const getAddressList = async () => {
+    const currentAddresses = await getCurrentAddresses(user.id);
+    setAddressList(currentAddresses);
+  };
 
   if (!order?.products.length) {
     navigate('/');
     return <></>;
   }
-
-  const getAddressList = async () => {
-    const currentAddresses = await getCurrentAddresses(user.id);
-    setAddressList(currentAddresses);
-  };
 
   const Addresss = {
     firstName: '',

@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { nanoid } from 'nanoid';
 import { db } from './db';
 
 // Using http protocol we define a REST API(representational state transfer)
@@ -11,20 +12,6 @@ API.get('/', async (_req, res) => {
     ...o.data(),
   }));
   res.status(201).send(orders);
-});
-
-API.get('/api/v1/orders/:userId', async (_req, res) => {
-  // Returns all orders from a specific user id
-  const userId = _req.params.userId;
-
-  const querySnapshot = await db.collection('Orders').where('userId', '==', userId).get();
-  if (querySnapshot.empty) {
-    res.status(201).send([]);
-    return;
-  }
-
-  const results = querySnapshot.docs.map(o => ({ ...o.data() }));
-  res.status(200).send(results);
 });
 
 API.get('/api/v1/wishlist/:wishlistID', async (_req, res) => {
@@ -47,6 +34,63 @@ API.put('/api/v1/wishlist', async (_req, res) => {
   const docRef = db.collection('WishList').doc(payload.userId + '-w');
   await docRef.set(payload);
   res.status(200);
+});
+
+API.get('/testok', (_req, res) => {
+  res.status(200).send({ todoOk: 'todo bien pa' });
+});
+
+API.get('/api/v1/basket/:userId', async (_req, res) => {
+  // Returns all orders from a specific user id
+  const userId = _req.params.userId;
+  const querySnapshot = await db
+    .collection('Orders')
+    .where('userId', '==', userId)
+    .where('isCompleted', '==', false)
+    .get();
+  if (querySnapshot.empty) {
+    res.status(201).send({ userId: userId, products: [], isCompleted: false });
+    return;
+  }
+  const basket = querySnapshot.docs[0].data();
+  res.status(200).send(basket);
+});
+
+API.get('/api/v1/customer/orders/:userId', async (_req, res) => {
+  // Returns all orders from a specific user id
+  const userId = _req.params.userId;
+  const querySnapshot = await db
+    .collection('Orders')
+    .where('userId', '==', userId)
+    .where('isCompleted', '==', true)
+    .get();
+  if (querySnapshot.empty) {
+    res.status(201).send([]);
+    return;
+  }
+  const orders = querySnapshot.docs.map(o => o.data());
+  res.status(200).send(orders);
+});
+
+API.put('/api/v1/basket', async (_req, res) => {
+  const payload = _req.body;
+  const querySnapshot = await db
+    .collection('Orders')
+    .where('userId', '==', payload.userId)
+    .where('isCompleted', '==', false)
+    .get();
+
+  if (querySnapshot.empty) {
+    const newBasket = { userId: payload.userId, products: payload.products, isCompleted: false };
+    await db.collection('Orders').doc(nanoid()).set(newBasket);
+    res.status(201).send(newBasket);
+    return;
+  }
+
+  const docRef = querySnapshot.docs[0].ref;
+  await docRef.set(payload, { merge: true });
+  const currentBasket = querySnapshot.docs[0].data();
+  res.status(200).send({ ...currentBasket, ...payload });
 });
 
 API.get('/testok', (_req, res) => {

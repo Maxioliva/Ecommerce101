@@ -70,7 +70,7 @@ export type ShopState = {
   searchHandler: (value: string) => void;
   wishListHandler: (id: string) => void;
   // createOrder: (products: Product[]) => Promise<void>;
-  getCompletedOrders: (userId: string) => Promise<Omit<Order, 'id' | 'userId' | 'isCompleted'>[]>;
+  getOrders: (userId: string) => Promise<Omit<Order, 'id' | 'userId' | 'isCompleted'>[]>;
 };
 
 export type Order = {
@@ -79,7 +79,7 @@ export type Order = {
   products: Product[];
   isCompleted: boolean;
   address?: Omit<Address, 'id'>[];
-  completedAt?: Timestamp;
+  completedAt?: number;
   paymentMethod?: string;
   total?: number;
 };

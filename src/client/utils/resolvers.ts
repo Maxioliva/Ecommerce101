@@ -55,7 +55,9 @@ export const updateUser = async (firstName: string, lastName: string, email: str
   return await setDoc(docuRef, { id, lastName, firstName, email });
 };
 
-export const updateAdressOrder = async (address: Omit<Address, 'id' | 'userId'>, userId: string) => {
+export const updateAdress = async (address: Omit<Address, 'id' | 'userId'>, userId: string) => {
+  const orders = await callApi({ method: 'PUT', endpoint: ' /customer/orders', payload: { userId, address } });
+
   const q = query(collection(firestore, 'Orders'), where('userId', '==', userId));
   const querySnapshot = await getDocs(q);
   const currentBasket = querySnapshot.docs.find(d => !(d.data() as Order).isCompleted);
@@ -67,11 +69,40 @@ export const updatePayment = async (userId: string, payment: string) => {
   const querySnapshot = await getDocs(q);
   const currentBasket = querySnapshot.docs.find(d => !(d.data() as Order).isCompleted);
   const docuRef = await doc(firestore, `Orders/${currentBasket?.id}`);
-  await updateDoc(docuRef, { isCompleted: true, payment, completedAt: Timestamp.fromDate(new Date()) });
+  const dateInSeconds = Timestamp.fromDate(new Date()).seconds;
+  await updateDoc(docuRef, { isCompleted: true, payment, completedAt: dateInSeconds });
 };
 
-export const updateBasket = async (products: Product[], userId: string) => {
-  const basket = await callApi({ method: 'PUT', endpoint: `/basket`, payload: { userId, products } });
+type UpdateBasketOptions = {
+  userId: string;
+  products?: Product[];
+  address?: Omit<Address, 'id' | 'userId'>;
+  isCompleted?: boolean;
+  payment?: string;
+  completedAt?: number;
+};
+
+export const updateBasket = async ({
+  userId,
+  products,
+  address,
+  isCompleted,
+  payment,
+  completedAt,
+}: UpdateBasketOptions) => {
+  const basket = await callApi({
+    method: 'PUT',
+    endpoint: `/basket`,
+    payload: {
+      userId,
+      ...(products && { products }),
+      ...(address && { address }),
+      ...(payment && { payment }),
+      ...(completedAt && { completedAt }),
+      ...(isCompleted && { isCompleted }),
+    },
+  });
+  return basket;
 };
 
 export const getBasket = async (userId: string) => {
@@ -79,14 +110,16 @@ export const getBasket = async (userId: string) => {
   return basket as Omit<Order, 'id' | 'userId' | 'isCompleted'>;
 };
 
-export const getCompletedOrders = async (userId: string) => {
-  const q = query(collection(firestore, 'Orders'), where('userId', '==', userId));
-  const querySnapshot = await getDocs(q);
-  if (querySnapshot.docs.length && querySnapshot.docs.some(o => (o.data() as Order).isCompleted)) {
-    const previousOrders = querySnapshot.docs.filter(d => (d.data() as Order).isCompleted);
-    return previousOrders.map(o => o.data() as Omit<Order, 'id' | 'userId' | 'isCompleted'>);
-  }
-  return [];
+export const getOrders = async (userId: string) => {
+  const orders = await callApi({ method: 'GET', endpoint: `/customer/orders/${userId}` });
+  return orders as Omit<Order, 'id' | 'userId' | 'isCompleted'>[];
+  // // const q = query(collection(firestore, 'Orders'), where('userId', '==', userId));
+  // // const querySnapshot = await getDocs(q);
+  // if (querySnapshot.docs.length && querySnapshot.docs.some(o => (o.data() as Order).isCompleted)) {
+  //   const previousOrders = querySnapshot.docs.filter(d => (d.data() as Order).isCompleted);
+  //   return previousOrders.map(o => o.data() as Omit<Order, 'id' | 'userId' | 'isCompleted'>);
+  // }
+  // return [];
 };
 
 export const updateWishList = async (products: Product[], userId: string) => {

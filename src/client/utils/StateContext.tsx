@@ -78,7 +78,7 @@ export const CartProvider = ({ children }: any) => {
   const getOrder = async (id: string) => {
     const currentOrder = await resolvers.getBasket(id);
     setOrder(currentOrder);
-    const currentOrderCompleted = await resolvers.getCompletedOrders(id);
+    const currentOrderCompleted = await resolvers.getOrders(id);
     setOrdersCompleted(currentOrderCompleted);
   };
 
@@ -141,7 +141,7 @@ export const CartProvider = ({ children }: any) => {
 
     setOrder({ ...order, products: newCartItems });
     if (user) {
-      updateBasket(newCartItems, user.id);
+      updateBasket({ userId: user.id, products: newCartItems });
     }
   };
 
@@ -166,17 +166,14 @@ export const CartProvider = ({ children }: any) => {
         ? order!.products.map(item => ({ ...item, amount: item.id === itemId ? item!.amount - 1 : item.amount }))
         : order!.products.filter(item => item.id !== itemId);
     setOrder({ ...order, products: newCartItems });
-    updateBasket(newCartItems, user.id);
+    updateBasket({ userId: user.id, products: newCartItems });
   };
 
   const deleteAllItemToCart = (id: string) => {
     if (!user) {
       return;
     }
-    updateBasket(
-      order!.products.filter(item => item.id !== id),
-      user.id
-    );
+    updateBasket({ userId: user.id, products: order!.products.filter(item => item.id !== id) });
     setOrder({ ...order, products: order!.products.filter(item => item.id !== id) });
   };
 

@@ -48,14 +48,28 @@ API.get('/api/v1/basket/:userId', async (_req, res) => {
     .where('userId', '==', userId)
     .where('isCompleted', '==', false)
     .get();
-
   if (querySnapshot.empty) {
     res.status(201).send({ userId: userId, products: [], isCompleted: false });
     return;
   }
-
   const basket = querySnapshot.docs[0].data();
   res.status(200).send(basket);
+});
+
+API.get('/api/v1/customer/orders/:userId', async (_req, res) => {
+  // Returns all orders from a specific user id
+  const userId = _req.params.userId;
+  const querySnapshot = await db
+    .collection('Orders')
+    .where('userId', '==', userId)
+    .where('isCompleted', '==', true)
+    .get();
+  if (querySnapshot.empty) {
+    res.status(201).send([]);
+    return;
+  }
+  const orders = querySnapshot.docs.map(o => o.data());
+  res.status(200).send(orders);
 });
 
 API.put('/api/v1/basket', async (_req, res) => {
@@ -66,18 +80,15 @@ API.put('/api/v1/basket', async (_req, res) => {
     .where('isCompleted', '==', false)
     .get();
 
-  console.log('aca rey', querySnapshot.docs);
-
   if (querySnapshot.empty) {
     const newBasket = { userId: payload.userId, products: payload.products, isCompleted: false };
-    const newBasketRef = await db.collection('Orders').doc(nanoid()).set(newBasket);
-    console.log(newBasketRef);
+    await db.collection('Orders').doc(nanoid()).set(newBasket);
     res.status(201).send(newBasket);
     return;
   }
 
   const docRef = querySnapshot.docs[0].ref;
-  await docRef.set(payload);
+  await docRef.set(payload, { merge: true });
   const currentBasket = querySnapshot.docs[0].data();
   res.status(200).send({ ...currentBasket, ...payload });
 });

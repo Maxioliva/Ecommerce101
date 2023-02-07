@@ -93,8 +93,18 @@ API.put('/api/v1/basket', async (_req, res) => {
   res.status(200).send({ ...currentBasket, ...payload });
 });
 
-API.get('/testok', (_req, res) => {
-  res.status(200).send({ todoOk: 'todo bien pa' });
+API.get('/api/v1/cusomer/address/:userId', async (_req, res) => {
+  // Returns all orders from a specific user id
+
+  const id = _req.params.userId;
+  const querySnapshot = await db.collection('Addresses').where('userId', '==', id).get();
+
+  if (querySnapshot.empty) {
+    res.status(201).send([]);
+    return;
+  }
+
+  res.status(200).send(querySnapshot.docs.map(a => a.data()));
 });
 
 // API.post('/api/v1/register', async (_req, res) => {

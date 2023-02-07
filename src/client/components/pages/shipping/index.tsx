@@ -13,7 +13,7 @@ import Button from '../../atoms/button';
 
 const Shipping = () => {
   const [addressList, setAddressList] = useState<Address[]>([]);
-  const { user, order, getCurrentAddresses, getString } = useContext(CartContext);
+  const { user, order, getAddresses, getString } = useContext(CartContext);
   const navigate = useNavigate();
 
   if (!user) {
@@ -21,7 +21,7 @@ const Shipping = () => {
     return <></>;
   }
   const getAddressList = async () => {
-    const currentAddresses = await getCurrentAddresses(user.id);
+    const currentAddresses = await getAddresses(user.id);
     setAddressList(currentAddresses);
   };
 

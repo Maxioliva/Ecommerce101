@@ -154,16 +154,17 @@ export const sanitizeAddress = async (address: Omit<Address, 'id' | 'userId'>, u
   }
 };
 
-export const getCurrentAddresses = async (userId: string) => {
-  const q = query(collection(firestore, 'Addresses'), where('userId', '==', userId));
-  const querySnapshot = await getDocs(q);
+export const getAddresses = async (userId: string) => {
+  const addresses: Address[] = await callApi({ method: 'GET', endpoint: `/customer/address/${userId}` });
 
-  if (querySnapshot.docs.length) {
-    const currentAddresList = querySnapshot.docs.map(address => address?.data() as Address);
+  // const q = query(collection(firestore, 'Addresses'), where('userId', '==', userId));
+  // const querySnapshot = await getDocs(q);
 
-    return currentAddresList;
-  }
-  return [];
+  // if (querySnapshot.docs.length) {
+  //   const currentAddresList = querySnapshot.docs.map(address => address?.data() as Address);
+  //   return currentAddresList;
+  // }
+  return addresses;
 };
 
 export const deleteAddresses = async (id: string) => {

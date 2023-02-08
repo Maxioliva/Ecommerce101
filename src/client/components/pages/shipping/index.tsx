@@ -13,19 +13,20 @@ import Button from '../../atoms/button';
 
 const Shipping = () => {
   const [addressList, setAddressList] = useState<Address[]>([]);
-  const { user, order, getAddresses, getString } = useContext(CartContext);
+  const { user, basket, getAddresses, getString } = useContext(CartContext);
   const navigate = useNavigate();
 
   if (!user) {
     navigate('/');
     return <></>;
   }
+
   const getAddressList = async () => {
     const currentAddresses = await getAddresses(user.id);
     setAddressList(currentAddresses);
   };
 
-  if (!order?.products.length) {
+  if (!basket?.products.length) {
     navigate('/');
     return <></>;
   }

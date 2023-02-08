@@ -70,6 +70,7 @@ export type ShopState = {
   searchHandler: (value: string) => void;
   wishListHandler: (id: string) => void;
   // createOrder: (products: Product[]) => Promise<void>;
+  updateBasket: (basketOptions: UpdateBasketOptions) => Promise<any>;
   getOrders: (userId: string) => Promise<Omit<Order, 'id' | 'userId' | 'isCompleted'>[]>;
 };
 
@@ -97,4 +98,13 @@ export type SearchResult = {
   total: number;
   skip: number;
   limit: number;
+};
+
+export type UpdateBasketOptions = {
+  userId: string;
+  products?: Product[];
+  address?: Omit<Address, 'id' | 'userId'>;
+  isCompleted?: boolean;
+  payment?: string;
+  completedAt?: number;
 };

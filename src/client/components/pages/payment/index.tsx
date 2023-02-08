@@ -2,14 +2,15 @@ import { useContext } from 'react';
 import CartContext from '../../../utils/StateContext';
 import { getAssetUrl } from '../../../utils/config';
 import { Formik, Field, Form } from 'formik';
-import { updatePayment } from '../../../utils/resolvers';
+import { updateBasket } from '../../../utils/resolvers';
 import './style.scss';
 import OrderSummary from '../../atoms/orderSummary';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../atoms/button';
+import { Timestamp } from 'firebase/firestore';
 
 const Payment = () => {
-  const { user, getOrder, getString } = useContext(CartContext);
+  const { user, getOrder, getString, updateBasket } = useContext(CartContext);
   const navigate = useNavigate();
 
   if (!user) {
@@ -21,7 +22,8 @@ const Payment = () => {
   };
 
   const submitHandler = async (values: typeof initialValues) => {
-    await updatePayment(user.id, values.picked);
+    const dateInSeconds = Timestamp.fromDate(new Date()).seconds;
+    await updateBasket({ userId: user.id, payment: values.picked, isCompleted: true, completedAt: dateInSeconds });
     await getOrder(user.id);
     navigate('/ordersuccess');
   };

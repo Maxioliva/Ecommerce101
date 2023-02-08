@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { nanoid } from 'nanoid';
 import { db } from './db';
+import isequal from 'lodash.isequal';
 
 // Using http protocol we define a REST API(representational state transfer)
 const API = Router();
@@ -93,7 +94,7 @@ API.put('/api/v1/basket', async (_req, res) => {
   res.status(200).send({ ...currentBasket, ...payload });
 });
 
-API.get('/api/v1/cusomer/address/:userId', async (_req, res) => {
+API.get('/api/v1/customer/address/:userId', async (_req, res) => {
   // Returns all orders from a specific user id
 
   const id = _req.params.userId;
@@ -105,6 +106,48 @@ API.get('/api/v1/cusomer/address/:userId', async (_req, res) => {
   }
 
   res.status(200).send(querySnapshot.docs.map(a => a.data()));
+});
+
+// cosa de negros
+
+type Address = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  street: string;
+  houseNumber: string;
+  zipCode: string;
+  city: string;
+  country: string;
+  id: string;
+  userId: string;
+};
+
+API.put('/api/v1/customer/address', async (_req, res) => {
+  const payload = _req.body;
+  const querySnapshot = await db.collection('Addresses').where('userId', '==', payload.userId).get();
+
+  const allReadyInMemory = querySnapshot.docs.find(d => {
+    const address = d.data() as Address;
+    const { id, userId, ...rest } = address;
+
+    return isequal(rest, address);
+  });
+
+  if (allReadyInMemory) {
+    return;
+  }
+
+  const newAddress = { ...payload.address, userId: payload.userId };
+  const addressRef = db.collection('Addresses').doc(nanoid());
+  await addressRef.set({ ...newAddress, id: addressRef.id });
+  res.status(201).send({ userId: payload.userId, ...payload });
+});
+
+API.delete('/api/v1/customer/address/:id', async (_req, res) => {
+  const addressRef = db.collection('Addresses').doc(_req.params.id);
+  await addressRef.delete();
+  res.status(200).send({});
 });
 
 // API.post('/api/v1/register', async (_req, res) => {

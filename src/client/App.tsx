@@ -25,7 +25,7 @@ import { IntlProvider } from 'react-intl';
 const App = () => {
   const isMobile = useIsMobile();
   // const montage = JSON.parse(translations);
-
+  // aca rey
   return (
     // <IntlProvider messages={translations} locale="en">
     <div className="app">

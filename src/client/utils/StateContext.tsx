@@ -63,7 +63,7 @@ export const CartProvider = ({ children }: any) => {
         const firestoreUser = await resolvers.getCurrentUser(persistanceId);
         setUser(firestoreUser);
 
-        const currentBasket = await resolvers.getBasket(user!.id);
+        const currentBasket = await resolvers.getBasket(persistanceId);
         setBasket(currentBasket);
 
         const currentWishList = await resolvers.getWishList(persistanceId);

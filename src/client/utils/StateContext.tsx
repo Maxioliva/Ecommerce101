@@ -68,7 +68,7 @@ export const CartProvider = ({ children }: any) => {
         await getOrder(persistanceId);
         const currentWishList = await resolvers.getWishList(persistanceId);
         setWishList(currentWishList);
-        const currentAddresses = await resolvers.getCurrentAddresses(persistanceId);
+        const currentAddresses = await resolvers.getAddresses(persistanceId);
         setAddressList(currentAddresses);
         setIsLoading(false);
       }

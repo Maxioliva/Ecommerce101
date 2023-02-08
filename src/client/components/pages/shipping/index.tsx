@@ -2,7 +2,7 @@ import { Field, Form, Formik } from 'formik';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CartContext from '../../../utils/StateContext';
-import { sanitizeAddress, updateBasket } from '../../../utils/resolvers';
+import { saveAddress, updateBasket } from '../../../utils/resolvers';
 import { Address } from '../../../utils/Type';
 import OrderSummary from '../../atoms/orderSummary';
 import './style.scss';
@@ -13,7 +13,7 @@ import Button from '../../atoms/button';
 
 const Shipping = () => {
   const [addressList, setAddressList] = useState<Address[]>([]);
-  const { user, order, getCurrentAddresses, getString } = useContext(CartContext);
+  const { user, order, getAddresses, getString } = useContext(CartContext);
   const navigate = useNavigate();
 
   if (!user) {
@@ -21,7 +21,7 @@ const Shipping = () => {
     return <></>;
   }
   const getAddressList = async () => {
-    const currentAddresses = await getCurrentAddresses(user.id);
+    const currentAddresses = await getAddresses(user.id);
     setAddressList(currentAddresses);
   };
 
@@ -43,7 +43,7 @@ const Shipping = () => {
 
   const submitHandler = (values: Omit<Address, 'id' | 'userId'>) => {
     updateBasket({ userId: user.id, address: values });
-    sanitizeAddress(values, user.id);
+    saveAddress(values, user.id);
     navigate('/checkout-payment');
   };
 

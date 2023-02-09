@@ -1,38 +1,29 @@
 .previousOrders {
-    align-items: center;
+  display: flex;
+  flex-direction: column;
 
-    &__container {
-        background: white;
-        border-radius: 15px;
-        margin: 20px;
-        display: flex;
-    }
+  &__container {
+    background: white;
+    border-radius: 15px;
+  }
 
-    &__title {
-        text-align: center;
-        border-bottom: solid 4px white;
-        border-top: solid 4px white;
-        color: rgb(8, 8, 8);
-        font-size: 23px;
-        font-weight: bold;
-    }
+  &__title {
+    color: black;
+    font-size: 23px;
+    font-weight: bold;
+    text-align: center;
+    padding: 15px;
+  }
 
-    &__address {
-        background-color: #007aff;
-        border-radius: 8px;
-        font-weight: bold;
-    }
+  &__address {
+    background-color: #e97d02;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
 
-    &__id {
-        text-align: center;
-        width: 100%;
-        margin: 10px;
-    }
-
-    &__total {
-        color: black;
-        font-size: 23px;
-        font-weight: bold;
-        width: 100%;
-    }
+  &__id {
+    text-align: center;
+    width: 100%;
+  }
 }

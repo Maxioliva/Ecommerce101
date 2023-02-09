@@ -66,7 +66,6 @@ const App = () => {
                 element={
                   <div className="">
                     <PreviousOrders />
-                    <ProfileDropDown />
                   </div>
                 }
               />
@@ -75,7 +74,6 @@ const App = () => {
                 element={
                   <div className="profile">
                     <ProfileSettings />
-                    <ProfileDropDown2 />
                   </div>
                 }
               />

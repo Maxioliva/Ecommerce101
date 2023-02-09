@@ -1,4 +1,3 @@
-import { Timestamp } from 'firebase/firestore';
 import { useContext, useEffect, useState } from 'react';
 import CartContext from '../../../utils/StateContext';
 import { SimpleOrder } from '../../../utils/Type';

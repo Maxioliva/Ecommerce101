@@ -1,15 +1,15 @@
 import { Field, Form, Formik } from 'formik';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CartContext from '../../../utils/StateContext';
 import { saveAddress, updateBasket } from '../../../utils/resolvers';
+import CartContext from '../../../utils/StateContext';
 import { Address } from '../../../utils/Type';
+import { runValidation } from '../../../utils/validations';
+import AddressBook from '../../atoms/addressBook';
+import Button from '../../atoms/button';
+import Input from '../../atoms/input';
 import OrderSummary from '../../atoms/orderSummary';
 import './style.scss';
-import AddressBook from '../../atoms/addressBook';
-import Input from '../../atoms/input';
-import { runValidation } from '../../../utils/validations';
-import Button from '../../atoms/button';
 
 const Shipping = () => {
   const [addressList, setAddressList] = useState<Address[]>([]);

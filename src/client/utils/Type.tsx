@@ -46,7 +46,6 @@ export type Address = {
 };
 
 export type ShopState = {
-  addressList?: Address[];
   language: Language;
   basket?: Omit<Order, 'id' | 'userId' | 'isCompleted'>;
   searchResult: SearchResult;
@@ -61,7 +60,7 @@ export type ShopState = {
   deleteItemToCart: (id: string) => void;
   deleteAllItemToCart: (id: string) => void;
   fetchProducts: (search?: string, skip?: number, limit?: number) => void;
-  getString: (path: string) => String;
+  getString: (path: string) => string;
   getAddresses: (userId: string) => Promise<Address[]>;
   login: (email: string, password: string) => Promise<void>;
   logOut: () => void;

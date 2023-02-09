@@ -14,9 +14,10 @@ import * as resolvers from '../utils/resolvers';
 import { auth, updateBasket, updateWishList } from '../utils/resolvers';
 import { Address, Language, Product, SearchResult, ShopState, SimpleOrder, User } from '../utils/Type';
 import { getAllProducts, searchProduct, searchProducts } from './ProductsResolvers';
+// eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
+const translations = require('./translations.json');
 
 const CartContext = createContext<ShopState>({} as ShopState);
-const translations = require('./translations.json');
 
 export const CartProvider = ({ children }: any) => {
   const [persistanceId, setPersistanceId] = useState<string>();
@@ -25,17 +26,15 @@ export const CartProvider = ({ children }: any) => {
   const [basket, setBasket] = useState<SimpleOrder | undefined>({ products: [] });
   const [isLoading, setIsLoading] = useState(false);
   const [searchResult, setSearchResult] = useState<SearchResult>({ products: [], total: 0, skip: 0, limit: 0 });
-  const [ordersCompleted, setBasketsCompleted] = useState<SimpleOrder[]>();
-  const [addressList, setAddressList] = useState<Address[]>();
   const [language, setLanguaje] = useState<Language>('en');
   const userAuth = auth.currentUser;
 
   const changeLanguage = (value: Language) => setLanguaje(value);
 
-  async function searchHandler(value: string) {
+  const searchHandler = async (value: string) => {
     const result = await searchProducts(value);
     setSearchResult(result);
-  }
+  };
 
   const login = async (email: string, password: string) => {
     const userInstance = await signInWithEmailAndPassword(auth, email, password);
@@ -185,7 +184,6 @@ export const CartProvider = ({ children }: any) => {
   return (
     <CartContext.Provider
       value={{
-        addressList,
         language,
         basket,
         searchResult,

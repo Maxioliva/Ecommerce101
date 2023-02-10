@@ -14,13 +14,16 @@ export const getAllProducts: GetAllProducts = async (search, skip, limit = 15) =
 };
 
 export const searchProducts: (value: string) => Promise<SearchResult> = async value => {
-  const response = await api.get(`m/products/search?q=${value}`)
+  const response = await api.get(`m/products/search?q=${value}`);
   return response.data;
-}
+};
 
 export const searchProduct = async (value: string) => {
-  const response = await api.get(`/products/${value}`)
+  const response = await api.get(`/products/${value}`);
   return response.data;
-}
+};
 
-
+export const searchCategories = async () => {
+  const response = await api.get('/products/categories');
+  return response.data;
+};

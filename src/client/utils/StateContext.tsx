@@ -12,8 +12,8 @@ import { createContext, useEffect, useState } from 'react';
 import Spinner from '../components/atoms/loadingSpinner';
 import * as resolvers from '../utils/resolvers';
 import { auth, updateBasket, updateWishList } from '../utils/resolvers';
-import { Address, Language, Product, SearchResult, ShopState, SimpleOrder, User } from '../utils/Type';
-import { getAllProducts, searchProduct, searchProducts } from './ProductsResolvers';
+import { Language, Product, SearchResult, ShopState, SimpleOrder, User } from '../utils/Type';
+import { getAllProducts, searchProduct } from './ProductsResolvers';
 // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
 const translations = require('./translations.json');
 
@@ -30,11 +30,6 @@ export const CartProvider = ({ children }: any) => {
   const userAuth = auth.currentUser;
 
   const changeLanguage = (value: Language) => setLanguaje(value);
-
-  const searchHandler = async (value: string) => {
-    const result = await searchProducts(value);
-    setSearchResult(result);
-  };
 
   const login = async (email: string, password: string) => {
     const userInstance = await signInWithEmailAndPassword(auth, email, password);
@@ -104,6 +99,11 @@ export const CartProvider = ({ children }: any) => {
       .catch(error => {
         console.log(error);
       });
+  };
+
+  const searchHandler = async (search?: string, skip?: number, limit?: number) => {
+    const result = await getAllProducts(search, skip, limit);
+    setSearchResult(result);
   };
 
   const fetchProducts = async (search?: string, skip?: number, limit?: number) => {

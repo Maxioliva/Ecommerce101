@@ -1,5 +1,4 @@
 import { Field, Form, Formik } from 'formik';
-import isEmpty from 'lodash.isempty';
 import { useContext } from 'react';
 import { updateUser } from '../../../utils/resolvers';
 import CartContext from '../../../utils/StateContext';

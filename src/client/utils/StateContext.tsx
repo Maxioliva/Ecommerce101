@@ -1,5 +1,3 @@
-import axios from 'axios';
-import { table } from 'console';
 import {
   browserLocalPersistence,
   onAuthStateChanged,
@@ -9,35 +7,29 @@ import {
   updateEmail,
   updatePassword,
 } from 'firebase/auth';
+import { Timestamp } from 'firebase/firestore';
 import { createContext, useEffect, useState } from 'react';
 import Spinner from '../components/atoms/loadingSpinner';
 import * as resolvers from '../utils/resolvers';
 import { auth, updateBasket, updateWishList } from '../utils/resolvers';
-import { Address, FullProduct, Language, Product, SearchResult, ShopState, SimpleOrder, User } from '../utils/Type';
-import callApi from './callApi';
-import { getAllProducts, searchProduct, searchProducts } from './ProductsResolvers';
+import { Language, Product, SearchResult, ShopState, SimpleOrder, User } from '../utils/Type';
+import { getAllProducts, searchProduct } from './ProductsResolvers';
+// eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
+const translations = require('./translations.json');
 
 const CartContext = createContext<ShopState>({} as ShopState);
-const translations = require('./translations.json');
 
 export const CartProvider = ({ children }: any) => {
   const [persistanceId, setPersistanceId] = useState<string>();
   const [user, setUser] = useState<User>();
   const [wishList, setWishList] = useState<Product[]>([]);
-  const [order, setOrder] = useState<SimpleOrder | undefined>({ products: [] });
+  const [basket, setBasket] = useState<SimpleOrder | undefined>({ products: [] });
   const [isLoading, setIsLoading] = useState(false);
   const [searchResult, setSearchResult] = useState<SearchResult>({ products: [], total: 0, skip: 0, limit: 0 });
-  const [ordersCompleted, setOrdersCompleted] = useState<SimpleOrder[]>();
-  const [addressList, setAddressList] = useState<Address[]>();
   const [language, setLanguaje] = useState<Language>('en');
   const userAuth = auth.currentUser;
 
   const changeLanguage = (value: Language) => setLanguaje(value);
-
-  async function searchHandler(value: string) {
-    const result = await searchProducts(value);
-    setSearchResult(result);
-  }
 
   const login = async (email: string, password: string) => {
     const userInstance = await signInWithEmailAndPassword(auth, email, password);
@@ -61,26 +53,19 @@ export const CartProvider = ({ children }: any) => {
   useEffect(() => {
     (async () => {
       if (persistanceId) {
-        // const ordersFromServer = await callApi({ method: 'GET', endpoint: `/orders/${persistanceId}` });
-        // console.log('ordersFromServer', ordersFromServer);
+        setIsLoading(true);
         const firestoreUser = await resolvers.getCurrentUser(persistanceId);
         setUser(firestoreUser);
-        await getOrder(persistanceId);
+
+        const currentBasket = await resolvers.getBasket(persistanceId);
+        setBasket(currentBasket);
+
         const currentWishList = await resolvers.getWishList(persistanceId);
         setWishList(currentWishList);
-        const currentAddresses = await resolvers.getAddresses(persistanceId);
-        setAddressList(currentAddresses);
         setIsLoading(false);
       }
     })();
   }, [persistanceId]);
-
-  const getOrder = async (id: string) => {
-    const currentOrder = await resolvers.getBasket(id);
-    setOrder(currentOrder);
-    const currentOrderCompleted = await resolvers.getOrders(id);
-    setOrdersCompleted(currentOrderCompleted);
-  };
 
   const changePassword = async (newPassword: string) => {
     try {
@@ -108,12 +93,17 @@ export const CartProvider = ({ children }: any) => {
     await signOut(auth)
       .then(() => {
         setUser(undefined);
-        setOrder(undefined);
+        setBasket(undefined);
         setWishList([]);
       })
       .catch(error => {
         console.log(error);
       });
+  };
+
+  const searchHandler = async (search?: string, skip?: number, limit?: number) => {
+    const result = await getAllProducts(search, skip, limit);
+    setSearchResult(result);
   };
 
   const fetchProducts = async (search?: string, skip?: number, limit?: number) => {
@@ -130,16 +120,16 @@ export const CartProvider = ({ children }: any) => {
   }, []);
 
   const addItemToCart = async (id: string) => {
-    const productAlreadyOnBasket = order!.products.find(item => item.id === id);
+    const productAlreadyOnBasket = basket!.products.find(item => item.id === id);
     const product = searchResult.products.find(item => item.id === id);
     const newCartItems = productAlreadyOnBasket
       ? [
-          ...order!.products.filter(i => i.id !== id),
+          ...basket!.products.filter(i => i.id !== id),
           { ...productAlreadyOnBasket, amount: productAlreadyOnBasket.amount + 1 },
         ]
-      : [...order!.products, { ...product!, amount: 1 }];
+      : [...basket!.products, { ...product!, amount: 1 }];
 
-    setOrder({ ...order, products: newCartItems });
+    setBasket({ ...basket, products: newCartItems });
     if (user) {
       updateBasket({ userId: user.id, products: newCartItems });
     }
@@ -159,13 +149,13 @@ export const CartProvider = ({ children }: any) => {
     if (!user) {
       return;
     }
-    const itemToRemove = order!.products.find(({ id }) => itemId === id);
+    const itemToRemove = basket!.products.find(({ id }) => itemId === id);
 
     const newCartItems =
       itemToRemove!.amount > 1
-        ? order!.products.map(item => ({ ...item, amount: item.id === itemId ? item!.amount - 1 : item.amount }))
-        : order!.products.filter(item => item.id !== itemId);
-    setOrder({ ...order, products: newCartItems });
+        ? basket!.products.map(item => ({ ...item, amount: item.id === itemId ? item!.amount - 1 : item.amount }))
+        : basket!.products.filter(item => item.id !== itemId);
+    setBasket({ ...basket, products: newCartItems });
     updateBasket({ userId: user.id, products: newCartItems });
   };
 
@@ -173,8 +163,8 @@ export const CartProvider = ({ children }: any) => {
     if (!user) {
       return;
     }
-    updateBasket({ userId: user.id, products: order!.products.filter(item => item.id !== id) });
-    setOrder({ ...order, products: order!.products.filter(item => item.id !== id) });
+    updateBasket({ userId: user.id, products: basket!.products.filter(item => item.id !== id) });
+    setBasket({ ...basket, products: basket!.products.filter(item => item.id !== id) });
   };
 
   if (isLoading) {
@@ -186,12 +176,16 @@ export const CartProvider = ({ children }: any) => {
     return properties.reduce((acc, curr) => acc?.[curr], translations[language]);
   };
 
+  const confirmOrder = async (selectedPayment: string) => {
+    const dateInSeconds = Timestamp.fromDate(new Date()).seconds;
+    await updateBasket({ userId: user!.id, payment: selectedPayment, isCompleted: true, completedAt: dateInSeconds });
+  };
+
   return (
     <CartContext.Provider
       value={{
-        addressList,
         language,
-        order,
+        basket,
         searchResult,
         t: translations[language],
         user,
@@ -200,10 +194,10 @@ export const CartProvider = ({ children }: any) => {
         changePassword,
         changeLanguage,
         changeEmail,
+        confirmOrder,
         deleteAllItemToCart,
         deleteItemToCart,
         fetchProducts,
-        getOrder,
         getString,
         login,
         logOut,

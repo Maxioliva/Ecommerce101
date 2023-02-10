@@ -1,4 +1,5 @@
-import { useState } from 'react';
+/* eslint-disable @typescript-eslint/no-empty-function */
+import { useState, MouseEvent } from 'react';
 import { getAssetUrl } from '../../../utils/config';
 import './style.scss';
 
@@ -15,7 +16,7 @@ type IconProps = {
     | 'delivery'
     | 'debitcard';
   size: number;
-  onClick?: () => void;
+  onClick?: (e: MouseEvent<HTMLDivElement>) => void;
   value?: boolean;
   deactivateHover?: boolean;
 };
@@ -24,8 +25,9 @@ const Icon = ({ value, size, icon, onClick, deactivateHover }: IconProps) => {
   const [hover, setHover] = useState(value ?? false);
   const iconPath = `./header/${icon}${!deactivateHover && hover ? '-fill' : ''}.svg`;
   const changeHover = () => setHover(!hover);
-  const clickHandler = () => {
-    onClick?.();
+
+  const clickHandler = (e: MouseEvent<HTMLDivElement>) => {
+    onClick?.(e);
     changeHover();
   };
 

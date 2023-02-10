@@ -23,19 +23,20 @@ const Carousel = (props: CarouselProps) => {
 
   return (
     <div className="carousel">
-      <span className="carousel__button" onClick={() => onChance('prev')}>
-        {'<'}
-      </span>
-      <span className="carousel__button carousel__button-next" onClick={() => onChance('next')}>
-        {' '}
-        {'>'}
-      </span>
+      <div className="carousel__buttonContainer">
+        <span className="carousel__button" onClick={() => onChance('prev')}>
+          {'<'}
+        </span>
+        <span className="carousel__button carousel__button-next" onClick={() => onChance('next')}>
+          {'>'}
+        </span>
+      </div>
+
       {props.images.map((p, i) => (
         <div
+          key={i}
           style={{ transform: `translate(-${activeSlide * 100}%)` }}
-          className={classNames('carousel__item', {
-            'carousel__item--active': i === activeSlide,
-          })}
+          className={classNames('carousel__item', { 'carousel__item--active': i === activeSlide })}
         >
           <img className="image" src={p} />
         </div>

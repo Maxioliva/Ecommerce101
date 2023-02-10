@@ -1,14 +1,12 @@
 import { Field, Form, Formik } from 'formik';
-import isEmpty from 'lodash.isempty';
 import { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { registerUser } from '../../../utils/resolvers';
 import CartContext from '../../../utils/StateContext';
 import { User } from '../../../utils/Type';
 import { runValidation } from '../../../utils/validations';
 import Button from '../../atoms/button';
 import Input from '../../atoms/input';
-import Logo from '../../atoms/logo';
 import './style.scss';
 
 const RegisterForm = () => {

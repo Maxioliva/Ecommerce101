@@ -10,7 +10,7 @@ type LogoProps = {
 
 const Logo = ({ secondary, className }: LogoProps) => (
   <Link className="link" to="/">
-    <span className={classNames('logo', { 'logo--secondary': secondary }, className)}>ANYMA SHOP</span>
+    <span className={classNames('logo', { 'logo--secondary': secondary }, className)}>ANYMA</span>
   </Link>
 );
 

@@ -1,19 +1,10 @@
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import {
-  collection,
-  deleteDoc,
-  doc,
+  collection, doc,
   getDocs,
   getFirestore,
-  query,
-  QueryDocumentSnapshot,
-  setDoc,
-  Timestamp,
-  updateDoc,
-  where,
+  query, setDoc, where
 } from 'firebase/firestore';
-import isequal from 'lodash.isequal';
-import { nanoid } from 'nanoid';
 import callApi from './callApi';
 import firebaseApp from './firebaseApp';
 import { Address, Order, Product, UpdateBasketOptions, User, WishList } from './Type';
@@ -65,12 +56,12 @@ export const updateBasket = async (basketOptions: UpdateBasketOptions) => {
 
   const basket = await callApi({
     method: 'PUT',
-    endpoint: `/basket`,
+    endpoint: '/basket',
     payload: {
       userId,
-      ...(products && { products }),
       ...(address && { address }),
       ...(payment && { payment }),
+      ...(products && { products }),
       ...(completedAt && { completedAt }),
       ...(isCompleted && { isCompleted }),
     },
@@ -94,7 +85,7 @@ export const getWishList = async (userId: string) => {
 };
 
 export const updateWishList = async (products: Product[], userId: string) => {
-  await callApi({ method: 'PUT', endpoint: `/wishlist`, payload: { userId, products } });
+  await callApi({ method: 'PUT', endpoint: '/wishlist', payload: { userId, products } });
 };
 
 export const getAddresses = async (userId: string) => {

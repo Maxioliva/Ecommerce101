@@ -1,15 +1,13 @@
-import { useContext, useEffect, useState, MouseEvent } from 'react';
-import CartContext from '../../../utils/StateContext';
-import './style.scss';
-import Icon from '../../atoms/icono';
-import Spinner from '../../atoms/loadingSpinner';
+import { MouseEvent, useContext, useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { useNavigate } from 'react-router-dom';
 import { getAssetUrl } from '../../../utils/config';
+import CartContext from '../../../utils/StateContext';
 import useIsMobile from '../../../utils/useIsMobile';
 import Button from '../../atoms/button';
-import { getAllProducts } from '../../../utils/ProductsResolvers';
-import { Product } from '../../../utils/Type';
-import { useNavigate } from 'react-router-dom';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import Icon from '../../atoms/icono';
+import Spinner from '../../atoms/loadingSpinner';
+import './style.scss';
 
 type View = 'list' | 'gridx2' | 'gridx3';
 
@@ -17,7 +15,6 @@ const Products = () => {
   const isMobile = useIsMobile();
   const [mobileView, setMobileView] = useState<{ current: View; next: View }>({ current: 'gridx2', next: 'gridx3' });
   const { wishList, wishListHandler, addItemToCart, searchResult, getString, fetchProducts } = useContext(CartContext);
-  const [page, setPage] = useState(30);
   const navigate = useNavigate();
   const toggleView = () => {
     if (mobileView.current === 'gridx2') {
@@ -29,9 +26,14 @@ const Products = () => {
     }
   };
 
-  const handlerAddtoCart = (id: string, e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+  const handlerAddtoCart = (id: string, e: MouseEvent<HTMLButtonElement>) => {
     addItemToCart(id);
-    if (e && e.stopPropagation) e.stopPropagation();
+    e.stopPropagation();
+  };
+
+  const addTowishList = (id: string, e: MouseEvent<HTMLDivElement>) => {
+    wishListHandler(id);
+    e.stopPropagation();
   };
 
   // useEffect(() => {
@@ -84,7 +86,7 @@ const Products = () => {
               value={!!wishList.find(item => item.id === product.id)}
               size={25}
               icon="wishlist"
-              onClick={() => wishListHandler(product.id)}
+              onClick={(e: MouseEvent<HTMLDivElement>) => addTowishList(product.id, e)}
             />
             <img className="products__image" src={product.images[0]} alt={product.title} />
             <h3 className="products__title">{product.title}</h3>

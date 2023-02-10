@@ -1,16 +1,14 @@
+import { Field, Form, Formik } from 'formik';
 import { useContext } from 'react';
-import CartContext from '../../../utils/StateContext';
-import { getAssetUrl } from '../../../utils/config';
-import { Formik, Field, Form } from 'formik';
-import { updateBasket } from '../../../utils/resolvers';
-import './style.scss';
-import OrderSummary from '../../atoms/orderSummary';
 import { useNavigate } from 'react-router-dom';
+import { getAssetUrl } from '../../../utils/config';
+import CartContext from '../../../utils/StateContext';
 import Button from '../../atoms/button';
-import { Timestamp } from 'firebase/firestore';
+import OrderSummary from '../../atoms/orderSummary';
+import './style.scss';
 
 const Payment = () => {
-  const { user, getOrder, getString, updateBasket } = useContext(CartContext);
+  const { user, getString, confirmOrder } = useContext(CartContext);
   const navigate = useNavigate();
 
   if (!user) {
@@ -22,9 +20,7 @@ const Payment = () => {
   };
 
   const submitHandler = async (values: typeof initialValues) => {
-    const dateInSeconds = Timestamp.fromDate(new Date()).seconds;
-    await updateBasket({ userId: user.id, payment: values.picked, isCompleted: true, completedAt: dateInSeconds });
-    await getOrder(user.id);
+    await confirmOrder(values.picked);
     navigate('/ordersuccess');
   };
 

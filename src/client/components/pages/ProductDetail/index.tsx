@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getAssetUrl } from '../../../utils/config';
 import CartContext from '../../../utils/StateContext';
 import { FullProduct } from '../../../utils/Type';
 import Button from '../../atoms/button';

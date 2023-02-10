@@ -1,15 +1,13 @@
-import { useContext, useEffect, useState, MouseEvent } from 'react';
-import CartContext from '../../../utils/StateContext';
-import './style.scss';
-import Icon from '../../atoms/icono';
-import Spinner from '../../atoms/loadingSpinner';
+import { MouseEvent, useContext, useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { useNavigate } from 'react-router-dom';
 import { getAssetUrl } from '../../../utils/config';
+import CartContext from '../../../utils/StateContext';
 import useIsMobile from '../../../utils/useIsMobile';
 import Button from '../../atoms/button';
-import { getAllProducts } from '../../../utils/ProductsResolvers';
-import { Product } from '../../../utils/Type';
-import { useNavigate } from 'react-router-dom';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import Icon from '../../atoms/icono';
+import Spinner from '../../atoms/loadingSpinner';
+import './style.scss';
 
 type View = 'list' | 'gridx2' | 'gridx3';
 

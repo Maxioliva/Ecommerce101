@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { ButtonHTMLAttributes, Children, DetailedHTMLProps } from 'react';
+import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
 import LoadingDots from '../loadingDots';
 import './style.scss';
 

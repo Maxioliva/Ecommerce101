@@ -1,11 +1,10 @@
 import { Field, Form, Formik } from 'formik';
 import { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import CartContext from '../../../utils/StateContext';
 import { runValidation } from '../../../utils/validations';
 import Button from '../../atoms/button';
 import Input from '../../atoms/input';
-import LoadingDots from '../../atoms/loadingDots';
 import Logo from '../../atoms/logo';
 import './style.scss';
 
@@ -47,34 +46,32 @@ const LoginForm = () => {
   return (
     <>
       <Formik initialValues={initialValues} onSubmit={submitHandler}>
-        {({ errors }) => (
-          <>
-            <div className="formik__header">
-              <Logo secondary />
+        <>
+          <div className="formik__header">
+            <Logo secondary />
+          </div>
+          <Form className="form">
+            <div className="sign">{getString('speech.singIn')}</div>
+            <Field
+              component={Input}
+              name="email"
+              label="Email"
+              type="email"
+              validate={(value: string) => runValidation(value, 'email')}
+            />
+            <Field
+              component={Input}
+              name="password"
+              label={getString('payment.password')}
+              type="password"
+              validate={(value: string) => runValidation(value, 'password')}
+            />
+            <div className="button-container">
+              <Button type="submit">{getString('buttons.login')}</Button>
             </div>
-            <Form className="form">
-              <div className="sign">{getString('speech.singIn')}</div>
-              <Field
-                component={Input}
-                name="email"
-                label="Email"
-                type="email"
-                validate={(value: string) => runValidation(value, 'email')}
-              />
-              <Field
-                component={Input}
-                name="password"
-                label={getString('payment.password')}
-                type="password"
-                validate={(value: string) => runValidation(value, 'password')}
-              />
-              <div className="button-container">
-                <Button type="submit">{getString('buttons.login')}</Button>
-              </div>
-              <div className="form-message">{getString('speech.byContinuing')}</div>
-            </Form>
-          </>
-        )}
+            <div className="form-message">{getString('speech.byContinuing')}</div>
+          </Form>
+        </>
       </Formik>
       <div className="bottom-form">
         <div className="separator-line">{getString('speech.newUser')}</div>

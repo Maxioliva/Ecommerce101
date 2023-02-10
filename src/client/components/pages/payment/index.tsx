@@ -1,12 +1,11 @@
+import { Field, Form, Formik } from 'formik';
 import { useContext } from 'react';
-import CartContext from '../../../utils/StateContext';
-import { getAssetUrl } from '../../../utils/config';
-import { Formik, Field, Form } from 'formik';
-import { updateBasket } from '../../../utils/resolvers';
-import './style.scss';
-import OrderSummary from '../../atoms/orderSummary';
 import { useNavigate } from 'react-router-dom';
+import { getAssetUrl } from '../../../utils/config';
+import CartContext from '../../../utils/StateContext';
 import Button from '../../atoms/button';
+import OrderSummary from '../../atoms/orderSummary';
+import './style.scss';
 
 const Payment = () => {
   const { user, getString, confirmOrder } = useContext(CartContext);

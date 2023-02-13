@@ -15,28 +15,6 @@ API.get('/', async (_req, res) => {
   res.status(201).send(orders);
 });
 
-API.get('/api/v1/wishlist/:wishlistID', async (_req, res) => {
-  // Returns all orders from a specific user id
-
-  const id = _req.params.wishlistID;
-  const docRef = db.collection('WishList').doc(id);
-  const doc = await docRef.get();
-
-  if (!doc.exists) {
-    res.status(200).send([]);
-    return;
-  }
-
-  res.status(200).send(doc.data());
-});
-
-API.put('/api/v1/wishlist', async (_req, res) => {
-  const payload = _req.body;
-  const docRef = db.collection('WishList').doc(payload.userId + '-w');
-  await docRef.set(payload);
-  res.status(200);
-});
-
 API.get('/testok', (_req, res) => {
   res.status(200).send({ todoOk: 'todo bien pa' });
 });
@@ -55,22 +33,6 @@ API.get('/api/v1/basket/:userId', async (_req, res) => {
   }
   const basket = querySnapshot.docs[0].data();
   res.status(200).send(basket);
-});
-
-API.get('/api/v1/customer/orders/:userId', async (_req, res) => {
-  // Returns all orders from a specific user id
-  const userId = _req.params.userId;
-  const querySnapshot = await db
-    .collection('Orders')
-    .where('userId', '==', userId)
-    .where('isCompleted', '==', true)
-    .get();
-  if (querySnapshot.empty) {
-    res.status(201).send([]);
-    return;
-  }
-  const orders = querySnapshot.docs.map(o => o.data());
-  res.status(200).send(orders);
 });
 
 API.put('/api/v1/basket', async (_req, res) => {
@@ -92,6 +54,44 @@ API.put('/api/v1/basket', async (_req, res) => {
   await docRef.set(payload, { merge: true });
   const currentBasket = querySnapshot.docs[0].data();
   res.status(200).send({ ...currentBasket, ...payload });
+});
+
+API.get('/api/v1/customer/orders/:userId', async (_req, res) => {
+  // Returns all orders from a specific user id
+  const userId = _req.params.userId;
+  const querySnapshot = await db
+    .collection('Orders')
+    .where('userId', '==', userId)
+    .where('isCompleted', '==', true)
+    .get();
+  if (querySnapshot.empty) {
+    res.status(201).send([]);
+    return;
+  }
+  const orders = querySnapshot.docs.map(o => o.data());
+  res.status(200).send(orders);
+});
+
+API.get('/api/v1/wishlist/:wishlistID', async (_req, res) => {
+  // Returns all orders from a specific user id
+
+  const id = _req.params.wishlistID;
+  const docRef = db.collection('WishList').doc(id);
+  const doc = await docRef.get();
+
+  if (!doc.exists) {
+    res.status(200).send([]);
+    return;
+  }
+
+  res.status(200).send(doc.data());
+});
+
+API.put('/api/v1/wishlist', async (_req, res) => {
+  const payload = _req.body;
+  const docRef = db.collection('WishList').doc(payload.userId + '-w');
+  await docRef.set(payload);
+  res.status(200);
 });
 
 API.get('/api/v1/customer/address/:userId', async (_req, res) => {

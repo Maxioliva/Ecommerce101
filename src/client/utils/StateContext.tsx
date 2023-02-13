@@ -13,7 +13,7 @@ import Spinner from '../components/atoms/loadingSpinner';
 import * as resolvers from '../utils/resolvers';
 import { auth, updateBasket, updateWishList } from '../utils/resolvers';
 import { Language, Product, SearchResult, ShopState, SimpleOrder, User } from '../utils/Type';
-import { getAllProducts, searchProduct } from './ProductsResolvers';
+import { getAllProducts, searchProduct, searchCategories } from './ProductsResolvers';
 // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
 const translations = require('./translations.json');
 
@@ -201,6 +201,7 @@ export const CartProvider = ({ children }: any) => {
         getString,
         login,
         logOut,
+        searchCategories,
         searchHandler,
         searchProduct,
         wishListHandler,

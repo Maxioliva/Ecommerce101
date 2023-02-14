@@ -23,7 +23,7 @@ export const searchProduct = async (value: string) => {
   return response.data;
 };
 
-export const searchCategories = async () => {
-  const response = await api.get('/products/categories');
+export const searchCategories = async (value: string) => {
+  const response = await api.get(`/products/category/${value}`);
   return response.data;
 };

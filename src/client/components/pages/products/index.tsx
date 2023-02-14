@@ -36,17 +36,6 @@ const Products = () => {
     e.stopPropagation();
   };
 
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const result = await getAllProducts();
-  //       setSearchResult(result.products);
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   })();
-  // }, []);
-
   const handlerScroll = () => fetchProducts(undefined, searchResult.skip + searchResult.limit);
 
   if (!searchResult.products.length) {
@@ -55,7 +44,6 @@ const Products = () => {
 
   return (
     <div className="products">
-      {/* <div className="products__filter">filter</div> */}
       {isMobile && (
         <img
           className="products__view"

@@ -86,7 +86,7 @@ const NavBar = () => {
           </>
         )}
       </div>
-      <Categories className="navbar__categories" />
+      {!isMobile && <Categories className="navbar__categories" />}
     </div>
   );
 };

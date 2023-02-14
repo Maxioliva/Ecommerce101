@@ -101,6 +101,14 @@ export const CartProvider = ({ children }: any) => {
       });
   };
 
+  const handlerCategories = async (value: string) => {
+    const response = await searchCategories(value);
+    console.log(response);
+    setSearchResult(response);
+  };
+
+  // console.log('aca rey', handlerCategories);
+
   const searchHandler = async (search?: string, skip?: number, limit?: number) => {
     const result = await getAllProducts(search, skip, limit);
     setSearchResult(result);
@@ -199,6 +207,7 @@ export const CartProvider = ({ children }: any) => {
         deleteItemToCart,
         fetchProducts,
         getString,
+        handlerCategories,
         login,
         logOut,
         searchCategories,

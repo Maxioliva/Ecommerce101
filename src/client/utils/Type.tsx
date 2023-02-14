@@ -71,7 +71,8 @@ export type ShopState = {
   // createOrder: (products: Product[]) => Promise<void>;
   updateBasket: (basketOptions: UpdateBasketOptions) => Promise<any>;
   getOrders: (userId: string) => Promise<Omit<Order, 'id' | 'userId' | 'isCompleted'>[]>;
-  searchCategories: () => Promise<[]>;
+  searchCategories: (value: string) => Promise<[]>;
+  handlerCategories: (value: string) => Promise<void>;
 };
 
 export type Order = {

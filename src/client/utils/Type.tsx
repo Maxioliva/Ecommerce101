@@ -32,6 +32,10 @@ export type FullProduct = Product & {
   thumbnail: string;
 };
 
+export type SellProduct = {
+  idOuner: string;
+};
+
 export type Address = {
   firstName: string;
   lastName: string;
@@ -84,6 +88,17 @@ export type Order = {
   completedAt?: number;
   paymentMethod?: string;
   total?: number;
+};
+
+export type Transaction = {
+  id: string;
+  idBuyer: string;
+  idSeller: string;
+  product: Product[];
+  address?: Omit<Address, 'id'>[];
+  completedAt?: number;
+  paymentMethod?: string;
+  total: number;
 };
 
 export type SimpleOrder = Omit<Order, 'id' | 'userId' | 'isCompleted'>;

@@ -1,0 +1,74 @@
+@import '../../../utils/variables';
+
+.sellers {
+  display: flex;
+  margin-top: 50px;
+  justify-content: space-between;
+
+  &__user {
+    margin-right: 20px;
+    width: 530px;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 3px 3px;
+    border: 3px solid $primaryColor;
+    border-radius: 8px;
+    // background-color: bisque;
+
+    &-button {
+      margin: 1px;
+      border: none;
+      text-align: center;
+      cursor: pointer;
+      text-transform: uppercase;
+      outline: none;
+      overflow: hidden;
+      position: relative;
+      color: black;
+      font-weight: 700;
+      font-size: 15px;
+      background-color: white;
+      padding: 17px 60px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+      & span {
+        position: relative;
+        z-index: 1;
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 490%;
+        width: 140%;
+        background: $primaryColor;
+        color: white;
+        -webkit-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+        -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+        transform: translateX(-95%) translateY(-25%) rotate(45deg);
+      }
+
+      &:hover:after {
+        -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+        transform: translateX(0%) translateY(-25%) rotate(45deg);
+      }
+    }
+  }
+
+  &__userid {
+    font-size: 30px;
+    text-align: center;
+    padding: 25px;
+  }
+
+  &__block {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+  }
+}

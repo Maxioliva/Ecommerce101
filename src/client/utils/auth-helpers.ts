@@ -1,6 +1,7 @@
 const TOKEN_KEY = 'ANYMA_TOKEN';
 
 console.log(TOKEN_KEY);
+
 // export const setToken = (token: string) => {
 //   localStorage.setItem(TOKEN_KEY, token);
 // };

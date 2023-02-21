@@ -78,7 +78,7 @@ export const getOrders = async (userId: string) => {
 export const getWishList = async (userId: string) => {
   const wishlistFromServer = await callApi({ method: 'GET', endpoint: `/wishlist/${userId + '-w'}` });
 
-  if (wishlistFromServer.products.length) {
+  if (wishlistFromServer.products) {
     return (wishlistFromServer as WishList).products;
   }
   return [];

@@ -5,14 +5,18 @@ import 'regenerator-runtime/runtime';
 import App from './App';
 import { CartProvider } from './utils/StateContext';
 import { IntlProvider } from 'react-intl';
+import { ApolloProvider } from '@apollo/client';
+import client from './utils/Apollo';
 
 (async () => {
   ReactDOM.render(
-    <CartProvider>
-      <StrictMode>
-        <App />
-      </StrictMode>
-    </CartProvider>,
+    <ApolloProvider client={client}>
+      <CartProvider>
+        <StrictMode>
+          <App />
+        </StrictMode>
+      </CartProvider>
+    </ApolloProvider>,
     document.getElementById('root')
   );
 })();

@@ -28,7 +28,7 @@ API.get('/api/v1/basket/:userId', async (_req, res) => {
     .where('isCompleted', '==', false)
     .get();
   if (querySnapshot.empty) {
-    res.status(201).send({ userId: userId, products: [], isCompleted: false });
+    res.status(201).send({ userId, products: [], isCompleted: false });
     return;
   }
   const basket = querySnapshot.docs[0].data();
@@ -148,6 +148,13 @@ API.delete('/api/v1/customer/address/:id', async (_req, res) => {
   const addressRef = db.collection('Addresses').doc(_req.params.id);
   await addressRef.delete();
   res.status(200).send({});
+});
+
+API.post('/api/v1/products', async (_req, res) => {
+  const product = _req.body;
+  const productRef = db.collection('Products').doc(nanoid());
+  await productRef.set({ ...product, id: productRef.id });
+  res.status(201).send({});
 });
 
 // API.post('/api/v1/register', async (_req, res) => {

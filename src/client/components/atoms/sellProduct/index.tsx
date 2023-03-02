@@ -1,19 +1,111 @@
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import CartContext from '../../../utils/StateContext';
+import { Field, Form, Formik } from 'formik';
 import './style.scss';
+import Button from '../button';
+import Input from '../input';
+import { runValidation } from '../../../utils/validations';
+import { uploadProduct } from '../../../utils/resolvers';
+import { SellerProduct } from '../../../utils/Type';
+import SelectBox from '../select';
 
 const SellProduct = () => {
-  console.log();
+  const { user } = useContext(CartContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  if (!user) {
+    navigate('/');
+  }
+
+  const initialValues = {
+    title: '',
+    description: '',
+    price: '',
+    brand: '',
+    color: [],
+    categories: [],
+    images: [],
+  };
+
+  const submitHandler = async (values: typeof initialValues) => {
+    //aa van la ejecucion de los resolvers
+  };
+  useEffect(() => {
+    (async () => {
+      const newProduct: Omit<SellerProduct, 'id'> = {
+        ownerId: user!.id,
+        title: 'chomba',
+        description: 'aca esta chomaba del celeste aniversario de 100 años',
+        price: 123,
+        brand: 'belgrano SR',
+        color: ['red', 'blac', 'blue'],
+        categories: ['woman', 'man'],
+        images: ['imagen 1', 'imagen 2'],
+      };
+      await uploadProduct(newProduct);
+    })();
+  }, []);
+
   return (
     <div className="sellProduct">
-      <div>Titulo</div>
-      <div>Imagen</div>
-      <div>
-        <div>Descripcion del producto</div>
-        <div>Precio</div>
-        <div>marca</div>
-        <div>stock</div>
-        <div>categoria button</div>
-      </div>
-      <div>Vender button</div>
+      <Formik initialValues={initialValues} onSubmit={submitHandler}>
+        {({ errors }) => (
+          <Form className="form">
+            <div className="sign"> Vende tu producto </div>
+            <Field
+              component={Input}
+              name="title"
+              label="Title of Product"
+              validate={(value: string) => runValidation(value, 'title')}
+            />
+            <Field
+              component={Input}
+              name="images"
+              label="URl Images"
+              validate={(value: string) => runValidation(value, 'urlImg')}
+            />
+            <Field
+              component={Input}
+              name="description"
+              label="Description"
+              validate={(value: string) => runValidation(value, 'description')}
+            />
+            <Field
+              component={Input}
+              name="brand"
+              label="Brand"
+              validate={(value: string) => runValidation(value, 'brand')}
+            />
+
+            <SelectBox
+              options={[]}
+              onChange={function (e: ChangeEvent<HTMLSelectElement>): void {
+                throw new Error('Function not implemented.');
+              }}
+            />
+            {/* <Field
+              component={Input}
+              name="color"
+              label="Color"
+              validate={(value: string) => runValidation(value, 'color')}
+            />
+            <Field
+              component={Input}
+              name="categories"
+              label="Categories"
+              validate={(value: string) => runValidation(value, 'categories')}
+            /> */}
+            <Field
+              component={Input}
+              name="price"
+              label="Price"
+              validate={(value: string) => runValidation(value, 'price')}
+            />
+            <Button type="submit">Update</Button>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 };

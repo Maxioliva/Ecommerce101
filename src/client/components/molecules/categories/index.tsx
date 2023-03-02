@@ -7,7 +7,7 @@ import './style.scss';
 
 type Category = { name: string; path?: string; subcategories?: Omit<Category, 'subcategories'>[] };
 
-const categories03: Category[] = [
+export const categories03: Category[] = [
   {
     name: 'womens',
     subcategories: [
@@ -43,7 +43,6 @@ const categories03: Category[] = [
 ];
 
 type categoriesProps = {
-  control?: 'womens' | 'mens' | 'home' | 'tech' | 'automotive' | 'groceries';
   className?: string;
 };
 

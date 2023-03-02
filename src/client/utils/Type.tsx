@@ -124,3 +124,16 @@ export type UpdateBasketOptions = {
   payment?: string;
   completedAt?: number;
 };
+
+export type SellerProduct = {
+  id: string;
+  ownerId: string;
+  title: string;
+  description: string;
+  brand: string;
+  color: string[];
+  categories: string[];
+  images: string[];
+  rating?: number;
+  price: number;
+};

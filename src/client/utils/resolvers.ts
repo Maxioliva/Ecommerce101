@@ -1,8 +1,9 @@
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { collection, doc, getDocs, getFirestore, query, setDoc, where } from 'firebase/firestore';
+import SellProduct from '../components/atoms/sellProduct';
 import callApi from './callApi';
 import firebaseApp from './firebaseApp';
-import { Address, Order, Product, UpdateBasketOptions, User, WishList } from './Type';
+import { Address, Order, Product, SellerProduct, UpdateBasketOptions, User, WishList } from './Type';
 
 export const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
@@ -95,4 +96,8 @@ export const saveAddress = async (address: Omit<Address, 'id' | 'userId'>, userI
 export const deleteAddress = async (id: string) => {
   const addresses: Address[] = await callApi({ method: 'DELETE', endpoint: `/customer/address/${id}` });
   return addresses;
+};
+
+export const uploadProduct = async (product: Omit<SellerProduct, 'id'>) => {
+  await callApi({ method: 'POST', endpoint: '/products', payload: { ...product } });
 };

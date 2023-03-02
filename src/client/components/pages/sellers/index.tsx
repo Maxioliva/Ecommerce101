@@ -1,5 +1,4 @@
 import { useContext, useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import CartContext from '../../../utils/StateContext';
 import SellProduct from '../../atoms/sellProduct';
 import './style.scss';
@@ -19,7 +18,7 @@ const Seller = () => {
           <span>Mis ventas</span>
         </div>
         <div className="sellers__user-button">
-          <span>Help Me</span>
+          <span>Mis productos</span>
         </div>
         <div className="sellers__user-button">
           <span>opciones para el perfil</span>

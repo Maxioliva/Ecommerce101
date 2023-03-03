@@ -77,6 +77,8 @@ export type ShopState = {
   getOrders: (userId: string) => Promise<Omit<Order, 'id' | 'userId' | 'isCompleted'>[]>;
   searchCategories: (value: string) => Promise<[]>;
   handlerCategories: (value: string) => Promise<void>;
+  selectState: (value: string) => void;
+  colors: string;
 };
 
 export type Order = {
@@ -127,7 +129,7 @@ export type UpdateBasketOptions = {
 
 export type SellerProduct = {
   id: string;
-  ownerId: string;
+  ownerId?: string;
   title: string;
   description: string;
   brand: string;
@@ -135,5 +137,5 @@ export type SellerProduct = {
   categories: string[];
   images: string[];
   rating?: number;
-  price: number;
+  price: string;
 };

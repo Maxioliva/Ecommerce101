@@ -19,6 +19,7 @@ const SellProduct = () => {
   }
 
   const initialValues = {
+    ownerId: user?.id,
     title: '',
     description: '',
     price: '',
@@ -28,24 +29,27 @@ const SellProduct = () => {
     images: [],
   };
 
-  const submitHandler = async (values: typeof initialValues) => {
+  const submitHandler = async (values: Omit<SellerProduct, 'id'>) => {
     //aa van la ejecucion de los resolvers
+
+    await uploadProduct(values);
   };
-  useEffect(() => {
-    (async () => {
-      const newProduct: Omit<SellerProduct, 'id'> = {
-        ownerId: user!.id,
-        title: 'chomba',
-        description: 'aca esta chomaba del celeste aniversario de 100 años',
-        price: 123,
-        brand: 'belgrano SR',
-        color: ['red', 'blac', 'blue'],
-        categories: ['woman', 'man'],
-        images: ['imagen 1', 'imagen 2'],
-      };
-      await uploadProduct(newProduct);
-    })();
-  }, []);
+
+  // useEffect(() => {
+  //   (async () => {
+  //     const newProduct: Omit<SellerProduct, 'id'> = {
+  //       ownerId: user!.id,
+  //       title: value.title,
+  //       description: 'aca esta chomaba del celeste aniversario de 100 años',
+  //       price: 123,
+  //       brand: 'belgrano SR',
+  //       color: ['red', 'blac', 'blue'],
+  //       categories: ['woman', 'man'],
+  //       images: ['imagen 1', 'imagen 2'],
+  //     };
+  //     await uploadProduct(newProduct);
+  //   })();
+  // }, []);
 
   return (
     <div className="sellProduct">
@@ -77,25 +81,8 @@ const SellProduct = () => {
               label="Brand"
               validate={(value: string) => runValidation(value, 'brand')}
             />
-
-            <SelectBox
-              options={[]}
-              onChange={function (e: ChangeEvent<HTMLSelectElement>): void {
-                throw new Error('Function not implemented.');
-              }}
-            />
-            {/* <Field
-              component={Input}
-              name="color"
-              label="Color"
-              validate={(value: string) => runValidation(value, 'color')}
-            />
-            <Field
-              component={Input}
-              name="categories"
-              label="Categories"
-              validate={(value: string) => runValidation(value, 'categories')}
-            /> */}
+            <SelectBox label={'colors'} />
+            <SelectBox label={'categories'} />
             <Field
               component={Input}
               name="price"

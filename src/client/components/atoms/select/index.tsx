@@ -1,43 +1,45 @@
 /* eslint-disable no-shadow */
-import { ChangeEvent } from 'react';
+import React, { useContext, useState } from 'react';
+import CartContext from '../../../utils/StateContext';
 
 type SelectOption = {
-  label: ['man', 'woman'];
-  value: string;
+  label: 'colors' | 'categories';
 };
 
-type Props = {
-  value?: string;
-  label?: string;
-  disabled?: boolean;
-  className?: string;
-  options: SelectOption[];
-  onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
-};
+const SelectBox: React.FC<SelectOption> = ({ label }) => {
+  const { selectState, colors } = useContext(CartContext);
 
-const SelectBox = ({ value, label, disabled, className, options, onChange }: Props) => {
-  const Box = (
-    <select className={className} disabled={disabled} onChange={onChange} value={value}>
-      {options.map(({ value, label }) => (
-        <option key={value} value={value}>
-          {label[0]}
-        </option>
-      ))}
-    </select>
+  const colorOptions = {
+    options: ['red', 'blue', 'black'],
+  };
+
+  const categorieOptions = {
+    options: ['male', 'female'],
+  };
+
+  return (
+    <div>
+      <select value={colors} onChange={e => selectState(e.target.value)}>
+        <option>Select an option</option>
+        {label === 'colors' &&
+          colorOptions.options.map(item => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
+        {label === 'categories' &&
+          categorieOptions.options.map(item => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
+      </select>
+    </div>
   );
-
-  return Box;
-  // const result = label ? (
-  //   <Label>
-  //     <div className={styles.Label}>{label}</div>
-  //     {selectBox}
-  //   </Label>
-  // ) : (
-  //   selectBox
-  // );
-
-  // return <div className={styles.SelectBox}>{result}</div>;
 };
 
-export type { SelectOption };
 export default SelectBox;
+
+// {options.map(({ value, label }) => (
+//   <div key={value}>{label[0]}</div>
+// ))}

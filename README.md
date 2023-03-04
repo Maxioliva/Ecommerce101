@@ -50,7 +50,7 @@
 
 ## **Deploys**:
 
-- We have both applications deployed by [render](https://dashboard.render.com/) [elchamuyaso@gmail.com | Belgrano1905].
+- We have both applications deployed by [render](https://dashboard.render.com/) [elchamuyin's google credentials] 
 - The server url is [https://elchamuserver.onrender.com](https://elchamuserver.onrender.com)
 - The client url is [https://elchamuyin.onrender.com](https://elchamuyin.onrender.com)
 

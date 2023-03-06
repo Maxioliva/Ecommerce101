@@ -1,14 +1,14 @@
-import { ChangeEvent, useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import CartContext from '../../../utils/StateContext';
 import { Field, Form, Formik } from 'formik';
-import './style.scss';
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { uploadProduct } from '../../../utils/resolvers';
+import CartContext from '../../../utils/StateContext';
+import { SellerProduct } from '../../../utils/Type';
+import { runValidation } from '../../../utils/validations';
 import Button from '../button';
 import Input from '../input';
-import { runValidation } from '../../../utils/validations';
-import { uploadProduct } from '../../../utils/resolvers';
-import { SellerProduct } from '../../../utils/Type';
 import SelectBox from '../select';
+import './style.scss';
 
 const SellProduct = () => {
   const { user } = useContext(CartContext);

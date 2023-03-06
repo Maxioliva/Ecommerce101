@@ -5,7 +5,7 @@ import CartContext from '../../../utils/StateContext';
 
 import './style.scss';
 
-type Category = { name: string; path?: string; subcategories?: Omit<Category, 'subcategories'>[] };
+export type Category = { name: string; path?: string; subcategories?: Omit<Category, 'subcategories'>[] };
 
 export const categories03: Category[] = [
   {

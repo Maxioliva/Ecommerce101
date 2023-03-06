@@ -7,7 +7,7 @@ import { SellerProduct } from '../../../utils/Type';
 import { runValidation } from '../../../utils/validations';
 import Button from '../button';
 import Input from '../input';
-import SelectBox from '../select';
+import Select from '../select';
 import './style.scss';
 
 const SellProduct = () => {
@@ -24,15 +24,13 @@ const SellProduct = () => {
     description: '',
     price: '',
     brand: '',
-    color: [],
-    categories: [],
-    images: [],
+    colors: [] as string[],
+    categories: [] as string[],
+    images: [] as string[],
   };
-
-  const submitHandler = async (values: Omit<SellerProduct, 'id'>) => {
+  const submitHandler = async (values: typeof initialValues) => {
     //aa van la ejecucion de los resolvers
-
-    await uploadProduct(values);
+    // await uploadProduct(values);
   };
 
   // useEffect(() => {
@@ -51,12 +49,24 @@ const SellProduct = () => {
   //   })();
   // }, []);
 
+  const colorOptions = [
+    { label: 'Red', value: 'Red' },
+    { label: 'Blue', value: 'Blue' },
+    { label: 'Black', value: 'Black' },
+    { label: 'Yellow', value: 'Yellow' },
+    { label: 'White', value: 'White' },
+    { label: 'Green', value: 'Green' },
+    { label: 'Violet', value: 'Violet' },
+    { label: 'Orange', value: 'Orange' },
+  ];
+
   return (
     <div className="sellProduct">
       <Formik initialValues={initialValues} onSubmit={submitHandler}>
         {({ errors }) => (
           <Form className="form">
             <div className="sign"> Vende tu producto </div>
+            <Field component={Select} name="colors" label="Colors" options={colorOptions} />
             <Field
               component={Input}
               name="title"
@@ -81,14 +91,14 @@ const SellProduct = () => {
               label="Brand"
               validate={(value: string) => runValidation(value, 'brand')}
             />
-            <SelectBox label={'colors'} />
-            <SelectBox label={'categories'} />
+
             <Field
               component={Input}
               name="price"
               label="Price"
               validate={(value: string) => runValidation(value, 'price')}
             />
+
             <Button type="submit">Update</Button>
           </Form>
         )}

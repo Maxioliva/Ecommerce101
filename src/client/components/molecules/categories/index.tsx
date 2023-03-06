@@ -5,18 +5,17 @@ import CartContext from '../../../utils/StateContext';
 
 import './style.scss';
 
-export type Category = { name: string; path?: string; subcategories?: Omit<Category, 'subcategories'>[] };
-
+export type Category = { name: string; subcategories?: Category[] };
 export const categories03: Category[] = [
   {
     name: 'womens',
     subcategories: [
       { name: 'tops' },
-      { name: 'dresses', path: 'womens-dresses' },
-      { name: 'shoes', path: 'womens-shoes' },
-      { name: 'bags', path: 'womens-bags' },
-      { name: 'jewellery', path: 'womens-jewellery' },
-      { name: 'watches', path: 'womens-watches' },
+      { name: 'dresses' },
+      { name: 'shoes' },
+      { name: 'bags' },
+      { name: 'jewellery' },
+      { name: 'watches' },
       { name: 'skincare' },
       { name: 'fragrances' },
     ],
@@ -26,16 +25,15 @@ export const categories03: Category[] = [
     subcategories: [
       {
         name: 'shirts',
-        path: 'mens-shirts',
       },
-      { name: 'shoes', path: 'mens-shoes' },
-      { name: 'watches', path: 'mens-watches' },
+      { name: 'shoes' },
+      { name: 'watches' },
       { name: 'sunglasses' },
     ],
   },
   {
     name: 'home',
-    subcategories: [{ name: 'decoration', path: 'home-decoration' }, { name: 'furniture' }, { name: 'lighting' }],
+    subcategories: [{ name: 'decoration' }, { name: 'furniture' }, { name: 'lighting' }],
   },
   { name: 'tech', subcategories: [{ name: 'smartphones' }, { name: 'laptops' }] },
   { name: 'automotive', subcategories: [{ name: 'automotive' }, { name: 'motorcycle' }] },
@@ -65,13 +63,13 @@ const Categories = (props: categoriesProps) => {
   return (
     <div className="categories">
       <div className="categories__primary">
-        {categories03.map(({ name, subcategories, path }) => (
+        {categories03.map(({ name, subcategories }) => (
           <div
             key={name}
             onMouseEnter={() => setActiveCategory(name)}
             onMouseLeave={() => setActiveCategory(undefined)}
           >
-            <div className="categories__category" onClick={() => !subcategories && onClikCartegory(path ?? name)}>
+            <div className="categories__category" onClick={() => !subcategories && onClikCartegory(name)}>
               {name}
             </div>
             <div
@@ -79,9 +77,13 @@ const Categories = (props: categoriesProps) => {
                 'categories__secondary--selected': activeCategory === name,
               })}
             >
-              {subcategories?.map(({ name, path }: CategoryItemProps) => (
-                <div className="categories__category" key={name} onClick={() => onClikCartegory(path ?? name)}>
-                  {name}
+              {subcategories?.map(({ name: subcategoryName }: CategoryItemProps) => (
+                <div
+                  className="categories__category"
+                  key={subcategoryName}
+                  onClick={() => onClikCartegory(subcategoryName)}
+                >
+                  {subcategoryName}
                 </div>
               ))}
             </div>

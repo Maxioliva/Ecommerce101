@@ -1,33 +1,44 @@
-/* eslint-disable no-shadow */
-import React, { useContext, useState } from 'react';
-import CartContext from '../../../utils/StateContext';
-import { categories03 } from '../../molecules/categories/index';
+import { FieldProps } from 'formik';
+import { useState } from 'react';
+import { getAssetUrl } from '../../../utils/config';
+import './style.scss';
 
-type SelectOption = {
-  label: 'colors' | 'categories';
+type SelectOptionProps = FieldProps & {
+  options: { label: string; value: any; icon?: string }[];
+  onSelet: (value: any) => void;
 };
 
-const SelectBox: React.FC<SelectOption> = ({ label }) => {
-  const { selectState, colors } = useContext(CartContext);
+const Select = ({ options, field, form }: SelectOptionProps) => {
+  const [isOpen, setOpen] = useState(false);
 
-  const colorOptions = {
-    options: ['Red', 'Blue', 'Black', 'Yellow', 'White', 'Green', 'Violet', 'Orange'],
+  const onSelectHandler = (value: any) => {
+    setOpen(false);
+    const optionAlreadySelected = field.value.includes(value);
+    const newValue = optionAlreadySelected
+      ? [...field.value.filter((o: string) => o !== value)]
+      : [...field.value, value];
+    form.setFieldValue(field.name, newValue);
   };
 
   return (
-    <div>
-      <select value={colors} onChange={e => selectState(e.target.value)}>
-        <option>Select an option</option>
-        {label === 'colors' &&
-          colorOptions.options.map(item => (
-            <option key={item} value={item}>
-              {item}
-            </option>
+    <div className="select">
+      <div className="select__control" onClick={() => setOpen(!isOpen)}>
+        {field.name}
+      </div>
+      {isOpen && (
+        <div className="select__options">
+          {options.map(o => (
+            <div key={o.value} className="select__option" onClick={() => onSelectHandler(o.value)}>
+              {o.label}
+              {field.value.includes(o.value) && (
+                <img className="select__img" src={getAssetUrl('success.svg')} alt="checked" />
+              )}
+            </div>
           ))}
-        {label === 'categories' && categories03.map(({ name, subcategories }) => <option key={name}>{name}</option>)}
-      </select>
+        </div>
+      )}
     </div>
   );
 };
 
-export default SelectBox;
+export default Select;

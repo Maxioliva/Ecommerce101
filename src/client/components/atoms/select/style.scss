@@ -1,0 +1,39 @@
+.select {
+  margin: 0 auto;
+  background-color: bisque;
+  width: 150px;
+
+  &__control {
+    border: 1px solid black;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  &__options {
+    position: absolute;
+    width: 148px;
+    z-index: 2;
+    border: 1px solid black;
+    background-color: inherit;
+  }
+
+  &__option {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+
+    &:hover {
+      background-color: gray;
+      color: white;
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px solid black;
+    }
+  }
+
+  &__img {
+    height: 20px;
+  }
+}

@@ -1,7 +1,6 @@
 import { Field, Form, Formik } from 'formik';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { saveAddress, updateBasket } from '../../../utils/resolvers';
 import CartContext from '../../../utils/StateContext';
 import { Address } from '../../../utils/Type';
 import { runValidation } from '../../../utils/validations';
@@ -12,24 +11,16 @@ import OrderSummary from '../../atoms/orderSummary';
 import './style.scss';
 
 const Shipping = () => {
-  const [addressList, setAddressList] = useState<Address[]>([]);
-  const { user, basket, getAddresses, getString } = useContext(CartContext);
+  const { state, handlers } = useContext(CartContext);
+  const { getString, saveAddress, updateBasket } = handlers;
+
   const navigate = useNavigate();
 
-  if (!user) {
-    navigate('/');
-    return <></>;
-  }
-
-  const getAddressList = async () => {
-    const currentAddresses = await getAddresses(user.id);
-    setAddressList(currentAddresses);
-  };
-
-  if (!basket?.products.length) {
-    navigate('/');
-    return <></>;
-  }
+  useEffect(() => {
+    if (!state.user || !state.basket?.products.length) {
+      navigate('/');
+    }
+  }, [state.user, state.basket?.products.length]);
 
   const Addresss = {
     firstName: '',
@@ -43,8 +34,8 @@ const Shipping = () => {
   };
 
   const submitHandler = (values: Omit<Address, 'id' | 'userId'>) => {
-    updateBasket({ userId: user.id, address: values });
-    saveAddress(values, user.id);
+    updateBasket({ userId: state.user!.uid, address: values });
+    saveAddress(values, state.user!.uid);
     navigate('/checkout-payment');
   };
 
@@ -55,7 +46,7 @@ const Shipping = () => {
           {({ errors }) => (
             <Form>
               <h1 className="shipping__title">{getString('titles.shippingInformation')}</h1>
-              <AddressBook addressList={addressList} getAddressList={getAddressList} />
+              <AddressBook addressList={state.addresses} />
               <Field
                 component={Input}
                 name="firstName"

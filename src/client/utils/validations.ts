@@ -12,8 +12,8 @@ type InputType =
 type ErrorKey = 'isRequired' | 'minLength' | 'maxLength' | 'invalid';
 
 type ValidationOptions = {
-  minLength: number;
-  maxLength: number;
+  minLength?: number;
+  maxLength?: number;
   isRequired?: boolean;
   format?: string;
 };
@@ -30,19 +30,19 @@ const validationRules: { [key: string]: ValidationOptions } = {
   country: { minLength: 2, maxLength: 15, isRequired: true, format: '^(\\D| )*$' },
 };
 
-export const runValidation = (value: string, name: InputType) => {
+export const runValidation = (value: string, name: InputType, overwrites?: ValidationOptions) => {
   const error: string[] = [];
-  const { minLength, maxLength, isRequired, format } = validationRules[name];
+  const { minLength, maxLength, isRequired, format } = { ...validationRules[name], ...overwrites };
 
   if (!value && isRequired) {
     error.push('isRequired');
   }
 
-  if (minLength > value.length) {
+  if (minLength && minLength > value.length) {
     error.push('minLength');
   }
 
-  if (maxLength < value.length) {
+  if (maxLength && maxLength < value.length) {
     error.push('maxLength');
   }
 

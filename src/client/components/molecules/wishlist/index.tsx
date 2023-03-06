@@ -5,7 +5,7 @@ import ItemList from '../../atoms/itemList';
 import './style.scss';
 
 const WishListDropDown = () => {
-  const { wishList, getString } = useContext(CartContext);
+  const { state, handlers } = useContext(CartContext);
   const navigate = useNavigate();
 
   return (
@@ -13,9 +13,9 @@ const WishListDropDown = () => {
       <div className="profile-dropdown__title">Wishlist</div>
       <div className="separatorLine"></div>
       <div className="profile-dropdown__title">
-        {wishList.length ? (
+        {state.wishList.length ? (
           <div className="productsContainer">
-            {wishList.map((item, i) => (
+            {state.wishList.map((item, i) => (
               <ItemList key={i} item={item} />
             ))}
           </div>
@@ -25,7 +25,7 @@ const WishListDropDown = () => {
       </div>
       <div>
         <button className="profile-dropdown__button" onClick={() => navigate('/wishlist')}>
-          {getString('buttons.favorites')}{' '}
+          {handlers.getString('buttons.favorites')}{' '}
         </button>
       </div>
     </div>

@@ -16,7 +16,9 @@ const NavBar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const isMobile = useIsMobile();
-  const { changeLanguage, searchHandler, getString } = useContext(CartContext);
+  const { handlers } = useContext(CartContext);
+  const { searchHandler, getString, changeLanguage } = handlers;
+
   const [text, setText] = useState<string>('');
 
   const handlerNewtext: ChangeEventHandler<HTMLInputElement> = e => {
@@ -86,7 +88,7 @@ const NavBar = () => {
           </>
         )}
       </div>
-      {!isMobile && <Categories className="navbar__categories" />}
+      {!isMobile && <Categories />}
     </div>
   );
 };

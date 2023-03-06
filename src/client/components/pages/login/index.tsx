@@ -1,5 +1,5 @@
 import { Field, Form, Formik } from 'formik';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CartContext from '../../../utils/StateContext';
 import { runValidation } from '../../../utils/validations';
@@ -9,25 +9,26 @@ import Logo from '../../atoms/logo';
 import './style.scss';
 
 const LoginForm = () => {
-  const { user, getString } = useContext(CartContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const { state, handlers } = useContext(CartContext);
+  const { login, getString } = handlers;
   const navigate = useNavigate();
 
-  if (user) {
-    navigate('/');
-  }
-
-  const [isLoading, setIsLoading] = useState(false);
-  const { login } = useContext(CartContext);
+  useEffect(() => {
+    if (state.user) {
+      navigate('/');
+    }
+  }, [state.user]);
 
   const initialValues = {
     email: '',
     password: '',
   };
 
-  const submitHandler = async (values: { email: string; password: string }) => {
+  const submitHandler = async ({ email, password }: { email: string; password: string }) => {
     try {
       setIsLoading(true);
-      await login(values.email, values.password);
+      await login({ email, password });
       setIsLoading(false);
       navigate('/');
     } catch (error) {

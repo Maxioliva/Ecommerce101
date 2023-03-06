@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useFormikContext } from 'formik';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 
 import { deleteAddress } from '../../../utils/resolvers';
 import CartContext from '../../../utils/StateContext';
@@ -10,28 +10,22 @@ import './style.scss';
 
 type AddressBookProps = {
   addressList: Address[];
-  getAddressList: () => Promise<void>;
 };
 
-const AddressBook = ({ addressList, getAddressList }: AddressBookProps) => {
+const AddressBook = ({ addressList }: AddressBookProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [addressSelected, setAddressSelected] = useState<Address>();
-  const { values, setValues } = useFormikContext();
-  const { getString } = useContext(CartContext);
+  const { setValues } = useFormikContext();
+  const { handlers } = useContext(CartContext);
 
   const completeAddress = () => {
     setValues(addressSelected);
     setIsVisible(false);
   };
 
-  useEffect(() => {
-    getAddressList();
-  }, []);
-
   const deleteHandler = async (id: string) => {
     try {
       await deleteAddress(id);
-      await getAddressList();
     } catch (e: any) {
       console.log(e);
     }
@@ -40,7 +34,7 @@ const AddressBook = ({ addressList, getAddressList }: AddressBookProps) => {
   return (
     <div className="address-book">
       <Button isTertiary className="address-book__title2" onClick={() => setIsVisible(!isVisible)} type="submit">
-        {getString('buttons.addressesBook')}
+        {handlers.getString('buttons.addressesBook')}
       </Button>
       {isVisible && (
         <div className="address-book__container">

@@ -1,8 +1,8 @@
 import { cert, initializeApp } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
+import { getAuth } from 'firebase-admin/auth';
 import config from './config';
 
-// FIRESTORE SDK DOCS https://firebase.google.com/docs/firestore/query-data/get-data
 initializeApp({
   credential: cert({
     projectId: config.server.db.projectId,
@@ -11,4 +11,7 @@ initializeApp({
   }),
 });
 
+// FIRESTORE DOCS https://firebase.google.com/docs/firestore
 export const db = getFirestore();
+// AUTH DOCS https://firebase.google.com/docs/auth/admin
+export const auth = getAuth();

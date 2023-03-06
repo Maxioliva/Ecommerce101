@@ -1,16 +1,20 @@
-import { Timestamp } from 'firebase/firestore';
-import { type } from 'os';
-
 export type Language = 'en' | 'es';
 
+export type Basket = {
+  products: Product[];
+  total: number;
+};
+
 export type User = {
-  id: string;
+  uid: string;
+  email: string;
+  password: string;
   firstName: string;
   lastName: string;
-  email: string;
   gender: string;
-  // password: string;
-  // cartId?: string;
+  addresses: Address[];
+  basket: Basket;
+  wishList: Product[];
 };
 
 export type Product = {
@@ -45,35 +49,69 @@ export type Address = {
   userId: string;
 };
 
-export type ShopState = {
-  language: Language;
-  basket?: Omit<Order, 'id' | 'userId' | 'isCompleted'>;
+export type ContextValue = {
+  state: {
+    user?: Omit<User, 'password' | 'basket' | 'wishList' | 'addresses'>;
+    basket: Basket;
+    wishList: Product[];
+    addresses: Address[];
+  };
+  basket?: SimpleOrder;
+  config: {
+    language: Language;
+    t: any;
+  };
   searchResult: SearchResult;
-  t: any;
-  user?: User;
-  wishList: Product[];
-  addItemToCart: (id: string) => Promise<void>;
-  changeLanguage: (value: Language) => void;
-  changePassword: (newPassword: string) => void;
-  changeEmail: (newEmail: string) => void;
-  confirmOrder: (selectedPayment: string) => Promise<void>;
-  deleteItemToCart: (id: string) => void;
-  deleteAllItemToCart: (id: string) => void;
-  fetchProducts: (search?: string, skip?: number, limit?: number) => void;
-  getString: (path: string) => string;
-  getAddresses: (userId: string) => Promise<Address[]>;
-  login: (email: string, password: string) => Promise<void>;
-  logOut: () => void;
-  register: (newUser: User & { password: string }) => Promise<User>;
-  searchProduct: (id: string) => Promise<FullProduct>;
-  searchHandler: (value: string) => void;
-  wishListHandler: (id: string) => void;
-  // createOrder: (products: Product[]) => Promise<void>;
-  updateBasket: (basketOptions: UpdateBasketOptions) => Promise<any>;
-  getOrders: (userId: string) => Promise<Omit<Order, 'id' | 'userId' | 'isCompleted'>[]>;
-  searchCategories: (value: string) => Promise<[]>;
-  handlerCategories: (value: string) => Promise<void>;
+  handlers: {
+    register: (params: Pick<User, 'email' | 'password' | 'firstName' | 'lastName' | 'gender'>) => Promise<void>;
+    login: (params: Pick<User, 'email' | 'password'>) => Promise<void>;
+    logOut: () => void;
+    updateUserData: (id: Pick<User, 'email' | 'password' | 'firstName' | 'lastName'>) => Promise<void>;
+    addItemToCart: (id: string) => Promise<void>;
+    confirmOrder: (selectedPayment: string) => Promise<void>;
+    removeItemFromCart: (id: string) => void;
+    removeAllItemsFromCart: (id: string) => void;
+    wishListHandler: (id: string) => void;
+    updateBasket: (basketOptions: UpdateBasketOptions) => Promise<any>;
+    saveAddress: (address: Omit<Address, 'id' | 'userId'>, userId: string) => Promise<void>;
+    getOrders: (userId: string) => Promise<Omit<Order, 'id' | 'userId' | 'isCompleted'>[]>;
+    fetchProducts: (search?: string, skip?: number, limit?: number) => void;
+    searchHandler: (value: string) => void;
+    searchProduct: (id: string) => Promise<FullProduct>;
+    searchCategories: (value: string) => Promise<[]>;
+    handlerCategories: (value: string) => Promise<void>;
+    changeLanguage: (value: Language) => void;
+    getString: (path: string) => string;
+  };
 };
+
+// export type ShopState = {
+//   language: Language;
+//   basket?: Omit<Order, 'id' | 'userId' | 'isCompleted'>;
+//   searchResult: SearchResult;
+//   t: any;
+//   user?: Omit<User, 'password' | 'basket' | 'wishList' | 'addresses'>;
+//   wishList: Product[];
+//   addItemToCart: (id: string) => Promise<void>;
+//   changeLanguage: (value: Language) => void;
+//   confirmOrder: (selectedPayment: string) => Promise<void>;
+//   deleteItemToCart: (id: string) => void;
+//   deleteAllItemToCart: (id: string) => void;
+//   fetchProducts: (search?: string, skip?: number, limit?: number) => void;
+//   getString: (path: string) => string;
+//   getAddresses: (userId: string) => Promise<Address[]>;
+//   login: (params: Pick<User, 'email' | 'password'>) => Promise<void>;
+//   logOut: () => void;
+//   register: (params: Pick<User, 'email' | 'password' | 'firstName' | 'lastName' | 'gender'>) => Promise<void>;
+//   searchProduct: (id: string) => Promise<FullProduct>;
+//   searchHandler: (value: string) => void;
+//   updateUserData: (id: Pick<User, 'email' | 'password' | 'firstName' | 'lastName'>) => Promise<void>;
+//   wishListHandler: (id: string) => void;
+//   updateBasket: (basketOptions: UpdateBasketOptions) => Promise<any>;
+//   getOrders: (userId: string) => Promise<Omit<Order, 'id' | 'userId' | 'isCompleted'>[]>;
+//   searchCategories: (value: string) => Promise<[]>;
+//   handlerCategories: (value: string) => Promise<void>;
+// };
 
 export type Order = {
   id: string;

@@ -42,24 +42,25 @@ const categories03: Category[] = [
   { name: 'groceries' },
 ];
 
-type categoriesProps = {
-  control?: 'womens' | 'mens' | 'home' | 'tech' | 'automotive' | 'groceries';
-  className?: string;
-};
+// type categoriesProps = {
+//   control?: 'womens' | 'mens' | 'home' | 'tech' | 'automotive' | 'groceries';
+//   className?: string;
+// };
 
 type CategoryItemProps = {
   name: string;
   path?: string;
   onClick?: (value: string) => void;
+  className?: string;
 };
 
-const Categories = (props: categoriesProps) => {
-  const { handlerCategories } = useContext(CartContext);
+const Categories = () => {
+  const { handlers } = useContext(CartContext);
   const [activeCategory, setActiveCategory] = useState<string>();
   const navigate = useNavigate();
 
   const onClikCartegory = async (path: string) => {
-    await handlerCategories(path);
+    await handlers.handlerCategories(path);
     navigate('/Products');
   };
 
@@ -80,8 +81,8 @@ const Categories = (props: categoriesProps) => {
                 'categories__secondary--selected': activeCategory === name,
               })}
             >
-              {subcategories?.map(({ name, path }: CategoryItemProps) => (
-                <div className="categories__category" key={name} onClick={() => onClikCartegory(path ?? name)}>
+              {subcategories?.map(({ name: same }: CategoryItemProps) => (
+                <div className="categories__category" key={same} onClick={() => onClikCartegory(path ?? name)}>
                   {name}
                 </div>
               ))}

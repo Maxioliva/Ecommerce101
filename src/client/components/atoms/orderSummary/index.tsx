@@ -6,7 +6,9 @@ import CartContext from '../../../utils/StateContext';
 import './style.scss';
 
 export const OrderSummary = ({ className }: { className?: string }) => {
-  const { deleteItemToCart, basket, getString } = useContext(CartContext);
+  const { state, handlers } = useContext(CartContext);
+  const { basket } = state;
+  const { getString, removeItemFromCart } = handlers;
   const total = basket?.products.reduce((previous, item) => previous + item.price * item.amount, 0);
 
   return (
@@ -27,7 +29,7 @@ export const OrderSummary = ({ className }: { className?: string }) => {
               <img
                 src={getAssetUrl('trash.svg')}
                 className="orderSummary__left-button"
-                onClick={() => deleteItemToCart(product.id)}
+                onClick={() => removeItemFromCart(product.id)}
               ></img>
               <h3 className="orderSummary__left-rating">
                 {getString('details.rating')}:&nbsp;{product.rating}

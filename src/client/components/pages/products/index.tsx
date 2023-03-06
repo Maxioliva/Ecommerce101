@@ -14,7 +14,9 @@ type View = 'list' | 'gridx2' | 'gridx3';
 const Products = () => {
   const isMobile = useIsMobile();
   const [mobileView, setMobileView] = useState<{ current: View; next: View }>({ current: 'gridx2', next: 'gridx3' });
-  const { wishList, wishListHandler, addItemToCart, searchResult, getString, fetchProducts } = useContext(CartContext);
+  const { state, handlers, searchResult } = useContext(CartContext);
+  const { addItemToCart, wishListHandler, fetchProducts, getString } = handlers;
+
   const navigate = useNavigate();
   const toggleView = () => {
     if (mobileView.current === 'gridx2') {
@@ -71,7 +73,7 @@ const Products = () => {
             onClick={() => navigate(`/product/${product.id}`)}
           >
             <Icon
-              value={!!wishList.find(item => item.id === product.id)}
+              value={!!state.wishList.find(item => item.id === product.id)}
               size={25}
               icon="wishlist"
               onClick={(e: MouseEvent<HTMLDivElement>) => addTowishList(product.id, e)}

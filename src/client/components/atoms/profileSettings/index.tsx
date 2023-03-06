@@ -1,6 +1,5 @@
 import { Field, Form, Formik } from 'formik';
 import { useContext } from 'react';
-import { updateUser } from '../../../utils/resolvers';
 import CartContext from '../../../utils/StateContext';
 import { runValidation } from '../../../utils/validations';
 import Button from '../button';
@@ -8,7 +7,9 @@ import Input from '../input';
 import './style.scss';
 
 const ProfileSettings = () => {
-  const { user, changePassword, changeEmail } = useContext(CartContext);
+  const { state, handlers } = useContext(CartContext);
+  const { user } = state;
+  const { updateUserData } = handlers;
 
   if (!user) {
     return <></>;
@@ -18,19 +19,16 @@ const ProfileSettings = () => {
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
-    id: user.id,
     password: '',
   };
 
-  const submitHandlerPosta = (values: typeof initialValues) => {
-    updateUser(values.firstName, values.lastName, values.email, values.id);
-    changeEmail(values.email);
-    changePassword(values.password);
+  const submitHandler = async (values: typeof initialValues) => {
+    await updateUserData(values);
   };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={submitHandlerPosta}>
-      {({ errors }) => (
+    <Formik initialValues={initialValues} onSubmit={submitHandler}>
+      {() => (
         <Form className="form">
           <div className="sign"> Personal Data </div>
           <Field
@@ -58,7 +56,7 @@ const ProfileSettings = () => {
             name="password"
             label="Password"
             type="password"
-            validate={(value: string) => runValidation(value, 'password')}
+            validate={(value: string) => runValidation(value, 'password', { isRequired: false })}
           />
           <Button type="submit">Update</Button>
         </Form>

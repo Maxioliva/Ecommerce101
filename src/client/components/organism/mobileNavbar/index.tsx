@@ -18,7 +18,8 @@ type MobileBarOption = {
 };
 
 const MobileBar = () => {
-  const { user, searchHandler } = useContext(CartContext);
+  const { state, handlers } = useContext(CartContext);
+  const { searchHandler } = handlers;
   const { pathname: path } = useLocation();
   const [text, setText] = useState<string>('');
   const containerRef = useRef(null);
@@ -61,7 +62,7 @@ const MobileBar = () => {
     profile: {
       name: 'profile',
       title: 'Profile',
-      submenu: !user ? (
+      submenu: !state.user ? (
         <Welcome onLogin={onLoginButtonClick} onRegister={onRegisterButtonClick} />
       ) : (
         <MobileProfile closeSubmenu={() => setSubmenuVisible(false)} />

@@ -6,15 +6,15 @@ import ItemList from '../../atoms/itemList';
 import './style.scss';
 
 const CartDropDown = () => {
-  const { user, basket, getString } = useContext(CartContext);
+  const { state, handlers } = useContext(CartContext);
+  const { user, basket } = state;
   const [cartOpen, setCartOpen] = useState(false);
 
   return (
     <div className="cartDropDown">
       <div className="cartDropDown__title">You Cart</div>
-
       <div className="cartDropDown__title">
-        {basket?.products.length ? (
+        {basket?.products?.length ? (
           <div className="cartDropDown__productsContainer">
             {basket.products.map((item, i) => (
               <ItemList key={i} item={item} />
@@ -27,7 +27,7 @@ const CartDropDown = () => {
       <div className="cartDropDown__buttonsBhindConteiner">
         {user ? (
           <Link to="checkout-shipping">
-            <button className="cartDropDown__buttonsBhind">{getString('buttons.checkOut')}</button>
+            <button className="cartDropDown__buttonsBhind">{handlers.getString('buttons.checkOut')}</button>
           </Link>
         ) : (
           <p>log in please</p>
@@ -36,7 +36,7 @@ const CartDropDown = () => {
       <div className="cartDropDown__buttonsBhindConteiner">
         <Link to="cart">
           <button className="cartDropDown__buttonsBhind" onClick={() => setCartOpen(!cartOpen)}>
-            {getString('buttons.basketPage')}
+            {handlers.getString('buttons.basketPage')}
           </button>
         </Link>
       </div>

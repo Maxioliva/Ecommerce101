@@ -9,7 +9,8 @@ import './style.scss';
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const { searchProduct, wishListHandler, wishList, addItemToCart, getString } = useContext(CartContext);
+  const { state, handlers } = useContext(CartContext);
+  const { searchProduct, wishListHandler, addItemToCart, getString } = handlers;
   const [searchDeails, setSearchDetails] = useState<FullProduct>();
 
   useEffect(() => {
@@ -47,7 +48,7 @@ const ProductDetail = () => {
           <img className="productdetail__payment-header-image" src={searchDeails.thumbnail} alt={searchDeails.title} />
           <div className="productdetail__payment-header-right">
             <Icon
-              value={!!wishList.find(item => item.id === id)}
+              value={!!state.wishList.find(item => item.id === id)}
               size={25}
               icon="wishlist"
               onClick={() => wishListHandler(searchDeails.id)}

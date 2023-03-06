@@ -1,34 +1,34 @@
 import { Field, Form, Formik } from 'formik';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { registerUser } from '../../../utils/resolvers';
 import CartContext from '../../../utils/StateContext';
-import { User } from '../../../utils/Type';
 import { runValidation } from '../../../utils/validations';
 import Button from '../../atoms/button';
 import Input from '../../atoms/input';
 import './style.scss';
 
 const RegisterForm = () => {
-  const { user, getString } = useContext(CartContext);
+  const { state, handlers } = useContext(CartContext);
+  const { register, getString } = handlers;
   const navigate = useNavigate();
 
-  if (user) {
-    navigate('/');
-  }
+  useEffect(() => {
+    if (state.user) {
+      navigate('/');
+    }
+  }, [state.user]);
 
   const initialValues = {
-    id: '',
     firstName: '',
     lastName: '',
     email: '',
     password: '',
-    gender: '',
+    gender: 'Mrs',
   };
 
-  const submitHandler = async (values: User & { password: string }) => {
+  const submitHandler = async (values: typeof initialValues) => {
     try {
-      await registerUser(values);
+      await register(values);
     } catch (error) {
       if (error instanceof Error && error.message.includes('email-already-in-use')) {
         console.log(error.message);
@@ -50,11 +50,20 @@ const RegisterForm = () => {
               <div className="sign">{getString('speech.registerAccout')}</div>
               <div className="genre">
                 <Field name="Genre" as="select">
-                  <option value="Mrs" id="Mrs">
+                  <option defaultChecked value="Mrs" id="Mrs">
                     Mrs
                   </option>
                   <option value="Mr" id="Mr">
                     Mr
+                  </option>
+                  <option value="Dr" id="Dr">
+                    Dr
+                  </option>
+                  <option value="Dra" id="Dra">
+                    Dra
+                  </option>
+                  <option value="Experto" id="Experto">
+                    Experto
                   </option>
                 </Field>
               </div>

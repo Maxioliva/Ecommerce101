@@ -3,8 +3,8 @@ import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { uploadProduct } from '../../../utils/resolvers';
 import CartContext from '../../../utils/StateContext';
-import { SellerProduct } from '../../../utils/Type';
 import { runValidation } from '../../../utils/validations';
+import { categories03 } from '../../molecules/categories';
 import Button from '../button';
 import Input from '../input';
 import Select from '../select';
@@ -30,12 +30,12 @@ const SellProduct = () => {
   };
   const submitHandler = async (values: typeof initialValues) => {
     //aa van la ejecucion de los resolvers
-    // await uploadProduct(values);
+    await uploadProduct(values);
   };
 
   // useEffect(() => {
   //   (async () => {
-  //     const newProduct: Omit<SellerProduct, 'id'> = {
+  //     const newProduct: Omit<SellerProduct, 'id'> = {s
   //       ownerId: user!.id,
   //       title: value.title,
   //       description: 'aca esta chomaba del celeste aniversario de 100 años',
@@ -67,6 +67,7 @@ const SellProduct = () => {
           <Form className="form">
             <div className="sign"> Vende tu producto </div>
             <Field component={Select} name="colors" label="Colors" options={colorOptions} />
+            <Field component={Select} name="categories" label="Categories" options={categories03} />
             <Field
               component={Input}
               name="title"

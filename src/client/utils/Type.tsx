@@ -133,7 +133,7 @@ export type SellerProduct = {
   title: string;
   description: string;
   brand: string;
-  color: string[];
+  colors: string[];
   categories: string[];
   images: string[];
   rating?: number;

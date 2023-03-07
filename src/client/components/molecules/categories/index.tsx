@@ -5,39 +5,61 @@ import CartContext from '../../../utils/StateContext';
 
 import './style.scss';
 
-export type Category = { name: string; subcategories?: Category[] };
+export type Category = { label: string; value: string; subcategories?: Category[] };
 export const categories03: Category[] = [
   {
-    name: 'womens',
+    label: 'Womens',
+    value: 'Womens',
     subcategories: [
-      { name: 'tops' },
-      { name: 'dresses' },
-      { name: 'shoes' },
-      { name: 'bags' },
-      { name: 'jewellery' },
-      { name: 'watches' },
-      { name: 'skincare' },
-      { name: 'fragrances' },
+      { value: 'Tops', label: 'tops' },
+      { value: 'Dresses', label: 'dresses' },
+      { value: 'Shoes', label: 'shoes' },
+      { value: 'Bags', label: 'bags' },
+      { value: 'Jewellery', label: 'jewellery' },
+      { value: 'Watches', label: 'watches' },
+      { value: 'Skincare', label: 'skincare' },
+      { value: 'Fragances', label: 'fragrances' },
     ],
   },
   {
-    name: 'mens',
+    label: 'mens',
+    value: 'mens',
     subcategories: [
       {
-        name: 'shirts',
+        value: 'Shirts',
+        label: 'shirts',
       },
-      { name: 'shoes' },
-      { name: 'watches' },
-      { name: 'sunglasses' },
+      { value: 'Shoes', label: 'shoes' },
+      { value: 'Waches', label: 'watches' },
+      { value: 'Sunglasses', label: 'sunglasses' },
     ],
   },
   {
-    name: 'home',
-    subcategories: [{ name: 'decoration' }, { name: 'furniture' }, { name: 'lighting' }],
+    label: 'Home',
+    value: 'Home',
+    subcategories: [
+      { label: 'decoration', value: 'Decoration' },
+      { label: 'furniture', value: 'Furniture' },
+      { label: 'lighting', value: 'lighting' },
+    ],
   },
-  { name: 'tech', subcategories: [{ name: 'smartphones' }, { name: 'laptops' }] },
-  { name: 'automotive', subcategories: [{ name: 'automotive' }, { name: 'motorcycle' }] },
-  { name: 'groceries' },
+  {
+    label: 'tech',
+    value: 'Tech',
+    subcategories: [
+      { label: 'smartphones', value: 'Smartphone' },
+      { label: 'laptops', value: 'Laptops' },
+    ],
+  },
+  {
+    label: 'automotive',
+    value: 'Automotive',
+    subcategories: [
+      { label: 'automotive', value: 'Automotive' },
+      { label: 'motorcycle', value: 'Motorcycle' },
+    ],
+  },
+  { label: 'groceries', value: 'Groceries' },
 ];
 
 type categoriesProps = {
@@ -45,7 +67,7 @@ type categoriesProps = {
 };
 
 type CategoryItemProps = {
-  name: string;
+  label: string;
   path?: string;
   onClick?: (value: string) => void;
 };
@@ -55,29 +77,29 @@ const Categories = (props: categoriesProps) => {
   const [activeCategory, setActiveCategory] = useState<string>();
   const navigate = useNavigate();
 
-  const onClikCartegory = async (path: string) => {
-    await handlerCategories(path);
+  const onClikCartegory = async (value: string) => {
+    await handlerCategories(value);
     navigate('/Products');
   };
 
   return (
     <div className="categories">
       <div className="categories__primary">
-        {categories03.map(({ name, subcategories }) => (
+        {categories03.map(({ label, subcategories }) => (
           <div
-            key={name}
-            onMouseEnter={() => setActiveCategory(name)}
+            key={label}
+            onMouseEnter={() => setActiveCategory(label)}
             onMouseLeave={() => setActiveCategory(undefined)}
           >
-            <div className="categories__category" onClick={() => !subcategories && onClikCartegory(name)}>
-              {name}
+            <div className="categories__category" onClick={() => !subcategories && onClikCartegory(label)}>
+              {label}
             </div>
             <div
               className={classNames('categories__secondary', {
-                'categories__secondary--selected': activeCategory === name,
+                'categories__secondary--selected': activeCategory === label,
               })}
             >
-              {subcategories?.map(({ name: subcategoryName }: CategoryItemProps) => (
+              {subcategories?.map(({ label: subcategoryName }: CategoryItemProps) => (
                 <div
                   className="categories__category"
                   key={subcategoryName}

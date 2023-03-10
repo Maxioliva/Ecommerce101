@@ -101,3 +101,6 @@ export const deleteAddress = async (id: string) => {
 export const uploadProduct = async (product: Omit<SellerProduct, 'id'>) => {
   await callApi({ method: 'POST', endpoint: '/products', payload: { ...product } });
 };
+
+export const getUserProduct = async (ownerId: string): Promise<SellerProduct[]> =>
+  await callApi({ method: 'GET', endpoint: `/Produts/${ownerId}` });

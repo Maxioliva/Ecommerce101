@@ -77,8 +77,6 @@ export type ShopState = {
   getOrders: (userId: string) => Promise<Omit<Order, 'id' | 'userId' | 'isCompleted'>[]>;
   searchCategories: (value: string) => Promise<[]>;
   handlerCategories: (value: string) => Promise<void>;
-  selectState: (value: string) => void;
-  colors: string;
 };
 
 export type Order = {
@@ -138,4 +136,5 @@ export type SellerProduct = {
   images: string[];
   rating?: number;
   price: string;
+  stock?: number;
 };

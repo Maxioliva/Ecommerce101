@@ -20,10 +20,14 @@ const Select = ({ options, field, form }: SelectOptionProps) => {
     form.setFieldValue(field.name, newValue);
   };
 
+  const setField = field.value as string[];
+
+  const selectedOptions = setField.map((o: string, i: number) => (i + 1 < setField.length ? o + ' ' : o));
+
   return (
     <div className="select">
       <div className="select__control" onClick={() => setOpen(!isOpen)}>
-        {field.name}
+        {`${field.name} ${selectedOptions}`}
       </div>
       {isOpen && (
         <div className="select__options">

@@ -11,6 +11,7 @@ import { CartPage } from './components/pages/cart';
 import Home from './components/pages/home';
 import LoginForm from './components/pages/login';
 import Ordersuccers from './components/pages/ordersuccess';
+import SaleSuccess from './components/atoms/successfulSale';
 import Payment from './components/pages/payment';
 import ProductDetail from './components/pages/ProductDetail';
 import Products from './components/pages/products';
@@ -51,6 +52,7 @@ const App = () => {
               <Route path="/checkout-shipping" element={<Shipping />} />
               <Route path="/about" element={<About />} />
               <Route path="/ordersuccess" element={<Ordersuccers />} />
+              <Route path="/saleSuccess" element={<SaleSuccess />} />
               <Route path="/sellers" element={<Seller />} />
               <Route path="/sellProduct" element={<SellProduct />} />
               <Route

@@ -27,7 +27,6 @@ export const CartProvider = ({ children }: any) => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchResult, setSearchResult] = useState<SearchResult>({ products: [], total: 0, skip: 0, limit: 0 });
   const [language, setLanguaje] = useState<Language>('en');
-  const [colors, setColors] = useState<string>('');
   const userAuth = auth.currentUser;
 
   const changeLanguage = (value: Language) => setLanguaje(value);
@@ -190,10 +189,6 @@ export const CartProvider = ({ children }: any) => {
     await updateBasket({ userId: user!.id, payment: selectedPayment, isCompleted: true, completedAt: dateInSeconds });
   };
 
-  const selectState = (color: string) => {
-    setColors(color);
-  };
-
   return (
     <CartContext.Provider
       value={{
@@ -207,7 +202,6 @@ export const CartProvider = ({ children }: any) => {
         changePassword,
         changeLanguage,
         changeEmail,
-        colors,
         confirmOrder,
         deleteAllItemToCart,
         deleteItemToCart,
@@ -216,7 +210,6 @@ export const CartProvider = ({ children }: any) => {
         handlerCategories,
         login,
         logOut,
-        selectState,
         searchCategories,
         searchHandler,
         searchProduct,

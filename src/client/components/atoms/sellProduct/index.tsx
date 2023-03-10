@@ -24,30 +24,15 @@ const SellProduct = () => {
     description: '',
     price: '',
     brand: '',
+    stock: 1,
     colors: [] as string[],
     categories: [] as string[],
     images: [] as string[],
   };
   const submitHandler = async (values: typeof initialValues) => {
-    //aa van la ejecucion de los resolvers
     await uploadProduct(values);
+    navigate('/saleSuccess');
   };
-
-  // useEffect(() => {
-  //   (async () => {
-  //     const newProduct: Omit<SellerProduct, 'id'> = {s
-  //       ownerId: user!.id,
-  //       title: value.title,
-  //       description: 'aca esta chomaba del celeste aniversario de 100 años',
-  //       price: 123,
-  //       brand: 'belgrano SR',
-  //       color: ['red', 'blac', 'blue'],
-  //       categories: ['woman', 'man'],
-  //       images: ['imagen 1', 'imagen 2'],
-  //     };
-  //     await uploadProduct(newProduct);
-  //   })();
-  // }, []);
 
   const colorOptions = [
     { label: 'Red', value: 'Red' },
@@ -64,29 +49,31 @@ const SellProduct = () => {
     <div className="sellProduct">
       <Formik initialValues={initialValues} onSubmit={submitHandler}>
         {({ errors }) => (
-          <Form className="form">
-            <div className="sign"> Vende tu producto </div>
-            <Field component={Select} name="colors" label="Colors" options={colorOptions} />
-            <Field component={Select} name="categories" label="Categories" options={categories03} />
+          <Form className="sellProduct__form">
+            <div className="sellProduct__title"> Vende tu producto </div>
             <Field
+              className="sellProduct__fields"
               component={Input}
               name="title"
               label="Title of Product"
               validate={(value: string) => runValidation(value, 'title')}
             />
             <Field
+              className="sellProduct__fields"
               component={Input}
               name="images"
               label="URl Images"
               validate={(value: string) => runValidation(value, 'urlImg')}
             />
             <Field
+              className="sellProduct__fields"
               component={Input}
               name="description"
               label="Description"
               validate={(value: string) => runValidation(value, 'description')}
             />
             <Field
+              className="sellProduct__fields"
               component={Input}
               name="brand"
               label="Brand"
@@ -94,12 +81,38 @@ const SellProduct = () => {
             />
 
             <Field
+              className="sellProduct__fields"
               component={Input}
               name="price"
               label="Price"
               validate={(value: string) => runValidation(value, 'price')}
             />
-
+            <Field
+              className="sellProduct__fields"
+              component={Input}
+              name="stock"
+              label="Stock"
+              type="number"
+              max="10"
+              min="1"
+            />
+            <div className="sellProduct__filters">
+              <span className="sellProduct__filters-span">Filters:</span>
+              <Field
+                className="sellProduct__fields"
+                component={Select}
+                name="colors"
+                label="Colors"
+                options={colorOptions}
+              />
+              <Field
+                className="sellProduct__fields"
+                component={Select}
+                name="categories"
+                label="Categories"
+                options={categories03}
+              />
+            </div>
             <Button type="submit">Update</Button>
           </Form>
         )}

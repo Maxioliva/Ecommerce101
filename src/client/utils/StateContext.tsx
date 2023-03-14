@@ -12,12 +12,12 @@ import { createContext, useEffect, useState } from 'react';
 import Spinner from '../components/atoms/loadingSpinner';
 import * as resolvers from '../utils/resolvers';
 import { auth, updateBasket, updateWishList } from '../utils/resolvers';
-import { Language, Product, ShopState, SimpleOrder, User } from '../utils/Type';
+import { Language, Product, ContextValue, SimpleOrder, User } from '../utils/Type';
 // import { searchCategories } from './ProductsResolvers';
 // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
 const translations = require('./translations.json');
 
-const CartContext = createContext<ShopState>({} as ShopState);
+const CartContext = createContext<ContextValue>({} as ContextValue);
 
 export const CartProvider = ({ children }: any) => {
   const [persistanceId, setPersistanceId] = useState<string>();

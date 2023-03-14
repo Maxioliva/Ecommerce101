@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { collection, doc, getDocs, getFirestore, query, setDoc, where } from 'firebase/firestore';
 import callApi from './callApi';
 import firebaseApp from './firebaseApp';
-import { Address, Order, Product, UpdateBasketOptions, User, WishList } from './Type';
+import { Address, Order, SellerProduct, Product, UpdateBasketOptions, User, WishList } from './Type';
 
 export const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
@@ -82,6 +82,13 @@ export const getOrders = async (userId: string) => {
   const orders = await callApi({ method: 'GET', endpoint: `/customer/orders/${userId}` });
   return orders as Omit<Order, 'id' | 'userId' | 'isCompleted'>[];
 };
+
+export const uploadProduct = async (product: Omit<SellerProduct, 'id'>) => {
+  await callApi({ method: 'POST', endpoint: '/products', payload: { ...product } });
+};
+
+export const getUserProduct = async (ownerId: string): Promise<SellerProduct[]> =>
+  await callApi({ method: 'GET', endpoint: `/Produts/${ownerId}` });
 
 export const getWishList = async (userId: string) => {
   const wishlistFromServer = await callApi({ method: 'GET', endpoint: `/wishlist/${userId + '-w'}` });

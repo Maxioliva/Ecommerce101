@@ -112,6 +112,24 @@ API.get('/api/v1/customer/orders/:userId', async (_req, res) => {
   res.status(200).send(orders);
 });
 
+API.post('/api/v1/products', async (_req, res) => {
+  const product = _req.body;
+  const productRef = db.collection('Products').doc(nanoid());
+  await productRef.set({ ...product, id: productRef.id });
+  res.status(201).send({});
+});
+
+API.get('/api/v1/Products:ownerId', async (_req, res) => {
+  const id = _req.params.ownerId;
+  const querySnapshot = await db.collection('Products').where('ownerId', '==', id).get();
+
+  if (querySnapshot.empty) {
+    res.status(201).send([]);
+    return;
+  }
+  res.status(200).send(querySnapshot.docs.map(a => a.data()));
+});
+
 API.get('/api/v1/wishlist/:wishlistID', async (_req, res) => {
   const id = _req.params.wishlistID;
   const docRef = db.collection('WishList').doc(id);

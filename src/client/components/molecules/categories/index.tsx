@@ -54,14 +54,14 @@ type CategoryItemProps = {
 };
 
 const Categories = (props: categoriesProps) => {
-  const { handlerCategories } = useContext(CartContext);
+  // const { handlerCategories } = useContext(CartContext);
   const [activeCategory, setActiveCategory] = useState<string>();
   const navigate = useNavigate();
 
-  const onClikCartegory = async (path: string) => {
-    await handlerCategories(path);
-    navigate('/Products');
-  };
+  // const onClikCartegory = async (path: string) => {
+  //   await handlerCategories(path);
+  //   navigate('/Products');
+  // };
 
   return (
     <div className="categories">

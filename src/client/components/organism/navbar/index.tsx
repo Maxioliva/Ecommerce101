@@ -16,7 +16,7 @@ const NavBar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const isMobile = useIsMobile();
-  const { changeLanguage, searchHandler, getString } = useContext(CartContext);
+  const { changeLanguage, getString } = useContext(CartContext);
   const [text, setText] = useState<string>('');
 
   const handlerNewtext: ChangeEventHandler<HTMLInputElement> = e => {
@@ -24,9 +24,9 @@ const NavBar = () => {
     setText(newText);
   };
 
-  const submitHandler = async () => {
-    await searchHandler(text);
-  };
+  // const submitHandler = async () => {
+  //   await searchHandler(text);
+  // };
 
   if (['/login', '/register'].includes(pathname)) {
     return <> </>;
@@ -51,7 +51,7 @@ const NavBar = () => {
 
         {!isMobile && (
           <>
-            <div className="navbar__search">
+            {/* <div className="navbar__search">
               <input
                 className="navbar__search__input"
                 type="text"
@@ -68,7 +68,7 @@ const NavBar = () => {
                 <span>{getString('generic.search')}</span>
                 <img src={getAssetUrl('./header/search.svg')} alt="search" />
               </div>
-            </div>
+            </div> */}
             <div className="navbar__option">
               <div className="navbar__option__drop">
                 <DropDown control="profile" content={<ProfileDropDown />} />{' '}

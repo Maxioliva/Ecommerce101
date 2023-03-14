@@ -59,20 +59,19 @@ export type ShopState = {
   confirmOrder: (selectedPayment: string) => Promise<void>;
   deleteItemToCart: (id: string) => void;
   deleteAllItemToCart: (id: string) => void;
-  fetchProducts: (search?: string, skip?: number, limit?: number) => void;
   getString: (path: string) => string;
   getAddresses: (userId: string) => Promise<Address[]>;
   login: (email: string, password: string) => Promise<void>;
   logOut: () => void;
   register: (newUser: User & { password: string }) => Promise<User>;
-  searchProduct: (id: string) => Promise<FullProduct>;
-  searchHandler: (value: string) => void;
+  // fetchProducts: (search?: string, skip?: number, limit?: number) => void;
+  // searchProduct: (id: string) => Promise<FullProduct>;
+  // searchHandler: (value: string) => void;
+  // searchCategories: (value: string) => Promise<[]>;
+  // handlerCategories: (value: string) => Promise<void>;
   wishListHandler: (id: string) => void;
-  // createOrder: (products: Product[]) => Promise<void>;
   updateBasket: (basketOptions: UpdateBasketOptions) => Promise<any>;
   getOrders: (userId: string) => Promise<Omit<Order, 'id' | 'userId' | 'isCompleted'>[]>;
-  searchCategories: (value: string) => Promise<[]>;
-  handlerCategories: (value: string) => Promise<void>;
 };
 
 export type Order = {

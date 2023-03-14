@@ -12,8 +12,8 @@ import { createContext, useEffect, useState } from 'react';
 import Spinner from '../components/atoms/loadingSpinner';
 import * as resolvers from '../utils/resolvers';
 import { auth, updateBasket, updateWishList } from '../utils/resolvers';
-import { Language, Product, SearchResult, ShopState, SimpleOrder, User } from '../utils/Type';
-import { getAllProducts, searchProduct, searchCategories } from './ProductsResolvers';
+import { Language, Product, ShopState, SimpleOrder, User } from '../utils/Type';
+// import { searchCategories } from './ProductsResolvers';
 // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
 const translations = require('./translations.json');
 
@@ -25,7 +25,7 @@ export const CartProvider = ({ children }: any) => {
   const [wishList, setWishList] = useState<Product[]>([]);
   const [basket, setBasket] = useState<SimpleOrder | undefined>({ products: [] });
   const [isLoading, setIsLoading] = useState(false);
-  const [searchResult, setSearchResult] = useState<SearchResult>({ products: [], total: 0, skip: 0, limit: 0 });
+  // const [searchResult, setSearchResult] = useState<SearchResult>({ products: [], total: 0, skip: 0, limit: 0 });
   const [language, setLanguaje] = useState<Language>('en');
   const userAuth = auth.currentUser;
 
@@ -101,31 +101,11 @@ export const CartProvider = ({ children }: any) => {
       });
   };
 
-  const handlerCategories = async (value: string) => {
-    const response = await searchCategories(value);
-    console.log(response);
-    setSearchResult(response);
-  };
-
-  // console.log('aca rey', handlerCategories);
-
-  const searchHandler = async (search?: string, skip?: number, limit?: number) => {
-    const result = await getAllProducts(search, skip, limit);
-    setSearchResult(result);
-  };
-
-  const fetchProducts = async (search?: string, skip?: number, limit?: number) => {
-    const response = await getAllProducts(search, skip, limit);
-    setSearchResult({ ...response, products: [...searchResult.products, ...response.products] });
-  };
-
-  useEffect(() => {
-    try {
-      fetchProducts();
-    } catch (e) {
-      console.log(e);
-    }
-  }, []);
+  // const handlerCategories = async (value: string) => {
+  //   const response = await searchCategories(value);
+  //   console.log(response);
+  //   setSearchResult(response);
+  // };
 
   const addItemToCart = async (id: string) => {
     const productAlreadyOnBasket = basket!.products.find(item => item.id === id);
@@ -194,7 +174,6 @@ export const CartProvider = ({ children }: any) => {
       value={{
         language,
         basket,
-        searchResult,
         t: translations[language],
         user,
         wishList,
@@ -205,14 +184,11 @@ export const CartProvider = ({ children }: any) => {
         confirmOrder,
         deleteAllItemToCart,
         deleteItemToCart,
-        fetchProducts,
         getString,
-        handlerCategories,
+        // handlerCategories,
         login,
         logOut,
-        searchCategories,
-        searchHandler,
-        searchProduct,
+        // searchCategories,
         wishListHandler,
         ...{
           ...resolvers,

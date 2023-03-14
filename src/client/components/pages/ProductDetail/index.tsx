@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CartContext from '../../../utils/StateContext';
 import { FullProduct } from '../../../utils/Type';
@@ -9,15 +9,8 @@ import './style.scss';
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const { searchProduct, wishListHandler, wishList, addItemToCart, getString } = useContext(CartContext);
+  const { wishListHandler, wishList, addItemToCart, getString } = useContext(CartContext);
   const [searchDeails, setSearchDetails] = useState<FullProduct>();
-
-  useEffect(() => {
-    (async () => {
-      const response = await searchProduct(id!);
-      setSearchDetails(response);
-    })();
-  }, []);
 
   if (!searchDeails) {
     return <p>Loading</p>;

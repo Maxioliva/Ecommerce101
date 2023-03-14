@@ -26,13 +26,20 @@ const ProfileDropDown = () => {
           </NavLink>
         )}
       </div>
-      <div className="profile-dropdown__box">
+      <div>
         {user ? (
-          <div className="profile-dropdown__box">
-            <NavLink to={'/orders'} className="Nav_link">
-              {getString('links.orders')}
-            </NavLink>
-          </div>
+          <>
+            <div className="profile-dropdown__box">
+              <NavLink to={'/orders'} className="Nav_link">
+                {getString('links.orders')}
+              </NavLink>
+            </div>
+            <div className="profile-dropdown__box">
+              <NavLink to={'/sellers'} className="Nav_link">
+                Sellers
+              </NavLink>
+            </div>
+          </>
         ) : (
           <NavLink to={'/login'} className="Nav_link">
             {getString('links.login')}

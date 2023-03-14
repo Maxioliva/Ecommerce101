@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import ProfileDropDown2 from './components/atoms/profilemenu';
 import ProfileSettings from './components/atoms/profileSettings';
+import SellProduct from './components/atoms/sellProduct';
 import Slider from './components/atoms/slider';
 import Footer from './components/molecules/footer';
 import PreviousOrders from './components/molecules/orders';
@@ -11,11 +11,12 @@ import { CartPage } from './components/pages/cart';
 import Home from './components/pages/home';
 import LoginForm from './components/pages/login';
 import Ordersuccers from './components/pages/ordersuccess';
+import SaleSuccess from './components/atoms/successfulSale';
 import Payment from './components/pages/payment';
 import ProductDetail from './components/pages/ProductDetail';
 import Products from './components/pages/products';
-import ProfileDropDown from './components/pages/profile';
 import RegisterForm from './components/pages/register';
+import Seller from './components/pages/sellers';
 import Shipping from './components/pages/shipping';
 import WishList from './components/pages/wishlist';
 import './style.scss';
@@ -51,6 +52,9 @@ const App = () => {
               <Route path="/checkout-shipping" element={<Shipping />} />
               <Route path="/about" element={<About />} />
               <Route path="/ordersuccess" element={<Ordersuccers />} />
+              <Route path="/saleSuccess" element={<SaleSuccess />} />
+              <Route path="/sellers" element={<Seller />} />
+              <Route path="/sellProduct" element={<SellProduct />} />
               <Route
                 path="/products"
                 element={
@@ -61,14 +65,7 @@ const App = () => {
               />
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/wishlist" element={<WishList />} />
-              <Route
-                path="/orders"
-                element={
-                  <div className="">
-                    <PreviousOrders />
-                  </div>
-                }
-              />
+              <Route path="/orders" element={<PreviousOrders />} />
               <Route
                 path="/profile"
                 element={

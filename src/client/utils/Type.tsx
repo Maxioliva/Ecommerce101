@@ -32,6 +32,10 @@ export type FullProduct = Product & {
   thumbnail: string;
 };
 
+export type SellProduct = {
+  idOuner: string;
+};
+
 export type Address = {
   firstName: string;
   lastName: string;
@@ -86,6 +90,17 @@ export type Order = {
   total?: number;
 };
 
+export type Transaction = {
+  id: string;
+  idBuyer: string;
+  idSeller: string;
+  product: Product[];
+  address?: Omit<Address, 'id'>[];
+  completedAt?: number;
+  paymentMethod?: string;
+  total: number;
+};
+
 export type SimpleOrder = Omit<Order, 'id' | 'userId' | 'isCompleted'>;
 
 export type WishList = {
@@ -108,4 +123,18 @@ export type UpdateBasketOptions = {
   isCompleted?: boolean;
   payment?: string;
   completedAt?: number;
+};
+
+export type SellerProduct = {
+  id: string;
+  ownerId?: string;
+  title: string;
+  description: string;
+  brand: string;
+  colors: string[];
+  categories: string[];
+  images: string[];
+  rating?: number;
+  price: string;
+  stock?: number;
 };

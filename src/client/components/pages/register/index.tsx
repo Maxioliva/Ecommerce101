@@ -1,7 +1,6 @@
 import { Field, Form, Formik } from 'formik';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { registerUser } from '../../../utils/resolvers';
 import CartContext from '../../../utils/StateContext';
 import { User } from '../../../utils/Type';
 import { runValidation } from '../../../utils/validations';
@@ -10,7 +9,7 @@ import Input from '../../atoms/input';
 import './style.scss';
 
 const RegisterForm = () => {
-  const { user, getString } = useContext(CartContext);
+  const { user, getString, register } = useContext(CartContext);
   const navigate = useNavigate();
 
   if (user) {
@@ -18,7 +17,6 @@ const RegisterForm = () => {
   }
 
   const initialValues = {
-    id: '',
     firstName: '',
     lastName: '',
     email: '',
@@ -26,9 +24,9 @@ const RegisterForm = () => {
     gender: '',
   };
 
-  const submitHandler = async (values: User & { password: string }) => {
+  const submitHandler = async (values: Omit<User, 'uid'> & { password: string }) => {
     try {
-      await registerUser(values);
+      await register(values);
     } catch (error) {
       if (error instanceof Error && error.message.includes('email-already-in-use')) {
         console.log(error.message);

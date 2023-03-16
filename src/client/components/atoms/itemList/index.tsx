@@ -1,8 +1,8 @@
-import { SellerProduct } from '../../../utils/Type';
+import { Product, SellerProduct } from '../../../utils/Type';
 import './style.scss';
 
 type ItemListProps = {
-  item: SellerProduct;
+  item: Product;
 };
 
 const ItemList = ({ item }: ItemListProps) => (

@@ -1,7 +1,9 @@
 import { Router } from 'express';
-import { nanoid } from 'nanoid';
-import { db } from './db';
 import isequal from 'lodash.isequal';
+import { nanoid } from 'nanoid';
+import { db, auth } from './db';
+import { User, Address } from './types';
+// import User from '../../client/utils/Type'
 
 // Using http protocol we define a REST API(representational state transfer)
 const API = Router();
@@ -110,19 +112,6 @@ API.get('/api/v1/customer/address/:userId', async (_req, res) => {
 
 // cosa de negros
 
-type Address = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  street: string;
-  houseNumber: string;
-  zipCode: string;
-  city: string;
-  country: string;
-  id: string;
-  userId: string;
-};
-
 API.put('/api/v1/customer/address', async (_req, res) => {
   const payload = _req.body;
   const querySnapshot = await db.collection('Addresses').where('userId', '==', payload.userId).get();
@@ -187,5 +176,71 @@ API.get('/api/v1/Products:ownerId', async (_req, res) => {
 //     res.status(500).send(message);
 //   }
 // });
+
+API.get('/api/v1/customer/:userId', async (_req, res) => {
+  const userId = _req.params.userId;
+  try {
+    const userRef = await db.collection('Users').doc(userId);
+    const doc = await userRef.get();
+    if (!doc.exists) {
+      res.status(404);
+    } else {
+      res.status(200).send(doc.data());
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+API.post('/api/v1/customer/register', async (_req, res) => {
+  const { password, email, firstName, lastName } = _req.body as Omit<User, 'uid'>;
+  try {
+    // Create user in firebase-auth with just email and password keys
+    const firebaseAuthUser = await auth.createUser({ uid: nanoid(), email, password });
+
+    // Using firebaseAuthUser-id create user in firebase-firestore with everything except the password
+    const firestoreUser = {
+      uid: firebaseAuthUser.uid,
+      email,
+      firstName,
+      lastName,
+      basket: { products: [], total: 0 },
+      wishList: [],
+      addresses: [],
+    };
+    const firestoreUserReference = db.collection('Users').doc(firebaseAuthUser.uid);
+    await firestoreUserReference.set(firestoreUser);
+
+    // Create a token for that user using firebase-auth
+    const token = await auth.createCustomToken(firebaseAuthUser.uid);
+    console.log(token);
+
+    // Return the firestoreUser and the token so it can be set in headers in the frontend
+    res.send({ ...firestoreUser, token });
+  } catch (err: any) {
+    console.log(err);
+
+    const { code, message } = err.errorInfo;
+    if (code === 'auth/email-already-exists') {
+      res.status(422).send(message);
+      return;
+    }
+
+    res.status(500).send(message);
+  }
+});
+
+API.put('/api/v1/customer/update/:userId', async (_req, res) => {
+  const uid = _req.params.userId;
+  const stuffToUpdate = _req.body as Partial<Omit<User, 'uid' | 'password'>>;
+
+  try {
+    const userRef = db.collection('Users').doc(uid);
+    const doc = await userRef.update(stuffToUpdate);
+    res.status(200).send(doc);
+  } catch (err: any) {
+    console.log(err);
+  }
+});
 
 export default API;

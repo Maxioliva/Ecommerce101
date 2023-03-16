@@ -27,7 +27,7 @@ const PreviousOrders = () => {
       return;
     }
     (async () => {
-      const orders = await getOrders(user.id);
+      const orders = await getOrders(user.uid);
       setCompletedOrders(orders);
     })();
   }, []);

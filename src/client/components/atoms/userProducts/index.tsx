@@ -8,18 +8,20 @@ type ItemListProps = {
 };
 
 const UserProducts = ({ item }: ItemListProps) => {
-  const {user} = useContext(CartContext)
+  const { user } = useContext(CartContext);
   const [seller, setSeller] = useState<SellerProduct[]>([]);
 
   const userProduct = async () => {
-    const response = await getUserProduct(user!.id)
-    setSeller(response)
-}
+    const response = await getUserProduct(user!.uid);
+    setSeller(response);
+  };
 
-
-  return <div className="list">
-    {seller.map((item, i) => ())}
-  </div>;
+  return (
+    <div className="list">
+      productos que estan para vender
+      {/* {seller.map((item, i) => ())} */}
+    </div>
+  );
 };
 
 export default UserProducts;

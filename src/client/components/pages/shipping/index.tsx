@@ -22,7 +22,7 @@ const Shipping = () => {
   }
 
   const getAddressList = async () => {
-    const currentAddresses = await getAddresses(user.id);
+    const currentAddresses = await getAddresses(user.uid);
     setAddressList(currentAddresses);
   };
 
@@ -43,8 +43,8 @@ const Shipping = () => {
   };
 
   const submitHandler = (values: Omit<Address, 'id' | 'userId'>) => {
-    updateBasket({ userId: user.id, address: values });
-    saveAddress(values, user.id);
+    updateBasket({ userId: user.uid, address: values });
+    saveAddress(values, user.uid);
     navigate('/checkout-payment');
   };
 

@@ -4,7 +4,7 @@ import CartContext from '../../../utils/StateContext';
 import './style.scss';
 
 const ProfileDropDown = () => {
-  const { logOut, user, getString } = useContext(CartContext);
+  const { logOut, user, getString, updateUserData } = useContext(CartContext);
   const navigate = useNavigate();
 
   const logOutHandler = async () => {

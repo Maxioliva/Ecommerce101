@@ -1,46 +1,43 @@
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { collection, doc, getDocs, getFirestore, query, setDoc, where } from 'firebase/firestore';
-import SellProduct from '../components/atoms/sellProduct';
 import callApi from './callApi';
 import firebaseApp from './firebaseApp';
 import { Address, Order, Product, SellerProduct, UpdateBasketOptions, User, WishList } from './Type';
 
-export const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
 
-export const registerUser = async (user: User & { password: string }) => {
-  const infoUser = await createUserWithEmailAndPassword(auth, user.email, user.password).then(
-    userFirebase => userFirebase
-  );
-  const userId = infoUser.user.uid;
-  const docuRef = await doc(firestore, `User/${infoUser.user.uid}`);
+// export const registerUsers = async (user: User & { password: string }) => {
+//   const infoUser = await createUserWithEmailAndPassword(auth, user.email, user.password).then(
+//     (    userFirebase: any) => userFirebase
+//   );
+//   const userId = infoUser.user.uid;
+//   const docuRef = await doc(firestore, `User/${infoUser.user.uid}`);
 
-  const newUser = {
-    id: userId,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    email: user.email,
-    gender: user.gender,
-  };
-  await setDoc(docuRef, newUser);
-  return newUser;
-};
+//   const newUser = {
+//     id: userId,
+//     firstName: user.firstName,
+//     lastName: user.lastName,
+//     email: user.email,
+//     gender: user.gender,
+//   };
+//   await setDoc(docuRef, newUser);
+//   return newUser;
+// };
 
-export const getCurrentUser = async (userId: string) => {
-  const q = query(collection(firestore, 'User'), where('id', '==', userId));
-  const querySnapshot = await getDocs(q);
-  const currentUser = querySnapshot.docs[0];
-  return currentUser?.data() as User;
-};
+// export const getCurrentUser = async (userId: string) => {
+//   const q = query(collection(firestore, 'User'), where('id', '==', userId));
+//   const querySnapshot = await getDocs(q);
+//   const currentUser = querySnapshot.docs[0];
+//   return currentUser?.data() as User;
+// };
 
-export const updateUser = async (firstName: string, lastName: string, email: string, id: string) => {
-  const q = query(collection(firestore, 'User'), where('id', '==', id));
-  const querySnapshot = await getDocs(q);
-  const currentUser = querySnapshot.docs[0];
-  const docuRef = await doc(firestore, `User/${currentUser.id}`);
+// export const updateUser = async (firstName: string, lastName: string, email: string, id: string) => {
+//   const q = query(collection(firestore, 'User'), where('id', '==', id));
+//   const querySnapshot = await getDocs(q);
+//   const currentUser = querySnapshot.docs[0];
+//   const docuRef = await doc(firestore, `User/${currentUser.id}`);
 
-  return await setDoc(docuRef, { id, lastName, firstName, email });
-};
+//   return await setDoc(docuRef, { id, lastName, firstName, email });
+// };
 
 export const getBasket = async (userId: string) => {
   const basket = await callApi({ method: 'GET', endpoint: `/basket/${userId}` });
@@ -104,3 +101,20 @@ export const uploadProduct = async (product: Omit<SellerProduct, 'id'>) => {
 
 export const getUserProduct = async (ownerId: string): Promise<SellerProduct[]> =>
   await callApi({ method: 'GET', endpoint: `/Produts/${ownerId}` });
+
+export const getCurrentUser = async (userId: string): Promise<User> =>
+  await callApi({ method: 'GET', endpoint: `/customer/${userId}` });
+
+export const registerUser = async (user: Omit<User, 'uid'>) =>
+  await callApi({
+    method: 'POST',
+    endpoint: '/customer/register',
+    payload: user,
+  });
+
+export const updateUser = async (userId: string, stuffToUpdate: Partial<Omit<User, 'uid' | 'password'>>) =>
+  await callApi({
+    method: 'PUT',
+    endpoint: `/customer/update/${userId}`,
+    payload: stuffToUpdate,
+  });

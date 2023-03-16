@@ -19,7 +19,7 @@ const SellProduct = () => {
   }
 
   const initialValues = {
-    ownerId: user?.id,
+    ownerId: user?.uid,
     title: '',
     description: '',
     price: '',

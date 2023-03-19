@@ -1,5 +1,5 @@
 import { Field, Form, Formik } from 'formik';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CartContext from '../../../utils/StateContext';
 import { User } from '../../../utils/Type';
@@ -11,10 +11,6 @@ import './style.scss';
 const RegisterForm = () => {
   const { user, getString, register } = useContext(CartContext);
   const navigate = useNavigate();
-
-  if (user) {
-    navigate('/');
-  }
 
   const initialValues = {
     firstName: '',
@@ -38,6 +34,12 @@ const RegisterForm = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user]);
 
   return (
     <div className="register">

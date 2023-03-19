@@ -1,0 +1,33 @@
+.sellProduct {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: block;
+  width: 100%;
+
+  &__form {
+    background-color: white;
+    padding: 25px;
+    border-radius: unset;
+  }
+
+  &__title {
+    font-size: 30px;
+    margin: 15px;
+    font-weight: 700;
+  }
+
+  &__fields {
+    width: 100%;
+  }
+
+  &__filters {
+    text-align: left;
+    width: 950px;
+
+    &-span {
+      font-size: 18px;
+      font-weight: 700;
+    }
+  }
+}

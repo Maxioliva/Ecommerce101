@@ -35,16 +35,16 @@
   color: #1e4c82;
   position: absolute;
   transform: translate(10px, 22px);
-  transform-origin: top left;
+  transform-origin: top right;
   transition: all 0.2s ease-in-out;
 }
 
 label:focus-within > .span {
-  transform: translate(10px, 10px) scale(0.75);
+  transform: translate(140px, 3px) scale(0.75);
 }
 
 input:not(:placeholder-shown) + .span {
-  transform: translate(10px, 10px) scale(0.75);
+  transform: translate(140px, 3px) scale(0.75);
 }
 
 .error {

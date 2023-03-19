@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useFormikContext } from 'formik';
 import { useContext, useEffect, useState } from 'react';
 
-import { deleteAddresses } from '../../../utils/resolvers';
+import { deleteAddress } from '../../../utils/resolvers';
 import CartContext from '../../../utils/StateContext';
 import { Address } from '../../../utils/Type';
 import Button from '../button';
@@ -30,7 +30,7 @@ const AddressBook = ({ addressList, getAddressList }: AddressBookProps) => {
 
   const deleteHandler = async (id: string) => {
     try {
-      await deleteAddresses(id);
+      await deleteAddress(id);
       await getAddressList();
     } catch (e: any) {
       console.log(e);

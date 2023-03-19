@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getAssetUrl } from '../../../utils/config';
 import CartContext from '../../../utils/StateContext';
 import { FullProduct } from '../../../utils/Type';
 import Button from '../../atoms/button';
+import Carousel from '../../atoms/carousel';
 import Icon from '../../atoms/icono';
 import './style.scss';
 
@@ -26,7 +26,9 @@ const ProductDetail = () => {
   return (
     <div className="productdetail">
       <div className="productdetail__principal"></div>
-      <img className="productdetail__principal-image" src={searchDeails?.images[0]} alt={searchDeails?.title} />
+      <div className="productdetail__principal-image">
+        <Carousel images={searchDeails.images} />
+      </div>
       <div className="productdetail__secundary">
         <div className="productdetail__secundary-title">{searchDeails.title}</div>
         <p className="productdetail__secundary-description">{searchDeails.description}</p>

@@ -1,4 +1,4 @@
-import { Product } from '../../../utils/Type';
+import { Product, SellerProduct } from '../../../utils/Type';
 import './style.scss';
 
 type ItemListProps = {

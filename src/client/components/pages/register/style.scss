@@ -1,5 +1,12 @@
+@import '../../../utils/variables';
+
 .register {
   margin-bottom: 50px;
+  margin-top: 150px;
+
+  @media (max-width: $mobile) {
+    margin-top: 50px;
+  }
 }
 
 .form {

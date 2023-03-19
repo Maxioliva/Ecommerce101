@@ -1,7 +1,5 @@
 import { Field, Form, Formik } from 'formik';
-import isEmpty from 'lodash.isempty';
 import { useContext } from 'react';
-import { updateUser } from '../../../utils/resolvers';
 import CartContext from '../../../utils/StateContext';
 import { runValidation } from '../../../utils/validations';
 import Button from '../button';
@@ -9,7 +7,7 @@ import Input from '../input';
 import './style.scss';
 
 const ProfileSettings = () => {
-  const { user, changePassword, changeEmail } = useContext(CartContext);
+  const { user, updateUserData } = useContext(CartContext);
 
   if (!user) {
     return <></>;
@@ -19,18 +17,19 @@ const ProfileSettings = () => {
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
-    id: user.id,
     password: '',
   };
 
-  const submitHandlerPosta = (values: typeof initialValues) => {
-    updateUser(values.firstName, values.lastName, values.email, values.id);
-    changeEmail(values.email);
-    changePassword(values.password);
+  const submitHandler = async (values: typeof initialValues) => {
+    try {
+      await updateUserData(values);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={submitHandlerPosta}>
+    <Formik initialValues={initialValues} onSubmit={submitHandler}>
       {({ errors }) => (
         <Form className="form">
           <div className="sign"> Personal Data </div>

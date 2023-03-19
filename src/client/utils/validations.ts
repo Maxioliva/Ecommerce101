@@ -7,16 +7,28 @@ type InputType =
   | 'houseNumber'
   | 'zipCode'
   | 'city'
-  | 'country';
+  | 'country'
+  | 'title'
+  | 'urlImg'
+  | 'description'
+  | 'price'
+  | 'brand';
 
 type ErrorKey = 'isRequired' | 'minLength' | 'maxLength' | 'invalid';
 
 type ValidationOptions = {
-  minLength: number;
-  maxLength: number;
+  minLength?: number;
+  maxLength?: number;
   isRequired?: boolean;
   format?: string;
 };
+
+// {
+//   color: string[];
+//   categories: string[];
+//   images: string[];
+
+// }
 
 const validationRules: { [key: string]: ValidationOptions } = {
   firstName: { minLength: 2, maxLength: 25, isRequired: true, format: '^[a-zA-ZÀ-ÿ\\s]{2,25}$' },
@@ -26,8 +38,13 @@ const validationRules: { [key: string]: ValidationOptions } = {
   street: { minLength: 2, maxLength: 25, isRequired: true, format: '^(\\d|\\w| )*$' },
   houseNumber: { minLength: 1, maxLength: 5, isRequired: false, format: '^(\\d){1,5}$' },
   zipCode: { minLength: 3, maxLength: 10, isRequired: true, format: '^(\\d){3,10}$' },
-  city: { minLength: 2, maxLength: 15, isRequired: true, format: '^(\\D| )*$' },
+  city: { minLength: 2, maxLength: 15, isRequired: true },
   country: { minLength: 2, maxLength: 15, isRequired: true, format: '^(\\D| )*$' },
+  title: { minLength: 2, maxLength: 15, isRequired: true },
+  urlImg: { isRequired: true },
+  description: { minLength: 2, maxLength: 80, isRequired: true },
+  price: { isRequired: true },
+  brand: { isRequired: true },
 };
 
 export const runValidation = (value: string, name: InputType) => {
@@ -38,11 +55,11 @@ export const runValidation = (value: string, name: InputType) => {
     error.push('isRequired');
   }
 
-  if (minLength > value.length) {
+  if (minLength && minLength > value.length) {
     error.push('minLength');
   }
 
-  if (maxLength < value.length) {
+  if (maxLength && maxLength < value.length) {
     error.push('maxLength');
   }
 

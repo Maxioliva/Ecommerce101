@@ -1,7 +1,29 @@
-export const getAllProducts = () => fetch('https://dummyjson.com/products').then(res => res.json());
+import axios from 'axios';
+import { SearchResult } from './Type';
 
-export const searchProducts = (value: string) =>
-  fetch(`https://dummyjson.com/products/search?q=${value}`).then(res => res.json());
+const api = axios.create({ baseURL: 'https://dummyjson.com/' });
 
-export const searchProduct = (value: string) =>
-  fetch(`https://dummyjson.com/products/${value}`).then(res => res.json());
+type GetAllProducts = (search?: string, skip?: number, limit?: number) => Promise<SearchResult>;
+
+export const getAllProducts: GetAllProducts = async (search, skip, limit = 15) => {
+  const response = await api.get('/products', {
+    params: { search, skip, limit },
+  });
+
+  return response.data;
+};
+
+export const searchProducts: (value: string) => Promise<SearchResult> = async value => {
+  const response = await api.get(`m/products/search?q=${value}`);
+  return response.data;
+};
+
+export const searchProduct = async (value: string) => {
+  const response = await api.get(`/products/${value}`);
+  return response.data;
+};
+
+export const searchCategories = async (value: string) => {
+  const response = await api.get(`/products/category/${value}`);
+  return response.data;
+};

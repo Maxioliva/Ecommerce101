@@ -1,15 +1,14 @@
+import { Field, Form, Formik } from 'formik';
 import { useContext } from 'react';
-import CartContext from '../../../utils/StateContext';
-import { getAssetUrl } from '../../../utils/config';
-import { Formik, Field, Form } from 'formik';
-import { updatePayment } from '../../../utils/resolvers';
-import './style.scss';
-import OrderSummary from '../../atoms/orderSummary';
 import { useNavigate } from 'react-router-dom';
+import { getAssetUrl } from '../../../utils/config';
+import CartContext from '../../../utils/StateContext';
 import Button from '../../atoms/button';
+import OrderSummary from '../../atoms/orderSummary';
+import './style.scss';
 
 const Payment = () => {
-  const { user, getOrder, getString } = useContext(CartContext);
+  const { user, getString, confirmOrder } = useContext(CartContext);
   const navigate = useNavigate();
 
   if (!user) {
@@ -21,8 +20,7 @@ const Payment = () => {
   };
 
   const submitHandler = async (values: typeof initialValues) => {
-    await updatePayment(user.id, values.picked);
-    await getOrder(user.id);
+    await confirmOrder(values.picked);
     navigate('/ordersuccess');
   };
 

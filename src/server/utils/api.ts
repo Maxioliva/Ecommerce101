@@ -183,7 +183,7 @@ API.get('/api/v1/customer/:userId', async (_req, res) => {
     const userRef = await db.collection('Users').doc(userId);
     const doc = await userRef.get();
     if (!doc.exists) {
-      res.status(404);
+      res.status(404).send();
     } else {
       res.status(200).send(doc.data());
     }

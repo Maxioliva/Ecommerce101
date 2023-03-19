@@ -1,43 +1,5 @@
-import { collection, doc, getDocs, getFirestore, query, setDoc, where } from 'firebase/firestore';
 import callApi from './callApi';
-import firebaseApp from './firebaseApp';
 import { Address, Order, Product, SellerProduct, UpdateBasketOptions, User, WishList } from './Type';
-
-const firestore = getFirestore(firebaseApp);
-
-// export const registerUsers = async (user: User & { password: string }) => {
-//   const infoUser = await createUserWithEmailAndPassword(auth, user.email, user.password).then(
-//     (    userFirebase: any) => userFirebase
-//   );
-//   const userId = infoUser.user.uid;
-//   const docuRef = await doc(firestore, `User/${infoUser.user.uid}`);
-
-//   const newUser = {
-//     id: userId,
-//     firstName: user.firstName,
-//     lastName: user.lastName,
-//     email: user.email,
-//     gender: user.gender,
-//   };
-//   await setDoc(docuRef, newUser);
-//   return newUser;
-// };
-
-// export const getCurrentUser = async (userId: string) => {
-//   const q = query(collection(firestore, 'User'), where('id', '==', userId));
-//   const querySnapshot = await getDocs(q);
-//   const currentUser = querySnapshot.docs[0];
-//   return currentUser?.data() as User;
-// };
-
-// export const updateUser = async (firstName: string, lastName: string, email: string, id: string) => {
-//   const q = query(collection(firestore, 'User'), where('id', '==', id));
-//   const querySnapshot = await getDocs(q);
-//   const currentUser = querySnapshot.docs[0];
-//   const docuRef = await doc(firestore, `User/${currentUser.id}`);
-
-//   return await setDoc(docuRef, { id, lastName, firstName, email });
-// };
 
 export const getBasket = async (userId: string) => {
   const basket = await callApi({ method: 'GET', endpoint: `/basket/${userId}` });

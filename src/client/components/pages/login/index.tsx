@@ -1,5 +1,5 @@
 import { Field, Form, Formik } from 'formik';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CartContext from '../../../utils/StateContext';
 import { runValidation } from '../../../utils/validations';
@@ -11,13 +11,14 @@ import './style.scss';
 const LoginForm = () => {
   const { user, getString } = useContext(CartContext);
   const navigate = useNavigate();
-
-  if (user) {
-    navigate('/');
-  }
-
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useContext(CartContext);
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user]);
 
   const initialValues = {
     email: '',

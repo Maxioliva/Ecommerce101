@@ -7,6 +7,19 @@ type Release = {
 // Locate new release information at the top of array
 const releases: Release[] = [
   {
+    date: '19/03/2023',
+    version: '1.4.0',
+    changeLog: [
+      'Improve express server and api',
+      'Add endpoints and resolvers for entities (User-Basket-Product-Address)',
+      'Migrate old main logic into the server side',
+      'Add internationalization',
+      'Add PDP (Product Details Page)',
+      'Add Infinite scroll in PLP (Product List Page)',
+      'Minor fixes and improvements',
+    ],
+  },
+  {
     date: '31/10/2022',
     version: '1.3.0',
     changeLog: [

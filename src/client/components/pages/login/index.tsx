@@ -9,11 +9,11 @@ import Logo from '../../atoms/logo';
 import './style.scss';
 
 const LoginForm = () => {
-  const { user, getString } = useContext(CartContext);
+  const { state, handlers } = useContext(CartContext);
+  const { user } = state;
+  const { getString, login } = handlers;
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const { login } = useContext(CartContext);
-
   useEffect(() => {
     if (user) {
       navigate('/');

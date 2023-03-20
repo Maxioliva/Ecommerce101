@@ -6,7 +6,9 @@ import ItemList from '../../atoms/itemList';
 import './style.scss';
 
 const CartDropDown = () => {
-  const { user, basket, getString } = useContext(CartContext);
+  const { state, handlers } = useContext(CartContext);
+  const { user, basket } = state;
+  const { getString } = handlers;
   const [cartOpen, setCartOpen] = useState(false);
 
   return (
@@ -14,7 +16,7 @@ const CartDropDown = () => {
       <div className="cartDropDown__title">You Cart</div>
 
       <div className="cartDropDown__title">
-        {basket?.products.length ? (
+        {/* {basket?.products.length ? (
           <div className="cartDropDown__productsContainer">
             {basket.products.map((item, i) => (
               <ItemList key={i} item={item} />
@@ -22,7 +24,7 @@ const CartDropDown = () => {
           </div>
         ) : (
           <div>Your Cart is empty!</div>
-        )}
+        )} */}
       </div>
       <div className="cartDropDown__buttonsBhindConteiner">
         {user ? (

@@ -11,25 +11,6 @@ export type User = {
   // cartId?: string;
 };
 
-export type Product = {
-  id: string;
-  title: string;
-  images: string[];
-  price: number;
-  category: string;
-  amount: number;
-  rating: number;
-  description: string;
-  stock: number;
-  discountPercentage: number;
-};
-
-export type FullProduct = Product & {
-  description: string;
-  brand: string;
-  thumbnail: string;
-};
-
 export type SellProduct = {
   idOuner: string;
 };
@@ -47,49 +28,48 @@ export type Address = {
   userId: string;
 };
 
-export type ShopState = {
-  language: Language;
-  basket?: Omit<Order, 'id' | 'userId' | 'isCompleted'>;
-  searchResult: SearchResult;
-  t: any;
-  user?: User;
-  wishList: Product[];
-  addItemToCart: (id: string) => Promise<void>;
-  changeLanguage: (value: Language) => void;
-  confirmOrder: (selectedPayment: string) => Promise<void>;
-  deleteItemToCart: (id: string) => void;
-  deleteAllItemToCart: (id: string) => void;
-  fetchProducts: (search?: string, skip?: number, limit?: number) => void;
-  getString: (path: string) => string;
-  getAddresses: (userId: string) => Promise<Address[]>;
-  login: (email: string, password: string) => Promise<void>;
-  logOut: () => void;
-  register: (newUser: Omit<User, 'uid'> & { password: string }) => Promise<void>;
-  searchProduct: (id: string) => Promise<FullProduct>;
-  searchHandler: (value: string) => void;
-  wishListHandler: (id: string) => void;
-  updateBasket: (basketOptions: UpdateBasketOptions) => Promise<any>;
-  getOrders: (userId: string) => Promise<Omit<Order, 'id' | 'userId' | 'isCompleted'>[]>;
-  searchCategories: (value: string) => Promise<[]>;
-  handlerCategories: (value: string) => Promise<void>;
-  updateUserData: (value: Omit<User, 'uid' | 'gender'> & { password: string }) => Promise<void>;
+export type ContextValue = {
+  state: {
+    user?: Omit<User, 'password'>;
+    basket: Partial<Basket>;
+    wishList: Product[];
+  };
+  config: {
+    language: Language;
+    t: any;
+    changeLanguage: (value: Language) => void;
+  };
+  handlers: {
+    getString: (path: string) => string;
+    register: (newUser: Omit<User, 'uid'> & { password: string }) => Promise<void>;
+    login: (email: string, password: string) => Promise<void>;
+    logOut: () => void;
+    addItemToCart: (id: string) => Promise<void>;
+    updateUserData: (value: Omit<User, 'uid' | 'gender'> & { password: string }) => Promise<void>;
+    confirmOrder: (selectedPayment: string) => Promise<void>;
+    // deleteItemToCart: (id: string) => void;
+    // deleteAllItemToCart: (id: string) => void;
+    wishListHandler: (id: string) => void;
+
+    // getOrders: (userId: string) => Promise<Omit<Basket, 'id' | 'userId' | 'isCompleted'>[]>;
+    // searchCategories: (value: string) => Promise<[]>;
+    // handlerCategories: (value: string) => Promise<void>;
+  };
 };
 
-export type Order = {
+// Aca cambie Orders por Basket
+export type Basket = {
   id: string;
   userId: string;
   products: Product[];
-  isCompleted: boolean;
   address?: Omit<Address, 'id'>[];
-  completedAt?: number;
-  paymentMethod?: string;
-  total?: number;
+  total: number;
 };
 
 export type Transaction = {
   id: string;
   idBuyer: string;
-  idSeller: string;
+  idSeller: string[];
   product: Product[];
   address?: Omit<Address, 'id'>[];
   completedAt?: number;
@@ -97,19 +77,12 @@ export type Transaction = {
   total: number;
 };
 
-export type SimpleOrder = Omit<Order, 'id' | 'userId' | 'isCompleted'>;
+export type SimpleOrder = Omit<Basket, 'id' | 'userId' | 'isCompleted'>;
 
 export type WishList = {
   id: string;
   userId: string;
   products: Product[];
-};
-
-export type SearchResult = {
-  products: Product[];
-  total: number;
-  skip: number;
-  limit: number;
 };
 
 export type UpdateBasketOptions = {
@@ -121,7 +94,7 @@ export type UpdateBasketOptions = {
   completedAt?: number;
 };
 
-export type SellerProduct = {
+export type Product = {
   id: string;
   ownerId?: string;
   title: string;

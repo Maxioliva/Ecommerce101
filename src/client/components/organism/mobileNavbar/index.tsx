@@ -18,7 +18,8 @@ type MobileBarOption = {
 };
 
 const MobileBar = () => {
-  const { user, searchHandler } = useContext(CartContext);
+  const { state } = useContext(CartContext);
+  const { user } = state;
   const { pathname: path } = useLocation();
   const [text, setText] = useState<string>('');
   const containerRef = useRef(null);
@@ -71,26 +72,26 @@ const MobileBar = () => {
       name: 'search',
       title: 'Search',
       redirect: '/products',
-      submenu: (
-        <div className="navbar__search">
-          <input
-            className="navbar__search__input"
-            type="text"
-            placeholder="Title"
-            value={text}
-            onChange={e => setText(e.target.value)}
-            ref={searchRef}
-            onKeyUp={e => {
-              if (e.code === 'Enter') {
-                searchHandler(text);
-              }
-            }}
-          />
-          <div className="navbar__search__button" onClick={() => searchHandler(text)}>
-            <img src={getAssetUrl('./header/arrow-right.svg')} alt="search" />
-          </div>
-        </div>
-      ),
+      // submenu: (
+      //   <div className="navbar__search">
+      //     <input
+      //       className="navbar__search__input"
+      //       type="text"
+      //       placeholder="Title"
+      //       value={text}
+      //       onChange={e => setText(e.target.value)}
+      //       ref={searchRef}
+      //       onKeyUp={e => {
+      //         if (e.code === 'Enter') {
+      //           searchHandler(text);
+      //         }
+      //       }}
+      //     />
+      //     <div className="navbar__search__button" onClick={() => searchHandler(text)}>
+      //       <img src={getAssetUrl('./header/arrow-right.svg')} alt="search" />
+      //     </div>
+      //   </div>
+      // ),
     },
     wishlist: {
       name: 'wishlist',

@@ -5,7 +5,8 @@ import Logo from '../../atoms/logo';
 import './style.scss';
 
 const Footer = () => {
-  const { getString } = useContext(CartContext);
+  const { handlers } = useContext(CartContext);
+  const { getString } = handlers;
 
   return (
     <footer className="footer-distributed">

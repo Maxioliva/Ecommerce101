@@ -1,9 +1,23 @@
 import callApi from './callApi';
-import { Address, Order, Product, SellerProduct, UpdateBasketOptions, User, WishList } from './Type';
+import { Address, Basket, Product, UpdateBasketOptions, User, WishList } from './Type';
+
+export const getAddresses = async (userId: string) => {
+  const addresses: Address[] = await callApi({ method: 'GET', endpoint: `/customer/address/${userId}` });
+  return addresses;
+};
+
+export const saveAddress = async (address: Omit<Address, 'id' | 'userId'>, userId: string) => {
+  await callApi({ method: 'PUT', endpoint: '/customer/address', payload: { userId, address } });
+};
+
+export const deleteAddress = async (id: string) => {
+  const addresses: Address[] = await callApi({ method: 'DELETE', endpoint: `/customer/address/${id}` });
+  return addresses;
+};
 
 export const getBasket = async (userId: string) => {
   const basket = await callApi({ method: 'GET', endpoint: `/basket/${userId}` });
-  return basket as Omit<Order, 'id' | 'userId' | 'isCompleted'>;
+  return basket as Omit<Basket, 'id' | 'userId' | 'isCompleted'>;
 };
 
 export const updateBasket = async (basketOptions: UpdateBasketOptions) => {
@@ -21,13 +35,12 @@ export const updateBasket = async (basketOptions: UpdateBasketOptions) => {
       ...(isCompleted && { isCompleted }),
     },
   });
-
   return basket;
 };
 
 export const getOrders = async (userId: string) => {
   const orders = await callApi({ method: 'GET', endpoint: `/customer/orders/${userId}` });
-  return orders as Omit<Order, 'id' | 'userId' | 'isCompleted'>[];
+  return orders as Omit<Basket, 'id' | 'userId' | 'isCompleted'>[];
 };
 
 export const getWishList = async (userId: string) => {
@@ -39,29 +52,16 @@ export const getWishList = async (userId: string) => {
   return [];
 };
 
+//aca cambie el Product[] por sellerProducts
 export const updateWishList = async (products: Product[], userId: string) => {
   await callApi({ method: 'PUT', endpoint: '/wishlist', payload: { userId, products } });
 };
 
-export const getAddresses = async (userId: string) => {
-  const addresses: Address[] = await callApi({ method: 'GET', endpoint: `/customer/address/${userId}` });
-  return addresses;
-};
-
-export const saveAddress = async (address: Omit<Address, 'id' | 'userId'>, userId: string) => {
-  await callApi({ method: 'PUT', endpoint: '/customer/address', payload: { userId, address } });
-};
-
-export const deleteAddress = async (id: string) => {
-  const addresses: Address[] = await callApi({ method: 'DELETE', endpoint: `/customer/address/${id}` });
-  return addresses;
-};
-
-export const uploadProduct = async (product: Omit<SellerProduct, 'id'>) => {
+export const uploadProduct = async (product: Omit<Product, 'id'>) => {
   await callApi({ method: 'POST', endpoint: '/products', payload: { ...product } });
 };
 
-export const getUserProduct = async (ownerId: string): Promise<SellerProduct[]> =>
+export const getUserProduct = async (ownerId: string): Promise<Product[]> =>
   await callApi({ method: 'GET', endpoint: `/Produts/${ownerId}` });
 
 export const getCurrentUser = async (userId: string): Promise<User> =>

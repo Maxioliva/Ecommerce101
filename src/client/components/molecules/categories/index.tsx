@@ -73,18 +73,18 @@ type CategoryItemProps = {
 };
 
 const Categories = (props: categoriesProps) => {
-  const { handlerCategories } = useContext(CartContext);
+  // const { handlerCategories } = useContext(CartContext);
   const [activeCategory, setActiveCategory] = useState<string>();
   const navigate = useNavigate();
 
-  const onClikCartegory = async (value: string) => {
-    await handlerCategories(value);
-    navigate('/Products');
-  };
+  // const onClikCartegory = async (value: string) => {
+  //   await handlerCategories(value);
+  //   navigate('/Products');
+  // };
 
   return (
     <div className="categories">
-      <div className="categories__primary">
+      {/* <div className="categories__primary">
         {categories03.map(({ label, subcategories }) => (
           <div
             key={label}
@@ -111,7 +111,7 @@ const Categories = (props: categoriesProps) => {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };

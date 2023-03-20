@@ -7,7 +7,9 @@ import Input from '../input';
 import './style.scss';
 
 const ProfileSettings = () => {
-  const { user, updateUserData } = useContext(CartContext);
+  const { state, handlers } = useContext(CartContext);
+  const { user } = state;
+  const { updateUserData } = handlers;
 
   if (!user) {
     return <></>;

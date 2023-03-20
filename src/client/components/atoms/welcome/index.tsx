@@ -8,7 +8,9 @@ type WelcomeProps = {
 };
 
 const Welcome = ({ onLogin, onRegister }: WelcomeProps) => {
-  const { getString } = useContext(CartContext);
+  const { handlers } = useContext(CartContext);
+
+  const { getString } = handlers;
 
   return (
     <div className="welcome">

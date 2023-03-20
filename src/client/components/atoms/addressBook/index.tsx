@@ -17,7 +17,8 @@ const AddressBook = ({ addressList, getAddressList }: AddressBookProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [addressSelected, setAddressSelected] = useState<Address>();
   const { values, setValues } = useFormikContext();
-  const { getString } = useContext(CartContext);
+  const { handlers } = useContext(CartContext);
+  const { getString } = handlers;
 
   const completeAddress = () => {
     setValues(addressSelected);

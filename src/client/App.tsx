@@ -32,19 +32,9 @@ const App = () => {
           <NavBar />
         </div>
         <div className="app__body">
-          {/* <Slider /> */}
           <div className="app__body__container">
             <Routes>
-              <Route
-                path="/"
-                element={
-                  <div>
-                    <Slider />
-                    <Home />
-                  </div>
-                }
-              />
-
+              <Route path="/" element={<Home />} />
               <Route path="/register" element={<RegisterForm />} />
               <Route path="/login" element={<LoginForm />} />
               <Route path="/cart" element={<CartPage />} />
@@ -52,29 +42,14 @@ const App = () => {
               <Route path="/checkout-shipping" element={<Shipping />} />
               <Route path="/about" element={<About />} />
               <Route path="/ordersuccess" element={<Ordersuccers />} />
+              <Route path="/orders" element={<PreviousOrders />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/profile" element={<ProfileSettings />} />
               <Route path="/saleSuccess" element={<SaleSuccess />} />
               <Route path="/sellers" element={<Seller />} />
               <Route path="/sellProduct" element={<SellProduct />} />
-              <Route
-                path="/products"
-                element={
-                  <div>
-                    <Products />
-                  </div>
-                }
-              />
-              <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/wishlist" element={<WishList />} />
-              <Route path="/orders" element={<PreviousOrders />} />
-              <Route
-                path="/profile"
-                element={
-                  <div className="profile">
-                    <ProfileSettings />
-                  </div>
-                }
-              />
-              {/* <Route path="/help" element={<Help />} />  */}
             </Routes>
           </div>
         </div>
@@ -82,7 +57,6 @@ const App = () => {
         {isMobile && <MobileNavbar />}
       </Router>
     </div>
-    // </IntlProvider>
   );
 };
 

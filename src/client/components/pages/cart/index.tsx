@@ -6,7 +6,9 @@ import OrderSummary from '../../atoms/orderSummary';
 import Button from '../../atoms/button';
 
 export const CartPage = () => {
-  const { user, getString } = useContext(CartContext);
+  const { state, handlers } = useContext(CartContext);
+  const { user } = state;
+  const { getString } = handlers;
 
   return (
     <>

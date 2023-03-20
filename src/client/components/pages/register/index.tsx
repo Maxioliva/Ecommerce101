@@ -9,7 +9,9 @@ import Input from '../../atoms/input';
 import './style.scss';
 
 const RegisterForm = () => {
-  const { user, getString, register } = useContext(CartContext);
+  const { state, handlers } = useContext(CartContext);
+  const { user } = state;
+  const { getString, register } = handlers;
   const navigate = useNavigate();
 
   const initialValues = {

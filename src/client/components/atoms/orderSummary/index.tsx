@@ -6,14 +6,17 @@ import CartContext from '../../../utils/StateContext';
 import './style.scss';
 
 export const OrderSummary = ({ className }: { className?: string }) => {
-  const { deleteItemToCart, basket, getString } = useContext(CartContext);
-  const total = basket?.products.reduce((previous, item) => previous + item.price * item.amount, 0);
+  // const { deleteItemToCart, basket, getString } = useContext(CartContext);
+  const { state, handlers } = useContext(CartContext);
+  const { basket } = state;
+  const { getString } = handlers;
+  // const total = basket?.products.reduce((previous, item) => previous + item.price * item.amount, 0);
 
   return (
     <div className={classNames('orderSummary', className)}>
       <h1 className="orderSummary__h1">{getString('titles.yourOrders')}</h1>
       <div className="orderSummary__list">
-        {basket?.products.map(product => (
+        {/* {basket?.products.map(product => (
           <div className="orderSummary__card" key={product.id}>
             <img className="orderSummary__image" src={product.images?.[0]} alt={product.title} />
             <div className="orderSummary__texts">
@@ -34,9 +37,9 @@ export const OrderSummary = ({ className }: { className?: string }) => {
               </h3>
             </div>
           </div>
-        ))}
+        ))} */}
       </div>
-      <h2 className="orderSummary__total">Total: ${total?.toFixed(2)}</h2>
+      {/* <h2 className="orderSummary__total">Total: ${total?.toFixed(2)}</h2> */}
     </div>
   );
 };

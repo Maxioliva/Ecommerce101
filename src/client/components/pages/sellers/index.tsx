@@ -4,8 +4,8 @@ import SellProduct from '../../atoms/sellProduct';
 import './style.scss';
 
 const Seller = () => {
-  const { user } = useContext(CartContext);
-  const [seller, setSeller] = useState();
+  const { state } = useContext(CartContext);
+  const { user } = state;
 
   return (
     <div className="sellers">

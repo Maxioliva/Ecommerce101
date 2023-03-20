@@ -5,7 +5,9 @@ import ItemList from '../../atoms/itemList';
 import './style.scss';
 
 const WishListDropDown = () => {
-  const { wishList, getString } = useContext(CartContext);
+  const { state, handlers } = useContext(CartContext);
+  const { wishList } = state;
+  const { getString } = handlers;
   const navigate = useNavigate();
 
   return (

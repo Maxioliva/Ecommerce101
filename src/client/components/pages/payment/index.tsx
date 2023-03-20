@@ -8,7 +8,9 @@ import OrderSummary from '../../atoms/orderSummary';
 import './style.scss';
 
 const Payment = () => {
-  const { user, getString, confirmOrder } = useContext(CartContext);
+  const { state, handlers } = useContext(CartContext);
+  const { getString, confirmOrder } = handlers;
+  const { user } = state;
   const navigate = useNavigate();
 
   if (!user) {

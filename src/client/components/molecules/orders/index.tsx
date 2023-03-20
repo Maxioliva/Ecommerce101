@@ -20,20 +20,21 @@ const getDate = (dateInSeconds: number, locale: string) => {
 
 const PreviousOrders = () => {
   const [completedOrders, setCompletedOrders] = useState<SimpleOrder[]>([]);
-  const { user, getOrders, getString } = useContext(CartContext);
-
-  useEffect(() => {
-    if (!user) {
-      return;
-    }
-    (async () => {
-      const orders = await getOrders(user.uid);
-      setCompletedOrders(orders);
-    })();
-  }, []);
-  if (!completedOrders.length) {
-    return <span>loading</span>;
-  }
+  const { state, handlers } = useContext(CartContext);
+  const { user } = state;
+  const { getString } = handlers;
+  // useEffect(() => {
+  //   if (!user) {
+  //     return;
+  //   }
+  //   (async () => {
+  //     const orders = await getOrders(user.uid);
+  //     setCompletedOrders(orders);
+  //   })();
+  // }, []);
+  // if (!completedOrders.length) {
+  //   return <span>loading</span>;
+  // }
 
   return (
     <div className="previousOrders">
@@ -41,7 +42,7 @@ const PreviousOrders = () => {
       <div className="previousOrders__container">
         {completedOrders.map((order, i) => (
           <div className="previousOrders__id" key={i}>
-            <div className="previousOrders__address">{getDate(order.completedAt!, 'es-AR')}</div>
+            {/* <div className="previousOrders__address">{getDate(order.completedAt!, 'es-AR')}</div> */}
             <div>
               {order.products.map((item, y) => (
                 <ItemList key={y} item={item} />

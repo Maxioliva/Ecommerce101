@@ -5,7 +5,9 @@ import CartContext from '../../../utils/StateContext';
 import './style.scss';
 
 const MobileProfile = ({ closeSubmenu }: { closeSubmenu?: () => void }) => {
-  const { logOut, user, getString } = useContext(CartContext);
+  const { state, handlers } = useContext(CartContext);
+  const { user } = state;
+  const { getString, logOut } = handlers;
   const navigate = useNavigate();
 
   const logOutHandler = async () => {

@@ -11,7 +11,8 @@ import Select from '../select';
 import './style.scss';
 
 const SellProduct = () => {
-  const { user } = useContext(CartContext);
+  const { state } = useContext(CartContext);
+  const { user } = state;
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   if (!user) {

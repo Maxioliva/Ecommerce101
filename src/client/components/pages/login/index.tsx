@@ -9,15 +9,15 @@ import Logo from '../../atoms/logo';
 import './style.scss';
 
 const LoginForm = () => {
-  const { user, getString } = useContext(CartContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const { state, handlers } = useContext(CartContext);
+  const { user } = state;
+  const { getString, login } = handlers;
   const navigate = useNavigate();
 
   if (user) {
     navigate('/');
   }
-
-  const [isLoading, setIsLoading] = useState(false);
-  const { login } = useContext(CartContext);
 
   const initialValues = {
     email: '',

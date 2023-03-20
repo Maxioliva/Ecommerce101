@@ -4,7 +4,8 @@ import CartContext from '../../../utils/StateContext';
 import './style.scss';
 
 const SaleSuccess = () => {
-  const { getString } = useContext(CartContext);
+  const { handlers } = useContext(CartContext);
+  const { getString } = handlers;
 
   return (
     <div className="order">

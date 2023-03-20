@@ -1,5 +1,5 @@
 import callApi from './callApi';
-import { Address, Basket, SellerProduct, UpdateBasketOptions, User, WishList } from './Type';
+import { Address, Basket, Product, UpdateBasketOptions, User, WishList } from './Type';
 
 export const getAddresses = async (userId: string) => {
   const addresses: Address[] = await callApi({ method: 'GET', endpoint: `/customer/address/${userId}` });
@@ -52,15 +52,16 @@ export const getWishList = async (userId: string) => {
   return [];
 };
 
-export const updateWishList = async (products: SellerProduct[], userId: string) => {
+//aca cambie el Product[] por sellerProducts
+export const updateWishList = async (products: Product[], userId: string) => {
   await callApi({ method: 'PUT', endpoint: '/wishlist', payload: { userId, products } });
 };
 
-export const uploadProduct = async (product: Omit<SellerProduct, 'id'>) => {
+export const uploadProduct = async (product: Omit<Product, 'id'>) => {
   await callApi({ method: 'POST', endpoint: '/products', payload: { ...product } });
 };
 
-export const getUserProduct = async (ownerId: string): Promise<SellerProduct[]> =>
+export const getUserProduct = async (ownerId: string): Promise<Product[]> =>
   await callApi({ method: 'GET', endpoint: `/Produts/${ownerId}` });
 
 export const getCurrentUser = async (userId: string): Promise<User> =>

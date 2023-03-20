@@ -28,37 +28,32 @@ export type Address = {
   userId: string;
 };
 
-export type ShopState = {
-  mainLoading: boolean;
+export type ContextValue = {
   state: {
     user?: Omit<User, 'password'>;
-    basket: Basket;
-    wishList: SellerProduct[];
+    basket: Partial<Basket>;
+    wishList: Product[];
   };
   config: {
     language: Language;
     t: any;
     changeLanguage: (value: Language) => void;
-    getString: (path: string) => string;
   };
   handlers: {
+    getString: (path: string) => string;
     register: (newUser: Omit<User, 'uid'> & { password: string }) => Promise<void>;
     login: (email: string, password: string) => Promise<void>;
     logOut: () => void;
     addItemToCart: (id: string) => Promise<void>;
     updateUserData: (value: Omit<User, 'uid' | 'gender'> & { password: string }) => Promise<void>;
     confirmOrder: (selectedPayment: string) => Promise<void>;
-    deleteItemToCart: (id: string) => void;
-    deleteAllItemToCart: (id: string) => void;
-    fetchProducts: (search?: string, skip?: number, limit?: number) => void;
-    getAddresses: (userId: string) => Promise<Address[]>;
-    searchProduct: (id: string) => Promise<SellerProduct>;
-    searchHandler: (value: string) => void;
+    // deleteItemToCart: (id: string) => void;
+    // deleteAllItemToCart: (id: string) => void;
     wishListHandler: (id: string) => void;
-    updateBasket: (basketOptions: UpdateBasketOptions) => Promise<any>;
-    getOrders: (userId: string) => Promise<Omit<Basket, 'id' | 'userId' | 'isCompleted'>[]>;
-    searchCategories: (value: string) => Promise<[]>;
-    handlerCategories: (value: string) => Promise<void>;
+
+    // getOrders: (userId: string) => Promise<Omit<Basket, 'id' | 'userId' | 'isCompleted'>[]>;
+    // searchCategories: (value: string) => Promise<[]>;
+    // handlerCategories: (value: string) => Promise<void>;
   };
 };
 
@@ -66,19 +61,16 @@ export type ShopState = {
 export type Basket = {
   id: string;
   userId: string;
-  products: SellerProduct[];
-  isCompleted: boolean;
+  products: Product[];
   address?: Omit<Address, 'id'>[];
-  completedAt?: number;
-  paymentMethod?: string;
-  total?: number;
+  total: number;
 };
 
 export type Transaction = {
   id: string;
   idBuyer: string;
-  idSeller: string;
-  product: SellerProduct[];
+  idSeller: string[];
+  product: Product[];
   address?: Omit<Address, 'id'>[];
   completedAt?: number;
   paymentMethod?: string;
@@ -90,26 +82,19 @@ export type SimpleOrder = Omit<Basket, 'id' | 'userId' | 'isCompleted'>;
 export type WishList = {
   id: string;
   userId: string;
-  products: SellerProduct[];
-};
-
-export type SearchResult = {
-  products: SellerProduct[];
-  total: number;
-  skip: number;
-  limit: number;
+  products: Product[];
 };
 
 export type UpdateBasketOptions = {
   userId: string;
-  products?: SellerProduct[];
+  products?: Product[];
   address?: Omit<Address, 'id' | 'userId'>;
   isCompleted?: boolean;
   payment?: string;
   completedAt?: number;
 };
 
-export type SellerProduct = {
+export type Product = {
   id: string;
   ownerId?: string;
   title: string;

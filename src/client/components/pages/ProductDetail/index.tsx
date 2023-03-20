@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CartContext from '../../../utils/StateContext';
-import { FullProduct } from '../../../utils/Type';
+// import { FullProduct } from '../../../utils/Type';
 import Button from '../../atoms/button';
 import Carousel from '../../atoms/carousel';
 import Icon from '../../atoms/icono';
@@ -9,27 +9,27 @@ import './style.scss';
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const { searchProduct, wishListHandler, wishList, addItemToCart, getString } = useContext(CartContext);
-  const [searchDeails, setSearchDetails] = useState<FullProduct>();
+  const { state, handlers } = useContext(CartContext);
+  const { wishList } = state;
+  const { wishListHandler, addItemToCart, getString } = handlers;
+  // const [searchDeails, setSearchDetails] = useState<FullProduct>();
 
-  useEffect(() => {
-    (async () => {
-      const response = await searchProduct(id!);
-      setSearchDetails(response);
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     const response = await searchProduct(id!);
+  //     setSearchDetails(response);
+  //   })();
+  // }, []);
 
-  if (!searchDeails) {
-    return <p>Loading</p>;
-  }
+  // if (!searchDeails) {
+  //   return <p>Loading</p>;
+  // }
 
   return (
     <div className="productdetail">
       <div className="productdetail__principal"></div>
-      <div className="productdetail__principal-image">
-        <Carousel images={searchDeails.images} />
-      </div>
-      <div className="productdetail__secundary">
+      <div className="productdetail__principal-image">{/* <Carousel images={searchDeails.images} /> */}</div>
+      {/* <div className="productdetail__secundary">
         <div className="productdetail__secundary-title">{searchDeails.title}</div>
         <p className="productdetail__secundary-description">{searchDeails.description}</p>
         <span className="productdetail__secundary-brand">
@@ -41,10 +41,10 @@ const ProductDetail = () => {
         <span className="productdetail__secundary-rating">
           {getString('details.rating')}: {searchDeails.rating}
         </span>
-      </div>
+      </div> */}
       <div className="productdetail__payment">
         <div className="productdetail__payment-header">
-          <img className="productdetail__payment-header-image" src={searchDeails.thumbnail} alt={searchDeails.title} />
+          {/* <img className="productdetail__payment-header-image" src={searchDeails.thumbnail} alt={searchDeails.title} />
           <div className="productdetail__payment-header-right">
             <Icon
               value={!!wishList.find(item => item.id === id)}
@@ -54,10 +54,10 @@ const ProductDetail = () => {
             />
             <span className="productdetail__payment-header-right-stock">Stock: {searchDeails.stock}</span>
             <span className="productdetail__payment-header-right-price">$ {searchDeails.price}</span>
-          </div>
+          </div> */}
         </div>
         <div className="productdetail__payment__texts">
-          <div className="productdetail__payment__texts-title">{searchDeails.title}</div>
+          {/* <div className="productdetail__payment__texts-title">{searchDeails.title}</div> */}
           <div className="texts">
             <div className="productdetail__payment__texts-text">
               <Icon size={25} icon="basket" deactivateHover />

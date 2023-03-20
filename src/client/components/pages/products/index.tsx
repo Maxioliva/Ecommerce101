@@ -14,7 +14,9 @@ type View = 'list' | 'gridx2' | 'gridx3';
 const Products = () => {
   const isMobile = useIsMobile();
   const [mobileView, setMobileView] = useState<{ current: View; next: View }>({ current: 'gridx2', next: 'gridx3' });
-  const { wishList, wishListHandler, addItemToCart, searchResult, getString, fetchProducts } = useContext(CartContext);
+  const { handlers, state } = useContext(CartContext);
+  const { wishList } = state;
+  const { wishListHandler, addItemToCart, getString } = handlers;
   const navigate = useNavigate();
   const toggleView = () => {
     if (mobileView.current === 'gridx2') {
@@ -36,11 +38,11 @@ const Products = () => {
     e.stopPropagation();
   };
 
-  const handlerScroll = () => fetchProducts(undefined, searchResult.skip + searchResult.limit);
+  // const handlerScroll = () => fetchProducts(undefined, searchResult.skip + searchResult.limit);
 
-  if (!searchResult.products.length) {
-    return <Spinner />;
-  }
+  // if (!searchResult.products.length) {
+  //   return <Spinner />;
+  // }
 
   return (
     <div className="products">
@@ -52,7 +54,7 @@ const Products = () => {
           alt={mobileView.next}
         />
       )}
-      <InfiniteScroll
+      {/* <InfiniteScroll
         dataLength={searchResult.products.length}
         next={handlerScroll}
         hasMore={!!(searchResult.total - (searchResult.skip + searchResult.limit))}
@@ -63,29 +65,29 @@ const Products = () => {
             <b>Yay! You have seen it all</b>
           </p>
         }
-      >
-        {searchResult.products.map(product => (
-          <div
-            className={`products__card products__card--${mobileView.current}`}
-            key={product.id}
-            onClick={() => navigate(`/product/${product.id}`)}
-          >
-            <Icon
-              value={!!wishList.find(item => item.id === product.id)}
-              size={25}
-              icon="wishlist"
-              onClick={(e: MouseEvent<HTMLDivElement>) => addTowishList(product.id, e)}
-            />
-            <img className="products__image" src={product.images[0]} alt={product.title} />
-            <h3 className="products__title">{product.title}</h3>
-            <div className="product__category">{`${getString('details.category')}: ${product.category}`} </div>
-            <div className="products__price">{`${getString('details.price')}: $ ${product.price}`} </div>
-            <Button className="products__button" onClick={e => handlerAddtoCart(product.id, e)}>
-              {getString('buttons.addToCart')}{' '}
-            </Button>
-          </div>
-        ))}
-      </InfiniteScroll>
+      > */}
+      {/* {searchResult.products.map(product => (
+        <div
+          className={`products__card products__card--${mobileView.current}`}
+          key={product.id}
+          onClick={() => navigate(`/product/${product.id}`)}
+        >
+          <Icon
+            value={!!wishList.find(item => item.id === product.id)}
+            size={25}
+            icon="wishlist"
+            onClick={(e: MouseEvent<HTMLDivElement>) => addTowishList(product.id, e)}
+          />
+          <img className="products__image" src={product.images[0]} alt={product.title} />
+          <h3 className="products__title">{product.title}</h3>
+          <div className="product__category">{`${getString('details.category')}: ${product.category}`} </div>
+          <div className="products__price">{`${getString('details.price')}: $ ${product.price}`} </div>
+          <Button className="products__button" onClick={e => handlerAddtoCart(product.id, e)}>
+            {getString('buttons.addToCart')}{' '}
+          </Button>
+        </div>
+      ))} */}
+      {/* </InfiniteScroll> */}
     </div>
   );
 };

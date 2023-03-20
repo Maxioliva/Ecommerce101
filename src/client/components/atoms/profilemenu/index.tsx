@@ -4,7 +4,9 @@ import CartContext from '../../../utils/StateContext';
 import './style.scss';
 
 const ProfileDropDown2 = () => {
-  const { user, getString } = useContext(CartContext);
+  const { state, handlers } = useContext(CartContext);
+  const { user } = state;
+  const { getString } = handlers;
 
   return (
     <div>

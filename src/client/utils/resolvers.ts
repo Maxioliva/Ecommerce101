@@ -52,7 +52,6 @@ export const getWishList = async (userId: string) => {
   return [];
 };
 
-//aca cambie el Product[] por sellerProducts
 export const updateWishList = async (products: Product[], userId: string) => {
   await callApi({ method: 'PUT', endpoint: '/wishlist', payload: { userId, products } });
 };
@@ -62,7 +61,9 @@ export const uploadProduct = async (product: Omit<Product, 'id'>) => {
 };
 
 export const getUserProduct = async (ownerId: string): Promise<Product[]> =>
-  await callApi({ method: 'GET', endpoint: `/Produts/${ownerId}` });
+  await callApi({ method: 'GET', endpoint: `/Products/${ownerId}` });
+
+export const getAllProducts = async () => await callApi({ method: 'GET', endpoint: '/Products' });
 
 export const getCurrentUser = async (userId: string): Promise<User> =>
   await callApi({ method: 'GET', endpoint: `/customer/${userId}` });

@@ -33,6 +33,7 @@ export type ContextValue = {
     user?: Omit<User, 'password'>;
     basket: Partial<Basket>;
     wishList: Product[];
+    searchResult: Product[];
   };
   config: {
     language: Language;

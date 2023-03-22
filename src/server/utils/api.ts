@@ -225,12 +225,22 @@ API.post('/api/v1/products', async (_req, res) => {
   res.status(201).send({});
 });
 
-API.get('/api/v1/Products:ownerId', async (_req, res) => {
+API.get('/api/v1/products/:ownerId', async (_req, res) => {
   const id = _req.params.ownerId;
   const querySnapshot = await db.collection('Products').where('ownerId', '==', id).get();
 
   if (querySnapshot.empty) {
-    res.status(201).send([]);
+    res.status(204).send();
+    return;
+  }
+  res.status(200).send(querySnapshot.docs.map(a => a.data()));
+});
+
+API.get('/api/v1/products', async (_req, res) => {
+  const querySnapshot = await db.collection('Products').get();
+
+  if (querySnapshot.empty) {
+    res.status(204).send();
     return;
   }
   res.status(200).send(querySnapshot.docs.map(a => a.data()));

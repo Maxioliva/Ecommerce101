@@ -27,7 +27,7 @@ export const CartProvider = ({ children }: any) => {
   const [wishList, setWishList] = useState<Product[]>([]);
   const [basket, setBasket] = useState<Partial<Basket>>({ products: [], total: 0 });
   const [isLoading, setIsLoading] = useState(false);
-  // const [searchResult, setSearchResult] = useState<SearchResult>({ products: [], total: 0, skip: 0, limit: 0 });
+  const [searchResult, setSearchResult] = useState<Product[]>([]);
   const [language, setLanguaje] = useState<Language>('en');
 
   const changeLanguage = (value: Language) => setLanguaje(value);
@@ -117,23 +117,23 @@ export const CartProvider = ({ children }: any) => {
   //   setSearchResult(response);
   // };
 
-  // const searchHandler = async (search?: string, skip?: number, limit?: number) => {
-  //   const result = await getAllProducts(search, skip, limit);
+  // const searchHandler = async () => {
+  //   const result = await getAllProducts();
   //   setSearchResult(result);
   // };
 
-  // const fetchProducts = async (search?: string, skip?: number, limit?: number) => {
-  //   const response = await getAllProducts(search, skip, limit);
-  //   setSearchResult({ ...response, products: [...searchResult.products, ...response.products] });
-  // };
+  const fetchProducts = async () => {
+    const response = await resolvers.getAllProducts();
+    setSearchResult(response);
+  };
 
-  // useEffect(() => {
-  //   try {
-  //     fetchProducts();
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }, []);
+  useEffect(() => {
+    try {
+      fetchProducts();
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
 
   const addItemToCart = async (id: string) => {
     // const productAlreadyOnBasket = basket.products?.find(item => item.id === id);
@@ -197,6 +197,7 @@ export const CartProvider = ({ children }: any) => {
           user,
           basket,
           wishList,
+          searchResult,
         },
         config: {
           language,
@@ -213,6 +214,7 @@ export const CartProvider = ({ children }: any) => {
           confirmOrder,
           // deleteItemToCart,
           // deleteAllItemToCart,
+
           wishListHandler,
           ...resolvers,
         },

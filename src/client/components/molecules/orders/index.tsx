@@ -32,6 +32,7 @@ const PreviousOrders = () => {
   //     setCompletedOrders(orders);
   //   })();
   // }, []);
+
   // if (!completedOrders.length) {
   //   return <span>loading</span>;
   // }

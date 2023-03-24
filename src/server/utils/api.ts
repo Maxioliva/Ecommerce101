@@ -220,8 +220,9 @@ API.delete('/api/v1/customer/address/:id', async (_req, res) => {
 
 API.post('/api/v1/products', async (_req, res) => {
   const product = _req.body;
-  const productRef = db.collection('Products').doc(nanoid());
-  await productRef.set({ ...product, id: productRef.id });
+  const producID = nanoid();
+  const productRef = db.collection('Products').doc(producID);
+  await productRef.set({ ...product, id: producID });
   res.status(201).send({});
 });
 
@@ -236,14 +237,34 @@ API.get('/api/v1/products/:ownerId', async (_req, res) => {
   res.status(200).send(querySnapshot.docs.map(a => a.data()));
 });
 
-API.get('/api/v1/products', async (_req, res) => {
-  const querySnapshot = await db.collection('Products').get();
+API.get('/api/v1/products/', async (_req, res) => {
+  const params = _req.params as { pagination?: string; filters?: any };
 
-  if (querySnapshot.empty) {
+  let querySnapshot = db.collection('Products');
+
+  if (params.pagination) {
+    console.log('aca mi lord');
+    const lastDocument = await db.collection('Products').doc(params.pagination).get();
+    querySnapshot.startAfter(lastDocument);
+  }
+
+  // if (filters) {
+  //   const lastDocument = db.collection('Products').doc(filters);
+  //   querySnapshot.startAfter(lastDocument);
+  // }
+
+  const count = await querySnapshot.count().get();
+  const data = await querySnapshot.limit(15).get();
+  // const last = querySnapshot.docs[querySnapshot.docs.length - 1];
+
+  // const next = db.collection('Products').startAfter(last.data).limit(15);
+
+  if (data.empty) {
     res.status(204).send();
     return;
   }
-  res.status(200).send(querySnapshot.docs.map(a => a.data()));
+  const response = { results: data.docs.map(d => d.data()), totalResults: count.data().count };
+  res.status(200).send(response);
 });
 
 // API.post('/api/v1/register', async (_req, res) => {

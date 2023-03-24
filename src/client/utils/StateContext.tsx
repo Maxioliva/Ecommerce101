@@ -27,7 +27,7 @@ export const CartProvider = ({ children }: any) => {
   const [wishList, setWishList] = useState<Product[]>([]);
   const [basket, setBasket] = useState<Partial<Basket>>({ products: [], total: 0 });
   const [isLoading, setIsLoading] = useState(false);
-  const [searchResult, setSearchResult] = useState<Product[]>([]);
+  const [searchResult, setSearchResult] = useState({ results: [] as Product[], totalResults: 0 });
   const [language, setLanguaje] = useState<Language>('en');
 
   const changeLanguage = (value: Language) => setLanguaje(value);
@@ -122,14 +122,15 @@ export const CartProvider = ({ children }: any) => {
   //   setSearchResult(result);
   // };
 
-  const fetchProducts = async () => {
-    const response = await resolvers.getAllProducts();
-    setSearchResult(response);
+  const fetchProducts = async (value: { pagination?: string; filters?: any }) => {
+    console.log(value);
+    const response = await resolvers.getAllProducts(value);
+    setSearchResult({ results: [...searchResult.results, ...response.results], totalResults: response.totalResults });
   };
 
   useEffect(() => {
     try {
-      fetchProducts();
+      fetchProducts({});
     } catch (e) {
       console.log(e);
     }
@@ -214,7 +215,7 @@ export const CartProvider = ({ children }: any) => {
           confirmOrder,
           // deleteItemToCart,
           // deleteAllItemToCart,
-
+          fetchProducts,
           wishListHandler,
           ...resolvers,
         },

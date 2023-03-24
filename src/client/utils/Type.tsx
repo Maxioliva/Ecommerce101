@@ -33,7 +33,10 @@ export type ContextValue = {
     user?: Omit<User, 'password'>;
     basket: Partial<Basket>;
     wishList: Product[];
-    searchResult: Product[];
+    searchResult: {
+      results: Product[];
+      totalResults: number;
+    };
   };
   config: {
     language: Language;
@@ -51,7 +54,7 @@ export type ContextValue = {
     // deleteItemToCart: (id: string) => void;
     // deleteAllItemToCart: (id: string) => void;
     wishListHandler: (id: string) => void;
-
+    fetchProducts: (value: { pagination?: string; filters?: any }) => Promise<void>;
     // getOrders: (userId: string) => Promise<Omit<Basket, 'id' | 'userId' | 'isCompleted'>[]>;
     // searchCategories: (value: string) => Promise<[]>;
     // handlerCategories: (value: string) => Promise<void>;

@@ -44,6 +44,7 @@ const Products = () => {
     fetchProducts({ pagination: searchResult.results[searchResult.results.length - 1].id });
   };
 
+  console.log(searchResult);
   // if (!searchResult.products.length) {
   //   return <Spinner />;
   // }

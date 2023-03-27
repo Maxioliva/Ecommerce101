@@ -238,14 +238,15 @@ API.get('/api/v1/products/:ownerId', async (_req, res) => {
 });
 
 API.get('/api/v1/products/', async (_req, res) => {
-  const params = _req.params as { pagination?: string; filters?: any };
-
+  const params = _req.query as { pagination?: string; filters?: any };
+  // console.log('params', params);
   let querySnapshot = db.collection('Products');
 
   if (params.pagination) {
-    console.log('aca mi lord');
     const lastDocument = await db.collection('Products').doc(params.pagination).get();
-    querySnapshot.startAfter(lastDocument);
+    console.log('aca mi lord', lastDocument);
+
+    querySnapshot.startAt(lastDocument);
   }
 
   // if (filters) {
@@ -254,7 +255,9 @@ API.get('/api/v1/products/', async (_req, res) => {
   // }
 
   const count = await querySnapshot.count().get();
+
   const data = await querySnapshot.limit(15).get();
+
   // const last = querySnapshot.docs[querySnapshot.docs.length - 1];
 
   // const next = db.collection('Products').startAfter(last.data).limit(15);
@@ -264,28 +267,9 @@ API.get('/api/v1/products/', async (_req, res) => {
     return;
   }
   const response = { results: data.docs.map(d => d.data()), totalResults: count.data().count };
+  // console.log('sitio ', response);
   res.status(200).send(response);
 });
-
-// API.post('/api/v1/register', async (_req, res) => {
-//   const { password, ...rest } = _req.body as User & { password: string };
-//   try {
-//     const firebaseAuthUser = await auth.createUser({ email: rest.email, password });
-//     const firestoreUser = { ...rest, id: firebaseAuthUser.uid };
-
-//     const reference = db.collection('User').doc(firebaseAuthUser.uid);
-//     await reference.set(firestoreUser);
-//     res.send(firestoreUser);
-//   } catch (err: any) {
-//     const { code, message } = err.errorInfo;
-//     if (code === 'auth/email-already-exists') {
-//       res.status(422).send(message);
-//       return;
-//     }
-
-//     res.status(500).send(message);
-//   }
-// });
 
 API.get('/api/v1/customer/:userId', async (_req, res) => {
   const userId = _req.params.userId;
@@ -321,11 +305,8 @@ API.post('/api/v1/customer/register', async (_req, res) => {
     const firestoreUserReference = db.collection('Users').doc(firebaseAuthUser.uid);
     await firestoreUserReference.set(firestoreUser);
 
-    // Create a token for that user using firebase-auth
     const token = await auth.createCustomToken(firebaseAuthUser.uid);
-    console.log(token);
 
-    // Return the firestoreUser and the token so it can be set in headers in the frontend
     res.send({ ...firestoreUser, token });
   } catch (err: any) {
     console.log(err);

@@ -123,7 +123,6 @@ export const CartProvider = ({ children }: any) => {
   // };
 
   const fetchProducts = async (value: { pagination?: string; filters?: any }) => {
-    console.log(value);
     const response = await resolvers.getAllProducts(value);
     setSearchResult({ results: [...searchResult.results, ...response.results], totalResults: response.totalResults });
   };

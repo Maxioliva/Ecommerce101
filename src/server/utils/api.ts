@@ -239,36 +239,24 @@ API.get('/api/v1/products/:ownerId', async (_req, res) => {
 
 API.get('/api/v1/products/', async (_req, res) => {
   const params = _req.query as { pagination?: string; filters?: any };
-  let querySnapshot = db.collection('Products').orderBy('stock', 'asc');
-  // let ultimoDoc = params.pagination;
-  // console.log('si rey', ultimoDoc);
+  const collectionRef = db.collection('Products');
+  let query = collectionRef.orderBy('stock');
 
   if (params.pagination) {
-    const ultimoDoc = params.pagination;
-    console.log('si rey', ultimoDoc);
-    const lastDocument = await db.collection('Products').orderBy('stock', 'asc').limit(15).startAfter(ultimoDoc).get(); // aca tengo que tener acceso al ultimo elemento del array
-    console.log('aca mi lord', lastDocument);
+    const lastDocumentId = params.pagination;
+    const lastDocument = await collectionRef.doc(lastDocumentId).get();
+    query = query.startAfter(lastDocument);
   }
 
-  // if (filters) {
-  //   const lastDocument = db.collection('Products').doc(filters);
-  //   querySnapshot.startAfter(lastDocument);
-  // }
-
-  const count = await querySnapshot.count().get();
-
-  const data = await querySnapshot.limit(15).get();
-
-  // const last = querySnapshot.docs[querySnapshot.docs.length - 1];
-
-  // const next = db.collection('Products').startAfter(last.data).limit(15);
+  const count = await query.count().get();
+  const data = await query.limit(15).get();
 
   if (data.empty) {
     res.status(204).send();
     return;
   }
+
   const response = { results: data.docs.map(d => d.data()), totalResults: count.data().count };
-  // console.log('sitio ', response);
   res.status(200).send(response);
 });
 

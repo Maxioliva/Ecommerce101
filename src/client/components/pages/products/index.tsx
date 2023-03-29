@@ -40,11 +40,9 @@ const Products = () => {
 
   // const handlerScroll = () => fetchProducts(undefined, searchResult.skip + searchResult.limit);
   const handlerScroll = () => {
-    console.log('aca rey');
     fetchProducts({ pagination: searchResult.results[searchResult.results.length - 1].id });
   };
 
-  console.log(searchResult);
   // if (!searchResult.products.length) {
   //   return <Spinner />;
   // }

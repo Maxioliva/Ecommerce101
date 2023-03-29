@@ -239,14 +239,15 @@ API.get('/api/v1/products/:ownerId', async (_req, res) => {
 
 API.get('/api/v1/products/', async (_req, res) => {
   const params = _req.query as { pagination?: string; filters?: any };
-  // console.log('params', params);
-  let querySnapshot = db.collection('Products');
+  let querySnapshot = db.collection('Products').orderBy('stock', 'asc');
+  // let ultimoDoc = params.pagination;
+  // console.log('si rey', ultimoDoc);
 
   if (params.pagination) {
-    const lastDocument = await db.collection('Products').doc(params.pagination).get();
+    const ultimoDoc = params.pagination;
+    console.log('si rey', ultimoDoc);
+    const lastDocument = await db.collection('Products').orderBy('stock', 'asc').limit(15).startAfter(ultimoDoc).get(); // aca tengo que tener acceso al ultimo elemento del array
     console.log('aca mi lord', lastDocument);
-
-    querySnapshot.startAt(lastDocument);
   }
 
   // if (filters) {

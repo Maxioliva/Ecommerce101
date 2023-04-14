@@ -64,7 +64,10 @@ export const getUserProduct = async (ownerId: string): Promise<Product[]> =>
   await callApi({ method: 'GET', endpoint: `/products/${ownerId}` });
 
 export const getAllProducts = async (payload: { pagination?: string; filters?: any }) =>
-  await callApi({ method: 'GET', endpoint: `/products/?pagination=${payload.pagination}` });
+  await callApi({
+    method: 'GET',
+    endpoint: `/products${payload.pagination ? `/?pagination=${payload.pagination}` : ''}`,
+  });
 
 export const getCurrentUser = async (userId: string): Promise<User> =>
   await callApi({ method: 'GET', endpoint: `/customer/${userId}` });

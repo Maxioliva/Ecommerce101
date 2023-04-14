@@ -46,7 +46,8 @@ const Products = () => {
   // if (!searchResult.products.length) {
   //   return <Spinner />;
   // }
-
+  console.log('tota', searchResult.totalResults);
+  console.log('state', searchResult.results.length);
   return (
     <div className="products">
       {isMobile && (

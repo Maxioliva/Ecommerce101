@@ -240,15 +240,17 @@ API.get('/api/v1/products/:ownerId', async (_req, res) => {
 API.get('/api/v1/products/', async (_req, res) => {
   const params = _req.query as { pagination?: string; filters?: any };
   const collectionRef = db.collection('Products');
-  let query = collectionRef.orderBy('stock');
+  let query = collectionRef.orderBy('stock', 'desc');
+  const count = await query.count().get();
+  console.log('aca rey', params.pagination, typeof params.pagination);
 
   if (params.pagination) {
+    console.log('lord', params.pagination);
     const lastDocumentId = params.pagination;
     const lastDocument = await collectionRef.doc(lastDocumentId).get();
     query = query.startAfter(lastDocument);
   }
 
-  const count = await query.count().get();
   const data = await query.limit(15).get();
 
   if (data.empty) {
